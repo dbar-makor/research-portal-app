@@ -11,7 +11,11 @@ const PaymentButtonBarView = (props) => {
 
 	return (
 		<div style={{ display: 'flex' }}>
-			<div className={classes.paymentBar} style={{ cursor: 'pointer' }} onClick={() => props.openInvoices()}>
+			<div
+				className={classes.paymentBar}
+				style={{ cursor: 'pointer' }}
+				onClick={() => props.openInvoices()}
+			>
 				<div className={classes.progressBar}>
 					<div>
 						<Typography
@@ -90,6 +94,7 @@ PaymentButtonBarView.displayName = 'PaymentButtonBarView';
 PaymentButtonBarView.defaultProps = {};
 
 export default React.memo(PaymentButtonBarView);
+
 const StyledPop = withStyles({
 	top: 455,
 	root: {

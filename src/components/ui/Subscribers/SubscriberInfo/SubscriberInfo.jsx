@@ -4,6 +4,7 @@ import SubscriberInfoView from './SubscriberInfo.view';
 
 const SubscriberInfo = (props) => {
 	const { info } = props;
+
 	return <SubscriberInfoView info={info}></SubscriberInfoView>;
 };
 

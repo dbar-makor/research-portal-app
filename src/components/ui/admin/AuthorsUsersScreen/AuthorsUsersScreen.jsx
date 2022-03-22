@@ -20,6 +20,7 @@ const AuthorsUsersScreen = () => {
 	useEffect(() => {
 		dispatch(getUsersByTypeAsync(userOffset, userLimit, userSearch, 'author', userStatus));
 	}, [userOffset, userLimit, userSearch, userStatus]);
+
 	return (
 		<AuthorsUsersScreenView
 			userSearch={userSearch}

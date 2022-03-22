@@ -25,8 +25,9 @@ import { ReactComponent as SearchIcon } from '../../../../../assets/icons/IconSe
 import { useStyles, StyledTextField } from '../../../../../styles/ContarctsModalStyles';
 
 const ContractRowView = (props) => {
-	const classes=useStyles();
-  return (
+	const classes = useStyles();
+
+	return (
 		<>
 			<TableRow style={{ backgroundColor: open ? '#f3f7ff' : '#ffffff' }}>
 				<StyledTableCell>{`${format(new Date(props.contract.start_at), 'dd MMM, yyyy')}-${format(
@@ -43,7 +44,10 @@ const ContractRowView = (props) => {
 				}${props.contract.amount.toLocaleString()}`}</StyledTableCell>
 				<StyledTableCell style={{ textAlign: 'center' }}>{`${
 					props.contract.currency.symbol
-				}${props.calcYearlyCost(props.contract.amount, props.contract.periodicity)}`}</StyledTableCell>
+				}${props.calcYearlyCost(
+					props.contract.amount,
+					props.contract.periodicity,
+				)}`}</StyledTableCell>
 				<StyledTableCell style={{ textAlign: 'center' }}>
 					{props.contract.signed ? <Signed /> : <NotSigned />}
 				</StyledTableCell>

@@ -40,15 +40,25 @@ export const usersSlice = createSlice({
 //selectors
 
 export const selectUsersData = (state) => state.users.usersData;
+
 export const selectSalesUsersData = (state) => state.users.sales;
+
 export const selectAuthorsUsersData = (state) => state.users.author;
+
 export const selectUsersLoading = (state) => state.users.loading;
+
 export const selectUsersSearch = (state) => state.users.search;
+
 export const selectUsersStatus = (state) => state.users.status;
+
 export const selectUsersOffset = (state) => state.users.offset;
+
 export const selectUsersLimit = (state) => state.users.limit;
+
 export const selectUsersMetaData = (state) => state.users.metaData;
+
 export const selectUsersHasMore = (state) => state.users.hasMore;
+
 export const {
 	getUsersData,
 	setLoading,
@@ -63,14 +73,17 @@ export const {
 export const getUsersByTypeAsync = (offset, limit, search, type, status) => async (dispatch, getState) => {
 	dispatch(setLoading(true));
 	const state = getState();
+
 	try {
 		const res = await axios.get(
 			`${BASE_URL}${END_POINT.USER}`,
 			setParams(offset, limit, search, type, status),
 		);
+
 		if (res.status === 200) {
 			dispatch(setUserProperty({ key: 'metaData', value: res.data.meta_data }));
 			dispatch(setLoading(false));
+
 			if (res.data.meta_data.sum_rows > state.users[type].length) {
 				dispatch(setUserProperty({ key: 'hasMore', value: true }));
 			} else {
@@ -81,6 +94,7 @@ export const getUsersByTypeAsync = (offset, limit, search, type, status) => asyn
 				dispatch(setUsersByType({ key: type, value: res.data.users }));
 			} else if (offset !== 0 && res.data.meta_data.sum_rows > state.users[type].length) {
 				const dataCopy = [...state.users[type]];
+
 				dataCopy.push(...res.data.users);
 				dispatch(setUsersByType({ key: type, value: dataCopy }));
 			}
@@ -95,6 +109,7 @@ export const getUsersDataAsync = () => async (dispatch) => {
 
 	try {
 		const res = await axios.get(BASE_URL + END_POINT.USER);
+
 		if (res.status === 200) {
 			dispatch(getUsersData(res.data.user));
 		}

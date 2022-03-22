@@ -8,12 +8,14 @@ import { withStyles } from '@material-ui/styles';
 //import useStyles from './ContractRow.style';
 
 const ContractRowView = (props) => {
-
-  return (
+	return (
 		<TableRow>
 			<TableCell style={{ textAlign: 'center' }}>
 				<FiberManualRecordIcon
-					style={{ color: props.contract.status === false ? '#FF3939' : '#00CA80', fontSize: '12px' }}
+					style={{
+						color: props.contract.status === false ? '#FF3939' : '#00CA80',
+						fontSize: '12px',
+					}}
 				/>
 			</TableCell>
 			<TableCell style={{ color: props.contract.signed === true ? '#00CA80' : '#FF3939' }}>
@@ -106,6 +108,7 @@ ContractRowView.displayName = 'ContractRowView';
 ContractRowView.defaultProps = {};
 
 export default React.memo(ContractRowView);
+
 const StyledPop = withStyles({
 	root: {
 		'& .MuiPopover-paper': {

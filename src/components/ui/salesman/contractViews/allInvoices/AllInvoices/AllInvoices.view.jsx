@@ -12,6 +12,7 @@ import AutoCompleteUnit from '../../../../reusables/AutoCompleteUnit/AutoComplet
 
 const AllInvoicesView = (props) => {
 	const classes = useStyles();
+
 	return (
 		<>
 			<Grid
@@ -88,7 +89,9 @@ const AllInvoicesView = (props) => {
 												InputProps={{
 													endAdornment: (
 														<SearchIcon
-															onClick={(e) => props.inputHandler(e, 'INVOICE_ID')}
+															onClick={(e) =>
+																props.inputHandler(e, 'INVOICE_ID')
+															}
 															style={{ cursor: 'pointer' }}
 															className={classes.searchIcon}
 														/>

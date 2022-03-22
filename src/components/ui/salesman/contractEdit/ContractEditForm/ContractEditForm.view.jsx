@@ -6,6 +6,7 @@ import DateInputUnit from '../../../reusables/DateInputUnit/DateInputUnit';
 import NumberFormatCustom from '../../../../../utils/components/NumberFormatCustom';
 
 import useStyles from './ContractEditForm.style';
+
 const GreenSwitch = withStyles({
 	switchBase: {
 		'color': '#FFFFFF',
@@ -44,10 +45,11 @@ const StyledTextField = withStyles(() => ({
 		},
 	},
 }))(TextField);
+
 const ContractEditFormView = (props) => {
 	const classes = useStyles();
 
-  return (
+	return (
 		<Grid container className={classes.formWrapper}>
 			<Grid item xs={12}>
 				<Typography className={classes.formTitle}>Information</Typography>
@@ -190,10 +192,13 @@ const ContractEditFormView = (props) => {
 							</Grid>
 							<Grid item xs={4} className={classes.boxStyle}>
 								<Typography className={classes.amountType}>
-									{props.contractForm.currency && props.contractForm.amount && props.contractForm.periodicity
+									{props.contractForm.currency &&
+									props.contractForm.amount &&
+									props.contractForm.periodicity
 										? `${props.contractForm.currency.symbol}
                               ${(
-									props.contractForm.amount * props.periodToNum[props.contractForm.periodicity]
+									props.contractForm.amount *
+									props.periodToNum[props.contractForm.periodicity]
 								).toLocaleString()}`
 										: '0'}
 								</Typography>

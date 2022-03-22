@@ -22,6 +22,7 @@ const typeArray = [
 		name: 'Prospect',
 	},
 ];
+
 const statusArray = [
 	{
 		value: 'all',
@@ -40,6 +41,7 @@ const statusArray = [
 const FiltersView = (props) => {
 	const classes = useStyles();
 	const dispatch = useDispatch();
+
 	return (
 		<Grid container justifyContent="space-between" alignItems="center">
 			<Grid item xs={8}>

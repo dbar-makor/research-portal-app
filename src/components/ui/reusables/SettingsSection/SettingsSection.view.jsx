@@ -42,6 +42,7 @@ SettingsSectionView.displayName = 'SettingsSectionView';
 SettingsSectionView.defaultProps = {};
 
 export default React.memo(SettingsSectionView);
+
 const GreenSwitch = withStyles(() => ({
 	switchBase: {
 		'color': '#FFFFFF',

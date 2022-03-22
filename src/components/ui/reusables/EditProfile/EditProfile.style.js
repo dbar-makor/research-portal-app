@@ -14,4 +14,5 @@ const useStyles = makeStyles(() => ({
 		borderRadius: '50',
 	},
 }));
+
 export default useStyles;

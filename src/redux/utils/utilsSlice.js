@@ -19,6 +19,7 @@ export const { setUtils } = utilsSlice.actions;
 export const getUtilsAsync = () => async (dispatch) => {
 	try {
 		const res = await axios.get(`${BASE_URL}${END_POINT.UTILS}`);
+
 		if (res.status === 200) {
 			dispatch(setUtils(res.data));
 		}

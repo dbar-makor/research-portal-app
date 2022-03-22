@@ -8,6 +8,7 @@ import useStyles from './ChangePassword.style';
 
 const ChangePasswordView = (props) => {
 	const classes = useStyles();
+
 	return (
 		<Dialog
 			open={props.chosenModal}
@@ -28,23 +29,21 @@ const ChangePasswordView = (props) => {
 				<Grid item xs={12}>
 					<Typography className={classes.title}>Change Password</Typography>
 				</Grid>
-			{/* main content */}
-      <Grid item xs={12} container>
+				{/* main content */}
+				<Grid item xs={12} container>
 					<Grid item xs={6}>
 						<StyledTextField
-            value={props.oldPass}
-            onChange={(e) => props.setInvoiceId(e.target.value)}
-            variant="outlined"
-            onKeyDown={(e) => props.hendlerForInvoiceId(e, 'INVOICE_ID')}
-            fullWidth
-            placeholder="Search"
-            />
+							value={props.oldPass}
+							onChange={(e) => props.setInvoiceId(e.target.value)}
+							variant="outlined"
+							onKeyDown={(e) => props.hendlerForInvoiceId(e, 'INVOICE_ID')}
+							fullWidth
+							placeholder="Search"
+						/>
 						<StyledTextField />
 						<StyledTextField />
-
 					</Grid>
-					<Grid item xs={6}>
-					</Grid>
+					<Grid item xs={6}></Grid>
 				</Grid>
 				<Grid item xs={12}>
 					<Grid container justifyContent="center">

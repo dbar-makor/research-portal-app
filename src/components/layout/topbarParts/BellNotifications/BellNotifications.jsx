@@ -1,18 +1,19 @@
-import React,{ useState, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { useHistory } from 'react-router';
 import BellNotificationsView from './BellNotifications.view';
 
 const BellNotifications = (props) => {
-  const {
-    handleToggle,
-    notifications,
-    handleListKeyDown,
-    handleClose,
-    openNotification,
-    setOpenNotification,
-    open
-  } = props;
-  const notifyRef = useRef(null);
+	const {
+		handleToggle,
+		notifications,
+		handleListKeyDown,
+		handleClose,
+		openNotification,
+		setOpenNotification,
+		open,
+	} = props;
+
+	const notifyRef = useRef(null);
 	// eslint-disable-next-line no-unused-vars
 	const [newNotification, setNewNotification] = useState(false);
 
@@ -28,21 +29,23 @@ const BellNotifications = (props) => {
 		}
 	};
 
-  return <BellNotificationsView
-    notifyRef={notifyRef}
-    redirect={redirect}
-    newNotification={newNotification}
-    id={id}
-    countAlerts={countAlerts}
-    handleToggle={handleToggle}
-    notifications={notifications}
-    handleListKeyDown={handleListKeyDown}
-    handleClose={handleClose}
-    openNotification={openNotification}
-    setOpenNotification={setOpenNotification}
-    setCountAlerts={setCountAlerts}
-    open={open}
-  ></BellNotificationsView>;
+	return (
+		<BellNotificationsView
+			notifyRef={notifyRef}
+			redirect={redirect}
+			newNotification={newNotification}
+			id={id}
+			countAlerts={countAlerts}
+			handleToggle={handleToggle}
+			notifications={notifications}
+			handleListKeyDown={handleListKeyDown}
+			handleClose={handleClose}
+			openNotification={openNotification}
+			setOpenNotification={setOpenNotification}
+			setCountAlerts={setCountAlerts}
+			open={open}
+		></BellNotificationsView>
+	);
 };
 
 BellNotifications.displayName = 'BellNotifications';

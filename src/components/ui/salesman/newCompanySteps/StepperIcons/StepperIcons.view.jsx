@@ -6,6 +6,7 @@ import useStyles from './StepperIcons.style';
 
 const StepperIconsView = (props) => {
 	const classes = useStyles();
+
 	const icons = {
 		1: <InfoOutlinedIcon />,
 		2: <PersonIcon />,

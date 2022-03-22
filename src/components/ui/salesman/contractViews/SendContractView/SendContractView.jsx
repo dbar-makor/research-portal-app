@@ -1,4 +1,4 @@
-import React ,{useState} from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { BASE_URL, END_POINT } from '../../../../../utils/constants';
@@ -10,7 +10,7 @@ import SendContractViewView from './SendContractView.view';
 
 const SendContractView = (props) => {
 	const { setStep, contractCopy, setContractCopy } = props;
-  const dispatch = useDispatch();
+	const dispatch = useDispatch();
 	const history = useHistory();
 	const chosenCompany = useSelector(selectChosenCompany);
 
@@ -20,6 +20,7 @@ const SendContractView = (props) => {
 
 	const handleChange = (e) => {
 		setContractSigner(e ? e.id : '');
+
 		if (e) {
 			setValidationResult((prev) => ({ ...prev, step1: true }));
 		} else {
@@ -30,6 +31,7 @@ const SendContractView = (props) => {
 	const sendEmail = async () => {
 		setValidationResult((prev) => ({ ...prev, step2: true }));
 		const localCopy = { ...contractCopy, signer_user: contractSigner };
+
 		delete localCopy.contract_id;
 
 		try {
@@ -70,12 +72,15 @@ const SendContractView = (props) => {
 
 				const byteCharacters = window.atob(pdfString);
 				const byteNumbers = new Array(byteCharacters.length);
+
 				for (let i = 0; i < byteCharacters.length; i++) {
 					byteNumbers[i] = byteCharacters.charCodeAt(i);
 				}
+
 				const byteArray = new Uint8Array(byteNumbers);
 				const file = new Blob([byteArray], { type: 'application/pdf;base64' });
 				const fileURL = URL.createObjectURL(file);
+
 				window.open(fileURL);
 
 				dispatch(actionSnackBar.setSnackBar('success', 'Contract successfully created', 2000));
@@ -86,18 +91,20 @@ const SendContractView = (props) => {
 		}
 	};
 
-	return <SendContractViewView
-		presentPDFContract={presentPDFContract}
-		chosenCompany={chosenCompany}
-		contractSigner={contractSigner}
-		handleChange={handleChange}
-		signerInputValue={signerInputValue}
-		setSignerInputValue={setSignerInputValue}
-		validationResult={validationResult}
-		sendEmail={sendEmail}
-		handleDone={handleDone}
-		handleExit={handleExit}
-	></SendContractViewView>;
+	return (
+		<SendContractViewView
+			presentPDFContract={presentPDFContract}
+			chosenCompany={chosenCompany}
+			contractSigner={contractSigner}
+			handleChange={handleChange}
+			signerInputValue={signerInputValue}
+			setSignerInputValue={setSignerInputValue}
+			validationResult={validationResult}
+			sendEmail={sendEmail}
+			handleDone={handleDone}
+			handleExit={handleExit}
+		></SendContractViewView>
+	);
 };
 
 SendContractView.displayName = 'SendContractView';

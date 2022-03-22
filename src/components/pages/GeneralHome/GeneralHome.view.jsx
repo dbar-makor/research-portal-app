@@ -8,16 +8,19 @@ import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 import Carousel from 'react-material-ui-carousel';
 
-import useStyles, {Tab, TabPanel,TabsList} from './GeneralHome.style';
+import useStyles, { Tab, TabPanel, TabsList } from './GeneralHome.style';
 
 const GeneralHomeView = (props) => {
 	const classes = useStyles();
+
 	const renderDay = (day) => {
 		const dates = day.getDate();
+
 		const dateStyle = {
 			color: '#000',
 			fontSize: 20,
 		};
+
 		const cellStyle = {
 			width: 38,
 		};

@@ -39,6 +39,7 @@ const CompanyInfo = () => {
 	useEffect(() => {
 		if (currentCompany) {
 			const chosenCompanyCopy = { ...currentCompany, isEditMode: false };
+
 			setChosenCompany(chosenCompanyCopy);
 			setInputValue(currentCompany.country.name);
 		}
@@ -47,6 +48,7 @@ const CompanyInfo = () => {
 	const handleCloseAlert = () => {
 		setOpenAlert(false);
 	};
+
 	const handleOpenAlert = () => {
 		setOpenAlert(true);
 	};
@@ -104,6 +106,7 @@ const CompanyInfo = () => {
 	const deleteCompany = async (id) => {
 		try {
 			const res = await axios.delete(`${BASE_URL}${END_POINT.COMPANY}/${id}`);
+
 			if (res.status === 200) {
 				handleCloseAlert();
 				dispatch(changeChosenCompany(null));
@@ -119,6 +122,7 @@ const CompanyInfo = () => {
 	const upgradeToClient = async (id) => {
 		try {
 			const res = await axios.put(`${BASE_URL}${END_POINT.COMPANY}${END_POINT.UPGRADE}/${id}`);
+
 			if (res.status === 201) {
 				dispatch(getChosenCompanyAsync(id));
 				dispatch(getCompaniesDataAsync(offset, limit, search, type, status));
@@ -132,6 +136,7 @@ const CompanyInfo = () => {
 
 	const updateCompanyField = (key, value) => {
 		const companyCopy = { ...chosenCompany };
+
 		companyCopy[key] = value;
 		setChosenCompany(companyCopy);
 	};
@@ -139,13 +144,16 @@ const CompanyInfo = () => {
 	const sendUpdatedCompany = async () => {
 		setChosenCompany({ ...chosenCompany, isEditMode: !chosenCompany.isEditMode });
 		const companyCopy = {};
+
 		companyCopy.status = chosenCompany.status;
 		companyCopy.country = chosenCompany.country
 			? chosenCompany.country.code
 			: currentCompany.country.code;
 		companyCopy.name = chosenCompany.name ? chosenCompany.name : currentCompany.name;
+
 		try {
 			const res = await axios.put(`${BASE_URL}${END_POINT.COMPANY}/${chosenCompany.id}`, companyCopy);
+
 			if (res.status === 201) {
 				dispatch(getChosenCompanyAsync(chosenCompany.id));
 				dispatch(getCompaniesDataAsync(offset, limit, search, type, status));
@@ -163,6 +171,7 @@ const CompanyInfo = () => {
 	const closeContractDialong = () => {
 		setOpenDialog(!openDialog);
 	};
+
 	return (
 		<CompanyInfoView
 			chosenCompany={chosenCompany}
@@ -184,11 +193,13 @@ const CompanyInfo = () => {
 			upgradeToClient={upgradeToClient}
 			history={history}
 			sendUpdatedCompany={sendUpdatedCompany}
-			openDialog={openDialog}		>
+			openDialog={openDialog}
+		>
 			{' '}
 		</CompanyInfoView>
 	);
 };
+
 CompanyInfo.displayName = 'CompanyInfo';
 CompanyInfo.defaultProps = {};
 

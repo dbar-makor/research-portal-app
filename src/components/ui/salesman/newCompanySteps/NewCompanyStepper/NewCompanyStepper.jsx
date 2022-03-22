@@ -38,6 +38,7 @@ const NewCompanyStepper = ({ handleClose, open }) => {
 	const [validationResult1, setValidationResult1] = useState(false);
 	const [validationResult2, setValidationResult2] = useState(false);
 	const [uploadedImage, setUploadedImage] = useState('');
+
 	const initStateMember = {
 		member_name: null,
 		username: null,
@@ -45,6 +46,7 @@ const NewCompanyStepper = ({ handleClose, open }) => {
 		position: null,
 		categories: [],
 	};
+
 	const [currentMember, setCurrentMember] = useState(initStateMember);
 	const [inputValue, setInputValue] = useState('');
 	const [activeStep, setActiveStep] = useState(0);
@@ -76,6 +78,7 @@ const NewCompanyStepper = ({ handleClose, open }) => {
 		}
 
 		let name;
+
 		if (
 			fieldIndicator === 'start_at' ||
 			fieldIndicator === 'end_at' ||
@@ -101,8 +104,10 @@ const NewCompanyStepper = ({ handleClose, open }) => {
 		//changing array of object categories into array of categories' IDs
 
 		const updatedMembers = [];
+
 		company.members.forEach((member) => {
 			const updatedMember = { ...member, categories: member.categories.map((category) => category.id) };
+
 			updatedMembers.push(updatedMember);
 		});
 
@@ -133,6 +138,7 @@ const NewCompanyStepper = ({ handleClose, open }) => {
 		} catch (err) {
 			dispatch(actionSnackBar.setSnackBar('error', 'Creation failed', 2000));
 		}
+
 		handleClose();
 	});
 

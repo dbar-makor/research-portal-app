@@ -23,15 +23,19 @@ const CategoriesAutoComplete = (props) => {
 
 	const deleteItem = (index) => {
 		const categoryCopy = [...adjustedFormObject];
+
 		categoryCopy.splice(index, 1);
 		const formObjectCopy = { ...formObject, categories: categoryCopy };
 
 		setFormObject(formObjectCopy);
+
 		if (parentArr?.length) {
 			const parentArrCopy = [...parentArr];
+
 			parentArrCopy.splice(itemIndex, 1, formObjectCopy);
 			setParentArr(parentArrCopy);
 		}
+
 		errors && validateMember({ categories: categoryCopy }, errors, setErrors, setValidationResult);
 	};
 

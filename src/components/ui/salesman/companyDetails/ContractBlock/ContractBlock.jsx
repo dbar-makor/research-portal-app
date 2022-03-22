@@ -6,12 +6,14 @@ const ContractBlock = (props) => {
 	const contract = props.contract;
 	const contractStatus = props.contractStatus;
 	const title = props.title;
+
 	const periodToNum = {
 		monthly: 12,
 		quarterly: 4,
 		half: 2,
 		fully: 1,
 	};
+
 	return (
 		<ContractBlockView
 			periodToNum={periodToNum}

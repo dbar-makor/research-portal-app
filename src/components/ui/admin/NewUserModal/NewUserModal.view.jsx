@@ -9,6 +9,7 @@ import AutoCompleteUnit from '../../reusables/AutoCompleteUnit/AutoCompleteUnit'
 
 const NewUserModalView = (props) => {
 	const classes = useStyles();
+
 	return (
 		<Dialog
 			open={props.open}

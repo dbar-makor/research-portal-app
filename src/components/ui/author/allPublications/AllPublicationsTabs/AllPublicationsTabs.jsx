@@ -21,6 +21,7 @@ const AllPublicationsTabs = ({ fetchStatistics }) => {
 	const fetchPublications = useCallback(async () => {
 		try {
 			const res = await axios.get(`${BASE_URL}${END_POINT.USER}/publication`);
+
 			if (res.status === 200) {
 				setPublications(res.data);
 			}

@@ -15,23 +15,27 @@ const TopBar = () => {
 	const userType = useSelector((state) => state.auth.userContent?.type);
 	// eslint-disable-next-line no-unused-vars
 	const [notifications, setNotifications] = useState([]);
+
 	// eslint-disable-next-line no-unused-vars
 	const options = [
 		{ value: 'region1', name: 'Region1' },
 		{ value: 'region2', name: 'Region2' },
 		{ value: 'region3', name: 'Region3' },
 	];
+
 	const webSocket = useRef(null);
 
 	function handleListKeyDown(event, type) {
 		if (event.key === 'Tab') {
 			event.preventDefault();
 			setOpen(false);
+
 			if (type === 'notify') {
 				setOpenNotification(false);
 			}
 		} else if (event.key === 'Escape') {
 			setOpen(false);
+
 			if (type === 'notify') {
 				setOpenNotification(false);
 			}
@@ -44,15 +48,18 @@ const TopBar = () => {
 			let message = {
 				type: 'get-notifications',
 			};
+
 			message = JSON.stringify(message);
 			webSocket.current.send(message);
 		};
 		webSocket.current.onmessage = (message) => {
 			message = JSON.parse(message.data);
 			let send = {};
+
 			switch (message.type) {
 				case 'alert':
 					setNotifications([...message.notifications]);
+
 					break;
 				case 'succeed':
 					break;
@@ -64,9 +71,11 @@ const TopBar = () => {
 					};
 					send = JSON.stringify(send);
 					webSocket.current.send(send);
+
 					break;
 			}
 		};
+
 		return () => webSocket.current.close();
 	}, []);
 
@@ -88,15 +97,18 @@ const TopBar = () => {
 		if (anchorRef.current && anchorRef.current.contains(event.target)) {
 			return;
 		}
+
 		if (type === 'user') {
 			setOpen(false);
 		} else if (type === 'notify') {
 			setOpenNotification(false);
+
 			return;
 		} else if (type === 'user_mgmt') {
 			setOpenUserMgmt(false);
 		}
 	};
+
 	return (
 		<TopBarView
 			handleToggle={handleToggle}

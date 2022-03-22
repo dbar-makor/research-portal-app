@@ -20,6 +20,7 @@ const PublicationsGrid = (props) => {
 					// .filter((pub) => pub.type === 'live')
 					.map((publication, index) => {
 						if (filter) return <MainPublication publication={publication}></MainPublication>;
+
 						if (index === big) {
 							return (
 								<Grid container>
@@ -28,10 +29,13 @@ const PublicationsGrid = (props) => {
 								</Grid>
 							);
 						}
+
 						if (small_indexes.includes(index))
 							return <SmallPublication publication={publication}></SmallPublication>;
+
 						if (main_indexes.includes(index))
 							return <MainPublication publication={publication}></MainPublication>;
+
 						if (medium_indexes.includes(index)) {
 							return <MediumPublication publication={publication}></MediumPublication>;
 						}

@@ -10,8 +10,9 @@ import { ReactComponent as EditDone } from '../../../../../assets/icons/IconEdit
 import { EditIconButton } from '../../../../../styles/MainStyles';
 
 const InitialCompanyStateBlockView = (props) => {
-  const classes = useStyles();
-  return props ? (
+	const classes = useStyles();
+
+	return props ? (
 		<Grid container>
 			<Grid item xs={12}>
 				{props.type === 'prospect' ? (

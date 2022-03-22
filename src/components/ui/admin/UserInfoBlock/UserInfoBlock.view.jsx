@@ -5,6 +5,7 @@ import { format } from 'date-fns';
 
 const UserInfoBlockView = (props) => {
 	const classes = useStyles();
+
 	return (
 		<Grid container spacing={1} justifyContent="space-around" className={classes.userInfoBlock}>
 			{props.userFields.map((field, index) => {

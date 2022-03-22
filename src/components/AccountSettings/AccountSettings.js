@@ -28,8 +28,10 @@ const AccountSettings = () => {
 	const handleRoute = (type) => {
 		if (type === 'modal') {
 			setChosenModal(true);
+
 			return;
 		}
+
 		history.push(`${url}/${type}`);
 	};
 
@@ -235,10 +237,7 @@ const AccountSettings = () => {
 					</Switch>
 				</Grid>
 			</Grid>
-			<ChangePassword
-			chosenModal={chosenModal}
-			handleCloseModal={handleCloseModal}
-			/>
+			<ChangePassword chosenModal={chosenModal} handleCloseModal={handleCloseModal} />
 		</>
 	);
 };

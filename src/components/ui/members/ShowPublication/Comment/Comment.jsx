@@ -15,9 +15,11 @@ const Comment = (props) => {
 	const replyChangeHandler = (content) => {
 		replyHendler(content);
 		setReply({ ...reply, content: '' });
+
 		if (open === false) {
 			setOpen(true);
 		}
+
 		setOpenReply(false);
 	};
 

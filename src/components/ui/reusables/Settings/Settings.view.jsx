@@ -59,6 +59,7 @@ SettingsView.displayName = 'SettingsView';
 SettingsView.defaultProps = {};
 
 export default React.memo(SettingsView);
+
 const AllNotificationSwitch = withStyles(() => ({
 	switchBase: {
 		'color': '#FFFFFF',

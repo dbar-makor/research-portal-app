@@ -16,6 +16,7 @@ const MorePublicationsView = (props) => {
 		if (publication.attachments.length) {
 			image = publication.attachments.find((attachment) => attachment.file_type === 'main_bg');
 			const imageName = image && image.file_name_system;
+
 			url = `${BASE_URL}${END_POINT.ASSETS}/${encodeURIComponent(imageName)}`;
 		}
 

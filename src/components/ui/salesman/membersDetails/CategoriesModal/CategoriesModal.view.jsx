@@ -9,7 +9,8 @@ import { ReactComponent as CloseIcon } from '../../../../../assets/icons/closeIc
 
 const CategoriesModalView = (props) => {
 	const classes = useStyles();
-  return (
+
+	return (
 		props.currentMember && (
 			<Dialog
 				open={props.open}
@@ -61,7 +62,9 @@ const CategoriesModalView = (props) => {
 					</Grid>
 					<Grid item className={classes.saveBtn}>
 						<Grid container justifyContent="center">
-							<FilledButton onClick={() => props.sendMember(props.currentMember, props.currentMember.id)}>
+							<FilledButton
+								onClick={() => props.sendMember(props.currentMember, props.currentMember.id)}
+							>
 								Save
 							</FilledButton>
 						</Grid>

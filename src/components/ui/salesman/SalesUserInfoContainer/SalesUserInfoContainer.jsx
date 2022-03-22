@@ -1,4 +1,4 @@
-import React,{ useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
 	getCompaniesDataAsync,
@@ -14,7 +14,7 @@ import {
 import SalesUserInfoContainerView from './SalesUserInfoContainer.view';
 
 const SalesUserInfoContainer = () => {
-  const dispatch = useDispatch();
+	const dispatch = useDispatch();
 	const companiesData = useSelector(selectCompaniesData);
 	const search = useSelector(selectSearch);
 	const type = useSelector(selectType);
@@ -24,7 +24,6 @@ const SalesUserInfoContainer = () => {
 	const limit = useSelector(selectLimit);
 	const [scrollIndex, setScrollIndex] = useState(0);
 	const scrollRef = useRef();
-
 
 	useEffect(() => {
 		dispatch(getCompaniesDataAsync(offset, limit, search, type, status));
@@ -41,15 +40,21 @@ const SalesUserInfoContainer = () => {
 			e.target.scrollHeight - scrollRef.current.scrollHeight - e.target.scrollTop >= 0
 		) {
 			const newOffset = offset + limit;
+
 			dispatch(setProperty({ key: 'offset', value: newOffset }));
 			setScrollIndex(newOffset);
 		}
 	};
-  return <SalesUserInfoContainerView
-	companiesData={companiesData}
-	handleScroll={handleScroll}
-	scrollIndex={scrollIndex}
-	> </SalesUserInfoContainerView>;
+
+	return (
+		<SalesUserInfoContainerView
+			companiesData={companiesData}
+			handleScroll={handleScroll}
+			scrollIndex={scrollIndex}
+		>
+			{' '}
+		</SalesUserInfoContainerView>
+	);
 };
 
 SalesUserInfoContainer.displayName = 'SalesUserInfoContainer';

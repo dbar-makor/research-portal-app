@@ -10,7 +10,8 @@ import CategoriesAutoComplete from '../../reusables/CategoriesAutoComplete/Categ
 
 const AddMemberModalView = (props) => {
 	const classes = useStyles();
-  return  (
+
+	return (
 		<Dialog
 			open={props.open}
 			onClose={props.handleClose}

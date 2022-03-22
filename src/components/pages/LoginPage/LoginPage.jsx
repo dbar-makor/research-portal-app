@@ -18,6 +18,7 @@ const LoginPage = () => {
 	const isAuthor = useSelector((state) => state.auth.userContent?.type === 'author');
 	const isSales = useSelector((state) => state.auth.userContent?.type === 'sales');
 	const isAdmin = useSelector((state) => state.auth.userContent?.type === 'admin');
+
 	const isMember = useSelector(
 		(state) => state.auth.userContent?.type === 'client' || state.auth.userContent?.type === 'prospect',
 	);
@@ -72,9 +73,9 @@ const LoginPage = () => {
 			handleClickShowPassword={handleClickShowPassword}
 			handleMouseDownPassword={handleMouseDownPassword}
 			form={form}
-      errors={errors}
-      validationResult={validationResult}
-      showPassword={showPassword}
+			errors={errors}
+			validationResult={validationResult}
+			showPassword={showPassword}
 			loadingIndicator={loadingIndicator}
 		/>
 	);

@@ -18,13 +18,14 @@ function a11yProps(index) {
 		'aria-controls': `simple-tabpanel-${index}`,
 	};
 }
+
 const AllPublicationsTabsView = (props) => {
 	const classes = useStyles();
-  const publishedResearches = props.publications.filter((research) => research.status === 'published');
+	const publishedResearches = props.publications.filter((research) => research.status === 'published');
 	const draftResearches = props.publications.filter((research) => research.status === 'draft');
 
-  return (
-    <div className={classes.root}>
+	return (
+		<div className={classes.root}>
 			<TabContext value={props.value.toString()}>
 				<Grid item xs={12}>
 					<Grid container className={classes.barWrapper}>
@@ -40,7 +41,10 @@ const AllPublicationsTabsView = (props) => {
 							</Tabs>
 						</Grid>
 						<Grid item xs={1}>
-							<AddButton className={classes.newBtn} onClick={() => props.handleOpenNewPublication()}>
+							<AddButton
+								className={classes.newBtn}
+								onClick={() => props.handleOpenNewPublication()}
+							>
 								<AddIcon />
 								New
 							</AddButton>
@@ -88,10 +92,13 @@ const AllPublicationsTabsView = (props) => {
 						<Typography className={classes.noPublications}>No publications yet</Typography>
 					)}
 				</Grid>
-				<AuthorsNewArticleModal handleClose={props.handleCloseNewPublication} open={props.openNewPublication} />
+				<AuthorsNewArticleModal
+					handleClose={props.handleCloseNewPublication}
+					open={props.openNewPublication}
+				/>
 			</TabContext>
 		</div>
-  );
+	);
 };
 
 AllPublicationsTabsView.displayName = 'AllPublicationsTabsView';

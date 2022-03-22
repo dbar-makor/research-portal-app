@@ -8,7 +8,8 @@ import ButtonRow from '../ButtonRow/ButtonRow';
 
 const SendContractViewView = (props) => {
 	const classes = useStyles();
-  return (
+
+	return (
 		<Grid container className={classes.formContainer}>
 			<Grid item xs={12}>
 				<Grid container>

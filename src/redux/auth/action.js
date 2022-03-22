@@ -11,6 +11,7 @@ export const login = (email, password) => async (dispatch) => {
 
 	try {
 		const headers = { 'Content-Type': 'application/json' };
+
 		console.log('BASE_URL', BASE_URL);
 		const res = await axios({
 			method: 'PUT',
@@ -18,9 +19,11 @@ export const login = (email, password) => async (dispatch) => {
 			data: { username: email, password: password },
 			headers: headers,
 		});
+
 		setAuthToken(res.data.token);
 		localStorage.token = res.data.token;
 		const userContent = { ...res.data.user, ...res.data.payload.user };
+
 		localStorage.setItem('userContent', JSON.stringify(userContent));
 		dispatch({
 			type: LOGIN_SUCCESS,
@@ -30,6 +33,7 @@ export const login = (email, password) => async (dispatch) => {
 	} catch (error) {
 		/* eslint no-console: "off" */
 		console.log(error);
+
 		if (error) {
 			dispatch(actionSnackBar.setSnackBar('error', 'You dont have access to the platform', 3000));
 		} else {
@@ -39,6 +43,7 @@ export const login = (email, password) => async (dispatch) => {
 				dispatch(actionSnackBar.setSnackBar('error', 'Server error', 2000));
 			}
 		}
+
 		dispatch({ type: SET_LOADING_INDICATOR_AUTH, payload: false });
 	}
 };
@@ -46,6 +51,7 @@ export const login = (email, password) => async (dispatch) => {
 export const logout = () => async (dispatch) => {
 	try {
 		const res = await axios.delete(BASE_URL + END_POINT.AUTH);
+
 		if (res.status === 200) {
 			localStorage.clear();
 			dispatch({ type: LOGOUT_SUCCESS });
