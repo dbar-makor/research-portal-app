@@ -26,8 +26,10 @@ const FullPublication = () => {
 	//in case user is member- pub is taken from the params
 	const getPublication = async (id) => {
 		setLoadingPub(true);
+
 		if (id !== undefined) {
 			const resp = await axios.get(`${BASE_URL}${END_POINT.PUBLICATION}/${id}`);
+
 			try {
 				if (resp.status === 200) {
 					setLoadingPub(false);
@@ -42,6 +44,7 @@ const FullPublication = () => {
 	const transformVideoLink = (link) => {
 		if (link !== null) {
 			const embadLink = link.replace('watch?v=', 'embed/');
+
 			return embadLink;
 		} else {
 			return null;
@@ -60,6 +63,7 @@ const FullPublication = () => {
 			state: { publication: location.state?.publication, from: 'prearticle' },
 		});
 	};
+
 	return (
 		<FullPublicationView
 			loadingPub={loadingPub}

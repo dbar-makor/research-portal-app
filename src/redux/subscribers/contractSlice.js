@@ -18,11 +18,13 @@ export const contractSlice = createSlice({
 		},
 	},
 });
+
 export const { getContractData, setLoading } = contractSlice.actions;
 
 //selectors
 
 export const selectContractData = (state) => state.contract.companiesData;
+
 export const selectContractLoading = (state) => state.contract.loading;
 
 //action thunk
@@ -32,6 +34,7 @@ export const getContractDataAsync = () => async (dispatch) => {
 
 	try {
 		const res = await axios.get(BASE_URL + END_POINT.CONTRACT);
+
 		if (res.status === 200) {
 			dispatch(getContractData(res.data.contract));
 		}

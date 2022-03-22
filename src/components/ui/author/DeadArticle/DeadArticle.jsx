@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef} from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { END_POINT, BASE_URL } from '../../../../utils/constants';
 import axios from 'axios';
 import { isValid } from 'date-fns';
@@ -15,7 +15,7 @@ import { useHistory, useLocation } from 'react-router';
 import DeadArticleView from './DeadArticle.view';
 
 const DeadArticle = () => {
-  const dispatch = useDispatch();
+	const dispatch = useDispatch();
 	const history = useHistory();
 	const chosenResearch = useSelector(selectChosenResearch);
 	const [coverImage, setCoverImage] = useState(null);
@@ -25,12 +25,14 @@ const DeadArticle = () => {
 	const [errors, setErrors] = useState({});
 	const [validationResult, setValidationResult] = useState(false);
 	const [errorsEvent, setErrorsEvent] = useState({});
-  	// eslint-disable-next-line no-unused-vars
+	// eslint-disable-next-line no-unused-vars
 	const [validationResultEvent, setValidationResultEvent] = useState(true);
+
 	const [currentEvent, setCurrentEvent] = useState({
 		date: null,
 		title: '',
 	});
+
 	const initStateForm = {
 		title: '',
 		description: '',
@@ -50,17 +52,21 @@ const DeadArticle = () => {
 	const tableRowsRefs = useRef([]);
 	const [selectedValue, setSelectedValue] = useState('pdf');
 	const location = useLocation();
+
 	const handleChangeRadio = (event) => {
 		setSelectedValue(event.target.value);
 	};
+
 	const executeScroll = () => {
 		if (localForm.events.length) {
 			const lastIndex = tableRowsRefs.current.length - 1;
+
 			if (scrollLocation === 'bottom') {
 				tableRowsRefs.current[lastIndex].scrollIntoView();
 			}
 		}
 	};
+
 	useEffect(() => {
 		if (localForm) {
 			tableRowsRefs.current = tableRowsRefs.current.slice(0, localForm.events.length);
@@ -74,8 +80,10 @@ const DeadArticle = () => {
 			const coverImg = chosenResearch.attachments.find(
 				(attachment) => attachment.file_type === 'main_bg',
 			);
+
 			//  let categoriesIDs = chosenResearch.categories.map(category => category.id);
 			const editedLocalForm = { ...chosenResearch };
+
 			delete editedLocalForm.created_at;
 			delete editedLocalForm.name;
 			delete editedLocalForm.updated_at;
@@ -94,6 +102,7 @@ const DeadArticle = () => {
 				if (!coverImg) {
 					setCoverImageOK((prev) => ({ ...prev, final: false }));
 				}
+
 				if (!chosenResearch.categories.lengt || !chosenResearch.title) {
 					setValidationResult(false);
 				}
@@ -106,11 +115,13 @@ const DeadArticle = () => {
 	useEffect(() => {
 		if (location.state?.from === 'prearticle') {
 			const publication = location.state?.publication;
+
 			const coverImg = publication.attachments?.find(
 				(attachment) => attachment.file_type === 'main_bg',
 			);
 
 			const editedLocalForm = { ...publication };
+
 			delete editedLocalForm.created_at;
 			delete editedLocalForm.name;
 			delete editedLocalForm.updated_at;
@@ -124,6 +135,7 @@ const DeadArticle = () => {
 			if (coverImg) {
 				setCoverImageOK((prev) => ({ ...prev, final: true }));
 			}
+
 			if (publication.categories.length && publication.title) {
 				setValidationResult(true);
 			}
@@ -142,11 +154,13 @@ const DeadArticle = () => {
 
 	const updatePropertyField = (rowIndex, value, key, category) => {
 		const categoryCopy = [...localForm[category]];
+
 		categoryCopy[rowIndex][key] = value;
 		setLocalForm({
 			...localForm,
 			[category]: categoryCopy,
 		});
+
 		if (category === 'events') {
 			setScrollLocation('event');
 		}
@@ -154,11 +168,13 @@ const DeadArticle = () => {
 
 	const checkIfCurrentEventFilled = () => {
 		let check = true;
+
 		for (const [key, value] of Object.entries(currentEvent)) {
 			if (!value || (key === 'date' && !isValid(new Date(value)))) {
 				check = false;
 			}
 		}
+
 		return check;
 	};
 
@@ -166,6 +182,7 @@ const DeadArticle = () => {
 
 	const addEvent = () => {
 		const execEvents = [...localForm.events];
+
 		execEvents.push(currentEvent);
 		setLocalForm({
 			...localForm,
@@ -182,10 +199,13 @@ const DeadArticle = () => {
 
 	const handleCatsChange = (values) => {
 		const newCats = [];
+
 		for (const cat of values) {
 			newCats.push(cat.id);
 		}
+
 		setLocalCats(values);
+
 		// setLocalForm({ ...localForm, categories: newCats });
 		if (chosenResearch) {
 			validateEditedDeadPublication(
@@ -209,6 +229,7 @@ const DeadArticle = () => {
 	const handleTagsValue = (e, values) => {
 		const tempTags = [];
 		const tagNamesCopy = [...localTags.map((tag) => tag.name)];
+
 		values.forEach((value) => {
 			//new user value with enter key
 			if (typeof value === 'string' && !tagNamesCopy.includes(value)) {
@@ -230,6 +251,7 @@ const DeadArticle = () => {
 
 	const handleChange = (value, key) => {
 		setLocalForm({ ...localForm, [key]: value });
+
 		if (chosenResearch) {
 			validateEditedDeadPublication(
 				{ [key]: value },
@@ -247,6 +269,7 @@ const DeadArticle = () => {
 		if (category === 'localCats') {
 			const catsCopy = [...localCats];
 			const formCats = [...localForm.categories];
+
 			catsCopy.splice(index, 1);
 			formCats.splice(index, 1);
 			setLocalCats(catsCopy);
@@ -254,6 +277,7 @@ const DeadArticle = () => {
 				...localForm,
 				categories: formCats,
 			});
+
 			if (chosenResearch) {
 				validateEditedDeadPublication(
 					{ categories: formCats },
@@ -273,6 +297,7 @@ const DeadArticle = () => {
 			}
 		} else {
 			const categoryCopy = [...localForm[category]];
+
 			categoryCopy.splice(index, 1);
 			setLocalForm({
 				...localForm,
@@ -284,11 +309,15 @@ const DeadArticle = () => {
 	const onPDFUpload = async (e) => {
 		const pdf = e.target.files[0];
 		const formData = new FormData();
+
 		formData.append('file', pdf);
+
 		try {
 			const res = await axios.post(`${BASE_URL}${END_POINT.FILE}`, formData);
+
 			if (res.status === 200 && res.data.file) {
 				setLocalForm((prev) => ({ ...prev, file_pdf: res.data.file }));
+
 				if (chosenResearch) {
 					validateEditedDeadPublication(
 						{ file_pdf: res.data.file },
@@ -316,20 +345,25 @@ const DeadArticle = () => {
 	const onDropCover = async (acceptedFiles) => {
 		const coverImage = acceptedFiles[0];
 		const formData = new FormData();
+
 		formData.append('file', coverImage);
+
 		try {
 			const res = await axios.post(`${BASE_URL}${END_POINT.FILE}`, formData);
+
 			if (res.status === 200) {
 				const newCover = {
 					file_type: 'main_bg',
 					file_name: coverImage.name,
 					file_name_system: res.data.file,
 				};
+
 				setCoverImage(newCover);
 				setCoverImageOK((prev) => ({ ...prev, final: true }));
 			}
 		} catch (error) {}
 	};
+
 	const sendPublication = async (buttonMarker) => {
 		const attachmentsCopy = [];
 
@@ -375,22 +409,26 @@ const DeadArticle = () => {
 				pathname: '/prearticle',
 				state: { publication: formToSend, from: 'new-publication' },
 			});
+
 			return;
 		}
 
 		try {
 			let res;
+
 			// if (chosenResearch && chosenResearch.id) {
 			if (formToSend.id) {
 				res = await axios.put(`${BASE_URL}${END_POINT.PUBLICATION}/${formToSend.id}`, formToSend);
 				history.push('/researches');
 				dispatch(changeChosenResearch(null));
+
 				if (res.status === 201) {
 					dispatch(actionSnackBar.setSnackBar('success', 'Successfully updated', 2000));
 				}
 			} else {
 				res = await axios.post(`${BASE_URL}${END_POINT.PUBLICATION}`, formToSend);
 				history.push('/researches');
+
 				if (res.status === 201) {
 					dispatch(actionSnackBar.setSnackBar('success', 'Successfully published', 2000));
 				}
@@ -420,46 +458,48 @@ const DeadArticle = () => {
 		}
 	};
 
-  return <DeadArticleView
-  addEvent={addEvent}
-  coverImage={coverImage}
-  coverImageOK={coverImageOK}
-  currentEvent={currentEvent}
-  deleteItem={deleteItem}
-  errors={errors}
-  errorsEvent={errorsEvent}
-  executeScroll={executeScroll}
-  handleCatsChange={handleCatsChange}
-  handleCancle={handleCancle}
-  handleTagsValue={handleTagsValue}
-  handleChange={handleChange}
-  handleChangeRadio={handleChangeRadio}
-  ifCurrentEventFilled={ifCurrentEventFilled}
-  localCats={localCats}
-  localForm={localForm}
-  localTags={localTags}
-  onPDFUpload={onPDFUpload}
-  onDropCover={onDropCover}
-  selectedValue={selectedValue}
-  sendPublication={sendPublication}
-  setErrors={setErrors}
-  setErrorsEvent={setErrorsEvent}
-  setCoverImage={setCoverImage}
-  setCoverImageOK={setCoverImageOK}
-  setCurrentEvent={setCurrentEvent}
-  setLocalCats={setLocalCats}
-  setLocalForm={setLocalForm}
-  setLocalTags={setLocalTags}
-  setValidationResult={setValidationResult}
-  setValidationResultEvent={setValidationResultEvent}
-  shortify={shortify}
-  updatePropertyField={updatePropertyField}
-  validateDeadPublication={validateDeadPublication}
-  validateEvent={validateEvent}
-  validateEditedDeadPublication={validateEditedDeadPublication}
-  validationResult={validationResult}
-  ref={tableRowsRefs}
-  />;
+	return (
+		<DeadArticleView
+			addEvent={addEvent}
+			coverImage={coverImage}
+			coverImageOK={coverImageOK}
+			currentEvent={currentEvent}
+			deleteItem={deleteItem}
+			errors={errors}
+			errorsEvent={errorsEvent}
+			executeScroll={executeScroll}
+			handleCatsChange={handleCatsChange}
+			handleCancle={handleCancle}
+			handleTagsValue={handleTagsValue}
+			handleChange={handleChange}
+			handleChangeRadio={handleChangeRadio}
+			ifCurrentEventFilled={ifCurrentEventFilled}
+			localCats={localCats}
+			localForm={localForm}
+			localTags={localTags}
+			onPDFUpload={onPDFUpload}
+			onDropCover={onDropCover}
+			selectedValue={selectedValue}
+			sendPublication={sendPublication}
+			setErrors={setErrors}
+			setErrorsEvent={setErrorsEvent}
+			setCoverImage={setCoverImage}
+			setCoverImageOK={setCoverImageOK}
+			setCurrentEvent={setCurrentEvent}
+			setLocalCats={setLocalCats}
+			setLocalForm={setLocalForm}
+			setLocalTags={setLocalTags}
+			setValidationResult={setValidationResult}
+			setValidationResultEvent={setValidationResultEvent}
+			shortify={shortify}
+			updatePropertyField={updatePropertyField}
+			validateDeadPublication={validateDeadPublication}
+			validateEvent={validateEvent}
+			validateEditedDeadPublication={validateEditedDeadPublication}
+			validationResult={validationResult}
+			ref={tableRowsRefs}
+		/>
+	);
 };
 
 DeadArticle.displayName = 'DeadArticle';

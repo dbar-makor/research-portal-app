@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectChosenCompany } from '../../../../../redux/companies/chosenCompanySlice';
 
@@ -29,14 +29,16 @@ const periodToNum = {
 	half: 2,
 	fully: 1,
 };
+
 const ContractEditForm = (props) => {
-  const { contract } = props;
+	const { contract } = props;
 	const currenciesArr = useSelector((state) => state.utils.utils.currency);
 	const countriesArr = useSelector((state) => state.utils.utils.country);
 	const salesmenArr = useSelector((state) => state.utils.utils.sales);
 	const chosenCompany = useSelector(selectChosenCompany);
 
 	const loggedinSalesPersonBigObject = useSelector((state) => state.auth.userContent);
+
 	const loggedinSalesPerson = {
 		id: loggedinSalesPersonBigObject.id,
 		name: loggedinSalesPersonBigObject.name,
@@ -44,10 +46,12 @@ const ContractEditForm = (props) => {
 
 	// eslint-disable-next-line no-unused-vars
 	const [errors, setErrors] = useState({});
+
 	// eslint-disable-next-line no-unused-vars
 	const [inputValuePeriodicity, setInputValuePeriodicity] = useState(
 		chargePeriods.find((p) => p.value === contract.periodicity).name,
 	);
+
 	const [inputValueSales, setInputValueSales] = useState(loggedinSalesPerson.name);
 	const [inputValueCountry, setInputValueCountry] = useState(chosenCompany.country.name);
 	const [inputValueCurrency, setInputValueCurrency] = useState('');
@@ -66,6 +70,7 @@ const ContractEditForm = (props) => {
 
 	const handleContract = (e, fieldIndicator) => {
 		let value;
+
 		if (fieldIndicator === 'salesMan') {
 			value = e ? e.id : '';
 		} else if (fieldIndicator === 'start_at') {
@@ -79,6 +84,7 @@ const ContractEditForm = (props) => {
 		}
 
 		let name;
+
 		if (
 			fieldIndicator === 'start_at' ||
 			fieldIndicator === 'salesMan' ||
@@ -96,23 +102,26 @@ const ContractEditForm = (props) => {
 			[name]: name === 'members' || name === 'amount' ? Number(value) : value,
 		}));
 	};
-  return <ContractEditFormView
-    contractForm={contractForm}
-    salesmenArr={salesmenArr}
-    handleContract={handleContract}
-    errors={errors}
-    inputValueSales={inputValueSales}
-    setInputValueSales={setInputValueSales}
-    countriesArr={countriesArr}
-    inputValueCountry={inputValueCountry}
-    setInputValueCountry={setInputValueCountry}
-    setInputValuePeriodicity={setInputValuePeriodicity}
-    currenciesArr={currenciesArr}
-    inputValueCurrency={inputValueCurrency}
-    setInputValueCurrency={setInputValueCurrency}
-    chosenCompany={chosenCompany}
-    periodToNum={periodToNum}
-  ></ContractEditFormView>;
+
+	return (
+		<ContractEditFormView
+			contractForm={contractForm}
+			salesmenArr={salesmenArr}
+			handleContract={handleContract}
+			errors={errors}
+			inputValueSales={inputValueSales}
+			setInputValueSales={setInputValueSales}
+			countriesArr={countriesArr}
+			inputValueCountry={inputValueCountry}
+			setInputValueCountry={setInputValueCountry}
+			setInputValuePeriodicity={setInputValuePeriodicity}
+			currenciesArr={currenciesArr}
+			inputValueCurrency={inputValueCurrency}
+			setInputValueCurrency={setInputValueCurrency}
+			chosenCompany={chosenCompany}
+			periodToNum={periodToNum}
+		></ContractEditFormView>
+	);
 };
 
 ContractEditForm.displayName = 'ContractEditForm';

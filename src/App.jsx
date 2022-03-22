@@ -36,15 +36,18 @@ function App() {
 	const isAuthor = useSelector((state) => state.auth.userContent?.type === 'author');
 	const isSales = useSelector((state) => state.auth.userContent?.type === 'sales');
 	const isAdmin = useSelector((state) => state.auth.userContent?.type === 'admin');
+
 	const isMember = useSelector(
 		(state) => state.auth.userContent?.type === 'client' || state.auth.userContent?.type === 'prospect',
 	);
 
 	useEffect(() => {
 		const existingToken = localStorage.getItem('token');
+
 		if (existingToken) {
 			setAuthToken(existingToken);
 			const loggedUser = JSON.parse(localStorage.getItem('userContent'));
+
 			dispatch({
 				type: LOGIN_SUCCESS,
 				payload: { token: existingToken, userContent: loggedUser },
@@ -114,7 +117,7 @@ function App() {
 	const AuthorsViews = () => {
 		return (
 			<Switch>
-				<PrivateRoute  path="/settings" component={AccountSettings} />
+				<PrivateRoute path="/settings" component={AccountSettings} />
 				<PrivateRoute exact path="/researches" component={AllPublications} />
 				<PrivateRoute exact path="/new-article" component={AuthorsNewArticle} />
 				<PrivateRoute exact path="/upload-article" component={DeadArticle} />

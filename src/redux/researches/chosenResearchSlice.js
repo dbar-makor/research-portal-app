@@ -25,11 +25,12 @@ export const getChosenResearchAsync = (id) => async (dispatch) => {
 
 	try {
 		const res = await axios.get(`${BASE_URL}${END_POINT.PUBLICATION}/${id}`);
+
 		if (res.status === 200 || res.status === 201) {
 			dispatch(changeChosenResearch(res.data));
 		}
 	} catch (error) {
-				/* eslint no-console: "off" */
+		/* eslint no-console: "off" */
 		console.log(error, error.message);
 	}
 };

@@ -24,6 +24,7 @@ const MembersMain = () => {
 	const getPublications = async () => {
 		try {
 			const resp = await axios.get(`${BASE_URL}${END_POINT.PUBLICATION}/user`);
+
 			setPublications(resp.data);
 			setFilterPublications(resp.data);
 		} catch (err) {
@@ -34,11 +35,14 @@ const MembersMain = () => {
 	const filterByCategory = (category) => {
 		setFilter(true);
 		setCategory(category);
+
 		if (category.id !== '') {
 			const filterPublications = publications.filter((p) => {
 				const categoriesNames = p.categories.map((category) => category.name);
+
 				return categoriesNames.includes(category.name);
 			});
+
 			setFilterPublications(filterPublications);
 		} else {
 			setFilterPublications(publications);
@@ -53,14 +57,17 @@ const MembersMain = () => {
 		if (search === '') {
 			setFilterPublications(publications);
 		}
+
 		if (search !== '') {
 			const filterPublications = publications.filter((publication) =>
 				//let categoriesNames = p.categories.map((category) => category.name)
 				publication.title.toLowerCase().includes(search),
 			);
+
 			setFilterPublications(filterPublications);
 		}
 	}, [search]);
+
 	//
 	return (
 		<Grid

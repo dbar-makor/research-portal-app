@@ -10,12 +10,16 @@ const Settings = () => {
 	const [userSettings, setUserSettings] = useState(null);
 	const [loadingUserSettings, setLoadingUserSettings] = useState(false);
 	const dispatch = useDispatch();
+
 	const getUserSettings = async () => {
 		try {
 			const token = localStorage.getItem('token');
+
 			axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 			const res = await axios.get(`${BASE_URL}${END_POINT.SETTINGS}/notification`);
+
 			setLoadingUserSettings(true);
+
 			if (res.status === 200) {
 				setLoadingUserSettings(false);
 				setUserSettings(res.data);
@@ -24,11 +28,13 @@ const Settings = () => {
 			dispatch(actionSnackBar.setSnackBar('error', 'Network error', 3000));
 		}
 	};
+
 	const sendAfterChange = async () => {
 		const objToSend = {
 			settings: userSettings?.settings,
 			is_active: userSettings?.is_active,
 		};
+
 		if (objToSend.settings !== null && objToSend.settings !== undefined) {
 			try {
 				await axios.put(`${BASE_URL}${END_POINT.SETTINGS}/notification`, objToSend);
@@ -37,8 +43,9 @@ const Settings = () => {
 			}
 		}
 	};
+
 	const handleToggle = (e, section, key) => {
-		if (section !=='is_active') {
+		if (section !== 'is_active') {
 			setUserSettings((prevState) => ({
 				...prevState,
 				settings: {
@@ -50,6 +57,7 @@ const Settings = () => {
 			setUserSettings((prevState) => ({ ...prevState, [section]: !userSettings[section] }));
 		}
 	};
+
 	useEffect(() => {
 		sendAfterChange();
 	}, [userSettings]);
@@ -57,6 +65,7 @@ const Settings = () => {
 	useEffect(() => {
 		getUserSettings();
 	}, []);
+
 	return (
 		<SettingsView
 			loadingUserSettings={loadingUserSettings}

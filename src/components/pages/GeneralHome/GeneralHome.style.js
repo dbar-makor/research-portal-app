@@ -312,6 +312,7 @@ const useStyles = makeStyles({
 		fontSize: '.9rem',
 	},
 });
+
 export default useStyles;
 
 export const Tab = styled(TabUnstyled)`
@@ -361,4 +362,3 @@ export const TabsList = styled(TabsListUnstyled)`
 	justify-content: center;
 	align-content: space-between;
 `;
-

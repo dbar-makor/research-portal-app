@@ -18,6 +18,7 @@ const Comments = ({ comments, pubId }) => {
 	const addComment = async (content) => {
 		try {
 			let res = await axios.post(`${BASE_URL}${END_POINT.COMMENT}`, content);
+
 			if (res.status === 201) {
 				dispatch(actionSnackBar.setSnackBar('success', 'comment successfully', 3000));
 				res = await axios.get(`${BASE_URL}${END_POINT.COMMENT}`, { params: { id: pubId } });
@@ -26,6 +27,7 @@ const Comments = ({ comments, pubId }) => {
 		} catch (err) {
 			dispatch(actionSnackBar.setSnackBar('error', 'Network error', 3000));
 		}
+
 		setNewComment({ ...newComment, content: '' });
 	};
 

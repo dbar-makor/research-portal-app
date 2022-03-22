@@ -75,6 +75,7 @@ ContractAndInvoicesContentView.displayName = 'ContractAndInvoicesContentView';
 ContractAndInvoicesContentView.defaultProps = {};
 
 export default React.memo(ContractAndInvoicesContentView);
+
 const HeaderCells = withStyles(() => ({
 	root: {
 		padding: '10px 0px 10px 2px',

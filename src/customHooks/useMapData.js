@@ -33,6 +33,7 @@ export const useMapData = () => {
 		const row = (d) => {
 			d.lat = +d.lat;
 			d.lng = +d.lng;
+
 			return d;
 		};
 
@@ -45,10 +46,11 @@ export const useMapData = () => {
 	useEffect(() => {
 		getMapData();
 		getCitiesData();
+
 		return () => {
 			setMapLoading(false);
-				setMapData(null);
-		  };
+			setMapData(null);
+		};
 	}, []);
 
 	return { mapData, mapLoading, mapError, citiesData };

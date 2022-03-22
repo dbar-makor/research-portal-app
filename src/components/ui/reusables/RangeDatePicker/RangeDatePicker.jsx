@@ -9,6 +9,7 @@ const RangeDatePicker = (props) => {
 	const calendarIconRef = useRef();
 	const [open, setOpen] = useState(false);
 	const [anchorEl, setAnchorEl] = useState(null);
+
 	const [range, setRange] = useState([
 		{
 			startDate: new Date(),
@@ -16,6 +17,7 @@ const RangeDatePicker = (props) => {
 			key: 'selection',
 		},
 	]);
+
 	const [counter, setCounter] = useState(0);
 
 	const handleSelect = useCallback((item) => {
@@ -24,6 +26,7 @@ const RangeDatePicker = (props) => {
 		const testEndDate = moment(moment(item.selection.endDate).format('DD/MM/YYYY'), 'DD/MM/YYYY');
 
 		const differenceInDays = moment.duration(testEndDate.diff(testStartDate)).asDays();
+
 		if (differenceInDays <= max_days_allowed) {
 			setRange([item.selection]);
 			setFrom(moment(item.selection.startDate).format('DD/MM/YYYY'));
@@ -68,13 +71,13 @@ const RangeDatePicker = (props) => {
 			from={from}
 			to={to}
 			handleCalendarOpen={handleCalendarOpen}
-      handleSelect={handleSelect}
+			handleSelect={handleSelect}
 			clearInput={clearInput}
 			anchorEl={anchorEl}
-      setOpen={setOpen}
-      open={open}
-      range={range}
-      ref={calendarIconRef}
+			setOpen={setOpen}
+			open={open}
+			range={range}
+			ref={calendarIconRef}
 		/>
 	);
 };

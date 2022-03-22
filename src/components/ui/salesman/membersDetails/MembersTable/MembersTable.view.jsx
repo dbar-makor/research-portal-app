@@ -60,6 +60,7 @@ const MembersTableView = (props) => {
 										onDoubleClick={() => {
 											// const rowsCopy = [...membersRows]
 											const element = document.getElementById(`${index}`);
+
 											element.focus();
 											clearTimeout(props.timer);
 											props.prevent = true;
@@ -67,7 +68,9 @@ const MembersTableView = (props) => {
 												...membersRow,
 												isEditMode: false,
 											}));
+
 											const updatedRow = { ...row, isEditMode: true };
+
 											rowsCopy.splice(index, 1, updatedRow);
 											props.setMembersRows(rowsCopy);
 										}}
@@ -76,8 +79,10 @@ const MembersTableView = (props) => {
 												props.timer = setTimeout(() => {
 													if (!props.prevent) {
 														const element = document.getElementById(`${index}`);
+
 														element.focus();
 													}
+
 													props.prevent = false;
 												}, props.delay);
 											}

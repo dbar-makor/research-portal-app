@@ -79,7 +79,6 @@ const AuthorsNewArticleView = (props) => {
 											onFocus={props.handleEditorOnFocus}
 											//shows error if field was ever focused, something was already typed and there is no content
 											// error={contentNotOK.focus &&  contentNotOK.everTyped && !contentNotOK.isText }
-
 											{...(props.chosenResearch &&
 												Object.keys(props.chosenResearch.content).length && {
 													defaultValue:

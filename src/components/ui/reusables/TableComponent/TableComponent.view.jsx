@@ -1,4 +1,4 @@
-import React, {forwardRef} from 'react';
+import React, { forwardRef } from 'react';
 import { Typography, Table, TableBody, TableHead, TableRow } from '@material-ui/core';
 import { format } from 'date-fns';
 import { useStyles, StyledTableCell, StyledTableRow } from '../../../../styles/TableStyles';
@@ -11,18 +11,17 @@ import { selectType } from '../../../../redux/companies/companiesSlice';
 import { selectChosenUserData } from '../../../../redux/users/chosenUserSlice';
 import { selectChosenCompany } from '../../../../redux/companies/chosenCompanySlice';
 
-
 //import useStyles from './TableComponent.style';
 
-const TableComponentView = forwardRef((props,ref) => {
-  const { ref1, almostLastRowRef } = ref.current;
+const TableComponentView = forwardRef((props, ref) => {
+	const { ref1, almostLastRowRef } = ref.current;
 
 	const classes = useStyles();
-  const type = useSelector(selectType);
+	const type = useSelector(selectType);
 	const chosenUser = useSelector(selectChosenUserData);
 	const chosenCompany = useSelector(selectChosenCompany);
 
-  const tableHeadText = (col, index) => {
+	const tableHeadText = (col, index) => {
 		return (
 			<StyledTableCell key={index}>
 				<Typography
@@ -36,7 +35,8 @@ const TableComponentView = forwardRef((props,ref) => {
 			</StyledTableCell>
 		);
 	};
-  return props.data.length ? (
+
+	return props.data.length ? (
 		<Table stickyHeader className={classes.table}>
 			<TableHead>
 				<TableRow>

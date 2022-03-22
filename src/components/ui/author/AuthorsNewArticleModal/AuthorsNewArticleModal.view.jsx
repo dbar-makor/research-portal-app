@@ -7,14 +7,10 @@ import useStyles from './AuthorsNewArticleModal.style';
 import React from 'react';
 
 const AuthorsNewArticleModalView = (props) => {
+	const classes = useStyles();
 
-  const classes = useStyles();
-  return (
-    <Dialog
-			open={props.open}
-			onClose={props.handleClose}
-			className={classes.dialog}
-		>
+	return (
+		<Dialog open={props.open} onClose={props.handleClose} className={classes.dialog}>
 			<Grid container justifyContent="center" className={classes.modalContainer}>
 				<Grid item xs={12}>
 					<Grid container className={classes.end}>
@@ -98,7 +94,7 @@ const AuthorsNewArticleModalView = (props) => {
 				</Grid>
 			</Grid>
 		</Dialog>
-  );
+	);
 };
 
 AuthorsNewArticleModalView.displayName = 'AuthorsNewArticleModalView';

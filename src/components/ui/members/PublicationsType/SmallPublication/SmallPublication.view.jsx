@@ -13,20 +13,26 @@ const SmallPublicationView = (props) => {
 	const chooseImage = (publication) => {
 		let image = '';
 		let url = '';
+
 		if (publication.attachments.length) {
 			image = publication.attachments.find((attachment) => attachment.file_type === 'main_bg');
 			const imageName = image && image.file_name_system;
+
 			url = `${BASE_URL}${END_POINT.ASSETS}/${encodeURIComponent(imageName)}`;
 		}
+
 		return url;
 	};
 
 	const truncateDescription = (string) => {
 		const descrptionArr = string.split(' ');
 		const descriptionLength = descrptionArr.length;
+
 		descrptionArr.splice(14);
 		const newDescription = descrptionArr.join(' ');
+
 		if (descriptionLength > 15) return `${newDescription}...`;
+
 		return newDescription;
 	};
 

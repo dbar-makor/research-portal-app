@@ -14,6 +14,7 @@ const rowHeaders = [
 	{ name: 'Signed', align: 'center', width: 90 },
 	{ name: 'Payment', align: 'center', width: 90 },
 ];
+
 const statusValues = [
 	{ value: 'all', name: 'All' },
 	{ value: 'signed', name: 'Signed' },
@@ -28,13 +29,16 @@ const ContractAndInvoicesContent = (props) => {
 
 	const filterStatus = (value) => {
 		setSortStatus(value);
+
 		if (value === 'all') {
 			setFilterContract(contracts);
 		} else if (value === 'signed') {
 			const filter = contracts.filter((con) => con.signed === true);
+
 			setFilterContract(filter);
 		} else {
 			const filter = contracts.filter((con) => con.signed === false);
+
 			setFilterContract(filter);
 		}
 	};
@@ -42,6 +46,7 @@ const ContractAndInvoicesContent = (props) => {
 	const getClientContract = async (id) => {
 		try {
 			const res = await axios.get(`${BASE_URL}${END_POINT.COMPANY}${END_POINT.CONTRACT}/${id}`);
+
 			if (res.status === 200) {
 				await setContracts(res.data);
 				await setFilterContract(res.data);
@@ -54,14 +59,15 @@ const ContractAndInvoicesContent = (props) => {
 	useEffect(() => {
 		getClientContract(clientId);
 	}, [clientId]);
+
 	return (
 		<ContractAndInvoicesContentView
 			sortStatus={sortStatus}
 			statusValues={statusValues}
-      filterStatus={filterStatus}
-      rowHeaders={rowHeaders}
-      filterdContract={filterdContract}
-      clientName={clientName}
+			filterStatus={filterStatus}
+			rowHeaders={rowHeaders}
+			filterdContract={filterdContract}
+			clientName={clientName}
 		></ContractAndInvoicesContentView>
 	);
 };

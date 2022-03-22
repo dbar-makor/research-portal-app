@@ -17,12 +17,14 @@ const NewUserModal = (props) => {
 	const dispatch = useDispatch();
 	const countriesArr = useSelector((state) => state.utils.utils.country);
 	const { open, handleClose, userType } = props;
+
 	const [newUser, setNewUser] = useState({
 		name: '',
 		username: '',
 		email: '',
 		country: null,
 	});
+
 	const [inputValueCountry, setInputValueCountry] = useState('');
 	const [errors, setErrors] = useState({});
 	const [validationResult, setValidationResult] = useState(false);
@@ -30,6 +32,7 @@ const NewUserModal = (props) => {
 	const userLimit = useSelector(selectUsersLimit);
 	const userSearch = useSelector(selectUsersSearch);
 	const userStatus = useSelector(selectUsersStatus);
+
 	const clearAndClose = () => {
 		setNewUser({
 			name: '',
@@ -43,14 +46,17 @@ const NewUserModal = (props) => {
 
 	const updateUserField = (value, key) => {
 		const userCopy = { ...newUser, [key]: value };
+
 		setNewUser(userCopy);
 		validateUser({ [key]: value }, errors, setErrors, setValidationResult);
 	};
 
 	const sendNewUser = async () => {
 		const userToSend = { ...newUser, country: newUser.country.code, type: userType };
+
 		try {
 			const res = await axios.post(`${BASE_URL}${END_POINT.USER}`, userToSend);
+
 			if (res.status === 201) {
 				dispatch(actionSnackBar.setSnackBar('success', 'Successfully added', 2000));
 				dispatch(getUsersByTypeAsync(userOffset, userLimit, userSearch, userType, userStatus));
@@ -62,6 +68,7 @@ const NewUserModal = (props) => {
 			} else {
 				dispatch(actionSnackBar.setSnackBar('error', 'Failed adding user', 2000));
 			}
+
 			handleClose();
 		}
 	};

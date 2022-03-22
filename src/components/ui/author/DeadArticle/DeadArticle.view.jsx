@@ -29,6 +29,7 @@ const DeadArticleView = forwardRef((props, ref) => {
 	const chosenResearch = useSelector(selectChosenResearch);
 
 	const classes = useStyles();
+
 	return (
 		<Grid container justifyContent="center" className={classes.newArticleWrapper}>
 			<Grid item xs={10} className={classes.newArticleContainer}>
@@ -420,6 +421,7 @@ const DeadArticleView = forwardRef((props, ref) => {
 																title_pdf: '',
 																file_pdf: '',
 															}));
+
 															if (chosenResearch) {
 																props.validateEditedDeadPublication(
 																	{ file_pdf: props.localForm.title_pdf },

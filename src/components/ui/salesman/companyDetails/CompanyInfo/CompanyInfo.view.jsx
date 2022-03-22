@@ -25,6 +25,7 @@ import InitialCompanyStateBlock from '../InitialCompanyStateBlock/InitialCompany
 
 const CompanyInfoView = (props) => {
 	const classes = useStyles();
+
 	return props.chosenCompany ? (
 		<Grid container className={classes.infoContainer}>
 			<Grid item xs={12}>

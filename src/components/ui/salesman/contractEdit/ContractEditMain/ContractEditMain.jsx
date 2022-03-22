@@ -1,4 +1,4 @@
-import React,{ forwardRef,useImperativeHandle, useState } from 'react';
+import React, { forwardRef, useImperativeHandle, useState } from 'react';
 import ContractEditMainView from './ContractEditMain.view';
 
 const ContractEditMain = forwardRef((props, ref) => {
@@ -16,6 +16,7 @@ const ContractEditMain = forwardRef((props, ref) => {
 	const openModal = () => {
 		setOpenEdit(!openEdit);
 	};
+
 	return (
 		<ContractEditMainView
 			openEdit={openEdit}

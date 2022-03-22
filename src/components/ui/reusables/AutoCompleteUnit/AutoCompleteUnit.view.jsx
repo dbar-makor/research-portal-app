@@ -33,6 +33,7 @@ const AutoCompleteUnitView = (props) => {
 						} else if (event.type === 'blur' && reason === 'reset') {
 							return;
 						}
+
 						props.setInputValue(newInputValue);
 					}}
 					inputValue={props.inputValue}
@@ -41,7 +42,9 @@ const AutoCompleteUnitView = (props) => {
 					getOptionLabel={(option) => {
 						return option[props.fieldForLabel];
 					}}
-					getOptionSelected={(option, value) => option[props.fieldForLabel] === value[props.fieldForLabel]}
+					getOptionSelected={(option, value) =>
+						option[props.fieldForLabel] === value[props.fieldForLabel]
+					}
 					renderInput={(params) => (
 						<TextField
 							{...params}

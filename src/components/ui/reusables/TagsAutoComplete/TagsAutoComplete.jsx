@@ -11,6 +11,7 @@ const TagsAutoComplete = (props) => {
 
 	const deleteItem = (index) => {
 		const tagsCopy = [...formObject];
+
 		tagsCopy.splice(index, 1);
 		setFormObject(tagsCopy);
 	};

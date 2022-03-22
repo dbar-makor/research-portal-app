@@ -25,4 +25,5 @@ NumberFormatCustom.propTypes = {
 	decimalNo: PropTypes.number.isRequired,
 	minValue: PropTypes.number.isRequired,
 };
+
 export default React.memo(NumberFormatCustom);

@@ -5,6 +5,7 @@ const ButtonRow = (props) => {
 	const { validationResult, handlerRight, textButtonRight, style } = props;
 	const handlerLeft = props.handlerLeft ? props.handlerLeft : () => {};
 	const textButtonLeft = props.textButtonLeft ? props.textButtonLeft : '';
+
 	return (
 		<ButtonRowView
 			validationResult={validationResult}

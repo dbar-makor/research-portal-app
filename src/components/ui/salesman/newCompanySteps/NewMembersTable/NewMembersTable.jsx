@@ -23,6 +23,7 @@ const NewMembersTable = ({
 
 	const deleteMember = useCallback((index) => {
 		const currentMembers = [...company.members];
+
 		currentMembers.splice(index, 1);
 		setCompany({
 			...company,
@@ -34,6 +35,7 @@ const NewMembersTable = ({
 	const editMember = useCallback((index) => {
 		setEditedMemberIndex(index);
 		const chosenMember = company.members[index];
+
 		setCurrentMember(chosenMember);
 		setErrors({ member_name: '', username: '', email: '', position: '', categories: '' });
 		handleClose();
@@ -45,9 +47,9 @@ const NewMembersTable = ({
 			handleClose={handleClose}
 			deleteMember={deleteMember}
 			editMember={editMember}
-      rows={rows}
-      anchorEl={anchorEl}
-      open={open}
+			rows={rows}
+			anchorEl={anchorEl}
+			open={open}
 		/>
 	);
 };

@@ -18,6 +18,7 @@ const MembersHeader = (props) => {
 		newMember,
 		setNewMember,
 	} = props;
+
 	return (
 		<MembersHeaderView
 			allMembersAmount={allMembersAmount}

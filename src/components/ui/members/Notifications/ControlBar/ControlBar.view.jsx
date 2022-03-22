@@ -7,6 +7,7 @@ import { ReactComponent as SearchIcon } from '../../../../../assets/icons/IconSe
 
 const ControlBarView = (props) => {
 	const classes = useStyles();
+
 	return (
 		<Grid container className={classes.controlBarContainer}>
 			<Grid item>

@@ -37,9 +37,11 @@ const periodToNum = {
 const Contract = (props) => {
 	const { setStep, setContractCopy, stepperMode, chosenContract, setLoadingSidebar, setActiveSidebar } =
 		props;
+
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const loggedinSalesPersonBigObject = useSelector((state) => state.auth.userContent);
+
 	const loggedinSalesPerson = {
 		id: loggedinSalesPersonBigObject.id,
 		name: loggedinSalesPersonBigObject.name,
@@ -48,12 +50,14 @@ const Contract = (props) => {
 	const currenciesArr = useSelector((state) => state.utils.utils.currency);
 	const salesmenArr = useSelector((state) => state.utils.utils.sales);
 	const chosenCompany = useSelector(selectChosenCompany);
+
 	const initStateContract = {
 		id: chosenCompany.id,
 		start_at: new Date(),
 		sales: loggedinSalesPerson.id,
 		vat: false,
 	};
+
 	const [contract, setContract] = useState(initStateContract);
 	const [errors, setErrors] = useState({});
 	const [validationResult, setValidationResult] = useState();
@@ -92,6 +96,7 @@ const Contract = (props) => {
 			const periodicityName = chargePeriods.find(
 				(period) => period.value === chosenContract.periodicity,
 			).name;
+
 			setInputValuePeriodicity(periodicityName);
 		}
 	}, [chosenContract]);
@@ -104,6 +109,7 @@ const Contract = (props) => {
 				...contract,
 				id: chosenCompany.id,
 			});
+
 			if (res.status === 200 || res.status === 201) {
 				setContractCopy({ ...contract, contract_id: res.data.id });
 				setContract({});
@@ -129,13 +135,16 @@ const Contract = (props) => {
 		//preparing contract data to put call
 		const contractCopy = { ...contract };
 		const contract_id = contract.contract_id;
+
 		delete contractCopy.contract_id;
 		delete contractCopy.invoices;
 		delete contractCopy.signer_user;
 
 		const currency = contract.currency?.code;
+
 		contractCopy.currency = currency;
 		const sales = contract.sales?.id;
+
 		contractCopy.sales = sales;
 		// const signer_user = contract.signer_user?.id;
 		// contractCopy.signer_user = signer_user;

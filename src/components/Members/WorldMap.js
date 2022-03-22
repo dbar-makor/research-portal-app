@@ -37,6 +37,7 @@ const WorldMap = () => {
 						))}
 						{citiesData?.map((d) => {
 							const [x, y] = projection([d.lng, d.lat]);
+
 							return (
 								<WorldMapSingle d={d} x={x} y={y} citiesStatus={citiesStatus} key={d.lat} />
 							);

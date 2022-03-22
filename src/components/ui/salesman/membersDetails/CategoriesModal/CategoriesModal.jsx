@@ -14,6 +14,7 @@ const CategoriesModal = (props) => {
 		setMembersRows,
 		sendMember,
 	} = props;
+
 	return (
 		<CategoriesModalView
 			open={open}

@@ -4,6 +4,7 @@ import NumberInputUnitView from './NumberInputUnit.view';
 
 const NumberInputUnit = (props) => {
 	const error = props.error ? props.error : null;
+
 	return (
 		<NumberInputUnitView
 			className={props.className}

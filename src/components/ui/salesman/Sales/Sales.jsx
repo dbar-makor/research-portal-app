@@ -21,10 +21,8 @@ const Sales = () => {
 			dispatch(utilsAction.getUtilsAsync());
 		}
 	}, []);
-	return (
-		<SalesView search={search} type={type} status={status} setProperty={setProperty}>
-		</SalesView>
-	);
+
+	return <SalesView search={search} type={type} status={status} setProperty={setProperty}></SalesView>;
 };
 
 Sales.displayName = 'Sales';

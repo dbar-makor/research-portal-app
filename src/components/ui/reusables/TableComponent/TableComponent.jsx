@@ -20,6 +20,7 @@ const TableComponent = forwardRef((props, ref1) => {
 
 	useEffect(() => {
 		if (data.length < 16) return;
+
 		almostLastRowRef.current.scrollIntoView({ behavior: 'smooth' });
 	}, [data]);
 

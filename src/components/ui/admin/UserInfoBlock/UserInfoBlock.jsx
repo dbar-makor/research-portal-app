@@ -35,6 +35,7 @@ const UserInfoBlock = (props) => {
 		'last_prospect_added',
 		'last_publication',
 	];
+
 	return (
 		<UserInfoBlockView
 			userFields={userFields}

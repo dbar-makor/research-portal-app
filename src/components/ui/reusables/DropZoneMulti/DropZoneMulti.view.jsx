@@ -8,11 +8,13 @@ import { ReactComponent as AttachmentIcon } from '../../../../assets/icons/iconD
 
 const DropZoneMultiView = (props) => {
 	const classes = useStyles();
+
 	const {
 		getRootProps: getRootProps,
 		getInputProps: getInputProps,
 		isDragActive: isDragActive,
 	} = useDropzone({ onDrop: props.onDrop, accept: props.fileTypes });
+
 	return (
 		<>
 			<Grid

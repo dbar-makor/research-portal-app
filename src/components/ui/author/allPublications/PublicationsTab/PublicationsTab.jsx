@@ -15,11 +15,15 @@ import * as actionSnackBar from '../../../../../redux/SnackBar/action';
 function truncateString(string, wordsNo) {
 	const descrptionArr = string.split(' ');
 	const descriptionLength = descrptionArr.length;
+
 	descrptionArr.splice(wordsNo);
 	const newDescription = descrptionArr.join(' ');
+
 	if (descriptionLength > wordsNo) return `${newDescription}...`;
+
 	return newDescription;
 }
+
 const PublicationsTab = ({ publication, fetchPublications, fetchStatistics }) => {
 	const [openAlert, setOpenAlert] = useState(false);
 	const [redirectMarker, setRedirectMarker] = useState(false);
@@ -45,6 +49,7 @@ const PublicationsTab = ({ publication, fetchPublications, fetchStatistics }) =>
 	const asyncDelete = async () => {
 		try {
 			const res = await axios.delete(`${BASE_URL}${END_POINT.PUBLICATION}/${deleteID}`);
+
 			if (res.status === 201 || res.status === 200) {
 				fetchPublications();
 				dispatch(actionSnackBar.setSnackBar('success', 'Successfully deleted', 2000));
@@ -78,11 +83,14 @@ const PublicationsTab = ({ publication, fetchPublications, fetchStatistics }) =>
 	const chooseImage = useCallback((publication) => {
 		let image = '';
 		let url = '';
+
 		if (publication?.attachments?.length) {
 			image = publication.attachments.find((attachment) => attachment.file_type === 'main_bg');
 			const imageName = image && image.file_name_system;
+
 			url = `${BASE_URL}${END_POINT.ASSETS}/${encodeURIComponent(imageName)}`;
 		}
+
 		return url;
 	});
 

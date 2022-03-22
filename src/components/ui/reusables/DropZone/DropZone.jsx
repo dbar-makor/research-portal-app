@@ -4,6 +4,7 @@ import DropZoneView from './DropZone.view';
 
 const DropZone = (props) => {
 	const purpose = props.purpose ? props.purpose : 'cover image*';
+
 	return (
 		<DropZoneView
 			onDrop={props.onDrop}

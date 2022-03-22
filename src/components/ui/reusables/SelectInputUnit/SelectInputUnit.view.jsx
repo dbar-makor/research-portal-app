@@ -6,6 +6,7 @@ import useStyles from './SelectInputUnit.style';
 
 const SelectInputUnitView = (props) => {
 	const classes = useStyles();
+
 	return (
 		<Grid container className={props.className}>
 			<Grid item xs={12}>
@@ -20,9 +21,8 @@ const SelectInputUnitView = (props) => {
 					variant={props.variant}
 					placeholder={props.placeholder}
 					SelectProps={{
-						native:props.native ,
+						native: props.native,
 					}}
-
 					InputLabelProps={{
 						shrink: false,
 					}}

@@ -42,9 +42,11 @@ const MembersStep = ({
 
 	const handleCatsChange = (values) => {
 		const newCats = [];
+
 		for (const cat of values) {
 			newCats.push(cat);
 		}
+
 		currentMember.categories = newCats;
 
 		setCurrentMember((prev) => ({ ...prev, categories: newCats }));
@@ -53,12 +55,14 @@ const MembersStep = ({
 
 	const addEditedMember = () => {
 		const currentMembers = [...company.members];
+
 		currentMembers[editedMemberIndex] = currentMember;
 		setCompany({ ...company, members: currentMembers });
 		setCurrentMember(initStateMember);
 		setErrors({});
 		setEditedMemberIndex(-1);
 	};
+
 	return (
 		<MembersStepView
 			addMember={addMember}

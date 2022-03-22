@@ -7,6 +7,7 @@ import AuthorTopbar from '../topbarParts/AuthorTopbar/AuthorTopbar';
 import AdminTopbar from '../topbarParts/AdminTopbar/AdminTopbar';
 import MakorLogo from '../topbarParts/MakorLogo/MakorLogo';
 import useStyles from './TopBar.style';
+
 export const StyledButton = withStyles(() => ({
 	root: {
 		'width': '185px',

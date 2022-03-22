@@ -4,6 +4,7 @@ import ControlBarView from './ControlBar.view';
 
 const ControlBar = ({ setSearchTerm, makeAllRead }) => {
 	const [localSearch, setLocalSearch] = useState('');
+
 	const handleSearch = (e) => {
 		if (e.key && e.key === 'Enter' && localSearch !== '') {
 			setSearchTerm(localSearch);
@@ -19,6 +20,7 @@ const ControlBar = ({ setSearchTerm, makeAllRead }) => {
 			setSearchTerm('');
 		}
 	}, [localSearch]);
+
 	return (
 		<ControlBarView
 			setLocalSearch={setLocalSearch}

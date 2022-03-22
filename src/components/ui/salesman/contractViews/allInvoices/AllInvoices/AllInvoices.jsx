@@ -12,6 +12,7 @@ const periodicity = [
 	{ value: 'pending', name: 'Pending' },
 	{ value: 'rejected', name: 'Rejected' },
 ];
+
 const AllInvoices = () => {
 	const dispatch = useDispatch();
 
@@ -53,14 +54,17 @@ const AllInvoices = () => {
 			case 'STATUS':
 				setTransactionStatus(e.target.name);
 				setFilters({ ...filters, status: e.target.value });
+
 				break;
 			case 'INVOICE_ID':
 				setFilters({ ...filters, invoice_id: invoiceId });
+
 				break;
 			case 'COMPANY_NAME':
 				e !== null
 					? setFilters({ ...filters, company_id: e.id })
 					: setFilters({ ...filters, company_id: '' });
+
 				break;
 			default:
 				break;
@@ -70,6 +74,7 @@ const AllInvoices = () => {
 	const getAllInvoicesAsync = async () => {
 		try {
 			const params = {};
+
 			Object.entries(filters).forEach(([key, value]) => {
 				if (key === 'from') {
 					if (value !== null && value !== 'DD/MM/YYYY' && value !== '') {
@@ -92,6 +97,7 @@ const AllInvoices = () => {
 				}
 			});
 			const resp = await axios.get(`${BASE_URL}${END_POINT.INVOICE}`, { params });
+
 			if (resp.status === 200) {
 				setLoadingInvoices(false);
 				setInvoiceRows(resp.data.invoices);
@@ -104,16 +110,20 @@ const AllInvoices = () => {
 	const getCompaniesNames = async () => {
 		try {
 			const resp = await axios.get(`${BASE_URL}${END_POINT.COMPANY}`);
+
 			if (resp.status === 200) {
 				const companies = resp.data.company.map((company) => {
 					const obj = {};
+
 					Object.entries(company).forEach(([key, value]) => {
 						if (key === 'name' || key === 'id') {
 							obj[key] = value;
 						}
 					});
+
 					return obj;
 				});
+
 				setCompaniesNames(companies);
 			}
 		} catch (err) {

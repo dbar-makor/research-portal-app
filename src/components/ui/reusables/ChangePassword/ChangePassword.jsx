@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 
 import ChangePasswordView from './ChangePassword.view';
 
@@ -9,6 +9,7 @@ const ChangePassword = (props) => {
 		newPass2: '',
 	};
 
+	// eslint-disable-next-line no-unused-vars
 	const [localForm, setLocalForm] = useState(initState);
 
 	return <ChangePasswordView chosenModal={props.chosenModal} handleCloseModal={props.handleCloseModal} />;

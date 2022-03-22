@@ -18,6 +18,7 @@ const SideForm = (props) => {
 
 	const handleChange = (e) => {
 		setContractSigner(e ? e.id : '');
+
 		if (e) {
 			setValidationResult((prev) => ({ ...prev, step1: true }));
 		} else {
@@ -31,6 +32,7 @@ const SideForm = (props) => {
 
 			try {
 				const contractSignerID = contractSigner.id ? contractSigner.id : contractSigner;
+
 				const res = await axios.put(
 					`${BASE_URL}${END_POINT.CONTRACT}/${chosenContract.contract_id}`,
 					{
@@ -50,6 +52,7 @@ const SideForm = (props) => {
 					actionSnackBar.setSnackBar('error', 'Please choose a recipient for the email', 1000),
 				);
 			}
+
 			if (!activeSidebar) {
 				dispatch(actionSnackBar.setSnackBar('error', 'Please finish update first', 1000));
 			}
@@ -75,12 +78,15 @@ const SideForm = (props) => {
 
 				const byteCharacters = window.atob(pdfString);
 				const byteNumbers = new Array(byteCharacters.length);
+
 				for (let i = 0; i < byteCharacters.length; i++) {
 					byteNumbers[i] = byteCharacters.charCodeAt(i);
 				}
+
 				const byteArray = new Uint8Array(byteNumbers);
 				const file = new Blob([byteArray], { type: 'application/pdf;base64' });
 				const fileURL = URL.createObjectURL(file);
+
 				window.open(fileURL);
 
 				dispatch(actionSnackBar.setSnackBar('success', 'Contract successfully created', 2000));
@@ -89,6 +95,7 @@ const SideForm = (props) => {
 			dispatch(actionSnackBar.setSnackBar('error', 'Failed to create a contract', 2000));
 		}
 	};
+
 	return (
 		<SideFormView
 			activeSidebar={activeSidebar}
