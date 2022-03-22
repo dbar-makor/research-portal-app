@@ -3,29 +3,17 @@ import React from 'react';
 import CategoriesModalView from './CategoriesModal.view';
 
 const CategoriesModal = (props) => {
-	const {
-		open,
-		handleClose,
-		currentMember,
-		setCurrentMember,
-		updateMemberField,
-		memberIndex,
-		membersRows,
-		setMembersRows,
-		sendMember,
-	} = props;
-
 	return (
 		<CategoriesModalView
-			open={open}
-			handleClose={handleClose}
-			currentMember={currentMember}
-			setCurrentMember={setCurrentMember}
-			updateMemberField={updateMemberField}
-			memberIndex={memberIndex}
-			membersRows={membersRows}
-			setMembersRows={setMembersRows}
-			sendMember={sendMember}
+			open={props.open}
+			handleClose={props.handleClose}
+			currentMember={props.currentMember}
+			setCurrentMember={props.setCurrentMember}
+			updateMemberField={props.updateMemberField}
+			memberIndex={props.memberIndex}
+			membersRows={props.membersRows}
+			setMembersRows={props.setMembersRows}
+			sendMember={props.sendMember}
 		></CategoriesModalView>
 	);
 };

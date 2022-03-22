@@ -31,7 +31,6 @@ const periodToNum = {
 };
 
 const ContractEditForm = (props) => {
-	const { contract } = props;
 	const currenciesArr = useSelector((state) => state.utils.utils.currency);
 	const countriesArr = useSelector((state) => state.utils.utils.country);
 	const salesmenArr = useSelector((state) => state.utils.utils.sales);
@@ -49,7 +48,7 @@ const ContractEditForm = (props) => {
 
 	// eslint-disable-next-line no-unused-vars
 	const [inputValuePeriodicity, setInputValuePeriodicity] = useState(
-		chargePeriods.find((p) => p.value === contract.periodicity).name,
+		chargePeriods.find((p) => p.value === props.contract.periodicity).name,
 	);
 
 	const [inputValueSales, setInputValueSales] = useState(loggedinSalesPerson.name);
@@ -60,12 +59,12 @@ const ContractEditForm = (props) => {
 		companyName: chosenCompany,
 		salesMan: loggedinSalesPerson,
 		country: chosenCompany.country,
-		currency: contract.currency,
-		amount: contract.amount,
-		periodicity: contract.periodicity,
-		date: contract.start_at,
-		vat: contract.vat,
-		members: contract.members,
+		currency: props.contract.currency,
+		amount: props.contract.amount,
+		periodicity: props.contract.periodicity,
+		date: props.contract.start_at,
+		vat: props.contract.vat,
+		members: props.contract.members,
 	});
 
 	const handleContract = (e, fieldIndicator) => {
