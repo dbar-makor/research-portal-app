@@ -35,9 +35,6 @@ const periodToNum = {
 };
 
 const Contract = (props) => {
-	const { setStep, setContractCopy, stepperMode, chosenContract, setLoadingSidebar, setActiveSidebar } =
-		props;
-
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const loggedinSalesPersonBigObject = useSelector((state) => state.auth.userContent);
@@ -77,7 +74,7 @@ const Contract = (props) => {
 			[name]: name === 'members' || name === 'amount' ? Number(value) : value,
 		}));
 
-		if (chosenContract) {
+		if (props.chosenContract) {
 			// in case of editing - this is the validation function
 			validateEditedContract({ [name]: value }, errors, setErrors, setValidationResult);
 		} else {
@@ -88,18 +85,18 @@ const Contract = (props) => {
 
 	//useEffect to populate fields in case of editing existing contract
 	useEffect(() => {
-		if (chosenContract) {
-			setContract(chosenContract);
+		if (props.chosenContract) {
+			setContract(props.chosenContract);
 			// setParentValidationResult(true);
-			setInputValueSales(chosenContract.sales.name);
-			setInputValueCurrency(chosenContract.currency.name);
+			setInputValueSales(props.chosenContract.sales.name);
+			setInputValueCurrency(props.chosenContract.currency.name);
 			const periodicityName = chargePeriods.find(
-				(period) => period.value === chosenContract.periodicity,
+				(period) => period.value === props.chosenContract.periodicity,
 			).name;
 
 			setInputValuePeriodicity(periodicityName);
 		}
-	}, [chosenContract]);
+	}, [props.chosenContract]);
 
 	//submitting new contract only (not edited)
 
@@ -111,10 +108,10 @@ const Contract = (props) => {
 			});
 
 			if (res.status === 200 || res.status === 201) {
-				setContractCopy({ ...contract, contract_id: res.data.id });
+				props.setContractCopy({ ...contract, contract_id: res.data.id });
 				setContract({});
 				dispatch(actionSnackBar.setSnackBar('success', 'Contract successfully created', 2000));
-				setStep(2);
+				props.setStep(2);
 			}
 		} catch (err) {
 			dispatch(actionSnackBar.setSnackBar('error', 'Failed to create a contract', 2000));
@@ -131,7 +128,7 @@ const Contract = (props) => {
 	//relevant for editing mode
 
 	const handleUpdate = async () => {
-		setLoadingSidebar(true);
+		props.setLoadingSidebar(true);
 		//preparing contract data to put call
 		const contractCopy = { ...contract };
 		const contract_id = contract.contract_id;
@@ -154,14 +151,14 @@ const Contract = (props) => {
 
 			if (res.status === 201 || res.status === 200) {
 				// dispatch(actionSnackBar.setSnackBar('success', 'Successfully updated', 2000));
-				setLoadingSidebar(false);
-				setActiveSidebar(true);
+				props.setLoadingSidebar(false);
+				props.setActiveSidebar(true);
 				setValidationResult(false);
 			}
 		} catch (error) {
 			/* eslint no-console: "off" */
 			console.log(error);
-			setLoadingSidebar(false);
+			props.setLoadingSidebar(false);
 		}
 	};
 
@@ -181,7 +178,7 @@ const Contract = (props) => {
 			inputValuePeriodicity={inputValuePeriodicity}
 			setInputValuePeriodicity={setInputValuePeriodicity}
 			periodToNum={periodToNum}
-			stepperMode={stepperMode}
+			stepperMode={props.stepperMode}
 			validationResult={validationResult}
 			handleCancel={handleCancel}
 			handleSubmit={handleSubmit}

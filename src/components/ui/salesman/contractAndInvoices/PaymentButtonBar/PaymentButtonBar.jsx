@@ -3,7 +3,6 @@ import React, { useRef, useState } from 'react';
 import PaymentButtonBarView from './PaymentButtonBar.view.jsx';
 
 const PaymentButtonBar = (props) => {
-	const { precentage, openInvoices, isOpen, clientName, contract } = props;
 	const [anchorEl, setAnchorEl] = useState(null);
 
 	const contractEditMainRef = useRef();
@@ -21,16 +20,16 @@ const PaymentButtonBar = (props) => {
 
 	return (
 		<PaymentButtonBarView
-			precentage={precentage}
-			isOpen={isOpen}
+			precentage={props.precentage}
+			isOpen={props.isOpen}
 			id={id}
 			open={open}
 			anchorEl={anchorEl}
 			handleClose={handleClose}
 			contractEditMainRef={contractEditMainRef}
-			contract={contract}
-			clientName={clientName}
-			openInvoices={openInvoices}
+			contract={props.contract}
+			clientName={props.clientName}
+			openInvoices={props.openInvoices}
 			handleClick={handleClick}
 		>
 			{' '}
