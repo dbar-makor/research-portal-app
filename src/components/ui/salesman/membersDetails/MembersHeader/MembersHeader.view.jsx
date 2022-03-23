@@ -1,9 +1,9 @@
 import React from 'react';
-import { useStyles } from '../../../../../styles/InfoStyles';
 import { Grid, Typography, Divider } from '@material-ui/core';
-import { AddButton, StyledTextField } from '../../../../../styles/MainStyles';
 import clsx from 'clsx';
 import AddIcon from '@material-ui/icons/Add';
+import { AddButton, StyledTextField } from '../../../../../styles/MainStyles';
+import { useStyles } from '../../../../../styles/InfoStyles';
 import AddMemberModal from '../../AddMemberModal/AddMemberModal';
 import { ReactComponent as SearchIcon } from '../../../../../assets/icons/IconSearch.svg';
 

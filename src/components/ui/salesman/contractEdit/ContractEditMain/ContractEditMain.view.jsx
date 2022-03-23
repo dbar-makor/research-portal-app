@@ -1,11 +1,11 @@
 import React from 'react';
 import { Dialog, DialogTitle, Grid, IconButton, Typography } from '@material-ui/core';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import { format } from 'date-fns';
 import { useStyles } from '../../../../../styles/ContarctsModalStyles';
 import SubHeaderModal from '../../../reusables/SubHeaderModal/SubHeaderModal';
 import Contract from '../../contractViews/Contract/Contract';
 import SideForm from '../SideForm/SideForm';
-import { format } from 'date-fns';
 
 const ContractEditMainView = (props) => {
 	const classes = useStyles();

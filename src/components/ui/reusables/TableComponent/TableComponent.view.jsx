@@ -1,12 +1,12 @@
 import React, { forwardRef } from 'react';
 import { Typography, Table, TableBody, TableHead, TableRow } from '@material-ui/core';
 import { format } from 'date-fns';
-import { useStyles, StyledTableCell, StyledTableRow } from '../../../../styles/TableStyles';
-import { ReactComponent as GreenCheckmark } from '../../../../assets/icons/IconGreenCheckmark.svg';
-import { ReactComponent as RedCheckmark } from '../../../../assets/icons/IconRedCheckmark.svg';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import clsx from 'clsx';
 import { useSelector } from 'react-redux';
+import { useStyles, StyledTableCell, StyledTableRow } from '../../../../styles/TableStyles';
+import { ReactComponent as GreenCheckmark } from '../../../../assets/icons/IconGreenCheckmark.svg';
+import { ReactComponent as RedCheckmark } from '../../../../assets/icons/IconRedCheckmark.svg';
 import { selectType } from '../../../../redux/companies/companiesSlice';
 import { selectChosenUserData } from '../../../../redux/users/chosenUserSlice';
 import { selectChosenCompany } from '../../../../redux/companies/chosenCompanySlice';

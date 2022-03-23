@@ -1,9 +1,9 @@
 import React from 'react';
-import { useStyles } from '../../../../styles/MainStyles';
 import { Grid, Typography } from '@material-ui/core';
-import TableComponent from '../../reusables/TableComponent/TableComponent';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import CompanyInfo from '../../salesman/companyDetails/CompanyInfo/CompanyInfo';
+import { useStyles } from '../../../../styles/MainStyles';
+import TableComponent from '../../reusables/TableComponent/TableComponent';
+import CompanyInfo from '../companyDetails/CompanyInfo/CompanyInfo';
 import MembersTable from '../membersDetails/MembersTable/MembersTable';
 
 const MainSalesScreenView = (props) => {

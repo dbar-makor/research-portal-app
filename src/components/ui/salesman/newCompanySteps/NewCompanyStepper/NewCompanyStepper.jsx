@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import axios from 'axios';
-import { BASE_URL, END_POINT } from '../../../../../utils/constants';
 import { useDispatch, useSelector } from 'react-redux';
+import { BASE_URL, END_POINT } from '../../../../../utils/constants';
 import {
 	getCompaniesDataAsync,
 	selectSearch,
@@ -11,8 +11,8 @@ import {
 	selectLimit,
 } from '../../../../../redux/companies/companiesSlice';
 import { validateCompany } from '../../../../../utils/helpers/validationFunctions';
-import NewCompanyStepperView from './NewCompanyStepper.view';
 import * as actionSnackBar from '../../../../../redux/SnackBar/action';
+import NewCompanyStepperView from './NewCompanyStepper.view';
 
 const NewCompanyStepper = (props) => {
 	const dispatch = useDispatch();

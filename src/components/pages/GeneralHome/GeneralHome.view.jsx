@@ -3,7 +3,7 @@ import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import TabsUnstyled from '@mui/base/TabsUnstyled';
 import Grid from '@mui/material/Grid';
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet';
 import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 import Carousel from 'react-material-ui-carousel';

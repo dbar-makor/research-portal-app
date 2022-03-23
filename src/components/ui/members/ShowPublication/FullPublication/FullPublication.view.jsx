@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { CircularProgress, Grid, IconButton } from '@material-ui/core';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import { FilledButton } from '../../../../../styles/MainStyles';
 
 import AuthorInfo from '../AuthorInfo/AuthorInfo';
@@ -11,7 +12,6 @@ import Attachments from '../Attachments/Attachments';
 import Comments from '../Comments/Comments';
 import MorePublications from '../MorePublications/MorePublications';
 import VideoFrame from '../VideoFrame/VideoFrame';
-import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import PdfViewer from '../PdfViewer/PdfViewer';
 
 const FullPublicationView = (props) => {

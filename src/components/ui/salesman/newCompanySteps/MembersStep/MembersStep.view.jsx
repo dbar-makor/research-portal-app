@@ -1,11 +1,11 @@
 import React from 'react';
+import AddIcon from '@material-ui/icons/Add';
+import { Grid } from '@material-ui/core';
 import TextInputUnit from '../../../reusables/TextInputUnit/TextInputUnit';
 import CategoriesAutoComplete from '../../../reusables/CategoriesAutoComplete/CategoriesAutoComplete';
 import NewMembersTable from '../NewMembersTable/NewMembersTable';
 import { AddButton, CheckButton } from '../../../../../styles/MainStyles';
-import AddIcon from '@material-ui/icons/Add';
 import { ReactComponent as CheckIcon } from '../../../../../assets/icons/IconGreenCheck.svg';
-import { Grid } from '@material-ui/core';
 import useStyles from './MembersStep.style';
 
 const MembersStepView = (props) => {

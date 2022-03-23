@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Typography } from '@material-ui/core';
-import MembersTableView from './MembersTable.view';
-import { useStyles } from '../../../../../styles/InfoStyles';
 import { useSelector, useDispatch } from 'react-redux';
+import axios from 'axios';
+import _ from 'lodash';
+import { useStyles } from '../../../../../styles/InfoStyles';
 import {
 	selectChosenCompany,
 	getChosenCompanyAsync,
 } from '../../../../../redux/companies/chosenCompanySlice';
 import { BASE_URL, END_POINT } from '../../../../../utils/constants';
-import axios from 'axios';
 import * as actionSnackBar from '../../../../../redux/SnackBar/action';
-import _ from 'lodash';
+import MembersTableView from './MembersTable.view';
 
 const MembersTable = () => {
 	const classes = useStyles();

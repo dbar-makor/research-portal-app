@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { BASE_URL, END_POINT } from '../../utils/constants';
 import { createSelector } from 'reselect';
+import { BASE_URL, END_POINT } from '../../utils/constants';
 import { setParams } from '../../utils/helpers/helperFunctions';
 
 export const companiesSlice = createSlice({

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import NewUserModalView from './NewUserModal.view';
+import axios from 'axios';
 import {
 	getUsersByTypeAsync,
 	selectUsersLimit,
@@ -11,7 +11,7 @@ import {
 import { validateUser } from '../../../../utils/helpers/validationFunctions';
 import * as actionSnackBar from '../../../../redux/SnackBar/action';
 import { BASE_URL, END_POINT } from '../../../../utils/constants';
-import axios from 'axios';
+import NewUserModalView from './NewUserModal.view';
 
 const NewUserModal = (props) => {
 	const dispatch = useDispatch();

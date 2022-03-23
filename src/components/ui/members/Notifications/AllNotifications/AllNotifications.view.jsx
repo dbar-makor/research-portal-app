@@ -1,8 +1,8 @@
 import React from 'react';
 import { Grid, Typography } from '@material-ui/core';
 import { useStyles } from '../../../../../styles/AllNotificationStyle';
-import ControlBar from '../../Notifications/ControlBar/ControlBar';
-import NotificationBox from '../../Notifications/NotificationBox/NotificationBox';
+import ControlBar from '../ControlBar/ControlBar';
+import NotificationBox from '../NotificationBox/NotificationBox';
 import { ReactComponent as BlueShape } from '../../../../../assets/icons/blueBorder.svg';
 
 const AllNotificationsView = (props) => {

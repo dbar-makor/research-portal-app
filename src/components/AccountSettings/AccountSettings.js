@@ -3,18 +3,18 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import PersonIcon from '@material-ui/icons/Person';
 import SettingsIcon from '@material-ui/icons/Settings';
 import InsertDriveFileIcon from '@material-ui/icons/InsertDriveFile';
-import { ReactComponent as BlueShape } from '../../assets/icons/blueBorder.svg';
 import { Switch, useHistory, useRouteMatch } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { useState, useCallback } from 'react';
+import { ReactComponent as BlueShape } from '../../assets/icons/blueBorder.svg';
 import { useStyles } from '../../styles/AccountSettingsStyles';
 import EditProfile from '../ui/reusables/EditProfile/EditProfile';
 //import Settings from './Settings';
 import Settings from '../ui/reusables/Settings/Settings';
-import ContractAndTrails from './ContractsAndTrails';
-import PrivateRoute from '../../components/layout/PrivateRoute/PrivateRoute';
+import PrivateRoute from '../layout/PrivateRoute/PrivateRoute';
 import * as actionAuth from '../../redux/auth/action';
-import { useState, useCallback } from 'react';
 import ChangePassword from '../ui/reusables/ChangePassword/ChangePassword';
+import ContractAndTrails from './ContractsAndTrails';
 
 const AccountSettings = () => {
 	const userContent = useSelector((state) => state.auth.userContent);

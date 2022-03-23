@@ -1,8 +1,8 @@
 import React, { forwardRef } from 'react';
 import { IconButton, Input, InputAdornment, Popover } from '@material-ui/core';
-import { ReactComponent as Calendar } from '../../../../assets/icons/iconCalendar.svg';
 import { DateRangePicker } from 'react-date-range';
 import ClearIcon from '@material-ui/icons/Clear';
+import { ReactComponent as Calendar } from '../../../../assets/icons/iconCalendar.svg';
 import { useStyles } from '../../../../styles/MainStyles';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';

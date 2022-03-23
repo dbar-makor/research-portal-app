@@ -1,8 +1,8 @@
 import React from 'react';
 
+import { Grid, Typography } from '@material-ui/core';
 import { useStyles } from '../../../../../styles/AllNotificationStyle';
 import { StyledTextField } from '../../../../../styles/MainStyles';
-import { Grid, Typography } from '@material-ui/core';
 import { ReactComponent as SearchIcon } from '../../../../../assets/icons/IconSearch.svg';
 
 const ControlBarView = (props) => {

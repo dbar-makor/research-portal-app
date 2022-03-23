@@ -1,12 +1,12 @@
 import React from 'react';
-import SelectInputUnit from '../SelectInputUnit/SelectInputUnit';
 import { Grid, Typography } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
+import { useDispatch } from 'react-redux';
+import SelectInputUnit from '../SelectInputUnit/SelectInputUnit';
 import { ReactComponent as SearchIcon } from '../../../../assets/icons/IconSearch.svg';
 import { useStyles, StyledTextField, AddButton } from '../../../../styles/MainStyles';
-import AddIcon from '@material-ui/icons/Add';
 import NewCompanyStepper from '../../salesman/newCompanySteps/NewCompanyStepper/NewCompanyStepper';
 import NewUserModal from '../../admin/NewUserModal/NewUserModal.jsx';
-import { useDispatch } from 'react-redux';
 
 const typeArray = [
 	{

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { BASE_URL, END_POINT } from '../../../../../utils/constants';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { BASE_URL, END_POINT } from '../../../../../utils/constants';
 import * as actionSnackBar from '../../../../../redux/SnackBar/action';
 import { changeChosenCompany, selectChosenCompany } from '../../../../../redux/companies/chosenCompanySlice';
 import { validateContract, validateEditedContract } from '../../../../../utils/helpers/validationFunctions';

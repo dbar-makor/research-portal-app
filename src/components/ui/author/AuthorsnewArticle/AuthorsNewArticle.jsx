@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { END_POINT, BASE_URL } from '../../../../utils/constants';
 import { convertToRaw } from 'draft-js';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { isValid } from 'date-fns';
-import { selectChosenResearch, changeChosenResearch } from '../../../../redux/researches/chosenResearchSlice';
 import { useHistory, useLocation } from 'react-router';
+import { selectChosenResearch, changeChosenResearch } from '../../../../redux/researches/chosenResearchSlice';
+import { END_POINT, BASE_URL } from '../../../../utils/constants';
 import * as actionSnackBar from '../../../../redux/SnackBar/action';
 import {
 	validateLivePublication,

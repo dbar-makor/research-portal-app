@@ -2,6 +2,8 @@ import React from 'react';
 import { Grid, Typography, Divider, TextField } from '@material-ui/core';
 import { Autocomplete } from '@material-ui/lab';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
+import SearchIcon from '@material-ui/icons/Search';
+import clsx from 'clsx';
 import {
 	BinButton,
 	EditButton,
@@ -15,8 +17,6 @@ import { ReactComponent as LocationIcon } from '../../../../assets/icons/iconLoc
 import { ReactComponent as EditIcon } from '../../../../assets/icons/IconEdit.svg';
 import { ReactComponent as WhiteCheckIcon } from '../../../../assets/icons/IconWhiteCheck.svg';
 import DeleteAlert from '../../reusables/DeleteAlert/DeleteAlert';
-import SearchIcon from '@material-ui/icons/Search';
-import clsx from 'clsx';
 
 const UserInfoView = (props) => {
 	const classes = useStyles();

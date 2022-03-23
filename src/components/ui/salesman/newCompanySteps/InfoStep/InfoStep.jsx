@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { BASE_URL, END_POINT } from '../../../../../utils/constants';
 import axios from 'axios';
+import { BASE_URL, END_POINT } from '../../../../../utils/constants';
 import * as actionSnackBar from '../../../../../redux/SnackBar/action';
 import InfoStepView from './InfoStep.view';
 

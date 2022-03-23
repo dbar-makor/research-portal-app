@@ -1,6 +1,8 @@
 import React from 'react';
-import { useStyles } from '../../../../../styles/InfoStyles';
 import { Grid, Typography, Table, TableHead, TableRow, TableBody, IconButton } from '@material-ui/core';
+import clsx from 'clsx';
+import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
+import { useStyles } from '../../../../../styles/InfoStyles';
 import MembersHeader from '../MembersHeader/MembersHeader';
 import { MembersTableCell, MembersTableRow } from '../../../../../styles/TableStyles';
 import { TableTextField, StatusSwitch, LightBlueButton, BinButton } from '../../../../../styles/MainStyles';
@@ -8,8 +10,6 @@ import CategoriesModal from '../CategoriesModal/CategoriesModal';
 import DeleteAlert from '../../../reusables/DeleteAlert/DeleteAlert';
 import { ReactComponent as DeleteIcon } from '../../../../../assets/icons/IconTrash.svg';
 import { ReactComponent as LogsIcon } from '../../../../../assets/icons/IconLogs.svg';
-import clsx from 'clsx';
-import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 
 //import useStyles from './MembersTable.style';
 

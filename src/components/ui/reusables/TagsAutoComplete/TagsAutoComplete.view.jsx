@@ -1,10 +1,10 @@
 import React from 'react';
 import { Grid, Typography, TextField, Chip } from '@material-ui/core';
 import ClearIcon from '@material-ui/icons/Clear';
-import { StyledAutoComplete } from '../../../../styles/MainStyles';
 import { createFilterOptions } from '@material-ui/lab/Autocomplete';
-import useStyles from './TagsAutoComplete.style';
 import { useSelector } from 'react-redux';
+import { StyledAutoComplete } from '../../../../styles/MainStyles';
+import useStyles from './TagsAutoComplete.style';
 
 const filter = createFilterOptions();
 

@@ -9,12 +9,12 @@ import {
 } from '@material-ui/core';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import { ReactComponent as BlueBorder } from '../../../assets/icons/blueBorder.svg';
-import TextInputUnit from '../../ui/reusables/TextInputUnit/TextInputUnit';
-import { FilledButton } from '../../../styles/MainStyles';
 import { useTheme } from '@material-ui/core/styles';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { ReactComponent as BlueBorder } from '../../../assets/icons/blueBorder.svg';
+import TextInputUnit from '../../ui/reusables/TextInputUnit/TextInputUnit';
+import { FilledButton } from '../../../styles/MainStyles';
 import useStyles from './LoginPage.style';
 
 const LoginPageView = (props) => {

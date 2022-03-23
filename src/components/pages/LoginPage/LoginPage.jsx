@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import * as actionAuth from '../../../redux/auth/action';
-import LoginPageView from './LoginPage.view';
-import { validateLogin } from '../../../utils/helpers/validationFunctions';
 import { useLocation, Redirect } from 'react-router-dom';
+import * as actionAuth from '../../../redux/auth/action';
+import { validateLogin } from '../../../utils/helpers/validationFunctions';
+import LoginPageView from './LoginPage.view';
 
 const LoginPage = () => {
 	const dispatch = useDispatch();

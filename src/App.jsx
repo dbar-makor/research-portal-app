@@ -2,14 +2,14 @@ import './App.css';
 import { useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
+import { useDispatch, useSelector } from 'react-redux';
 import LoginPage from './components/pages/LoginPage/LoginPage';
 import GeneralHome from './components/pages/GeneralHome/GeneralHome';
 import PrivateRoute from './components/layout/PrivateRoute/PrivateRoute';
-import { MuiPickersUtilsProvider } from '@material-ui/pickers';
-import DateFnsUtils from '@date-io/date-fns';
 import { setAuthToken } from './utils/constants';
 
-import { useDispatch, useSelector } from 'react-redux';
 import { LOGIN_SUCCESS } from './redux/auth/constants';
 
 import AuthorsNewArticle from './components/ui/author/AuthorsnewArticle/AuthorsNewArticle';
