@@ -16,7 +16,7 @@ const AuthorInfoView = (props) => {
 
 	return (
 		<Grid item xs={12}>
-			<Divider className={classes.divider}></Divider>
+			<Divider className={classes.divider} />
 			<Grid
 				container
 				direction="row"

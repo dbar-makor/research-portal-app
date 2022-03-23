@@ -9,7 +9,6 @@ import { changeChosenCompany, selectChosenCompany } from '../../../../../redux/c
 import SendContractViewView from './SendContractView.view';
 
 const SendContractView = (props) => {
-	const { setStep, contractCopy, setContractCopy } = props;
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const chosenCompany = useSelector(selectChosenCompany);
@@ -30,13 +29,13 @@ const SendContractView = (props) => {
 
 	const sendEmail = async () => {
 		setValidationResult((prev) => ({ ...prev, step2: true }));
-		const localCopy = { ...contractCopy, signer_user: contractSigner };
+		const localCopy = { ...props.contractCopy, signer_user: contractSigner };
 
 		delete localCopy.contract_id;
 
 		try {
 			const res = await axios.put(
-				`${BASE_URL}${END_POINT.CONTRACT}/${contractCopy.contract_id}`,
+				`${BASE_URL}${END_POINT.CONTRACT}/${props.contractCopy.contract_id}`,
 				localCopy,
 			);
 
@@ -49,23 +48,26 @@ const SendContractView = (props) => {
 	};
 
 	const handleDone = () => {
-		setContractCopy({});
+		props.setContractCopy({});
 		dispatch(changeChosenCompany(null));
 		history.push('/companies');
 	};
 
 	const handleExit = () => {
 		if (contractSigner) {
-			setContractCopy((prev) => ({ ...prev, signer_user: contractSigner }));
+			props.setContractCopy((prev) => ({ ...prev, signer_user: contractSigner }));
 			history.push('/companies');
 		}
 	};
 
 	const presentPDFContract = async () => {
 		try {
-			const res = await axios.get(`${BASE_URL}${END_POINT.CONTRACT}/pdf/${contractCopy.contract_id}`, {
-				headers: { Accept: 'application/pdf' },
-			});
+			const res = await axios.get(
+				`${BASE_URL}${END_POINT.CONTRACT}/pdf/${props.contractCopy.contract_id}`,
+				{
+					headers: { Accept: 'application/pdf' },
+				},
+			);
 
 			if (res.status === 200) {
 				const pdfString = res.data.pdf;
@@ -84,7 +86,7 @@ const SendContractView = (props) => {
 				window.open(fileURL);
 
 				dispatch(actionSnackBar.setSnackBar('success', 'Contract successfully created', 2000));
-				setStep(2);
+				props.setStep(2);
 			}
 		} catch (err) {
 			dispatch(actionSnackBar.setSnackBar('error', 'Failed to create a contract', 2000));
@@ -103,7 +105,7 @@ const SendContractView = (props) => {
 			sendEmail={sendEmail}
 			handleDone={handleDone}
 			handleExit={handleExit}
-		></SendContractViewView>
+		/>
 	);
 };
 

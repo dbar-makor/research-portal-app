@@ -116,7 +116,7 @@ const NewCompanyStepperView = (props) => {
 									</Grid>
 									<Grid container className={classes.btnRow}>
 										{props.activeStep === 0 ? (
-											<div></div>
+											<div />
 										) : (
 											<OutlinedButton
 												onClick={props.handleBack}

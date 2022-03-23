@@ -125,7 +125,7 @@ const TopBar = () => {
 			open={open}
 			isAuthenticated={isAuthenticated}
 			options={options}
-		></TopBarView>
+		/>
 	);
 };
 

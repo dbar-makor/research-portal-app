@@ -32,7 +32,7 @@ const AuthorsNewArticleView = (props) => {
 					<Grid item xs={6}>
 						<Grid container className={classes.newArticleLeftContainer}>
 							<Grid item xs={12}>
-								<Grid container justifyContent="space-between" alignItems="flex-end"></Grid>
+								<Grid container justifyContent="space-between" alignItems="flex-end" />
 							</Grid>
 							<Grid item xs={12}>
 								<Grid container justifyContent="space-between" alignItems="flex-end">

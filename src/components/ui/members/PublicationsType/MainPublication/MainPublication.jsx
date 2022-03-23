@@ -2,8 +2,8 @@ import React from 'react';
 
 import MainPublicationView from './MainPublication.view';
 
-const MainPublication = ({ publication }) => {
-	return <MainPublicationView publication={publication}></MainPublicationView>;
+const MainPublication = (props) => {
+	return <MainPublicationView publication={props.publication} />;
 };
 
 MainPublication.displayName = 'MainPublication';

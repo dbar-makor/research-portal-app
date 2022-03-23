@@ -2,8 +2,8 @@ import React from 'react';
 
 import MediumPublicationView from './MediumPublication.view';
 
-const MediumPublication = ({ publication }) => {
-	return <MediumPublicationView publication={publication}></MediumPublicationView>;
+const MediumPublication = (props) => {
+	return <MediumPublicationView publication={props.publication} />;
 };
 
 MediumPublication.displayName = 'MediumPublication';

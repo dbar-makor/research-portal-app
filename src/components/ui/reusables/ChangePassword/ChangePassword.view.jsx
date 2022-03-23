@@ -43,7 +43,7 @@ const ChangePasswordView = (props) => {
 						<StyledTextField />
 						<StyledTextField />
 					</Grid>
-					<Grid item xs={6}></Grid>
+					<Grid item xs={6} />
 				</Grid>
 				<Grid item xs={12}>
 					<Grid container justifyContent="center">

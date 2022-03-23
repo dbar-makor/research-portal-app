@@ -272,7 +272,7 @@ const MembersTable = () => {
 			openAlert={openAlert}
 			handleCloseAlert={handleCloseAlert}
 			deleteMember={deleteMember}
-		></MembersTableView>
+		/>
 	);
 };
 

@@ -2,9 +2,7 @@ import React from 'react';
 import TradingHourUnitView from './TradingHourUnit.view';
 
 const TradingHourUnit = (props) => {
-	const { item, classes } = props;
-
-	return <TradingHourUnitView item={item} classes={classes}></TradingHourUnitView>;
+	return <TradingHourUnitView item={props.item} classes={props.classes} />;
 };
 
 TradingHourUnit.displayName = 'TradingHourUnit';

@@ -16,7 +16,7 @@ const Snackbar = () => {
 		dispatch(actionSnackBar.disableSnackBar());
 	};
 
-	return <SnackbarView snackBarOBJ={snackBarOBJ} handleClose={handleClose}></SnackbarView>;
+	return <SnackbarView snackBarOBJ={snackBarOBJ} handleClose={handleClose} />;
 };
 
 Snackbar.displayName = 'Snackbar';

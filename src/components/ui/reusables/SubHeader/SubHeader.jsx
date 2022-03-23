@@ -2,8 +2,8 @@ import React from 'react';
 
 import SubHeaderView from './SubHeader.view';
 
-const SubHeader = ({title}) => {
-  return <SubHeaderView title={title}/>;
+const SubHeader = (props) => {
+	return <SubHeaderView title={props.title} />;
 };
 
 SubHeader.displayName = 'SubHeader';

@@ -41,7 +41,7 @@ const NewMembersTableView = (props) => {
 								<TableCell className={classes.headerCell} align="left" style={{ width: 80 }}>
 									Categories
 								</TableCell>
-								<TableCell className={classes.headerCell} align="left"></TableCell>
+								<TableCell className={classes.headerCell} align="left" />
 							</TableRow>
 						</TableHead>
 						<TableBody className={classes.tableBody}>

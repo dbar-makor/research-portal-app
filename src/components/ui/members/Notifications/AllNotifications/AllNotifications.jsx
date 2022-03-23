@@ -62,7 +62,7 @@ const AllNotifications = () => {
 			filteredNotifications={filteredNotifications}
 			setSearchTerm={setSearchTerm}
 			makeAllRead={makeAllRead}
-		></AllNotificationsView>
+		/>
 	);
 };
 

@@ -6,8 +6,7 @@ import { ReactComponent as SearchIcon } from '../../../../assets/icons/IconSearc
 import { StyledTextField } from '../../../../styles/MainStyles';
 
 const MemberTopbarView = (props) => {
-
-  return (
+	return (
 		<Grid item xs={8}>
 			<Grid container justifyContent="space-between">
 				<Grid item xs={6}>
@@ -41,11 +40,11 @@ const MemberTopbarView = (props) => {
 								placeholder="All Regions"
 								optionsArray={props.options}
 								native={true}
-							></SelectInputUnit>
+							/>
 						</Grid>
 						<Grid item xs={6}>
 							<StyledTextField
-               id="regionSelect"
+								id="regionSelect"
 								className={props.classes.search}
 								// value={localSearch}
 								// onChange={(e) => setLocalSearch(e.target.value)}

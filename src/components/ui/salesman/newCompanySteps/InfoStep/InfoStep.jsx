@@ -10,15 +10,7 @@ const tomorrow = new Date(today);
 
 tomorrow.setDate(tomorrow.getDate() + 1);
 
-const InfoStep = ({
-	company,
-	errors,
-	handleCompany,
-	setUploadedImage,
-	uploadedImage,
-	inputValue,
-	setInputValue,
-}) => {
+const InfoStep = (props) => {
 	const dispatch = useDispatch();
 
 	const onDrop = async (acceptedFiles) => {
@@ -31,7 +23,7 @@ const InfoStep = ({
 			const res = await axios.post(`${BASE_URL}${END_POINT.FILE}`, formData);
 
 			if (res.status === 200) {
-				setUploadedImage(res.data.file);
+				props.setUploadedImage(res.data.file);
 			}
 		} catch (error) {
 			dispatch(actionSnackBar.setSnackBar('error', 'File upload failed', 2000));
@@ -40,14 +32,14 @@ const InfoStep = ({
 
 	return (
 		<InfoStepView
-			company={company}
-			handleCompany={handleCompany}
-			errors={errors}
+			company={props.company}
+			handleCompany={props.handleCompany}
+			errors={props.errors}
 			onDrop={onDrop}
-			uploadedImage={uploadedImage}
-			setUploadedImage={setUploadedImage}
-			inputValue={inputValue}
-			setInputValue={setInputValue}
+			uploadedImage={props.uploadedImage}
+			setUploadedImage={props.setUploadedImage}
+			inputValue={props.inputValue}
+			setInputValue={props.setInputValue}
 		/>
 	);
 };

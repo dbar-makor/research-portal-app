@@ -2,10 +2,10 @@ import React from 'react';
 
 import TabPanelView from './TabPanel.view';
 
-const TabPanel = ({ children, value, index, other }) => {
+const TabPanel = (props) => {
 	return (
-		<TabPanelView value={value} index={index} other={other}>
-			{children}
+		<TabPanelView value={props.value} index={props.index} other={props.other}>
+			{props.children}
 		</TabPanelView>
 	);
 };

@@ -48,7 +48,7 @@ const SubscriberDetailsView = (props) => {
 						<Grid item xs={11}>
 							<Typography style={{ fontSize: '20px' }}>Logs</Typography>
 							<Grid container style={{ height: '350px', backgroundColor: 'lightyellow' }}>
-								<Grid item></Grid>
+								<Grid item />
 							</Grid>
 						</Grid>
 					</>

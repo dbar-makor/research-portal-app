@@ -27,7 +27,7 @@ const ContractEditMain = forwardRef((props, ref) => {
 			setActiveSidebar={setActiveSidebar}
 			loadingSidebar={loadingSidebar}
 			activeSidebar={activeSidebar}
-		></ContractEditMainView>
+		/>
 	);
 });
 

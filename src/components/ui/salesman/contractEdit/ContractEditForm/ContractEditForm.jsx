@@ -119,7 +119,7 @@ const ContractEditForm = (props) => {
 			setInputValueCurrency={setInputValueCurrency}
 			chosenCompany={chosenCompany}
 			periodToNum={periodToNum}
-		></ContractEditFormView>
+		/>
 	);
 };
 

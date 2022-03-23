@@ -178,7 +178,7 @@ const Settings = () => {
 										)}
 								</Grid>
 							</Grid>
-							<Grid item></Grid>
+							<Grid item />
 						</Grid>
 					</Grid>
 				</>

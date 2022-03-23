@@ -3,15 +3,16 @@ import { useDispatch } from 'react-redux';
 import FiltersView from './Filters.view';
 
 const Filters = (props) => {
-	const { setProperty, pageType } = props;
 	const dispatch = useDispatch();
 	const [localSearch, setLocalSearch] = useState('');
-	const userType = pageType === 'salesUsers' ? 'sales' : pageType === 'authorsUsers' ? 'author' : '';
+
+	const userType =
+		props.pageType === 'salesUsers' ? 'sales' : props.pageType === 'authorsUsers' ? 'author' : '';
 
 	useEffect(() => {
 		return () => {
-			dispatch(setProperty({ key: 'search', value: '' }));
-			dispatch(setProperty({ key: 'status', value: '' }));
+			dispatch(props.setProperty({ key: 'search', value: '' }));
+			dispatch(props.setProperty({ key: 'status', value: '' }));
 		};
 	}, []);
 
@@ -32,8 +33,8 @@ const Filters = (props) => {
 			handleClose={handleClose}
 			localSearch={localSearch}
 			setLocalSearch={setLocalSearch}
-			setProperty={setProperty}
-			pageType={pageType}
+			setProperty={props.setProperty}
+			pageType={props.pageType}
 			type={props.type}
 			userType={userType}
 			status={props.status}

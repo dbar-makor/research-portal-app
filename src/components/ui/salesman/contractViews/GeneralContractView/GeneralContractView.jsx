@@ -15,7 +15,7 @@ const GeneralContractView = () => {
 			setStep={setStep}
 			setContractCopy={setContractCopy}
 			contractCopy={contractCopy}
-		></GeneralContractViewView>
+		/>
 	);
 };
 

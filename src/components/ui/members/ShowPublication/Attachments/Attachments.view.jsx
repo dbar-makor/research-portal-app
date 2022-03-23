@@ -44,7 +44,7 @@ const AttachmentsView = (props) => {
 
 	return (
 		<Grid item xs={12}>
-			<Divider className={classes.divider}></Divider>
+			<Divider className={classes.divider} />
 			<Grid container style={{ padding: '10px 0px' }}>
 				<Grid item xs={12}>
 					<Grid container>

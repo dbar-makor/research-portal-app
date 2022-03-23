@@ -183,7 +183,7 @@ const Contract = (props) => {
 			handleCancel={handleCancel}
 			handleSubmit={handleSubmit}
 			handleUpdate={handleUpdate}
-		></ContractView>
+		/>
 	);
 };
 

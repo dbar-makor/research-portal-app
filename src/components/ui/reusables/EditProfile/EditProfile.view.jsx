@@ -14,8 +14,8 @@ const EditProfileView = (props) => {
 				<Avatar className={classes.avatar} src={props.avatar} />
 				<CreateIcon className={classes.editIcon} />
 			</Grid>
-			<Grid item></Grid>
-			<Grid item></Grid>
+			<Grid item />
+			<Grid item />
 		</Grid>
 	);
 };

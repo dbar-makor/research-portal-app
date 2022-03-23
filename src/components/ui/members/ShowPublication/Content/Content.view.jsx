@@ -10,7 +10,7 @@ const ContentView = (props) => {
 
 	return (
 		<Grid item xs={12}>
-			<Divider className={classes.divider} style={{ marginTop: 10 }}></Divider>
+			<Divider className={classes.divider} style={{ marginTop: 10 }} />
 			<Grid container>
 				{props.contentBlocks !== '{}' ? (
 					<StyledEditor

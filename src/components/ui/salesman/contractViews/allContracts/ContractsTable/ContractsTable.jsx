@@ -14,9 +14,7 @@ const headersName = [
 ];
 
 const ContractsTable = (props) => {
-	const { contractsRows } = props;
-
-	return <ContractsTableView headersName={headersName} contractsRows={contractsRows}></ContractsTableView>;
+	return <ContractsTableView headersName={headersName} contractsRows={props.contractsRows} />;
 };
 
 ContractsTable.displayName = 'ContractsTable';

@@ -30,7 +30,7 @@ const TitleView = (props) => {
 					</Grid>
 				</Grid>
 				<Grid item xs={12}>
-					<Divider className={classes.divider} style={{ marginTop: 10 }}></Divider>
+					<Divider className={classes.divider} style={{ marginTop: 10 }} />
 					<Grid container>
 						<Grid item xs={12} style={{ paddingBlock: 16 }}>
 							<Typography className={classes.title}>{props.title}</Typography>

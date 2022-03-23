@@ -14,7 +14,7 @@ import { validateCompany } from '../../../../../utils/helpers/validationFunction
 import NewCompanyStepperView from './NewCompanyStepper.view';
 import * as actionSnackBar from '../../../../../redux/SnackBar/action';
 
-const NewCompanyStepper = ({ handleClose, open }) => {
+const NewCompanyStepper = (props) => {
 	const dispatch = useDispatch();
 	const search = useSelector(selectSearch);
 	const type = useSelector(selectType);
@@ -139,7 +139,7 @@ const NewCompanyStepper = ({ handleClose, open }) => {
 			dispatch(actionSnackBar.setSnackBar('error', 'Creation failed', 2000));
 		}
 
-		handleClose();
+		props.handleClose();
 	});
 
 	return (
@@ -153,10 +153,10 @@ const NewCompanyStepper = ({ handleClose, open }) => {
 			handleBack={handleBack}
 			handleCompany={handleCompany}
 			handleSubmit={handleSubmit}
-			handleClose={handleClose}
+			handleClose={props.handleClose}
 			initStateMember={initStateMember}
 			inputValue={inputValue}
-			open={open}
+			open={props.open}
 			setCompany={setCompany}
 			setCurrentMember={setCurrentMember}
 			setErrors1={setErrors1}

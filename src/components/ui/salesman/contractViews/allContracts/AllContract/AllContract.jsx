@@ -161,7 +161,7 @@ const AllContract = () => {
 			setInputCompanyName={setInputCompanyName}
 			loadingContract={loadingContract}
 			contractsRows={contractsRows}
-		></AllContractView>
+		/>
 	);
 };
 

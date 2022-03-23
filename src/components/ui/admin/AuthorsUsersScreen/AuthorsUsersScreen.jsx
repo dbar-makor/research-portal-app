@@ -26,7 +26,7 @@ const AuthorsUsersScreen = () => {
 			userSearch={userSearch}
 			userStatus={userStatus}
 			setUserProperty={setUserProperty}
-		></AuthorsUsersScreenView>
+		/>
 	);
 };
 

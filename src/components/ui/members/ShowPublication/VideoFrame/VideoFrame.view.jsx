@@ -14,7 +14,7 @@ const VideoFrameView = (props) => {
 					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
 					allowFullScreen
 					title={`${props.video.title_video}`}
-				></iframe>
+				/>
 			) : (
 				<Typography>NO CONTENT TO SHOW</Typography>
 			)}

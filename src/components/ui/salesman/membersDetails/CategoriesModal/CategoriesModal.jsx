@@ -14,7 +14,7 @@ const CategoriesModal = (props) => {
 			membersRows={props.membersRows}
 			setMembersRows={props.setMembersRows}
 			sendMember={props.sendMember}
-		></CategoriesModalView>
+		/>
 	);
 };
 

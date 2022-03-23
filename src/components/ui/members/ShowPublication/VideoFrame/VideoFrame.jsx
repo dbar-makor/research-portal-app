@@ -2,8 +2,8 @@ import React from 'react';
 
 import VideoFrameView from './VideoFrame.view';
 
-const VideoFrame = ({ video }) => {
-	return <VideoFrameView video={video}></VideoFrameView>;
+const VideoFrame = (props) => {
+	return <VideoFrameView video={props.video} />;
 };
 
 VideoFrame.displayName = 'VideoFrame';

@@ -43,10 +43,10 @@ const SettingsView = (props) => {
 										is_active={props.userSettings.is_active}
 										section={section}
 										userSettings={props.userSettings.settings}
-									></SettingsSection>
+									/>
 								);
 							})}
-							<Grid item></Grid>
+							<Grid item />
 						</Grid>
 					</Grid>
 				</>

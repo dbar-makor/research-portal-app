@@ -4,16 +4,14 @@ import NumberFormatCustomView from './NumberFormatCustom.view';
 import PropTypes from 'prop-types';
 
 const NumberFormatCustom = (props) => {
-	const { inputRef, onChange, decimalNo, minValue, ...other } = props;
-
 	return (
 		<NumberFormatCustomView
-			inputRef={inputRef}
-			onChange={onChange}
-			decimalNo={decimalNo}
-			minValue={minValue}
-			{...other}
-		></NumberFormatCustomView>
+			inputRef={props.inputRef}
+			onChange={props.onChange}
+			decimalNo={props.decimalNo}
+			minValue={props.minValue}
+			{...props.other}
+		/>
 	);
 };
 
