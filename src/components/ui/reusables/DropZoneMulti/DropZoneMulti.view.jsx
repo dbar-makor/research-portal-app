@@ -54,7 +54,7 @@ const DropZoneMultiView = (props) => {
 								justifyContent="space-between"
 								className={classes.attachmentLine}
 								key={index}
-								>
+							>
 								<Grid item xs={8}>
 									<Typography>
 										{file.file_name.length > 20
@@ -66,7 +66,7 @@ const DropZoneMultiView = (props) => {
 									<DeleteButton
 										disableRipple
 										onClick={() => props.deleteItem(index, 'attachments')}
-										>
+									>
 										<ClearIcon className={classes.clearIcon} />
 									</DeleteButton>
 								</Grid>

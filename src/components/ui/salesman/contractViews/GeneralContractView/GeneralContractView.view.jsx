@@ -26,11 +26,7 @@ const GeneralContractViewView = (props) => {
 				</Grid>
 
 				{props.step === 1 && (
-					<Contract
-						setStep={props.setStep}
-						stepperMode={true}
-						setContractCopy={props.setContractCopy}
-					/>
+					<Contract setStep={props.setStep} stepperMode setContractCopy={props.setContractCopy} />
 				)}
 				{props.step === 2 && (
 					<SendContractView

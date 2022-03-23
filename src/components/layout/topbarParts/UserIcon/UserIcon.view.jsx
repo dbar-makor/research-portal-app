@@ -66,7 +66,7 @@ const UserIconView = forwardRef((props, ref) => {
 									>
 										<MenuItem>
 											<Link
-												to={'/home'}
+												to="/home"
 												style={{
 													textDecoration: 'none',
 													color: '#bababa',
@@ -78,7 +78,7 @@ const UserIconView = forwardRef((props, ref) => {
 										</MenuItem>
 										<MenuItem>
 											<Link
-												to={'/settings/edit'}
+												to="/settings/edit"
 												style={{ textDecoration: 'none', color: '#000' }}
 												onClick={() => props.setOpen(false)}
 											>
@@ -87,7 +87,7 @@ const UserIconView = forwardRef((props, ref) => {
 										</MenuItem>
 										<MenuItem>
 											<Link
-												to={'/settings/settings'}
+												to="/settings/settings"
 												style={{ textDecoration: 'none', color: '#000' }}
 												onClick={() => props.setOpen(false)}
 											>
@@ -97,7 +97,7 @@ const UserIconView = forwardRef((props, ref) => {
 										{props.userType === 'client' || props.userType === 'prospect' ? (
 											<MenuItem>
 												<Link
-													to={'/settings/contract_trails'}
+													to="/settings/contract_trails"
 													style={{ textDecoration: 'none', color: '#000' }}
 													onClick={() => props.setOpen(false)}
 												>

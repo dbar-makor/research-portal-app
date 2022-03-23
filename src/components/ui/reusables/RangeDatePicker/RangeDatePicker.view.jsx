@@ -18,7 +18,7 @@ const RangeDatePickerView = forwardRef((props, ref) => {
 		<>
 			<Input
 				className={classes.dateRangeInputFilter}
-				disabled={true}
+				disabled
 				autoComplete="off"
 				id="date-range"
 				placeholder="dd/mm/yy - dd/mm/yy"
@@ -57,11 +57,11 @@ const RangeDatePickerView = forwardRef((props, ref) => {
 				<DateRangePicker
 					ranges={props.range}
 					moveRangeOnFirstSelection={false}
-					editableDateInputs={true}
-					fixedHeight={true}
+					editableDateInputs
+					fixedHeight
 					months={1}
 					direction="horizontal"
-					preventSnapRefocus={true}
+					preventSnapRefocus
 					calendarFocus="backwards"
 					maxDate={new Date()}
 					className={classes.dateRangePopover}

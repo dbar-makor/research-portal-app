@@ -20,7 +20,7 @@ const ContentView = (props) => {
 								: props.contentBlocks
 						}
 						controls={[]}
-						readOnly={true}
+						readOnly
 					/>
 				) : (
 					<Typography>No Content</Typography>

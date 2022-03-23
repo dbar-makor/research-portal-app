@@ -29,6 +29,8 @@ const EventsView = (props) => {
 		);
 	};
 
+	Event.displayName = 'Event';
+
 	const noEvents = () => {
 		return (
 			<Grid item xs={12} className={classes.contentGrid}>

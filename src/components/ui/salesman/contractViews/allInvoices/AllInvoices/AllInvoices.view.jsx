@@ -37,7 +37,7 @@ const AllInvoicesView = (props) => {
 									<Grid container>
 										<Grid item xs={3}>
 											<RangeDatePicker
-												renderFrom={'filters'}
+												renderFrom="filters"
 												max_days_allowed={1460}
 												from={props.periodRange.from}
 												setFrom={props.setFrom}

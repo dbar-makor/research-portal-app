@@ -234,7 +234,7 @@ const DeadArticleView = forwardRef((props, ref) => {
 										disableToolbar
 										variant="inline"
 										inputVariant="outlined"
-										format={'dd/MM/yyyy'}
+										format="dd/MM/yyyy"
 										placeholder="Date"
 										error={!!props.errorsEvent.date}
 										helperText={props.errorsEvent.date}
@@ -308,7 +308,7 @@ const DeadArticleView = forwardRef((props, ref) => {
 												disableToolbar
 												variant="inline"
 												inputVariant="outlined"
-												format={'dd/MM/yyyy'}
+												format="dd/MM/yyyy"
 												placeholder="Date"
 												value={event.date}
 												className={classes.eventDatePicker}

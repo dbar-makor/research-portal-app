@@ -225,7 +225,7 @@ const AuthorsNewArticleView = (props) => {
 														disableToolbar
 														variant="inline"
 														inputVariant="outlined"
-														format={'dd/MM/yyyy'}
+														format="dd/MM/yyyy"
 														placeholder="Date"
 														value={props.currentEvent.date}
 														className={classes.eventDatePicker}
@@ -305,7 +305,7 @@ const AuthorsNewArticleView = (props) => {
 																disableToolbar
 																variant="inline"
 																inputVariant="outlined"
-																format={'dd/MM/yyyy'}
+																format="dd/MM/yyyy"
 																placeholder="Date"
 																value={event.date}
 																className={classes.eventDatePicker}
@@ -315,7 +315,7 @@ const AuthorsNewArticleView = (props) => {
 																		.date ? null : (
 																			<CalendarIcon
 																				className={classes.calendarIcon}
-																		/>
+																			/>
 																	)
 																}
 																style={{ width: '100%', maxHeight: '53px' }}

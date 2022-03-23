@@ -10,7 +10,7 @@ const ButtonRowView = (props) => {
 	return (
 		<Grid container className={classes.buttonRowWrapper} style={props.style}>
 			<Grid item xs={12}>
-				<Grid container justifyContent={'space-between'}>
+				<Grid container justifyContent="space-between">
 					<Grid item className={classes.btnWrapper}>
 						<OutlinedButton className={classes.cancelStyle} onClick={props.handlerLeft}>
 							{props.textButtonLeft}

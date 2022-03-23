@@ -34,7 +34,7 @@ const AllContractView = (props) => {
 							<Grid container>
 								<Grid item xs={2}>
 									<RangeDatePicker
-										renderFrom={'filters'}
+										renderFrom="filters"
 										max_days_allowed={1460}
 										from={props.periodRange.from}
 										setFrom={props.setFrom}
