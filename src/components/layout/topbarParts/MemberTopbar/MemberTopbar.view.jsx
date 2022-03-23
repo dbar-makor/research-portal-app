@@ -56,7 +56,7 @@ const MemberTopbarView = (props) => {
 									endAdornment: (
 										<SearchIcon
 											className={props.classes.searchIcon}
-											style={{ cursor: 'pointer' }}
+											style={{ cursor: 'pointer', stroke: 'none' }}
 										/>
 									),
 								}}
