@@ -160,7 +160,7 @@ const App = () => {
 				<PrivateRoute path="/home" component={MembersMain} />
 				<PrivateRoute path="/settings" component={AccountSettings} />
 				<PrivateRoute exact path="/article/:pubId" component={FullPublication} />
-				<PrivateRoute exact path="/all_notfications" component={AllNotifications} />
+				<PrivateRoute exact path="/all-notfications" component={AllNotifications} />
 				<PrivateRoute path="/*" component={LoginPage} />
 			</Switch>
 		);

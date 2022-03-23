@@ -15,7 +15,7 @@ const PrivateRouteView = (props) => {
 				) : (
 					<Redirect
 						to={{
-							pathname: '/Login',
+							pathname: '/login',
 							state: { from: rest.location },
 						}}
 					/>
