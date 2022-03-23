@@ -1,6 +1,6 @@
 import React from 'react';
-import AuthorsNewArticleModalView from './AuthorsNewArticleModal.view';
 import { useHistory } from 'react-router';
+import AuthorsNewArticleModalView from './AuthorsNewArticleModal.view';
 
 const AuthorsNewArticleModal = (props) => {
 	const history = useHistory();

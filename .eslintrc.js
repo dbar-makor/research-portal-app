@@ -4,7 +4,13 @@ module.exports = {
 		es2021: true,
 		browser: true,
 	},
-	extends: ['eslint:recommended', 'plugin:react/recommended', 'plugin:react/jsx-runtime'],
+	extends: [
+		'eslint:recommended',
+		'plugin:react/recommended',
+		'plugin:react/jsx-runtime',
+		'plugin:import/recommended',
+		'plugin:import/react',
+	],
 	parserOptions: {
 		ecmaVersion: 12,
 		sourceType: 'module',
@@ -13,11 +19,16 @@ module.exports = {
 		},
 	},
 	settings: {
-		react: {
+		'react': {
 			version: 'detect',
 		},
+		'import/resolver': {
+			node: {
+				extensions: ['.js', '.jsx'],
+			},
+		},
 	},
-	plugins: ['unused-imports', 'react'],
+	plugins: ['unused-imports', 'react', 'unused-imports'],
 	rules: {
 		'quotes': ['error', 'single'],
 		'semi': ['error', 'always'],
@@ -50,7 +61,6 @@ module.exports = {
 			},
 		],
 		'arrow-parens': ['error', 'always'],
-		'react/prop-types': 'off',
 		'padding-line-between-statements': [
 			'error',
 			{
@@ -108,6 +118,8 @@ module.exports = {
 				],
 			},
 		],
+
+		'react/prop-types': 'off',
 		'react/jsx-fragments': 'error',
 		'react/destructuring-assignment': ['error', 'never'],
 		'react/jsx-equals-spacing': ['error', 'never'],
@@ -156,6 +168,43 @@ module.exports = {
 		],
 		'react/no-deprecated': ['error'],
 		'react/no-danger-with-children': ['error'],
+		'react/no-unescaped-entities': ['error'],
+		'react/no-unknown-property': ['error'],
+		'react/jsx-handler-names': ['error', { eventHandlerPrefix: false }],
+		'react/jsx-key': ['error', { checkKeyMustBeforeSpread: true }],
+		'react/jsx-max-depth': ['error', { max: 15 }],
+		'react/jsx-no-duplicate-props': ['error'],
 		'react/no-children-prop': ['error'],
+
+		'import/order': [
+			'error',
+			{
+				pathGroups: [
+					{
+						pattern: '@/**',
+						group: 'external',
+						position: 'after',
+					},
+				],
+				groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index', 'object'],
+			},
+		],
+		'import/default': ['error'],
+		'import/no-absolute-path': ['error'],
+		'import/no-self-import': ['error'],
+		'import/no-cycle': ['error'],
+		'import/no-useless-path-segments': ['error'],
+		'import/export': ['error'],
+		'import/no-deprecated': ['error'],
+		'import/no-mutable-exports': ['warn'],
+		'import/no-unused-modules': ['error'],
+		'import/no-amd': ['error'],
+		'import/no-nodejs-modules': ['error'],
+		'import/first': ['error'],
+		'import/exports-last': ['warn'],
+		'import/no-duplicates': ['error'],
+		'import/newline-after-import': ['error'],
+		'import/no-named-default': ['error'],
+		'import/no-anonymous-default-export': ['warn'],
 	},
 };

@@ -7,7 +7,6 @@ import {
 	changeChosenUser,
 } from '../../../../redux/users/chosenUserSlice';
 import * as actionSnackBar from '../../../../redux/SnackBar/action';
-import UserInfoView from './UserInfo.view';
 import {
 	getUsersByTypeAsync,
 	selectUsersLimit,
@@ -16,6 +15,7 @@ import {
 	selectUsersSearch,
 } from '../../../../redux/users/usersSlice';
 import { BASE_URL, END_POINT } from '../../../../utils/constants';
+import UserInfoView from './UserInfo.view';
 
 const UserInfo = () => {
 	const currentUser = useSelector(selectChosenUserData);

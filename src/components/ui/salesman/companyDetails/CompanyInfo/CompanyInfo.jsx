@@ -16,9 +16,9 @@ import {
 	getChosenCompanyAsync,
 	changeChosenCompany,
 } from '../../../../../redux/companies/chosenCompanySlice';
-import CompanyInfoView from './CompanyInfo.view';
 import * as actionSnackBar from '../../../../../redux/SnackBar/action';
 import { BASE_URL, END_POINT } from '../../../../../utils/constants';
+import CompanyInfoView from './CompanyInfo.view';
 
 const CompanyInfo = () => {
 	const currentCompany = useSelector(selectChosenCompany);

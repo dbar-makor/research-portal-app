@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { Grid, Typography } from '@material-ui/core';
-import { BASE_URL, END_POINT } from '../../../../../utils/constants';
 import { format } from 'date-fns';
 import { Link } from 'react-router-dom';
+import { BASE_URL, END_POINT } from '../../../../../utils/constants';
 
 import useStyles from './MediumPublication.style';
 

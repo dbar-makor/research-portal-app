@@ -1,10 +1,10 @@
 import { Button, Grid, Typography } from '@material-ui/core';
+import Dialog from '@material-ui/core/Dialog';
+import React from 'react';
 import { ReactComponent as ArticleIcon } from '../../../../assets/icons/articleIcon.svg';
 import { ReactComponent as UploadIcon } from '../../../../assets/icons/uploadIcon.svg';
 import { ReactComponent as CloseIcon } from '../../../../assets/icons/closeIcon.svg';
-import Dialog from '@material-ui/core/Dialog';
 import useStyles from './AuthorsNewArticleModal.style';
-import React from 'react';
 
 const AuthorsNewArticleModalView = (props) => {
 	const classes = useStyles();

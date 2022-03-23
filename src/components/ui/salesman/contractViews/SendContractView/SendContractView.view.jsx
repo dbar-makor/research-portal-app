@@ -1,10 +1,10 @@
 import React from 'react';
 import { Grid, Typography, Divider } from '@material-ui/core';
 import { ReactComponent as ContractIcon } from '../../../../../assets/icons/contract.svg';
-import useStyles from './SendContractView.style';
 import AutoCompleteUnit from '../../../reusables/AutoCompleteUnit/AutoCompleteUnit';
 import { OutlinedButton } from '../../../../../styles/MainStyles';
 import ButtonRow from '../ButtonRow/ButtonRow';
+import useStyles from './SendContractView.style';
 
 const SendContractViewView = (props) => {
 	const classes = useStyles();

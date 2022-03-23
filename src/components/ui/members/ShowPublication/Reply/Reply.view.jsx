@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { Grid, Typography } from '@material-ui/core';
-import { useStyles } from '../../../../../styles/PublicationsStyles';
 import { format } from 'date-fns';
+import { useStyles } from '../../../../../styles/PublicationsStyles';
 
 const ReplyView = (props) => {
 	const classes = useStyles();

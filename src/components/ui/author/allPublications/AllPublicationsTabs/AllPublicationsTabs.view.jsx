@@ -3,11 +3,11 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import TabContext from '@material-ui/lab/TabContext';
+import Grid from '@material-ui/core/Grid';
+import AddIcon from '@material-ui/icons/Add';
 import PublicationsTab from '../PublicationsTab/PublicationsTab';
 import TabPanel from '../TabPanel/TabPanel';
-import Grid from '@material-ui/core/Grid';
 import { AddButton } from '../../../../../styles/MainStyles';
-import AddIcon from '@material-ui/icons/Add';
 import AuthorsNewArticleModal from '../../AuthorsNewArticleModal/AuthorsNewArticleModal';
 
 import useStyles from './AllPublicationsTabs.style';

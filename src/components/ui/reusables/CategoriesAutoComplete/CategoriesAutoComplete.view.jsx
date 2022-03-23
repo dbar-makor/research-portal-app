@@ -1,8 +1,8 @@
 import React from 'react';
 import { Grid, Typography, TextField, Chip } from '@material-ui/core';
 import ClearIcon from '@material-ui/icons/Clear';
-import { StyledAutoComplete } from '../../../../styles/MainStyles';
 import { useSelector } from 'react-redux';
+import { StyledAutoComplete } from '../../../../styles/MainStyles';
 import useStyles from './CategoriesAutoComplete.style';
 
 const CategoriesAutoCompleteView = (props) => {

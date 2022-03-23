@@ -1,14 +1,14 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
-import { BASE_URL, END_POINT } from '../../../../../utils/constants';
 import { useHistory } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import PublicationsTabView from './PublicationsTab.view';
+import { BASE_URL, END_POINT } from '../../../../../utils/constants';
 import {
 	selectChosenResearch,
 	getChosenResearchAsync,
 } from '../../../../../redux/researches/chosenResearchSlice';
 import * as actionSnackBar from '../../../../../redux/SnackBar/action';
+import PublicationsTabView from './PublicationsTab.view';
 
 //after changes, this component shows a single publication card
 

@@ -1,10 +1,10 @@
 import React from 'react';
-import { useStyles } from '../../../../../styles/ContarctsModalStyles';
 import { IconButton, Typography, Popover, withStyles, Grid } from '@material-ui/core';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import ContractEditMain from '../../../salesman/contractEdit/ContractEditMain/ContractEditMain';
+import { useStyles } from '../../../../../styles/ContarctsModalStyles';
+import ContractEditMain from '../../contractEdit/ContractEditMain/ContractEditMain';
 
 const PaymentButtonBarView = (props) => {
 	const classes = useStyles(props.precentage);

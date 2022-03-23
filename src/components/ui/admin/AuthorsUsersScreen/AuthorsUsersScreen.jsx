@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import AuthorsUsersScreenView from './AuthorsUsersScreen.view';
 import { useSelector, useDispatch } from 'react-redux';
 import {
 	selectUsersOffset,
@@ -9,6 +8,7 @@ import {
 	setUserProperty,
 	getUsersByTypeAsync,
 } from '../../../../redux/users/usersSlice';
+import AuthorsUsersScreenView from './AuthorsUsersScreen.view';
 
 const AuthorsUsersScreen = () => {
 	const dispatch = useDispatch();

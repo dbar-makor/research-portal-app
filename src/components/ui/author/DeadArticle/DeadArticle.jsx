@@ -1,16 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { END_POINT, BASE_URL } from '../../../../utils/constants';
 import axios from 'axios';
 import { isValid } from 'date-fns';
-import { selectChosenResearch, changeChosenResearch } from '../../../../redux/researches/chosenResearchSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory, useLocation } from 'react-router';
+import { END_POINT, BASE_URL } from '../../../../utils/constants';
+import { selectChosenResearch, changeChosenResearch } from '../../../../redux/researches/chosenResearchSlice';
 import * as actionSnackBar from '../../../../redux/SnackBar/action';
 import {
 	validateDeadPublication,
 	validateEvent,
 	validateEditedDeadPublication,
 } from '../../../../utils/helpers/validationFunctions';
-import { useHistory, useLocation } from 'react-router';
 
 import DeadArticleView from './DeadArticle.view';
 

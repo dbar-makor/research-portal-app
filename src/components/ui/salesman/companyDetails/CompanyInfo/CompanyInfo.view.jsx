@@ -1,10 +1,10 @@
 import React from 'react';
-import { useStyles } from '../../../../../styles/InfoStyles';
 import { Grid, Typography, Divider, TextField } from '@material-ui/core';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import SearchIcon from '@material-ui/icons/Search';
 import { Autocomplete } from '@material-ui/lab';
 import clsx from 'clsx';
+import { useStyles } from '../../../../../styles/InfoStyles';
 import {
 	GreenFilledButton,
 	BinButton,

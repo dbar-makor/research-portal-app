@@ -1,14 +1,14 @@
 import axios from 'axios';
-import { BASE_URL, END_POINT } from '../../utils/constants';
 import { FormControl, Grid, InputLabel, MenuItem, Select } from '@material-ui/core';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { BASE_URL, END_POINT } from '../../utils/constants';
 import { StyledTextField } from '../../styles/MainStyles';
 import { ReactComponent as SearchIcon } from '../../assets/icons/IconSearch.svg';
-import PublicationsGrid from './PublicationsGrid';
 import { useStyles } from '../../styles/PublicationsStyles';
 
 import * as actionSnackBar from '../../redux/SnackBar/action';
+import PublicationsGrid from './PublicationsGrid';
 
 const MembersMain = () => {
 	const dispatch = useDispatch();

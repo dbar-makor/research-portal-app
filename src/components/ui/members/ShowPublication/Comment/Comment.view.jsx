@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Divider, Grid, Typography, TextField } from '@material-ui/core';
+import { format } from 'date-fns';
 import {
 	useStyles,
 	StyledCollape,
@@ -10,7 +11,6 @@ import {
 import { ReactComponent as ArrowUp } from '../../../../../assets/icons/PolygonUp.svg';
 import { ReactComponent as ArrowDown } from '../../../../../assets/icons/PolygonDown.svg';
 
-import { format } from 'date-fns';
 import Reply from '../Reply/Reply';
 
 const CommentView = (props) => {

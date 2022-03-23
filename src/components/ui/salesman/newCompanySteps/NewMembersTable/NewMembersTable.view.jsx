@@ -9,8 +9,8 @@ import Paper from '@material-ui/core/Paper';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import { DotsButton } from '../../../../../styles/MainStyles';
 import { Grid } from '@material-ui/core';
+import { DotsButton } from '../../../../../styles/MainStyles';
 
 import useStyles from './NewMembersTable.style';
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import * as actionSnackBar from '../../../../../redux/SnackBar/action';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
+import * as actionSnackBar from '../../../../../redux/SnackBar/action';
 import { BASE_URL, END_POINT } from '../../../../../utils/constants';
 import ContractRowView from './ContractRow.view';
 

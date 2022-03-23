@@ -3,8 +3,8 @@ import axios from 'axios';
 import * as actionSnackBar from '../SnackBar/action';
 // Constants
 import { END_POINT, BASE_URL, setAuthToken } from '../../utils/constants';
-import { SET_LOADING_INDICATOR_AUTH, LOGIN_SUCCESS, LOGOUT_SUCCESS } from './constants';
 import { changeChosenCompany } from '../companies/chosenCompanySlice';
+import { SET_LOADING_INDICATOR_AUTH, LOGIN_SUCCESS, LOGOUT_SUCCESS } from './constants';
 
 export const login = (email, password) => async (dispatch) => {
 	dispatch({ type: SET_LOADING_INDICATOR_AUTH, payload: true });

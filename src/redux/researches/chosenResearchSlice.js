@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { BASE_URL, END_POINT } from '../../utils/constants';
 import axios from 'axios';
+import { BASE_URL, END_POINT } from '../../utils/constants';
 
 // Reducer
 export const chosenResearchSlice = createSlice({

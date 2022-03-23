@@ -1,4 +1,5 @@
 import React, { useRef, useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
 	selectAuthorsUsersData,
 	setUserProperty,
@@ -7,7 +8,6 @@ import {
 	selectUsersLoading,
 	selectUsersHasMore,
 } from '../../../../redux/users/usersSlice';
-import { useDispatch, useSelector } from 'react-redux';
 
 import { selectChosenUserData } from '../../../../redux/users/chosenUserSlice';
 import AuthorsUsersView from './AuthorsUsers.view';

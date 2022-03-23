@@ -1,12 +1,12 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { Grid } from '@material-ui/core';
 import TextInputUnit from '../../../reusables/TextInputUnit/TextInputUnit';
 import SelectInputUnit from '../../../reusables/SelectInputUnit/SelectInputUnit';
 import AutoCompleteUnit from '../../../reusables/AutoCompleteUnit/AutoCompleteUnit';
 import DateInputUnit from '../../../reusables/DateInputUnit/DateInputUnit';
-import useStyles from './InfoStep.style';
-import { Grid } from '@material-ui/core';
 import DropZone from '../../../reusables/DropZone/DropZone';
+import useStyles from './InfoStep.style';
 
 const typeArray = [
 	{

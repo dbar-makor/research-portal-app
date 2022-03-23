@@ -3,17 +3,17 @@ import Dialog from '@material-ui/core/Dialog';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import { useSelector } from 'react-redux';
 import StepperConnector from '../StepperConnector';
 import StepperIcons from '../StepperIcons/StepperIcons';
 import { ReactComponent as CloseIcon } from '../../../../../assets/icons/closeIcon.svg';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
 import { FilledButton, OutlinedButton } from '../../../../../styles/MainStyles';
 import InfoStep from '../InfoStep/InfoStep';
 import MembersStep from '../MembersStep/MembersStep';
-import useStyles from './NewCompanyStepper.style';
 import SubHeaderModal from '../../../reusables/SubHeaderModal/SubHeaderModal';
-import { useSelector } from 'react-redux';
+import useStyles from './NewCompanyStepper.style';
 
 const NewCompanyStepperView = (props) => {
 	const classes = useStyles();

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { BASE_URL, END_POINT } from '../../../../../utils/constants';
 import axios from 'axios';
+import { BASE_URL, END_POINT } from '../../../../../utils/constants';
 
 import AllPublicationsTabsView from './AllPublicationsTabs.view';
 

@@ -4,12 +4,11 @@ import { format } from 'date-fns';
 import Avatar from '@material-ui/core/Avatar';
 import { Divider, Grid, Typography } from '@material-ui/core';
 
+import { FacebookShareButton, WhatsappShareButton, TwitterShareButton } from 'react-share';
 import { ReactComponent as FbIcon } from '../../../../../assets/icons/fb.svg';
 import { ReactComponent as TtrIcon } from '../../../../../assets/icons/ttr.svg';
 import { ReactComponent as WaIcon } from '../../../../../assets/icons/wa.svg';
 import { useStyles } from '../../../../../styles/PublicationsStyles';
-
-import { FacebookShareButton, WhatsappShareButton, TwitterShareButton } from 'react-share';
 
 const AuthorInfoView = (props) => {
 	const classes = useStyles();

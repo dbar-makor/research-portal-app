@@ -3,7 +3,7 @@ import { Grid, Typography, withStyles, Switch, TextField } from '@material-ui/co
 import AutoCompleteUnit from '../../../reusables/AutoCompleteUnit/AutoCompleteUnit';
 import NumberInputUnit from '../../../reusables/NumberInputUnit/NumberInputUnit';
 import DateInputUnit from '../../../reusables/DateInputUnit/DateInputUnit';
-import NumberFormatCustom from '../../../../../utils/components/NumberFormatCustom';
+import NumberFormatCustom from '../../../../layout/NumberFormatCustom/NumberFormatCustom';
 
 import useStyles from './ContractEditForm.style';
 

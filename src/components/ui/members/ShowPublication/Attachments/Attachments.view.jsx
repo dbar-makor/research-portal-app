@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { BASE_URL } from '../../../../../utils/constants';
 import { Divider, Grid, Typography } from '@material-ui/core';
+import { BASE_URL } from '../../../../../utils/constants';
 import { useStyles } from '../../../../../styles/PublicationsStyles';
 import { ReactComponent as FileEmpty } from '../../../../../assets/icons/fileEmpty.svg';
 

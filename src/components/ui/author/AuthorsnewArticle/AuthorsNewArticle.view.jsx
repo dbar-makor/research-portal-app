@@ -1,11 +1,12 @@
 import React from 'react';
 import { Grid, Typography, Divider } from '@material-ui/core';
-import { useStyles, AtricleTitleTextField } from '../../../../styles/AuthorsStyles';
 import MUIRichTextEditor from 'mui-rte';
 import AddIcon from '@material-ui/icons/Add';
 import { KeyboardDatePicker } from '@material-ui/pickers';
 import ClearIcon from '@material-ui/icons/Clear';
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
+import clsx from 'clsx';
+import { useStyles, AtricleTitleTextField } from '../../../../styles/AuthorsStyles';
 import SubHeader from '../../reusables/SubHeader/SubHeader';
 import {
 	StyledTextField,
@@ -19,7 +20,6 @@ import DropZoneMulti from '../../reusables/DropZoneMulti/DropZoneMulti';
 import CategoriesAutoComplete from '../../reusables/CategoriesAutoComplete/CategoriesAutoComplete';
 import TagsAutoComplete from '../../reusables/TagsAutoComplete/TagsAutoComplete';
 import { ReactComponent as CalendarIcon } from '../../../../assets/icons/iconCalendar.svg';
-import clsx from 'clsx';
 
 const AuthorsNewArticleView = (props) => {
 	const classes = useStyles();

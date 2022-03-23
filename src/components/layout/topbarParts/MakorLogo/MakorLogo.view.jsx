@@ -1,6 +1,6 @@
 import React from 'react';
-import { ReactComponent as Logo } from '../../../../assets/icons/makorLogo.svg';
 import { Link } from 'react-router-dom';
+import { ReactComponent as Logo } from '../../../../assets/icons/makorLogo.svg';
 
 //import useStyles from './MakorLogo.style';
 

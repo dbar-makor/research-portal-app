@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import * as webSocketService from '../../../../../services/websocket';
 import { useSelector } from 'react-redux';
+import * as webSocketService from '../../../../../services/websocket';
 
 import AllNotificationsView from './AllNotifications.view';
 

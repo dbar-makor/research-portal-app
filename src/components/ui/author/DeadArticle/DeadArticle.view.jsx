@@ -2,11 +2,14 @@ import React, { forwardRef } from 'react';
 import { Grid, Typography, Button, Divider } from '@material-ui/core';
 import ClearIcon from '@material-ui/icons/Clear';
 import Radio from '@material-ui/core/Radio';
+import AddIcon from '@material-ui/icons/Add';
+import { KeyboardDatePicker } from '@material-ui/pickers';
+import clsx from 'clsx';
+import { useSelector } from 'react-redux';
 import SubHeader from '../../reusables/SubHeader/SubHeader';
 import { useStyles, AtricleTitleTextField } from '../../../../styles/AuthorsStyles';
 import { ReactComponent as FileUpload } from '../../../../assets/icons/fileUpload.svg';
 import { ReactComponent as InsertLink } from '../../../../assets/icons/insertLink.svg';
-import AddIcon from '@material-ui/icons/Add';
 import {
 	DeleteButton,
 	StyledTextField,
@@ -14,14 +17,11 @@ import {
 	OutlinedButton,
 	FilledButton,
 } from '../../../../styles/MainStyles';
-import { KeyboardDatePicker } from '@material-ui/pickers';
 import { ReactComponent as CalendarIcon } from '../../../../assets/icons/iconCalendar.svg';
-import clsx from 'clsx';
-import DropZone from '../../../ui/reusables/DropZone/DropZone';
+import DropZone from '../../reusables/DropZone/DropZone';
 import CategoriesAutoComplete from '../../reusables/CategoriesAutoComplete/CategoriesAutoComplete';
 import TagsAutoComplete from '../../reusables/TagsAutoComplete/TagsAutoComplete';
 import { selectChosenResearch } from '../../../../redux/researches/chosenResearchSlice';
-import { useSelector } from 'react-redux';
 
 //import useStyles from './DeadArticle.style';
 
