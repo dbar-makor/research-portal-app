@@ -5,7 +5,7 @@ import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 
 const TradingHourUnitView = (props) => {
 	return (
-		<Grid item container alignContent="center" xs={2}>
+		<Grid style={{ minWidth: '17vh' }} item container alignContent="center" xs={2}>
 			<Grid container style={{ width: '180px' }}>
 				<FiberManualRecordIcon
 					className={`${props.classes.cityDetails} ${props.classes.dot}`}
