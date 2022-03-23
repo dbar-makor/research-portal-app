@@ -4,7 +4,6 @@ import AutoCompleteUnit from '../../../reusables/AutoCompleteUnit/AutoCompleteUn
 import NumberInputUnit from '../../../reusables/NumberInputUnit/NumberInputUnit';
 import DateInputUnit from '../../../reusables/DateInputUnit/DateInputUnit';
 import NumberFormatCustom from '../../../../../utils/components/NumberFormatCustom';
-
 import useStyles from './ContractEditForm.style';
 const GreenSwitch = withStyles({
 	switchBase: {
@@ -126,7 +125,7 @@ const ContractEditFormView = (props) => {
 											minValue: 0,
 										},
 									}}
-								/>{' '}
+								/>
 							</Grid>
 							<Grid item xs={1}>
 								<Typography style={{ textAlign: 'center', fontSize: 14, fontWeight: 'bold' }}>

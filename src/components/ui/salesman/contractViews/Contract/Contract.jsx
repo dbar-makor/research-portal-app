@@ -49,7 +49,7 @@ const Contract = (props) => {
 	const salesmenArr = useSelector((state) => state.utils.utils.sales);
 	const chosenCompany = useSelector(selectChosenCompany);
 	const initStateContract = {
-		id: chosenCompany.id,
+		id: chosenCompany?.id,
 		start_at: new Date(),
 		sales: loggedinSalesPerson.id,
 		vat: false,

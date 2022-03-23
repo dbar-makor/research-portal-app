@@ -4,8 +4,8 @@ import NumberFormat from 'react-number-format';
 //import useStyles from './NumberFormatCustom.style';
 
 const NumberFormatCustomView = (props) => {
-
-  return (
+	console.log(props.value);
+	return (
 		<NumberFormat
 			{...props.other}
 			isAllowed={(values) => {
@@ -33,6 +33,5 @@ const NumberFormatCustomView = (props) => {
 
 NumberFormatCustomView.displayName = 'NumberFormatCustomView';
 NumberFormatCustomView.defaultProps = {};
-
 
 export default React.memo(NumberFormatCustomView);

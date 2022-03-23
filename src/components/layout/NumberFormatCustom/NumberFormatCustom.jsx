@@ -1,9 +1,9 @@
 import React from 'react';
-
 import NumberFormatCustomView from './NumberFormatCustom.view';
 import PropTypes from 'prop-types';
 
 const NumberFormatCustom = (props) => {
+	console.log('myprops',props);
 	const { inputRef, onChange, decimalNo, minValue, ...other } = props;
 
 	return (

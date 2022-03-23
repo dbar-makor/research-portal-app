@@ -2,13 +2,13 @@ import { makeStyles } from '@material-ui/core';
 
 export const useStyles = makeStyles(() => ({
 	chosenRoute: {
-		marginTop: 29,
+		marginTop: 20,
 		color: '#1C67FF',
 		backgroundColor: '#e0ebfc',
 		cursor: 'pointer',
 	},
 	notChosen: {
-		marginTop: 29,
+		marginTop: 20,
 		color: '#000000',
 		backgroundColor: 'none',
 		cursor: 'pointer',

@@ -16,6 +16,7 @@ const AllNotifications = () => {
 			type: 'get-all-notiofications',
 		};
 		const ws = webSocketService.sendEvent(message, token);
+		console.log('here');
 		ws.onmessage = (event) => {
 			const data = JSON.parse(event.data);
 			let allNotifications;
