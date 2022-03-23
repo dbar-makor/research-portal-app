@@ -1054,7 +1054,8 @@ const GeneralHomeView = (props) => {
 							<TabPanel value={0}>
 								<div>
 									<Helmet>
-										<style>{`
+										<style>
+											{`
                       .DayPicker {
                         display: block;
                         overflow-x: scroll;
@@ -1107,7 +1108,8 @@ const GeneralHomeView = (props) => {
                       .DayPicker-Weekdays {
                         margin-top: 0;
                       }
-                  `}</style>
+                  `}
+										</style>
 									</Helmet>
 									<DayPicker
 										renderDay={renderDay}

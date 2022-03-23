@@ -48,7 +48,7 @@ const LoginPage = () => {
 	const handleMouseDownPassword = () => setShowPassword(!showPassword);
 
 	if (twoFactAuth.token !== null || twoFactAuth.deviceId !== null) {
-		return <Redirect to={'verification'} />;
+		return <Redirect to="verification" />;
 	}
 
 	if (isAuthenticated) {

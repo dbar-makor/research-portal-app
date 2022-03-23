@@ -11,10 +11,12 @@ const ReplyView = (props) => {
 		<Grid item xs={11} style={{ paddingTop: 15 }}>
 			<Grid container justifyContent="flex-end">
 				<Grid item xs={12}>
-					<Typography className={classes.commentWriter}>{`${props.reply.user.name} | ${format(
-						new Date(props.reply.created_at),
-						'dd.MM.yyy',
-					)}`}</Typography>
+					<Typography className={classes.commentWriter}>
+						{`${props.reply.user.name} | ${format(
+							new Date(props.reply.created_at),
+							'dd.MM.yyy',
+						)}`}
+					</Typography>
 				</Grid>
 				<Grid item xs={12}>
 					<Typography style={{ fontSize: 12 }}>{props.reply.content}</Typography>

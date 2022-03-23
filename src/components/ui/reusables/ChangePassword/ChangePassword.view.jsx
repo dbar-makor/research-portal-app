@@ -12,18 +12,18 @@ const ChangePasswordView = (props) => {
 	return (
 		<Dialog
 			open={props.chosenModal}
-			onClose={props.handleCloseModal}
 			classes={{ paper: classes.alertModalPaper }}
 			BackdropProps={{
 				classes: {
 					root: classes.modalBackDrop,
 				},
 			}}
+			onClose={props.handleCloseModal}
 		>
 			<Grid container>
 				<Grid item xs={12}>
 					<Grid container justifyContent="flex-end">
-						<CloseIcon onClick={props.handleClose} className={classes.closeIcon} />
+						<CloseIcon className={classes.closeIcon} onClick={props.handleClose} />
 					</Grid>
 				</Grid>
 				<Grid item xs={12}>
@@ -34,11 +34,11 @@ const ChangePasswordView = (props) => {
 					<Grid item xs={6}>
 						<StyledTextField
 							value={props.oldPass}
-							onChange={(e) => props.setInvoiceId(e.target.value)}
 							variant="outlined"
-							onKeyDown={(e) => props.hendlerForInvoiceId(e, 'INVOICE_ID')}
 							fullWidth
 							placeholder="Search"
+							onChange={(e) => props.setInvoiceId(e.target.value)}
+							onKeyDown={(e) => props.hendlerForInvoiceId(e, 'INVOICE_ID')}
 						/>
 						<StyledTextField />
 						<StyledTextField />

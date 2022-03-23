@@ -5,10 +5,15 @@ import { Link } from 'react-router-dom';
 //import useStyles from './MakorLogo.style';
 
 const MakorLogoView = (props) => {
-
-  return  (
+	return (
 		<Link
-			to={props.userType === 'author' ? '/researches' : props.userType === 'sales' ? '/companies' : '/home'}
+			to={
+				props.userType === 'author'
+					? '/researches'
+					: props.userType === 'sales'
+					? '/companies'
+					: '/home'
+			}
 			className={props.classes.link}
 		>
 			<Logo />

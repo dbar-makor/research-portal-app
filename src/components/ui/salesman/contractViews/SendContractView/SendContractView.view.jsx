@@ -19,8 +19,8 @@ const SendContractViewView = (props) => {
 							The Contract is Ready
 							<Typography
 								variant="caption"
-								onClick={props.presentPDFContract}
 								className={classes.pdfLink}
+								onClick={props.presentPDFContract}
 							>
 								Visualize
 							</Typography>
@@ -52,7 +52,8 @@ const SendContractViewView = (props) => {
 									onClick={props.sendEmail}
 								>
 									{' '}
-									Send Link{' '}
+									Send Link
+									{' '}
 								</OutlinedButton>
 							</Grid>
 						</Grid>

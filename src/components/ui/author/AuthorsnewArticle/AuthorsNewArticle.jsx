@@ -458,7 +458,6 @@ const AuthorsNewArticle = () => {
 			chosenResearch={chosenResearch}
 			location={location}
 			contentNotOK={contentNotOK}
-			onDropCover={onDropCover}
 			coverImage={coverImage}
 			setCoverImage={setCoverImage}
 			coverImageOK={coverImageOK}
@@ -482,8 +481,9 @@ const AuthorsNewArticle = () => {
 			tableRowsRefs={tableRowsRefs}
 			updatePropertyField={updatePropertyField}
 			deleteItem={deleteItem}
-			onDrop={onDrop}
 			sendPublication={sendPublication}
+			onDropCover={onDropCover}
+			onDrop={onDrop}
 		/>
 	);
 };

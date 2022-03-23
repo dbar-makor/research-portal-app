@@ -8,7 +8,11 @@ import { useDropzone } from 'react-dropzone';
 
 const DropZoneView = (props) => {
 	const classes = useStyles();
-	const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop:props.onDrop, accept: props.fileTypes });
+
+	const { getRootProps, getInputProps, isDragActive } = useDropzone({
+		onDrop: props.onDrop,
+		accept: props.fileTypes,
+	});
 
 	return (
 		<Grid container justifyContent="center" {...getRootProps()} className={classes.uploadImage}>
@@ -53,23 +57,19 @@ const DropZoneView = (props) => {
 					</Grid>
 				</Grid>
 			) : (
-				<>
-					<Grid item xs={12}>
-						<Grid container justifyContent="center">
-							<Grid item>
-								<Typography className={classes.uploadLink}>Upload</Typography>
-							</Grid>
-							<Grid item>
-								<Typography className={classes.uploadText}>&nbsp;{props.purpose}</Typography>
-							</Grid>
-							<Grid item xs={12}>
-								<Typography className={classes.onlyPng}>
-									.jpg, .png, .svg .jfif .webp
-								</Typography>
-							</Grid>
+				<Grid item xs={12}>
+					<Grid container justifyContent="center">
+						<Grid item>
+							<Typography className={classes.uploadLink}>Upload</Typography>
+						</Grid>
+						<Grid item>
+							<Typography className={classes.uploadText}>{props.purpose}</Typography>
+						</Grid>
+						<Grid item xs={12}>
+							<Typography className={classes.onlyPng}>.jpg, .png, .svg .jfif .webp</Typography>
 						</Grid>
 					</Grid>
-				</>
+				</Grid>
 			)}
 		</Grid>
 	);

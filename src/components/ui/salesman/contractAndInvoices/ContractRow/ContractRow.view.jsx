@@ -30,24 +30,26 @@ const ContractRowView = (props) => {
 	return (
 		<>
 			<TableRow style={{ backgroundColor: open ? '#f3f7ff' : '#ffffff' }}>
-				<StyledTableCell>{`${format(new Date(props.contract.start_at), 'dd MMM, yyyy')}-${format(
-					new Date(props.contract.end_at),
-					'dd MMM, yyy',
-				)}`}</StyledTableCell>
+				<StyledTableCell>
+					{`${format(new Date(props.contract.start_at), 'dd MMM, yyyy')}-${format(
+						new Date(props.contract.end_at),
+						'dd MMM, yyy',
+					)}`}
+				</StyledTableCell>
 				<StyledTableCell>{props.contract.agent}</StyledTableCell>
 				<StyledTableCell>{props.contract.members}</StyledTableCell>
 				<StyledTableCell style={{ textTransform: 'capitalize' }}>
 					{props.contract.periodicity}
 				</StyledTableCell>
-				<StyledTableCell>{`${
-					props.contract.currency.symbol
-				}${props.contract.amount.toLocaleString()}`}</StyledTableCell>
-				<StyledTableCell style={{ textAlign: 'center' }}>{`${
-					props.contract.currency.symbol
-				}${props.calcYearlyCost(
-					props.contract.amount,
-					props.contract.periodicity,
-				)}`}</StyledTableCell>
+				<StyledTableCell>
+					{`${props.contract.currency.symbol}${props.contract.amount.toLocaleString()}`}
+				</StyledTableCell>
+				<StyledTableCell style={{ textAlign: 'center' }}>
+					{`${props.contract.currency.symbol}${props.calcYearlyCost(
+						props.contract.amount,
+						props.contract.periodicity,
+					)}`}
+				</StyledTableCell>
 				<StyledTableCell style={{ textAlign: 'center' }}>
 					{props.contract.signed ? <Signed /> : <NotSigned />}
 				</StyledTableCell>
@@ -97,13 +99,13 @@ const ContractRowView = (props) => {
 											<Grid item>
 												<StyledTextField
 													variant="outlined"
-													onChange={(e) => props.searchInvoice(e.target.value)}
 													placeholder="Search"
 													InputProps={{
 														endAdornment: (
 															<SearchIcon className={classes.searchIcon} />
 														),
 													}}
+													onChange={(e) => props.searchInvoice(e.target.value)}
 												/>
 											</Grid>
 										</Grid>
@@ -140,7 +142,8 @@ const ContractRowView = (props) => {
 											props.filterInvoices.map((invoice, idx) => (
 												<TableRow key={idx}>
 													<TableCell component="th" scope="row">
-														#{invoice.id?.slice(0, 6).toUpperCase()}
+														#
+														{invoice.id?.slice(0, 6).toUpperCase()}
 													</TableCell>
 													<TableCell>
 														{format(
@@ -148,9 +151,11 @@ const ContractRowView = (props) => {
 															'dd MMM, yyyy',
 														)}
 													</TableCell>
-													<TableCell style={{ fontWeight: 'bold' }}>{`${
-														props.contract.currency.symbol
-													}${invoice.amount.toLocaleString()}`}</TableCell>
+													<TableCell style={{ fontWeight: 'bold' }}>
+														{`${
+															props.contract.currency.symbol
+														}${invoice.amount.toLocaleString()}`}
+													</TableCell>
 													<TableCell style={{ textAlign: 'center' }}>
 														<IconButton
 															size="small"

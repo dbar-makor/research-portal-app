@@ -60,16 +60,16 @@ const MembersStepView = (props) => {
 				{props.editedMemberIndex >= 0 ? (
 					<Grid item xs={1} className={classes.checkIconWrapper}>
 						<CheckButton
-							onClick={props.addEditedMember}
 							disabled={!props.validationResult}
 							className={classes.checkIcon}
+							onClick={props.addEditedMember}
 						>
 							<CheckIcon />
 						</CheckButton>
 					</Grid>
 				) : (
 					<Grid item xs={1} className={classes.addIconWrapper}>
-						<AddButton onClick={props.addMember} disabled={!props.validationResult}>
+						<AddButton disabled={!props.validationResult} onClick={props.addMember}>
 							<AddIcon className={classes.addIcon} />
 						</AddButton>
 					</Grid>

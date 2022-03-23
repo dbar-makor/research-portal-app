@@ -27,9 +27,9 @@ const ContractAndInvoicesContentView = (props) => {
 							value={props.sortStatus || ''}
 							optionsArray={props.statusValues}
 							optionLabelField="name"
-							onChange={(e) => props.filterStatus(e.target.value)}
 							valueField="value"
 							native={false}
+							onChange={(e) => props.filterStatus(e.target.value)}
 						/>
 					</Grid>
 				</Grid>

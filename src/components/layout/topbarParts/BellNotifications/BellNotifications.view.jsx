@@ -30,7 +30,6 @@ const BellNotificationsView = (props) => {
 				placement="bottom"
 				transition
 				disablePortal
-				onKeyDown={(e) => props.handleListKeyDown(e, 'notify')}
 				style={{ zIndex: 1200 }}
 				modifiers={{
 					offset: {
@@ -38,6 +37,7 @@ const BellNotificationsView = (props) => {
 						offset: 'none, 12',
 					},
 				}}
+				onKeyDown={(e) => props.handleListKeyDown(e, 'notify')}
 			>
 				<ClickAwayListener onClickAway={(e) => props.handleClose(e, 'notify')}>
 					<Paper elevation={1} style={{ position: 'relative', width: '297px' }}>
@@ -106,8 +106,8 @@ const BellNotificationsView = (props) => {
 								<Grid
 									item
 									align="center"
-									onClick={() => props.redirect('all_notfications')}
 									style={{ cursor: 'pointer' }}
+									onClick={() => props.redirect('all_notfications')}
 								>
 									<Typography
 										style={{

@@ -32,9 +32,9 @@ const AllPublicationsTabsView = (props) => {
 						<Grid item xs={4}>
 							<Tabs
 								value={props.value}
-								onChange={props.handleChange}
 								className={classes.tabs}
 								aria-label="tabs"
+								onChange={props.handleChange}
 							>
 								<Tab label="Published" {...a11yProps(0)} className={classes.tab} />
 								<Tab label="Drafts" {...a11yProps(1)} className={classes.tab} />

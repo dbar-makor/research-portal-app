@@ -7,7 +7,7 @@ import { FilledButton } from '../../../../../styles/MainStyles';
 import useStyles from './SideForm.style';
 
 const SideFormView = (props) => {
- const classes = useStyles(props);
+	const classes = useStyles(props);
 
 	return (
 		<Grid container className={classes.rightColumn}>
@@ -19,7 +19,8 @@ const SideFormView = (props) => {
 								<CircularProgress className={classes.progressBar} />
 								<Typography className={classes.progressbarTitle}>
 									{' '}
-									Updating Files...{' '}
+									Updating Files...
+									{' '}
 								</Typography>
 							</Grid>
 						</Grid>
@@ -104,8 +105,8 @@ const SideFormView = (props) => {
 					<Grid item>
 						<FilledButton
 							disabled={!props.validationResult.step2}
-							onClick={props.handleDone}
 							className={classes.updateBtn}
+							onClick={props.handleDone}
 						>
 							Done
 						</FilledButton>

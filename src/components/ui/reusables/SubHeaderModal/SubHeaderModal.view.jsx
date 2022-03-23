@@ -2,11 +2,10 @@ import React from 'react';
 import { Grid, Typography } from '@material-ui/core';
 import { useStyles } from '../../../../styles/MainStyles.js';
 
-
 const SubHeaderModalView = (props) => {
 	const classes = useStyles();
 
-  return (
+	return (
 		<>
 			<Grid item style={{ marginBottom: '10px' }} className={classes.blueShapeModal} />
 			<Grid item xs={12}>

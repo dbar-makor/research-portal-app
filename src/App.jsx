@@ -30,7 +30,7 @@ import AllInvoices from './components/ui/salesman/contractViews/allInvoices/AllI
 import AllNotifications from './components/ui/members/Notifications/AllNotifications/AllNotifications';
 import AccountSettings from './components/AccountSettings/AccountSettings';
 
-function App() {
+const App = () => {
 	const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 	const dispatch = useDispatch();
 	const isAuthor = useSelector((state) => state.auth.userContent?.type === 'author');
@@ -187,6 +187,6 @@ function App() {
 				(isMember ? <FooterMember style={{ position: 'absolute', bottom: 0 }} /> : <></>)}
 		</ThemeProvider>
 	);
-}
+};
 
 export default App;

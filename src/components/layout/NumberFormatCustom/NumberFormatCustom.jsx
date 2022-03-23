@@ -7,9 +7,9 @@ const NumberFormatCustom = (props) => {
 	return (
 		<NumberFormatCustomView
 			inputRef={props.inputRef}
-			onChange={props.onChange}
 			decimalNo={props.decimalNo}
 			minValue={props.minValue}
+			onChange={props.onChange}
 			{...props.other}
 		/>
 	);

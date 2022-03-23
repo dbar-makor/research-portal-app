@@ -6,7 +6,7 @@ import useStyles from './TextInputUnit.style';
 const TextInputUnitView = (props) => {
 	const classes = useStyles();
 
-  return (
+	return (
 		<Grid container className={props.className}>
 			<Grid item xs={props.size}>
 				<StyledTextField
@@ -15,9 +15,9 @@ const TextInputUnitView = (props) => {
 					value={props.value}
 					inputProps={{ autoComplete: 'off' }}
 					placeholder={props.label}
-					onChange={props.onChange}
 					style={{ width: '100%' }}
 					variant="outlined"
+					onChange={props.onChange}
 					{...(props.error && { error: true, helperText: props.error })}
 					{...(props.id && { id: props.id })}
 					{...(props.type && { type: props.type })}

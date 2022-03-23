@@ -37,7 +37,7 @@ const AllInvoicesView = (props) => {
 									<Grid container>
 										<Grid item xs={3}>
 											<RangeDatePicker
-												renderFrom={'filters'}
+												renderFrom="filters"
 												max_days_allowed={1460}
 												from={props.periodRange.from}
 												setFrom={props.setFrom}
@@ -54,9 +54,9 @@ const AllInvoicesView = (props) => {
 												valueField="value"
 												placeholder="Type"
 												value={props.transactionStatus.value}
-												onChange={(e) => props.inputHandler(e, 'STATUS')}
 												optionsArray={props.periodicity}
 												native={false}
+												onChange={(e) => props.inputHandler(e, 'STATUS')}
 											/>
 										</Grid>
 									</Grid>
@@ -81,22 +81,22 @@ const AllInvoicesView = (props) => {
 										<Grid item xs={4} style={{ marginLeft: 15 }}>
 											<StyledTextField
 												value={props.invoiceId}
-												onChange={(e) => props.setInvoiceId(e.target.value)}
 												variant="outlined"
-												onKeyDown={(e) => props.hendlerForInvoiceId(e, 'INVOICE_ID')}
 												fullWidth
 												placeholder="Search"
 												InputProps={{
 													endAdornment: (
 														<SearchIcon
+															style={{ cursor: 'pointer' }}
+															className={classes.searchIcon}
 															onClick={(e) =>
 																props.inputHandler(e, 'INVOICE_ID')
 															}
-															style={{ cursor: 'pointer' }}
-															className={classes.searchIcon}
 														/>
 													),
 												}}
+												onChange={(e) => props.setInvoiceId(e.target.value)}
+												onKeyDown={(e) => props.hendlerForInvoiceId(e, 'INVOICE_ID')}
 											/>
 										</Grid>
 									</Grid>

@@ -173,12 +173,6 @@ const CompanyInfoView = (props) => {
 										getOptionLabel={(option) => {
 											return option.name;
 										}}
-										onChange={(e, newValue) =>
-											props.updateCompanyField('country', newValue)
-										}
-										onInputChange={(e, newInputValue) =>
-											props.setInputValue(newInputValue)
-										}
 										renderInput={(params) => (
 											<TextField
 												{...params}
@@ -186,6 +180,12 @@ const CompanyInfoView = (props) => {
 												autoComplete="off"
 											/>
 										)}
+										onChange={(e, newValue) =>
+											props.updateCompanyField('country', newValue)
+										}
+										onInputChange={(e, newInputValue) =>
+											props.setInputValue(newInputValue)
+										}
 									/>
 								) : (
 									<Grid container alignItems="center">
@@ -246,9 +246,9 @@ const CompanyInfoView = (props) => {
 							</Grid>
 						) : null}
 						<ContractsModal
-							onClose={() => props.closeContractDialong()}
 							isOpen={props.openDialog}
 							client={props.chosenCompany}
+							onClose={() => props.closeContractDialong()}
 						/>
 					</Grid>
 					{!props.chosenCompany.contract_status ? (

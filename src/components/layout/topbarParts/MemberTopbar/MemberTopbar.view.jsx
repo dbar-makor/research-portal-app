@@ -17,12 +17,12 @@ const MemberTopbarView = (props) => {
 							</Link>
 						</Grid>
 						<Grid item xs={4}>
-							<Link to={'/'} className={props.classes.styledLinks}>
+							<Link to="/" className={props.classes.styledLinks}>
 								Ideas
 							</Link>
 						</Grid>
 						<Grid item xs={4}>
-							<Link to={'/'} className={props.classes.styledLinks}>
+							<Link to="/" className={props.classes.styledLinks}>
 								Mkt Calendar
 							</Link>
 						</Grid>
@@ -39,7 +39,7 @@ const MemberTopbarView = (props) => {
 								valueField="value"
 								placeholder="All Regions"
 								optionsArray={props.options}
-								native={true}
+								native
 							/>
 						</Grid>
 						<Grid item xs={6}>

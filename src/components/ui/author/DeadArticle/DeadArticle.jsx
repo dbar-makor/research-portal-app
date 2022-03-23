@@ -477,8 +477,6 @@ const DeadArticle = () => {
 			localCats={localCats}
 			localForm={localForm}
 			localTags={localTags}
-			onPDFUpload={onPDFUpload}
-			onDropCover={onDropCover}
 			selectedValue={selectedValue}
 			sendPublication={sendPublication}
 			setErrors={setErrors}
@@ -498,6 +496,8 @@ const DeadArticle = () => {
 			validateEditedDeadPublication={validateEditedDeadPublication}
 			validationResult={validationResult}
 			ref={tableRowsRefs}
+			onPDFUpload={onPDFUpload}
+			onDropCover={onDropCover}
 		/>
 	);
 };

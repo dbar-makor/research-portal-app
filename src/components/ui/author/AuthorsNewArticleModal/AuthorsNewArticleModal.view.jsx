@@ -10,12 +10,12 @@ const AuthorsNewArticleModalView = (props) => {
 	const classes = useStyles();
 
 	return (
-		<Dialog open={props.open} onClose={props.handleClose} className={classes.dialog}>
+		<Dialog open={props.open} className={classes.dialog} onClose={props.handleClose}>
 			<Grid container justifyContent="center" className={classes.modalContainer}>
 				<Grid item xs={12}>
 					<Grid container className={classes.end}>
 						<Grid item xs={12}>
-							<CloseIcon onClick={props.handleClose} className={classes.closeIcon} />
+							<CloseIcon className={classes.closeIcon} onClick={props.handleClose} />
 						</Grid>
 					</Grid>
 

@@ -3,10 +3,9 @@ import { Grid, Typography } from '@material-ui/core';
 import { useStyles } from '../../../../styles/MainStyles.js';
 
 const SubHeaderView = (props) => {
+	const classes = useStyles();
 
-  const classes = useStyles();
-
-  return (
+	return (
 		<>
 			<Grid item xs={12}>
 				<Grid container>

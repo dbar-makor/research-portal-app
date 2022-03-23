@@ -49,18 +49,14 @@ const FiltersView = (props) => {
 					<Grid item xs={props.pageType !== 'companies' ? 6 : 4}>
 						<StyledTextField
 							value={props.localSearch}
-							onChange={(e) => props.setLocalSearch(e.target.value)}
-							onKeyDown={(e) =>
-								e.key === 'Enter'
-									? dispatch(props.setProperty({ key: 'search', value: props.localSearch }))
-									: null
-							}
 							variant="outlined"
 							fullWidth
 							placeholder="Search"
 							InputProps={{
 								endAdornment: (
 									<SearchIcon
+										className={classes.searchIcon}
+										style={{ cursor: 'pointer' }}
 										onClick={() =>
 											dispatch(
 												props.setProperty({
@@ -69,11 +65,15 @@ const FiltersView = (props) => {
 												}),
 											)
 										}
-										className={classes.searchIcon}
-										style={{ cursor: 'pointer' }}
 									/>
 								),
 							}}
+							onChange={(e) => props.setLocalSearch(e.target.value)}
+							onKeyDown={(e) =>
+								e.key === 'Enter'
+									? dispatch(props.setProperty({ key: 'search', value: props.localSearch }))
+									: null
+							}
 						/>
 					</Grid>
 					{props.pageType === 'companies' && (
@@ -87,10 +87,10 @@ const FiltersView = (props) => {
 								placeholder="Type"
 								value={props.type}
 								native={false}
+								optionsArray={typeArray}
 								onChange={(e) =>
 									dispatch(props.setProperty({ key: 'type', value: e.target.value }))
 								}
-								optionsArray={typeArray}
 							/>
 						</Grid>
 					)}
@@ -107,16 +107,17 @@ const FiltersView = (props) => {
 							valueField="value"
 							placeholder="Status"
 							value={props.status}
+							optionsArray={statusArray}
 							onChange={(e) =>
 								dispatch(props.setProperty({ key: 'status', value: e.target.value }))
 							}
-							optionsArray={statusArray}
 						/>
 					</Grid>
 				</Grid>
 			</Grid>
-			<AddButton disableRipple onClick={props.handleOpen} style={{ marginRight: '8px' }}>
-				<AddIcon className={classes.addIcon} />{' '}
+			<AddButton disableRipple style={{ marginRight: '8px' }} onClick={props.handleOpen}>
+				<AddIcon className={classes.addIcon} />
+				{' '}
 				<Typography style={{ color: '#FFFFFF' }}>&nbsp;&nbsp;New&nbsp;</Typography>
 			</AddButton>
 			<NewCompanyStepper

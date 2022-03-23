@@ -130,14 +130,14 @@ const TableComponentView = forwardRef((props, ref) => {
 										if (value) {
 											return (
 												<StyledTableCell key={i} align="center">
-													{<GreenCheckmark className={classes.checkmark} />}
+													<GreenCheckmark className={classes.checkmark} />
 												</StyledTableCell>
 											);
 										} else {
 											if (row.type === 'client') {
 												return (
 													<StyledTableCell key={i} align="center">
-														{<RedCheckmark className={classes.checkmark} />}
+														<RedCheckmark className={classes.checkmark} />
 													</StyledTableCell>
 												);
 											} else {
@@ -152,14 +152,12 @@ const TableComponentView = forwardRef((props, ref) => {
 								} else if (key === 'status') {
 									return (
 										<StyledTableCell key={i} align="center">
-											{
-												<FiberManualRecordIcon
-													style={{
-														fill: value ? '#00CA80' : '#FF3939',
-														fontSize: '14px',
-													}}
-												/>
-											}
+											<FiberManualRecordIcon
+												style={{
+													fill: value ? '#00CA80' : '#FF3939',
+													fontSize: '14px',
+												}}
+											/>
 										</StyledTableCell>
 									);
 								} else if (key === 'periodicity') {

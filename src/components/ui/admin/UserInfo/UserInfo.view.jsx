@@ -166,10 +166,6 @@ const UserInfoView = (props) => {
 											return option.name;
 										}}
 										// error={errors.country}
-										onChange={(e, newValue) => props.updateUserField('country', newValue)}
-										onInputChange={(e, newInputValue) =>
-											props.setInputValue(newInputValue)
-										}
 										renderInput={(params) => (
 											<TextField
 												{...params}
@@ -177,6 +173,10 @@ const UserInfoView = (props) => {
 												autoComplete="off"
 											/>
 										)}
+										onChange={(e, newValue) => props.updateUserField('country', newValue)}
+										onInputChange={(e, newInputValue) =>
+											props.setInputValue(newInputValue)
+										}
 									/>
 								) : (
 									<Grid container alignItems="center">

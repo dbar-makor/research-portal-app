@@ -7,7 +7,7 @@ import useStyles from './DateInputUnit.style';
 const DateInputUnitView = (props) => {
 	const classes = useStyles();
 
-  return (
+	return (
 		<Grid container className={props.className}>
 			<Grid item xs={12}>
 				<KeyboardDatePicker
@@ -18,15 +18,18 @@ const DateInputUnitView = (props) => {
 					format="dd/MM/yyyy"
 					style={{ width: '100%' }}
 					value={props.value}
-					onChange={props.onChange}
 					autoOk
 					placeholder={props.label}
 					disableToolbar
-					// placdeholder={label}
 					className={props.datePickerClass}
-					keyboardIcon={
-						<IconCalendar style={{ width: props.iconFontSize }} className={classes.calendarIcon} />
-					}
+					// placdeholder={label}
+					keyboardIcon={(
+						<IconCalendar
+							style={{ width: props.iconFontSize }}
+							className={classes.calendarIcon}
+						/>
+    )}
+					onChange={props.onChange}
 				/>
 				{/* <Typography variant="caption">
           {label}

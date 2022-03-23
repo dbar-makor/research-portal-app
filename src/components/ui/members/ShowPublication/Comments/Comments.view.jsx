@@ -32,9 +32,9 @@ const CommentsView = (props) => {
 				<Grid item xs={12}>
 					<Grid container justifyContent="space-between" alignItems="center">
 						<Grid item xs={6}>
-							<Typography
-								className={classes.commentSec}
-							>{`Comments (${props.comments.length})`}</Typography>
+							<Typography className={classes.commentSec}>
+								{`Comments (${props.comments.length})`}
+							</Typography>
 						</Grid>
 						{props.userType && props.userType !== 'prospect' && props.openAddCmnt !== true ? (
 							<Grid item xs={6} style={{ display: 'flex', justifyContent: 'flex-end' }}>
@@ -75,8 +75,8 @@ const CommentsView = (props) => {
 									</Grid>
 									<Grid item>
 										<StyledButton
-											onClick={() => props.addComment(props.newComment)}
 											disabled={props.newComment.content !== '' ? false : true}
+											onClick={() => props.addComment(props.newComment)}
 										>
 											Comment
 										</StyledButton>

@@ -2,7 +2,7 @@ import React from 'react';
 import ContractModalView from './ContractModal.view';
 
 const ContractModal = (props) => {
-	return <ContractModalView isOpen={props.isOpen} onClose={props.onClose} client={props.client} />;
+	return <ContractModalView isOpen={props.isOpen} client={props.client} onClose={props.onClose} />;
 };
 
 ContractModal.displayName = 'ContractModal';
