@@ -85,7 +85,7 @@ const BellNotificationsView = (props) => {
 													<Typography style={{ fontSize: 12 }}>
 														{props.countAlerts > 0
 															? `${props.countAlerts} New`
-															: 'No New'}
+															: 'None'}
 													</Typography>
 												</Grid>
 											</Grid>
