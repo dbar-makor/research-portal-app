@@ -130,4 +130,6 @@ const MembersMain = () => {
 	);
 };
 
+MembersMain.displayName = 'MembersMain';
+
 export default MembersMain;
