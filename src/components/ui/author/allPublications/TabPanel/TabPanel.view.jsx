@@ -4,10 +4,9 @@ import Box from '@material-ui/core/Box';
 import useStyles from './TabPanel.style';
 
 const TabPanelView = (props) => {
+	const classes = useStyles();
 
-  const classes = useStyles();
-
-  return (
+	return (
 		<div
 			role="tabpanel"
 			hidden={props.value !== props.index}

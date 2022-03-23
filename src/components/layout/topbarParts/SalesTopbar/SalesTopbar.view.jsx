@@ -4,8 +4,7 @@ import { Link } from 'react-router-dom';
 //import useStyles from './SalesTopbar.style';
 
 const SalesTopbarView = (props) => {
-
-  return (
+	return (
 		<Grid item xs={3} style={{ marginRight: 113 }}>
 			<Grid container justifyContent="space-between">
 				<Grid item>

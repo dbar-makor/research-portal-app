@@ -63,20 +63,20 @@ const NewCompanyStepperView = (props) => {
 		<Dialog
 			className={classes.dialogBox}
 			open={props.open}
-			onClose={props.handleClose}
 			classes={{ container: classes.container, paper: classes.contractModalPaper }}
 			BackdropProps={{
 				classes: {
 					root: classes.modalBackDrop,
 				},
 			}}
+			onClose={props.handleClose}
 		>
 			<Grid container justifyContent="center" className={classes.dialogContainer}>
 				<Grid item xs={10}>
 					<Grid container>
 						<Grid item xs={12}>
 							<Grid container justifyContent="flex-end">
-								<CloseIcon onClick={props.handleClose} className={classes.closeIcon} />
+								<CloseIcon className={classes.closeIcon} onClick={props.handleClose} />
 							</Grid>
 						</Grid>
 						<Grid item xs={12}>
@@ -119,33 +119,36 @@ const NewCompanyStepperView = (props) => {
 											<div />
 										) : (
 											<OutlinedButton
-												onClick={props.handleBack}
 												className={classes.buttonBack}
+												onClick={props.handleBack}
 											>
 												{' '}
-												Back{' '}
+												Back
+												{' '}
 											</OutlinedButton>
 										)}
 										{props.activeStep === 0 ? (
 											<FilledButton
-												onClick={props.handleNext}
 												className={classes.buttonNext}
 												disabled={!props.validationResult1}
+												onClick={props.handleNext}
 											>
 												{' '}
-												Next{' '}
+												Next
+												{' '}
 											</FilledButton>
 										) : (
 											<FilledButton
-												onClick={props.handleSubmit}
 												className={classes.buttonNext}
 												disabled={
 													!props.validationResult2 ||
 													props.company.members.length < 1
 												}
+												onClick={props.handleSubmit}
 											>
 												{' '}
-												Create{' '}
+												Create
+												{' '}
 											</FilledButton>
 										)}
 									</Grid>

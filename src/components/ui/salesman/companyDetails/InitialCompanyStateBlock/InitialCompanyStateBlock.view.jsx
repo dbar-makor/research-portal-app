@@ -22,8 +22,8 @@ const InitialCompanyStateBlockView = (props) => {
 						</Typography>
 						{props.trialEditMode ? (
 							<IconButton
-								onClick={() => props.sendUpdatedTrial(props.id)}
 								className={classes.editDoneBtn}
+								onClick={() => props.sendUpdatedTrial(props.id)}
 							>
 								<EditDone />
 							</IconButton>
@@ -58,8 +58,6 @@ const InitialCompanyStateBlockView = (props) => {
 									return option.name;
 								}}
 								// error={errors.country}
-								onChange={(e, newValue) => props.handleTrialChange('sales_agent', newValue)}
-								onInputChange={(e, newInputValue) => props.setInputValue(newInputValue)}
 								renderInput={(params) => (
 									<TextField
 										{...params}
@@ -71,6 +69,8 @@ const InitialCompanyStateBlockView = (props) => {
 										})}
 									/>
 								)}
+								onChange={(e, newValue) => props.handleTrialChange('sales_agent', newValue)}
+								onInputChange={(e, newInputValue) => props.setInputValue(newInputValue)}
 							/>
 						) : (
 							<Grid container justifyContent="flex-end">
@@ -93,11 +93,11 @@ const InitialCompanyStateBlockView = (props) => {
 								<DateInputUnit
 									label=""
 									value={props.stateToUpdate.start_at}
-									onChange={(date) => props.handleTrialChange('start_at', date)}
 									inputVariant="standard"
 									iconFontSize="17px"
 									datePickerClass={classes.datePickerClass}
 									error={props.errors['start_at']}
+									onChange={(date) => props.handleTrialChange('start_at', date)}
 								/>
 							) : (
 								<Typography className={classes.fieldContent}>
@@ -121,11 +121,11 @@ const InitialCompanyStateBlockView = (props) => {
 										<DateInputUnit
 											label=""
 											value={props.stateToUpdate.end_at}
-											onChange={(date) => props.handleTrialChange('end_at', date)}
 											inputVariant="standard"
 											iconFontSize="17px"
 											datePickerClass={classes.datePickerClass}
 											error={props.errors['end_at']}
+											onChange={(date) => props.handleTrialChange('end_at', date)}
 										/>
 									) : (
 										<Typography className={classes.fieldContent}>

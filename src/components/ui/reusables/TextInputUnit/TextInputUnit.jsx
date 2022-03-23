@@ -17,14 +17,14 @@ const TextInputUnit = (props) => {
 			name={props.name}
 			value={props.value}
 			label={props.label}
-			onChange={props.onChange}
 			size={size}
 			error={error}
 			id={id}
 			inputProps={inputProps}
 			InputProps={InputProps}
-			onKeyDown={onKeyDown}
 			type={type}
+			onChange={props.onChange}
+			onKeyDown={onKeyDown}
 		/>
 	);
 };

@@ -138,10 +138,9 @@ const MembersTable = () => {
 			return null;
 		} else {
 			return (
-				<Typography
-					style={{ textAlign: 'right' }}
-					className={`${classes.moreCategories} moreCategs`}
-				>{`+${length - 1}`}</Typography>
+				<Typography style={{ textAlign: 'right' }} className={`${classes.moreCategories} moreCategs`}>
+					{`+${length - 1}`}
+				</Typography>
 			);
 		}
 	};

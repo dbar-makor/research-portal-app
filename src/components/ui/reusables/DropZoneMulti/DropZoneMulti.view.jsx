@@ -48,29 +48,29 @@ const DropZoneMultiView = (props) => {
 				<Grid item xs={12}>
 					{props.localForm.attachments && props.localForm.attachments.length
 						? props.localForm.attachments.map((file, index) => (
-								<Grid
-									container
-									alignItems="center"
-									justifyContent="space-between"
-									className={classes.attachmentLine}
-									key={index}
+							<Grid
+								container
+								alignItems="center"
+								justifyContent="space-between"
+								className={classes.attachmentLine}
+								key={index}
 								>
-									<Grid item xs={8}>
-										<Typography>
-											{file.file_name.length > 20
+								<Grid item xs={8}>
+									<Typography>
+										{file.file_name.length > 20
 												? `${file.file_name.slice(0, 20)}...`
 												: file.file_name}
-										</Typography>
-									</Grid>
-									<Grid item xs={1}>
-										<DeleteButton
-											disableRipple
-											onClick={() => props.deleteItem(index, 'attachments')}
-										>
-											<ClearIcon className={classes.clearIcon} />
-										</DeleteButton>
-									</Grid>
+									</Typography>
 								</Grid>
+								<Grid item xs={1}>
+									<DeleteButton
+										disableRipple
+										onClick={() => props.deleteItem(index, 'attachments')}
+										>
+										<ClearIcon className={classes.clearIcon} />
+									</DeleteButton>
+								</Grid>
+							</Grid>
 						  ))
 						: null}
 				</Grid>

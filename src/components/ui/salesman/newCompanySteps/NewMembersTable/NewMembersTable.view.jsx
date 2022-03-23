@@ -77,7 +77,6 @@ const NewMembersTableView = (props) => {
 										<Menu
 											open={props.open}
 											anchorEl={props.anchorEl}
-											onClose={props.handleClose}
 											keepMounted
 											className={classes.menu}
 											PaperProps={{
@@ -86,16 +85,17 @@ const NewMembersTableView = (props) => {
 													width: '12ch',
 												},
 											}}
+											onClose={props.handleClose}
 										>
 											<MenuItem
-												onClick={() => props.editMember(index)}
 												className={classes.option}
+												onClick={() => props.editMember(index)}
 											>
 												Edit
 											</MenuItem>
 											<MenuItem
-												onClick={() => props.deleteMember(index)}
 												className={classes.option}
+												onClick={() => props.deleteMember(index)}
 											>
 												Delete
 											</MenuItem>

@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-	Table,
-	TableBody,
-	TableCell,
-	TableContainer,
-	TableHead,
-	TableRow,
-} from '@material-ui/core';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core';
 import ContractRow from '../ContractRow/ContractRow';
 
 import useStyles from './ContractsTable.style';
@@ -14,7 +7,7 @@ import useStyles from './ContractsTable.style';
 const ContractsTableView = (props) => {
 	const classes = useStyles();
 
-  return (
+	return (
 		<TableContainer className={classes.tableContainer}>
 			<Table stickyHeader size="small" className={classes.table}>
 				<TableHead style={{ borderBottom: 'none' }}>

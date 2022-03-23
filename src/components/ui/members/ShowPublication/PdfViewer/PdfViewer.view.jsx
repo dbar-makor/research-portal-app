@@ -27,10 +27,12 @@ const PdfViewerView = (props) => {
 						</Grid>
 						<Grid item>
 							<Typography
-								onClick={() => props.downloadFile(props.pdf.file_pdf)}
 								className={classes.contentName}
 								style={{ cursor: 'pointer' }}
-							>{`${props.pdf.file_pdf.slice(0, 19)}.pdf`}</Typography>
+								onClick={() => props.downloadFile(props.pdf.file_pdf)}
+							>
+								{`${props.pdf.file_pdf.slice(0, 19)}.pdf`}
+							</Typography>
 						</Grid>
 					</Grid>
 				</Grid>

@@ -7,12 +7,12 @@ const DropZone = (props) => {
 
 	return (
 		<DropZoneView
-			onDrop={props.onDrop}
 			uploadedImage={props.uploadedImage}
 			setUploadedImage={props.setUploadedImage}
 			purpose={purpose}
 			setFileOK={props.setFileOK}
 			fileTypes={props.fileTypes}
+			onDrop={props.onDrop}
 		/>
 	);
 };

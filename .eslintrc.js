@@ -1,5 +1,9 @@
 module.exports = {
-	root: true,
+	env: {
+		node: true,
+		es2021: true,
+		browser: true,
+	},
 	extends: ['eslint:recommended', 'plugin:react/recommended', 'plugin:react/jsx-runtime'],
 	parserOptions: {
 		ecmaVersion: 12,
@@ -116,10 +120,24 @@ module.exports = {
 				html: true,
 			},
 		],
-	},
-	env: {
-		node: true,
-		es6: true,
-		browser: true,
+		'react/jsx-wrap-multilines': [
+			'error',
+			{
+				declaration: 'parens-new-line',
+				assignment: 'parens-new-line',
+				return: 'parens-new-line',
+				arrow: 'parens-new-line',
+				condition: 'parens-new-line',
+				logical: 'parens-new-line',
+				prop: 'parens-new-line',
+			},
+		],
+		'react/jsx-tag-spacing': ['error', { beforeSelfClosing: 'always' }],
+		'react/jsx-sort-props': ['error', { callbacksLast: true, noSortAlphabetically: true }],
+		'react/jsx-one-expression-per-line': ['error', { allow: 'single-child' }],
+		'react/jsx-no-script-url': 'error',
+		'react/jsx-indent-props': ['error', 'tab'],
+		'react/jsx-indent': ['error', 'tab'],
+		'react/jsx-curly-spacing': ['error', { when: 'never', children: { when: 'never' } }],
 	},
 };

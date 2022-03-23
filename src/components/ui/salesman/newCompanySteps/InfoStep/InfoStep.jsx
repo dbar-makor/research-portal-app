@@ -35,11 +35,11 @@ const InfoStep = (props) => {
 			company={props.company}
 			handleCompany={props.handleCompany}
 			errors={props.errors}
-			onDrop={onDrop}
 			uploadedImage={props.uploadedImage}
 			setUploadedImage={props.setUploadedImage}
 			inputValue={props.inputValue}
 			setInputValue={props.setInputValue}
+			onDrop={onDrop}
 		/>
 	);
 };

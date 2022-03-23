@@ -119,7 +119,6 @@ const ContractEditFormView = (props) => {
 									name="amount"
 									label="Amount"
 									value={props.contractForm.amount || ''}
-									onChange={props.handleContract}
 									error={props.errors.amount}
 									InputProps={{
 										inputComponent: NumberFormatCustom,
@@ -128,7 +127,9 @@ const ContractEditFormView = (props) => {
 											minValue: 0,
 										},
 									}}
-								/>{' '}
+									onChange={props.handleContract}
+								/>
+								{' '}
 							</Grid>
 							<Grid item xs={1}>
 								<Typography style={{ textAlign: 'center', fontSize: 14, fontWeight: 'bold' }}>
@@ -224,7 +225,6 @@ const ContractEditFormView = (props) => {
 									className={`${classes.memberField} ${classes.textFieldStyle}`}
 									name="members"
 									value={props.contractForm.members || ''}
-									onChange={props.handleContract}
 									error={props.errors.members}
 									InputProps={{
 										inputComponent: NumberFormatCustom,
@@ -236,6 +236,7 @@ const ContractEditFormView = (props) => {
 												: 0,
 										},
 									}}
+									onChange={props.handleContract}
 								/>
 							</Grid>
 						</Grid>

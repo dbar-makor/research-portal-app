@@ -21,10 +21,12 @@ const ContractRowView = (props) => {
 			<TableCell style={{ color: props.contract.signed === true ? '#00CA80' : '#FF3939' }}>
 				{props.contract.signed === true ? 'Signed' : 'Unsigned'}
 			</TableCell>
-			<TableCell style={{ width: 215 }}>{`${format(
-				new Date(props.contract.start_at),
-				'dd MMM , yyyy',
-			)} - ${format(new Date(props.contract.end_at), 'dd MMM, yyyy')}`}</TableCell>
+			<TableCell style={{ width: 215 }}>
+				{`${format(new Date(props.contract.start_at), 'dd MMM , yyyy')} - ${format(
+					new Date(props.contract.end_at),
+					'dd MMM, yyyy',
+				)}`}
+			</TableCell>
 			<TableCell style={{ textTransform: 'capitalize' }}>{props.contract.company_name}</TableCell>
 			<TableCell
 				style={{ width: 100, textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }}
@@ -36,12 +38,15 @@ const ContractRowView = (props) => {
 			<TableCell style={{ textTransform: 'capitalize' }}>
 				{props.contract.periodicity === 'fully' ? 'Yearly' : props.contract.periodicity}
 			</TableCell>
-			<TableCell
-				style={{ textAlign: 'right' }}
-			>{`${props.contract.currency.symbol}${props.contract.amount}`}</TableCell>
-			<TableCell style={{ fontWeight: 'bold', textAlign: 'right' }}>{`${
-				props.contract.currency.symbol
-			}${props.calcYearlyCost(props.contract.amount, props.contract.periodicity)}`}</TableCell>
+			<TableCell style={{ textAlign: 'right' }}>
+				{`${props.contract.currency.symbol}${props.contract.amount}`}
+			</TableCell>
+			<TableCell style={{ fontWeight: 'bold', textAlign: 'right' }}>
+				{`${props.contract.currency.symbol}${props.calcYearlyCost(
+					props.contract.amount,
+					props.contract.periodicity,
+				)}`}
+			</TableCell>
 			<TableCell style={{ textAlign: 'center' }}>
 				<IconButton size="small">
 					<MoreVertIcon fontSize="small" style={{ color: '#B8C3D8' }} onClick={props.handleClick} />
@@ -50,7 +55,6 @@ const ContractRowView = (props) => {
 					id={props.id}
 					open={props.open}
 					anchorEl={props.anchorEl}
-					onClose={props.handleClose}
 					anchorOrigin={{
 						vertical: 'top',
 						horizontal: 'left',
@@ -59,6 +63,7 @@ const ContractRowView = (props) => {
 						vertical: 'top',
 						horizontal: 'left',
 					}}
+					onClose={props.handleClose}
 				>
 					<Grid container direction="column" spacing={2} style={{ paddingTop: 10 }}>
 						<Grid item xs={11} style={{ marginLeft: '16px' }}>

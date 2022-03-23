@@ -24,7 +24,10 @@ const CommentView = (props) => {
 					<Grid container>
 						<Grid item>
 							<Typography style={{ fontSize: 14 }}>
-								<b>{`${props.cmtNo}.`} </b>
+								<b>
+									{`${props.cmtNo}.`}
+									{' '}
+								</b>
 								{props.comment.content}
 							</Typography>
 						</Grid>
@@ -33,14 +36,16 @@ const CommentView = (props) => {
 				<Grid item xs={12}>
 					<Grid container alignItems="center">
 						<Grid item>
-							<Typography className={classes.commentWriter}>{`${
-								props.comment.user.name
-							} | ${format(
-								new Date(
-									props.comment.created_at ? props.comment.created_at : props.comment.date,
-								),
-								'dd.MM.yyy',
-							)}`}</Typography>
+							<Typography className={classes.commentWriter}>
+								{`${props.comment.user.name} | ${format(
+									new Date(
+										props.comment.created_at
+											? props.comment.created_at
+											: props.comment.date,
+									),
+									'dd.MM.yyy',
+								)}`}
+							</Typography>
 						</Grid>
 						{props.userType && props.userType !== 'prospect' ? (
 							<Grid item style={{ marginLeft: 15 }}>
@@ -79,10 +84,10 @@ const CommentView = (props) => {
 									variant="outlined"
 									placeholder="Add a reply..."
 									className={classes.textField}
+									value={props.reply.content}
 									onChange={(e) =>
 										props.setReply({ ...props.reply, content: e.target.value })
 									}
-									value={props.reply.content}
 								/>
 							</Grid>
 							<Grid item xs={12} style={{ paddingTop: 10 }}>

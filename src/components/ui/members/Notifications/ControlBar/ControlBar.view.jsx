@@ -18,8 +18,6 @@ const ControlBarView = (props) => {
 			<Grid item>
 				<StyledTextField
 					value={props.localSearch}
-					onChange={(e) => props.setLocalSearch(e.target.value)}
-					onKeyDown={props.handleSearch}
 					variant="outlined"
 					fullWidth
 					placeholder="Search"
@@ -33,6 +31,8 @@ const ControlBarView = (props) => {
 							/>
 						),
 					}}
+					onChange={(e) => props.setLocalSearch(e.target.value)}
+					onKeyDown={props.handleSearch}
 				/>
 			</Grid>
 		</Grid>

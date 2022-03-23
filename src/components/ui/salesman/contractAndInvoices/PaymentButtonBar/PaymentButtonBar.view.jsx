@@ -18,9 +18,9 @@ const PaymentButtonBarView = (props) => {
 			>
 				<div className={classes.progressBar}>
 					<div>
-						<Typography
-							style={{ fontSize: 14, color: '#1C67FF' }}
-						>{`${props.precentage}%`}</Typography>
+						<Typography style={{ fontSize: 14, color: '#1C67FF' }}>
+							{`${props.precentage}%`}
+						</Typography>
 					</div>
 					<div
 						style={{ backgroundColor: '#B8C3D8', width: '90px', height: '5px', borderRadius: 4 }}
@@ -48,7 +48,6 @@ const PaymentButtonBarView = (props) => {
 				id={props.id}
 				open={props.open}
 				anchorEl={props.anchorEl}
-				onClose={props.handleClose}
 				anchorOrigin={{
 					vertical: 'top',
 					horizontal: 'left',
@@ -57,6 +56,7 @@ const PaymentButtonBarView = (props) => {
 					vertical: 'top',
 					horizontal: 'left',
 				}}
+				onClose={props.handleClose}
 			>
 				<Grid container direction="column" spacing={2} style={{ paddingTop: 12 }}>
 					<Grid item xs={11} style={{ marginLeft: '16px' }}>

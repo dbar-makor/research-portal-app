@@ -14,13 +14,13 @@ const CategoriesModalView = (props) => {
 		props.currentMember && (
 			<Dialog
 				open={props.open}
-				onClose={props.handleClose}
 				classes={{ paper: classes.contractModalPaper }}
 				BackdropProps={{
 					classes: {
 						root: classes.modalBackDrop,
 					},
 				}}
+				onClose={props.handleClose}
 			>
 				<Grid
 					container
@@ -30,7 +30,7 @@ const CategoriesModalView = (props) => {
 				>
 					<Grid item xs={12}>
 						<Grid container justifyContent="flex-end">
-							<CloseIcon onClick={props.handleClose} className={classes.closeIcon} />
+							<CloseIcon className={classes.closeIcon} onClick={props.handleClose} />
 						</Grid>
 					</Grid>
 					<Grid item xs={12}>

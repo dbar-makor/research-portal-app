@@ -9,7 +9,7 @@ import useStyles from './GeneralContractView.style';
 const GeneralContractViewView = (props) => {
 	const classes = useStyles();
 
-  return (
+	return (
 		<Grid container justifyContent="center" className={classes.modalContainer}>
 			<Grid item xs={10} className={classes.modalBox}>
 				<Grid container justifyContent="center">
@@ -17,7 +17,9 @@ const GeneralContractViewView = (props) => {
 					<Grid item xs={12}>
 						<Grid container justifyContent="center">
 							<Typography className={classes.modalTitle}>
-								{props.chosenCompany?.name} &apos s Contract
+								{props.chosenCompany?.name}
+								{' '}
+								&apos s Contract
 							</Typography>
 						</Grid>
 					</Grid>

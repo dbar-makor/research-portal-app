@@ -46,9 +46,6 @@ const AuthorsNewArticleView = (props) => {
 												<AtricleTitleTextField
 													variant="outlined"
 													value={props.localForm.title}
-													onChange={(e) =>
-														props.handleChange(e.target.value, 'title')
-													}
 													style={{ width: '100%' }}
 													placeholder="Article Title*"
 													error={!!props.errors.title}
@@ -57,6 +54,9 @@ const AuthorsNewArticleView = (props) => {
 														style: { fontSize: '32px', fontWeight: 600 },
 														maxLength: 50,
 													}}
+													onChange={(e) =>
+														props.handleChange(e.target.value, 'title')
+													}
 												/>
 											</Grid>
 										</Grid>
@@ -143,12 +143,12 @@ const AuthorsNewArticleView = (props) => {
 											<DropZone
 												className={classes.dropZone}
 												fileTypes=".png, .jpg, .svg, .jfif, .webp"
-												onDrop={props.onDropCover}
 												uploadedImage={props.coverImage}
 												setUploadedImage={props.setCoverImage}
 												purpose="cover image*"
 												fileOK={props.coverImageOK}
 												setFileOK={props.setCoverImageOK}
+												onDrop={props.onDropCover}
 												//  error={errors.coverImage}
 											/>
 											{!props.coverImageOK.initial && (
@@ -197,6 +197,13 @@ const AuthorsNewArticleView = (props) => {
 											>
 												<Grid item xs={5}>
 													<StyledTextField
+														value={props.currentEvent.title}
+														variant="outlined"
+														placeholder="Title"
+														className={classes.textField}
+														inputProps={{
+															maxLength: 50,
+														}}
 														onChange={(e) => {
 															props.setCurrentEvent({
 																...props.currentEvent,
@@ -208,13 +215,6 @@ const AuthorsNewArticleView = (props) => {
 																props.setErrorsEvent,
 																props.setValidationResultEvent,
 															);
-														}}
-														value={props.currentEvent.title}
-														variant="outlined"
-														placeholder="Title"
-														className={classes.textField}
-														inputProps={{
-															maxLength: 50,
 														}}
 													/>
 												</Grid>
@@ -233,6 +233,9 @@ const AuthorsNewArticleView = (props) => {
 														keyboardIcon={
 															<CalendarIcon className={classes.calendarIcon} />
 														}
+														PopoverProps={{
+															classes: { paper: classes.calendarPaper },
+														}}
 														onChange={(date) => {
 															props.setCurrentEvent({
 																...props.currentEvent,
@@ -244,9 +247,6 @@ const AuthorsNewArticleView = (props) => {
 																props.setErrorsEvent,
 																props.setValidationResultEvent,
 															);
-														}}
-														PopoverProps={{
-															classes: { paper: classes.calendarPaper },
 														}}
 													/>
 												</Grid>
@@ -281,6 +281,13 @@ const AuthorsNewArticleView = (props) => {
 													>
 														<Grid item xs={5}>
 															<StyledTextField
+																value={event.title}
+																variant="outlined"
+																placeholder="Title"
+																className={classes.textField}
+																inputProps={{
+																	maxLength: 50,
+																}}
 																onChange={(e) =>
 																	props.updatePropertyField(
 																		index,
@@ -289,13 +296,6 @@ const AuthorsNewArticleView = (props) => {
 																		'events',
 																	)
 																}
-																value={event.title}
-																variant="outlined"
-																placeholder="Title"
-																className={classes.textField}
-																inputProps={{
-																	maxLength: 50,
-																}}
 															/>
 														</Grid>
 														<Grid item xs={5}>
@@ -313,11 +313,15 @@ const AuthorsNewArticleView = (props) => {
 																keyboardIcon={
 																	props.localForm.events[index]
 																		.date ? null : (
-																		<CalendarIcon
-																			className={classes.calendarIcon}
+																			<CalendarIcon
+																				className={classes.calendarIcon}
 																		/>
 																	)
 																}
+																style={{ width: '100%', maxHeight: '53px' }}
+																PopoverProps={{
+																	classes: { paper: classes.calendarPaper },
+																}}
 																onChange={(date) =>
 																	props.updatePropertyField(
 																		index,
@@ -326,10 +330,6 @@ const AuthorsNewArticleView = (props) => {
 																		'events',
 																	)
 																}
-																style={{ width: '100%', maxHeight: '53px' }}
-																PopoverProps={{
-																	classes: { paper: classes.calendarPaper },
-																}}
 															/>
 														</Grid>
 														<Grid item xs={1}>
@@ -361,10 +361,10 @@ const AuthorsNewArticleView = (props) => {
 											<DropZoneMulti
 												className={classes.uploadAttachment}
 												fileTypes=".jpg, .png, .svg, .doc, .docx, .pdf"
-												onDrop={props.onDrop}
 												purpose="your files"
 												localForm={props.localForm}
 												deleteItem={props.deleteItem}
+												onDrop={props.onDrop}
 											/>
 										</Grid>
 									</Grid>

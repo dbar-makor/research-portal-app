@@ -56,6 +56,13 @@ const MembersTableView = (props) => {
 										className={clsx(classes.memberRow, {
 											[classes.memberRowSelected]: row.isEditMode,
 										})}
+										style={{
+											display:
+												((!props.showAll && !row.status) ||
+													(props.memberSearch !== '' &&
+														props.filterOneMemberDisplay(row))) &&
+												'none',
+										}}
 										onBlur={(e) => props.handleBlur(e, row, index)}
 										onDoubleClick={() => {
 											// const rowsCopy = [...membersRows]
@@ -74,6 +81,7 @@ const MembersTableView = (props) => {
 											rowsCopy.splice(index, 1, updatedRow);
 											props.setMembersRows(rowsCopy);
 										}}
+										// style={{ display: filterMembersDisplay(row, row.status)}}
 										onClick={(ev) => {
 											if (ev.target.id !== 'categories' && ev.nodeName === 'INPUT') {
 												props.timer = setTimeout(() => {
@@ -86,14 +94,6 @@ const MembersTableView = (props) => {
 													props.prevent = false;
 												}, props.delay);
 											}
-										}}
-										// style={{ display: filterMembersDisplay(row, row.status)}}
-										style={{
-											display:
-												((!props.showAll && !row.status) ||
-													(props.memberSearch !== '' &&
-														props.filterOneMemberDisplay(row))) &&
-												'none',
 										}}
 									>
 										{Object.entries(row).map(([key, value], i) => {

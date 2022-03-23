@@ -13,12 +13,12 @@ import { ReactComponent as BlueBorder } from '../../../assets/icons/blueBorder.s
 import TextInputUnit from '../../ui/reusables/TextInputUnit/TextInputUnit';
 import { FilledButton } from '../../../styles/MainStyles';
 import { useTheme } from '@material-ui/core/styles';
-import {  useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import useStyles from './LoginPage.style';
 
 const LoginPageView = (props) => {
-  const theme = useTheme();
+	const theme = useTheme();
 	const sm = useMediaQuery(theme.breakpoints.up('sm'));
 	const loadingIndicator = useSelector((state) => state.auth.loadingIndicator);
 	const classes = useStyles();
@@ -27,11 +27,7 @@ const LoginPageView = (props) => {
 		<Grid container justifyContent="center" className={classes.modalContainer}>
 			<Grid item xs={11} className={sm ? classes.desktopLoginContainer : classes.mobileLoginContainer}>
 				<Grid container justifyContent="center">
-					<Grid
-						item
-						xs={12}
-						className={classes.paddingOfGrid}
-					>
+					<Grid item xs={12} className={classes.paddingOfGrid}>
 						<Grid container justifyContent="center">
 							<BlueBorder />
 							<Grid item xs={12}>
@@ -63,13 +59,13 @@ const LoginPageView = (props) => {
 									label="Username"
 									name="username"
 									value={props.form.username || ''}
-									onChange={props.handleChangeInputs}
 									error={props.errors.username}
 									inputProps={{
 										style: {
 											fontSize: 14,
 										},
 									}}
+									onChange={props.handleChangeInputs}
 								/>
 							</Grid>
 							<Grid item xs={12}>
@@ -81,16 +77,12 @@ const LoginPageView = (props) => {
 											label="Password"
 											name="password"
 											value={props.form.password || ''}
-											onChange={props.handleChangeInputs}
 											error={props.errors.password}
 											type={props.showPassword ? 'text' : 'password'}
 											inputProps={{
 												style: {
 													fontSize: 14,
 												},
-											}}
-											onKeyDown={(e) => {
-												props.handlePressEnter(e);
 											}}
 											InputProps={{
 												endAdornment: (
@@ -110,6 +102,10 @@ const LoginPageView = (props) => {
 													</InputAdornment>
 												),
 											}}
+											onChange={props.handleChangeInputs}
+											onKeyDown={(e) => {
+												props.handlePressEnter(e);
+											}}
 										/>
 									</Grid>
 									<Grid container>
@@ -127,9 +123,9 @@ const LoginPageView = (props) => {
 										<FilledButton
 											id="loginBtn"
 											varint="outlined"
-											onClick={props.handleLogin}
 											disabled={!props.validationResult || props.loadingIndicator}
 											className={classes.logIn}
+											onClick={props.handleLogin}
 											//   disabled={form.username === "" || form.password === ""}
 										>
 											{loadingIndicator ? (

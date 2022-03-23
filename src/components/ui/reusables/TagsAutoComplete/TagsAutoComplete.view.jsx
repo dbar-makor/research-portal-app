@@ -91,9 +91,9 @@ const TagsAutoCompleteView = (props) => {
 											<Chip
 												variant={props.chipVariant}
 												label={`#${el.name}`}
-												onDelete={() => props.deleteItem(index)}
 												deleteIcon={<ClearIcon />}
 												className={classes.chip}
+												onDelete={() => props.deleteItem(index)}
 											/>
 										</Grid>
 									))}

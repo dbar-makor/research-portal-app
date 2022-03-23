@@ -28,23 +28,22 @@ const RangeDatePickerView = forwardRef((props, ref) => {
 						: ''
 				}
 				// error={error}
-				onClick={(e) => {
-					props.handleCalendarOpen(e);
-				}}
-				endAdornment={
+				endAdornment={(
 					<InputAdornment position="start" style={{ marginLeft: -5 }}>
 						<ClearIcon onClick={(e) => props.clearInput(e)} />
 						<IconButton id="calendarIcon" ref={ref}>
 							<Calendar className={classes.calendar} />
 						</IconButton>
 					</InputAdornment>
-				}
+   )}
 				varient="outlined"
+				onClick={(e) => {
+					props.handleCalendarOpen(e);
+				}}
 			/>
 			<Popover
 				open={props.open}
 				anchorEl={props.anchorEl && props.anchorEl}
-				onClose={() => props.setOpen(false)}
 				anchorOrigin={{
 					vertical: 'bottom',
 					horizontal: 'left',
@@ -53,10 +52,10 @@ const RangeDatePickerView = forwardRef((props, ref) => {
 					vertical: 'top',
 					horizontal: 'center',
 				}}
+				onClose={() => props.setOpen(false)}
 			>
 				<DateRangePicker
 					ranges={props.range}
-					onChange={(item) => props.handleSelect(item)}
 					moveRangeOnFirstSelection={false}
 					editableDateInputs={true}
 					fixedHeight={true}
@@ -69,6 +68,7 @@ const RangeDatePickerView = forwardRef((props, ref) => {
 					staticRanges={[]}
 					inputRanges={[]}
 					rangeColors={['#1C67FF']}
+					onChange={(item) => props.handleSelect(item)}
 				/>
 			</Popover>
 		</>

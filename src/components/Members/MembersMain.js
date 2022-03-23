@@ -87,12 +87,12 @@ const MembersMain = () => {
 							</InputLabel>
 							<Select
 								disableUnderline
-								onChange={(e) => filterByCategory(e.target.value)}
 								MenuProps={{
 									classes: { paper: classes.sortDropdownStyle, input: classes.input },
 								}}
 								className={classes.sortSelect}
 								disableScrollLock
+								onChange={(e) => filterByCategory(e.target.value)}
 							>
 								<MenuItem value={{ id: '', name: '' }}>All</MenuItem>
 								{/* eslint no-unused-vars: 0 */}
@@ -110,13 +110,13 @@ const MembersMain = () => {
 						<StyledTextField
 							value={search}
 							size="small"
-							onChange={(e) => setSearch(e.target.value.toLowerCase().trim())}
 							variant="outlined"
 							fullWidth
 							placeholder="Search"
 							InputProps={{
 								endAdornment: <SearchIcon className={classes.searchIcon} />,
 							}}
+							onChange={(e) => setSearch(e.target.value.toLowerCase().trim())}
 						/>
 					</Grid>
 				</Grid>
