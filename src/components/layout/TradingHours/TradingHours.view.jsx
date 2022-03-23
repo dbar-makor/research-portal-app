@@ -5,7 +5,6 @@ import BellNotifications from '../topbarParts/BellNotifications/BellNotification
 import UserIcon from '../topbarParts/UserIcon/UserIcon';
 import TradingHourUnit from '../topbarParts/TradingHourUnit/TradingHourUnit';
 
-
 const TradingHoursView = forwardRef((props, ref) => {
 	const classes = useStyles();
 
@@ -34,7 +33,7 @@ const TradingHoursView = forwardRef((props, ref) => {
 						handleClose={props.handleClose}
 					/>
 				</Grid>
-				<Grid item xs={3}>
+				<Grid item className={classes.userIconWrapper} xs={3}>
 					<UserIcon
 						ref={ref}
 						handleToggle={props.handleToggle}
