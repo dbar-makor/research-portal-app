@@ -107,7 +107,7 @@ const BellNotificationsView = (props) => {
 									item
 									align="center"
 									style={{ cursor: 'pointer' }}
-									onClick={() => props.redirect('all_notfications')}
+									onClick={() => props.redirect('all-notfications')}
 								>
 									<Typography
 										style={{
