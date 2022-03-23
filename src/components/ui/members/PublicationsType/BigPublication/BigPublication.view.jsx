@@ -60,7 +60,7 @@ const BigPublicationView = (props) => {
 									: 'none',
 								backgroundColor: '#74b2f0',
 							}}
-						></Grid>
+						/>
 					</Link>
 				</Grid>
 

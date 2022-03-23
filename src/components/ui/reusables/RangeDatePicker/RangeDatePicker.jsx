@@ -4,8 +4,6 @@ import { DateRangePicker } from 'react-date-range';
 import RangeDatePickerView from './RangeDatePicker.view';
 
 const RangeDatePicker = (props) => {
-	const { from, to, setFrom, setTo, max_days_allowed } = props;
-
 	const calendarIconRef = useRef();
 	const [open, setOpen] = useState(false);
 	const [anchorEl, setAnchorEl] = useState(null);
@@ -27,19 +25,19 @@ const RangeDatePicker = (props) => {
 
 		const differenceInDays = moment.duration(testEndDate.diff(testStartDate)).asDays();
 
-		if (differenceInDays <= max_days_allowed) {
+		if (differenceInDays <= props.max_days_allowed) {
 			setRange([item.selection]);
-			setFrom(moment(item.selection.startDate).format('DD/MM/YYYY'));
-			setTo(moment(item.selection.endDate).format('DD/MM/YYYY'));
+			props.setFrom(moment(item.selection.startDate).format('DD/MM/YYYY'));
+			props.setTo(moment(item.selection.endDate).format('DD/MM/YYYY'));
 		} else {
 			const modifiedEndDate = moment(
 				moment(item.selection.startDate).format('DD/MM/YYYY'),
 				'DD/MM/YYYY',
-			).add(max_days_allowed, 'days');
+			).add(props.max_days_allowed, 'days');
 
 			setRange([{ ...item.selection, endDate: modifiedEndDate._d }]);
-			setFrom(moment(item.selection.startDate).format('DD/MM/YYYY'));
-			setTo(moment(modifiedEndDate).format('DD/MM/YYYY'));
+			props.setFrom(moment(item.selection.startDate).format('DD/MM/YYYY'));
+			props.setTo(moment(modifiedEndDate).format('DD/MM/YYYY'));
 		}
 
 		if (counter === 1) {
@@ -62,14 +60,14 @@ const RangeDatePicker = (props) => {
 				key: 'selection',
 			},
 		]);
-		setFrom('DD/MM/YYYY');
-		setTo('DD/MM/YYYY');
+		props.setFrom('DD/MM/YYYY');
+		props.setTo('DD/MM/YYYY');
 	});
 
 	return (
 		<RangeDatePickerView
-			from={from}
-			to={to}
+			from={props.from}
+			to={props.to}
 			handleCalendarOpen={handleCalendarOpen}
 			handleSelect={handleSelect}
 			clearInput={clearInput}

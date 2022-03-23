@@ -3,9 +3,7 @@ import React from 'react';
 import SubscriberInfoView from './SubscriberInfo.view';
 
 const SubscriberInfo = (props) => {
-	const { info } = props;
-
-	return <SubscriberInfoView info={info}></SubscriberInfoView>;
+	return <SubscriberInfoView info={props.info} />;
 };
 
 SubscriberInfo.displayName = 'SubscriberInfo';

@@ -151,7 +151,7 @@ const InitialCompanyStateBlock = (props) => {
 			title={title}
 			trial_period={trial_period}
 			type={type}
-		></InitialCompanyStateBlockView>
+		/>
 	);
 };
 

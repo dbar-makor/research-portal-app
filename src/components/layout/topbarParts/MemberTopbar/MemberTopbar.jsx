@@ -3,9 +3,7 @@ import React from 'react';
 import MemberTopbarView from './MemberTopbar.view';
 
 const MemberTopbar = (props) => {
-	const { classes, options } = props;
-
-	return <MemberTopbarView classes={classes} options={options}></MemberTopbarView>;
+	return <MemberTopbarView classes={props.classes} options={props.options} />;
 };
 
 MemberTopbar.displayName = 'MemberTopbar';

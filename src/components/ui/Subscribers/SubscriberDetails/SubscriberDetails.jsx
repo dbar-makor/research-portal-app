@@ -17,7 +17,7 @@ const SubscriberDetails = () => {
 			isEdit={isEdit}
 			setIsEdit={setIsEdit}
 			sendEdit={sendEdit}
-		></SubscriberDetailsView>
+		/>
 	);
 };
 

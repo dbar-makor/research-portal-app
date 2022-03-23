@@ -52,7 +52,7 @@ const SalesUsers = () => {
 			salesData={salesData}
 			lastItemRef={lastItemRef}
 			chosenUser={chosenUser}
-		></SalesUsersView>
+		/>
 	);
 };
 

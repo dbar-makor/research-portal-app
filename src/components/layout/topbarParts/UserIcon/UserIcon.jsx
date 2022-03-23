@@ -4,7 +4,6 @@ import * as actionAuth from '../../../../redux/auth/action';
 
 import UserIconView from './UserIcon.view';
 
-
 const UserIcon = forwardRef((props, ref) => {
 	const { handleToggle, userType, handleClose, setOpen, open } = props;
 	const user = useSelector((state) => state.auth.userContent);
@@ -24,7 +23,7 @@ const UserIcon = forwardRef((props, ref) => {
 			user={user}
 			handleLogout={handleLogout}
 			ref={ref}
-		></UserIconView>
+		/>
 	);
 });
 

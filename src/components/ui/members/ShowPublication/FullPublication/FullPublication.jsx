@@ -71,7 +71,7 @@ const FullPublication = () => {
 			backToEditing={backToEditing}
 			chosenPublication={chosenPublication}
 			userType={userType}
-		></FullPublicationView>
+		/>
 	);
 };
 

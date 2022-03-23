@@ -22,7 +22,6 @@ const statusValues = [
 ];
 
 const ContractAndInvoicesContent = (props) => {
-	const { clientId, clientName } = props;
 	const [sortStatus, setSortStatus] = useState('');
 	const [contracts, setContracts] = useState([]);
 	const [filterdContract, setFilterContract] = useState([]);
@@ -57,8 +56,8 @@ const ContractAndInvoicesContent = (props) => {
 	};
 
 	useEffect(() => {
-		getClientContract(clientId);
-	}, [clientId]);
+		getClientContract(props.clientId);
+	}, [props.clientId]);
 
 	return (
 		<ContractAndInvoicesContentView
@@ -67,8 +66,8 @@ const ContractAndInvoicesContent = (props) => {
 			filterStatus={filterStatus}
 			rowHeaders={rowHeaders}
 			filterdContract={filterdContract}
-			clientName={clientName}
-		></ContractAndInvoicesContentView>
+			clientName={props.clientName}
+		/>
 	);
 };
 

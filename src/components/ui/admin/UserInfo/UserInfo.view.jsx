@@ -59,7 +59,7 @@ const UserInfoView = (props) => {
 													</Typography>
 												)}
 											</Grid>
-											<Grid item xs={1}></Grid>
+											<Grid item xs={1} />
 											<Grid item xs={3}>
 												<Grid
 													container

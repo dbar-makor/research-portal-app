@@ -51,7 +51,7 @@ const SmallPublicationView = (props) => {
 									: 'none',
 								backgroundColor: '#74b2f0',
 							}}
-						></Grid>
+						/>
 					</Link>
 				</Grid>
 				<Grid item xs={6}>

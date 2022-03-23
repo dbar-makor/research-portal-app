@@ -8,7 +8,6 @@ import InvoiceTableView from './InvoiceTable.view';
 const headersName = ['No.', 'Company', 'Date', 'Amount', 'Status', 'Download'];
 
 const InvoiceTable = (props) => {
-	const { invoiceRows } = props;
 	const dispatch = useDispatch();
 
 	const showInvoice = async (invoiceId) => {
@@ -43,9 +42,9 @@ const InvoiceTable = (props) => {
 	return (
 		<InvoiceTableView
 			headersName={headersName}
-			invoiceRows={invoiceRows}
+			invoiceRows={props.invoiceRows}
 			showInvoice={showInvoice}
-		></InvoiceTableView>
+		/>
 	);
 };
 

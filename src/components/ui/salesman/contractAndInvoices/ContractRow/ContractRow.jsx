@@ -7,8 +7,7 @@ import ContractRowView from './ContractRow.view';
 
 const ContractRow = (props) => {
 	const dispatch = useDispatch();
-	const { contract, clientName } = props;
-	const [filterInvoices, setFilterInvoices] = useState(contract.invoices);
+	const [filterInvoices, setFilterInvoices] = useState(props.contract.invoices);
 	const [open, setOpen] = useState(false);
 
 	const calcYearlyCost = (amount, period) => {
@@ -26,13 +25,13 @@ const ContractRow = (props) => {
 	const searchInvoice = (value) => {
 		const debaunceSearch = setTimeout(() => {
 			if (value !== '') {
-				const filterInvoice = contract.invoices.filter(
+				const filterInvoice = props.contract.invoices.filter(
 					(i) => i.id.slice(0, 6).includes(value) || i.id.slice(0, 6).toUpperCase().includes(value),
 				);
 
 				setFilterInvoices(filterInvoice);
 			} else {
-				setFilterInvoices(contract.invoices);
+				setFilterInvoices(props.contract.invoices);
 			}
 		}, 500);
 
@@ -90,9 +89,9 @@ const ContractRow = (props) => {
 
 	return (
 		<ContractRowView
-			contract={contract}
+			contract={props.contract}
 			openInvoices={openInvoices}
-			clientName={clientName}
+			clientName={props.clientName}
 			calcPaymentProgress={calcPaymentProgress}
 			calcYearlyCost={calcYearlyCost}
 			filterInvoices={filterInvoices}

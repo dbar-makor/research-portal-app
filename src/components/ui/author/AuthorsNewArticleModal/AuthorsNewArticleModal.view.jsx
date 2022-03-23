@@ -63,7 +63,7 @@ const AuthorsNewArticleModalView = (props) => {
 											</Grid>
 										</Button>
 									</Grid>
-									<Grid item xs={2}></Grid>
+									<Grid item xs={2} />
 									<Grid item xs={5}>
 										<Button
 											className={classes.button2Style}

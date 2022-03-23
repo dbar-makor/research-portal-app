@@ -27,7 +27,7 @@ const CommentsView = (props) => {
 
 	return (
 		<Grid item xs={12}>
-			<Divider className={classes.divider}></Divider>
+			<Divider className={classes.divider} />
 			<Grid container style={{ paddingTop: '25px' }}>
 				<Grid item xs={12}>
 					<Grid container justifyContent="space-between" alignItems="center">

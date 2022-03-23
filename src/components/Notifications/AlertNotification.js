@@ -4,12 +4,12 @@ import { Link } from 'react-router-dom';
 import { parseISO, formatDistanceToNow } from 'date-fns';
 import * as webSocketService from '../../services/websocket';
 
-const AlertNotification = ({ key, notifi, setCountAlerts, handleClose }) => {
+const AlertNotification = (props) => {
 	const token = useSelector((state) => state.auth.token);
-	let content = notifi.content;
+	let content = props.notifi.content;
 
-	if (typeof notifi.content === 'string') {
-		content = JSON.parse(notifi.content);
+	if (typeof props.notifi.content === 'string') {
+		content = JSON.parse(props.notifi.content);
 	}
 
 	const setIsRead = (notifyId) => {
@@ -20,8 +20,8 @@ const AlertNotification = ({ key, notifi, setCountAlerts, handleClose }) => {
 
 		webSocketService.sendEvent(message, token);
 
-		if (notifi.is_new) {
-			setCountAlerts((count) => count - 1);
+		if (props.notifi.is_new) {
+			props.setCountAlerts((count) => count - 1);
 			const newMessage = {
 				type: 'set-is-new',
 				id: notifyId,
@@ -45,20 +45,20 @@ const AlertNotification = ({ key, notifi, setCountAlerts, handleClose }) => {
 	};
 
 	const setAsRead = (e) => {
-		setIsRead(notifi.id);
-		notifi.is_read = true;
-		handleClose(e, 'notify');
+		setIsRead(props.notifi.id);
+		props.notifi.is_read = true;
+		props.handleClose(e, 'notify');
 	};
 
 	return (
 		<Grid
 			item
 			xs={11}
-			key={key}
+			key={props.key}
 			style={{
 				borderBottom: '1px solid #EDEFF3',
 				paddingBottom: 8,
-				backgroundColor: notifi.is_read ? '#FFFFFF' : '#F3F7FF',
+				backgroundColor: props.notifi.is_read ? '#FFFFFF' : '#F3F7FF',
 			}}
 		>
 			<Link

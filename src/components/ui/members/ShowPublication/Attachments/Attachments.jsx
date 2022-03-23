@@ -2,8 +2,8 @@ import React from 'react';
 
 import AttachmentsView from './Attachments.view';
 
-const Attachments = ({ attachments }) => {
-	return <AttachmentsView attachments={attachments}></AttachmentsView>;
+const Attachments = (props) => {
+	return <AttachmentsView attachments={props.attachments} />;
 };
 
 Attachments.displayName = 'Attachments';

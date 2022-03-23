@@ -24,7 +24,7 @@ function truncateString(string, wordsNo) {
 	return newDescription;
 }
 
-const PublicationsTab = ({ publication, fetchPublications, fetchStatistics }) => {
+const PublicationsTab = (props) => {
 	const [openAlert, setOpenAlert] = useState(false);
 	const [redirectMarker, setRedirectMarker] = useState(false);
 	const [deleteID, setDeleteID] = useState('');
@@ -51,9 +51,9 @@ const PublicationsTab = ({ publication, fetchPublications, fetchStatistics }) =>
 			const res = await axios.delete(`${BASE_URL}${END_POINT.PUBLICATION}/${deleteID}`);
 
 			if (res.status === 201 || res.status === 200) {
-				fetchPublications();
+				props.fetchPublications();
 				dispatch(actionSnackBar.setSnackBar('success', 'Successfully deleted', 2000));
-				fetchStatistics();
+				props.fetchStatistics();
 			}
 		} catch (error) {
 			dispatch(actionSnackBar.setSnackBar('error', 'Delete failed', 2000));
@@ -97,7 +97,7 @@ const PublicationsTab = ({ publication, fetchPublications, fetchStatistics }) =>
 	return (
 		<PublicationsTabView
 			chooseImage={chooseImage}
-			publication={publication}
+			publication={props.publication}
 			handleDeleteBtn={handleDeleteBtn}
 			handleEdit={handleEdit}
 			truncateString={truncateString}

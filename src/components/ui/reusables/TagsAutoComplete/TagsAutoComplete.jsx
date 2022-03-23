@@ -3,17 +3,16 @@ import React from 'react';
 import TagsAutoCompleteView from './TagsAutoComplete.view';
 
 const TagsAutoComplete = (props) => {
-	const { formObject, setFormObject, handler } = props;
 	const className = props.className ? props.className : '';
 	const label = props.label ? props.label : '';
 	const error = props.error ? props.error : null;
 	const chipVariant = props.chipVariant ? props.chipVariant : 'outlined';
 
 	const deleteItem = (index) => {
-		const tagsCopy = [...formObject];
+		const tagsCopy = [...props.formObject];
 
 		tagsCopy.splice(index, 1);
-		setFormObject(tagsCopy);
+		props.setFormObject(tagsCopy);
 	};
 
 	return (
@@ -21,9 +20,9 @@ const TagsAutoComplete = (props) => {
 			deleteItem={deleteItem}
 			className={className}
 			label={label}
-			formObject={formObject}
+			formObject={props.formObject}
 			error={error}
-			handler={handler}
+			handler={props.handler}
 			chipVariant={chipVariant}
 		/>
 	);

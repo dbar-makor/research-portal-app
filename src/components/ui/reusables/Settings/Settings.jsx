@@ -71,7 +71,7 @@ const Settings = () => {
 			loadingUserSettings={loadingUserSettings}
 			userSettings={userSettings}
 			handleToggle={handleToggle}
-		></SettingsView>
+		/>
 	);
 };
 

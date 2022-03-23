@@ -3,21 +3,11 @@ import { useHistory } from 'react-router';
 import BellNotificationsView from './BellNotifications.view';
 
 const BellNotifications = (props) => {
-	const {
-		handleToggle,
-		notifications,
-		handleListKeyDown,
-		handleClose,
-		openNotification,
-		setOpenNotification,
-		open,
-	} = props;
-
 	const notifyRef = useRef(null);
 	// eslint-disable-next-line no-unused-vars
 	const [newNotification, setNewNotification] = useState(false);
 
-	const id = openNotification ? 'simple-popper' : undefined;
+	const id = props.openNotification ? 'simple-popper' : undefined;
 	const [countAlerts, setCountAlerts] = useState(0);
 	const history = useHistory();
 
@@ -25,7 +15,7 @@ const BellNotifications = (props) => {
 		switch (type) {
 			case 'all_notfications':
 				history.push('/all_notfications');
-				setOpenNotification(false);
+				props.setOpenNotification(false);
 		}
 	};
 
@@ -36,15 +26,15 @@ const BellNotifications = (props) => {
 			newNotification={newNotification}
 			id={id}
 			countAlerts={countAlerts}
-			handleToggle={handleToggle}
-			notifications={notifications}
-			handleListKeyDown={handleListKeyDown}
-			handleClose={handleClose}
-			openNotification={openNotification}
-			setOpenNotification={setOpenNotification}
+			handleToggle={props.handleToggle}
+			notifications={props.notifications}
+			handleListKeyDown={props.handleListKeyDown}
+			handleClose={props.handleClose}
+			openNotification={props.openNotification}
+			setOpenNotification={props.setOpenNotification}
 			setCountAlerts={setCountAlerts}
-			open={open}
-		></BellNotificationsView>
+			open={props.open}
+		/>
 	);
 };
 

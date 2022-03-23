@@ -20,7 +20,7 @@ const ContractBlock = (props) => {
 			contract={contract}
 			title={title}
 			contractStatus={contractStatus}
-		></ContractBlockView>
+		/>
 	);
 };
 

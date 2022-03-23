@@ -51,7 +51,7 @@ const MediumPublicationView = (props) => {
 									: 'none',
 								backgroundColor: '#74b2f0',
 							}}
-						></Grid>
+						/>
 					</Link>
 				</Grid>
 				<Grid item xs={12} className={classes.lowerHalf} style={{ height: '100%' }}>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid,	IconButton, Popper, Paper, Typography, ClickAwayListener, MenuList } from '@material-ui/core';
+import { Grid, IconButton, Popper, Paper, Typography, ClickAwayListener, MenuList } from '@material-ui/core';
 import { ReactComponent as Notification } from '../../../../assets/icons/Notifiaction.svg';
 import { ReactComponent as Greendot } from '../../../../assets/icons/greenDot.svg';
 import AlertNotification from '../../../Notifications/AlertNotification';
@@ -7,8 +7,7 @@ import AlertNotification from '../../../Notifications/AlertNotification';
 //import useStyles from './BellNotifications.style';
 
 const BellNotificationsView = (props) => {
-
-  return (
+	return (
 		<>
 			<IconButton
 				size="small"
@@ -19,7 +18,9 @@ const BellNotificationsView = (props) => {
 				onClick={() => props.handleToggle('notify')}
 			>
 				<Notification style={{ position: 'relative' }} />
-				{props.newNotification ? <Greendot style={{ position: 'absolute', top: 2, left: 13 }} /> : null}
+				{props.newNotification ? (
+					<Greendot style={{ position: 'absolute', top: 2, left: 13 }} />
+				) : null}
 			</IconButton>
 			<Popper
 				id={props.id}
@@ -30,7 +31,7 @@ const BellNotificationsView = (props) => {
 				transition
 				disablePortal
 				onKeyDown={(e) => props.handleListKeyDown(e, 'notify')}
-                style={{zIndex: 1200}}
+				style={{ zIndex: 1200 }}
 				modifiers={{
 					offset: {
 						enabled: true,
@@ -53,7 +54,7 @@ const BellNotificationsView = (props) => {
 								left: '48%',
 								borderRadius: 3,
 							}}
-						></div>
+						/>
 						<MenuList>
 							<Grid container direction="row" spacing={2} justifyContent="center">
 								<Grid item xs={11}>
@@ -82,7 +83,9 @@ const BellNotificationsView = (props) => {
 													}}
 												>
 													<Typography style={{ fontSize: 12 }}>
-														{props.countAlerts > 0 ? `${props.countAlerts} New` : 'No New'}
+														{props.countAlerts > 0
+															? `${props.countAlerts} New`
+															: 'No New'}
 													</Typography>
 												</Grid>
 											</Grid>

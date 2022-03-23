@@ -5,15 +5,19 @@ import { useSelector } from 'react-redux';
 import CommentView from './Comment.view';
 
 const Comment = (props) => {
-	const { comment, cmtNo, replyHendler, cmntId, pubId } = props;
 	const [open, setOpen] = useState(false);
 	const [openReply, setOpenReply] = useState(false);
-	const [reply, setReply] = useState({ publication_id: pubId, content: '', comment_id: cmntId });
+
+	const [reply, setReply] = useState({
+		publication_id: props.pubId,
+		content: '',
+		comment_id: props.cmntId,
+	});
 
 	const userType = useSelector((state) => state.auth.userContent.type);
 
 	const replyChangeHandler = (content) => {
-		replyHendler(content);
+		props.replyHendler(content);
 		setReply({ ...reply, content: '' });
 
 		if (open === false) {
@@ -25,12 +29,12 @@ const Comment = (props) => {
 
 	return (
 		<CommentView
-			comment={comment}
-			cmtNo={cmtNo}
+			comment={props.comment}
+			cmtNo={props.cmtNo}
 			openReply={openReply}
 			userType={userType}
 			replyChangeHandler={replyChangeHandler}
-		></CommentView>
+		/>
 	);
 };
 

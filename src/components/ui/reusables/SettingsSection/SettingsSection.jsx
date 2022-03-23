@@ -9,7 +9,7 @@ const SettingsSection = (props) => {
 			is_active={props.is_active}
 			section={props.section}
 			userSettings={props.userSettings}
-		></SettingsSectionView>
+		/>
 	);
 };
 

@@ -154,7 +154,7 @@ const AllInvoices = () => {
 			hendlerForInvoiceId={hendlerForInvoiceId}
 			loadingInvoices={loadingInvoices}
 			invoiceRows={invoiceRows}
-		></AllInvoicesView>
+		/>
 	);
 };
 

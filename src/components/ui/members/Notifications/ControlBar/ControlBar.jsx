@@ -2,22 +2,22 @@ import React, { useState, useEffect } from 'react';
 
 import ControlBarView from './ControlBar.view';
 
-const ControlBar = ({ setSearchTerm, makeAllRead }) => {
+const ControlBar = (props) => {
 	const [localSearch, setLocalSearch] = useState('');
 
 	const handleSearch = (e) => {
 		if (e.key && e.key === 'Enter' && localSearch !== '') {
-			setSearchTerm(localSearch);
+			props.setSearchTerm(localSearch);
 		}
 	};
 
 	const handleClick = () => {
-		makeAllRead();
+		props.makeAllRead();
 	};
 
 	useEffect(() => {
 		if (localSearch === '') {
-			setSearchTerm('');
+			props.setSearchTerm('');
 		}
 	}, [localSearch]);
 
@@ -27,7 +27,7 @@ const ControlBar = ({ setSearchTerm, makeAllRead }) => {
 			handleSearch={handleSearch}
 			handleClick={handleClick}
 			localSearch={localSearch}
-		></ControlBarView>
+		/>
 	);
 };
 

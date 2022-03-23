@@ -11,7 +11,7 @@ const SubscribersMain = () => {
 		dispatch(subscribersAction.getSubscribersAsync());
 	}, []);
 
-	return <SubscribersMainView></SubscribersMainView>;
+	return <SubscribersMainView />;
 };
 
 SubscribersMain.displayName = 'SubscribersMain';

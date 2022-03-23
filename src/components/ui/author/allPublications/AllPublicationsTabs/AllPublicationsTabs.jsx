@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import AllPublicationsTabsView from './AllPublicationsTabs.view';
 
-const AllPublicationsTabs = ({ fetchStatistics }) => {
+const AllPublicationsTabs = (props) => {
 	const [value, setValue] = useState(0);
 	const [publications, setPublications] = useState([]);
 
@@ -47,7 +47,7 @@ const AllPublicationsTabs = ({ fetchStatistics }) => {
 			handleOpenNewPublication={handleOpenNewPublication}
 			handleCloseNewPublication={handleCloseNewPublication}
 			fetchPublications={fetchPublications}
-			fetchStatistics={fetchStatistics}
+			fetchStatistics={props.fetchStatistics}
 			openNewPublication={openNewPublication}
 		/>
 	);

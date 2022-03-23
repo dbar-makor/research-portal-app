@@ -32,7 +32,7 @@ const PaymentButtonBarView = (props) => {
 								backgroundColor: '#1C67FF',
 								borderRadius: 4,
 							}}
-						></div>
+						/>
 					</div>
 				</div>
 				{props.isOpen ? (

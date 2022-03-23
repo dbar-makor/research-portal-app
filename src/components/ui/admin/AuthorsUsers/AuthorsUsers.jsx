@@ -53,7 +53,7 @@ const AuthorsUsers = () => {
 			authorsData={authorsData}
 			lastItemRef={lastItemRef}
 			chosenUser={chosenUser}
-		></AuthorsUsersView>
+		/>
 	);
 };
 

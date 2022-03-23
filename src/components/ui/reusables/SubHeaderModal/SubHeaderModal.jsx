@@ -2,8 +2,8 @@ import React from 'react';
 
 import SubHeaderModalView from './SubHeaderModal.view';
 
-const SubHeaderModal = ({ title }) => {
-  return <SubHeaderModalView title={title}/>;
+const SubHeaderModal = (props) => {
+	return <SubHeaderModalView title={props.title} />;
 };
 
 SubHeaderModal.displayName = 'SubHeaderModal';

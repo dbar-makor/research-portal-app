@@ -53,11 +53,9 @@ module.exports = {
 				blankLine: 'always',
 				prev: [
 					'import',
-
 					'let',
 					'const',
 					'var',
-
 					'return',
 					'throw',
 					'if',
@@ -111,6 +109,13 @@ module.exports = {
 		'react/jsx-equals-spacing': ['error', 'never'],
 		'react/jsx-pascal-case': 'error',
 		'react/jsx-props-no-multi-spaces': 'error',
+		'react/self-closing-comp': [
+			'error',
+			{
+				component: true,
+				html: true,
+			},
+		],
 	},
 	env: {
 		node: true,

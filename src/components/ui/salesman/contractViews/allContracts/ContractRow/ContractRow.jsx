@@ -3,7 +3,6 @@ import React, { useRef, useState } from 'react';
 import ContractRowView from './ContractRow.view';
 
 const ContractRow = (props) => {
-	const { contract } = props;
 	const [anchorEl, setAnchorEl] = useState(null);
 
 	const contractEditMainRef = useRef();
@@ -33,7 +32,7 @@ const ContractRow = (props) => {
 
 	return (
 		<ContractRowView
-			contract={contract}
+			contract={props.contract}
 			calcYearlyCost={calcYearlyCost}
 			handleClick={handleClick}
 			id={id}
@@ -41,7 +40,7 @@ const ContractRow = (props) => {
 			anchorEl={anchorEl}
 			handleClose={handleClose}
 			contractEditMainRef={contractEditMainRef}
-		></ContractRowView>
+		/>
 	);
 };
 

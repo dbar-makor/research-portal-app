@@ -36,7 +36,7 @@ const TradingHours = forwardRef((props, ref) => {
 			open={open}
 			data={data}
 			formattedData={formattedData}
-		></TradingHoursView>
+		/>
 	);
 });
 

@@ -41,7 +41,7 @@ const GeneralHomeView = (props) => {
 								background: '#1c67ff',
 							}}
 							className="circle"
-						></div>
+						/>
 					</div>
 				) : (
 					<div
@@ -56,7 +56,7 @@ const GeneralHomeView = (props) => {
 								background: '#ACB1BF',
 							}}
 							className="circle"
-						></div>
+						/>
 					</div>
 				)}
 			</div>
@@ -1122,7 +1122,7 @@ const GeneralHomeView = (props) => {
 												backgroundColor: '#ED5858',
 											}}
 											className={classes.eventsLabel}
-										></div>
+										/>
 										<div className={classes.eventsContentWrapper}>
 											<div className={classes.eventsInnerContentWrapper}>
 												<div className={classes.eventsHeader}>ARNA US</div>
@@ -1157,7 +1157,7 @@ const GeneralHomeView = (props) => {
 												backgroundColor: '#FAC100',
 											}}
 											className={classes.eventsLabel}
-										></div>
+										/>
 										<div className={classes.eventsContentWrapper}>
 											<div className={classes.eventsInnerContentWrapper}>
 												<div className={classes.eventsHeader}>ARNA US</div>
@@ -1190,7 +1190,7 @@ const GeneralHomeView = (props) => {
 										<div
 											style={{ backgroundColor: '#00CA80' }}
 											className={classes.eventsLabel}
-										></div>
+										/>
 										<div className={classes.eventsContentWrapper}>
 											<div className={classes.eventsInnerContentWrapper}>
 												<div className={classes.eventsHeader}>ARNA US</div>

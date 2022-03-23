@@ -112,7 +112,7 @@ const UserInfo = () => {
 			handleCloseAlert={handleCloseAlert}
 			deleteUser={deleteUser}
 			countriesArr={countriesArr}
-		></UserInfoView>
+		/>
 	);
 };
 

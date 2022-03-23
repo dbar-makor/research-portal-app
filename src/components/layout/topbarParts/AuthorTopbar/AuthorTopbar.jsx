@@ -5,7 +5,7 @@ import AuthorTopbarView from './AuthorTopbar.view';
 const AuthorTopbar = (props) => {
 	const classes = props.classes;
 
-	return <AuthorTopbarView classes={classes}></AuthorTopbarView>;
+	return <AuthorTopbarView classes={classes} />;
 };
 
 AuthorTopbar.displayName = 'AuthorTopbar';
