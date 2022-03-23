@@ -242,4 +242,6 @@ const AccountSettings = () => {
 	);
 };
 
+AccountSettings.displayName = 'AccountSettings';
+
 export default AccountSettings;
