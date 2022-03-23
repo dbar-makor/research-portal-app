@@ -13,8 +13,8 @@ const BellNotifications = (props) => {
 
 	const redirect = (type) => {
 		switch (type) {
-			case 'all_notfications':
-				history.push('/all_notfications');
+			case 'all-notfications':
+				history.push('/all-notfications');
 				props.setOpenNotification(false);
 		}
 	};
