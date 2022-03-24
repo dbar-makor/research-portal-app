@@ -317,6 +317,7 @@ const AuthorsNewArticle = () => {
 		// Do something with the files
 		const attachmentsCopy = [...localForm.attachments];
 		for (const file of acceptedFiles) {
+			// eslint-disable-next-line no-undef
 			const formData = new FormData();
 			formData.append('file', file);
 			try {
@@ -338,6 +339,7 @@ const AuthorsNewArticle = () => {
 
 	const onDropCover = async (acceptedFiles) => {
 		const coverImage = acceptedFiles[0];
+		// eslint-disable-next-line no-undef
 		const formData = new FormData();
 		formData.append('file', coverImage);
 		try {
