@@ -313,9 +313,9 @@ const AuthorsNewArticleView = (props) => {
 																keyboardIcon={
 																	props.localForm.events[index]
 																		.date ? null : (
-																		<CalendarIcon
-																			className={classes.calendarIcon}
-																		/>
+																			<CalendarIcon
+																				className={classes.calendarIcon}
+																			/>
 																	)
 																}
 																style={{ width: '100%', maxHeight: '53px' }}

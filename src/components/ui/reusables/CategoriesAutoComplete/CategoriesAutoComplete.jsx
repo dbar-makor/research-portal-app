@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { validateMember } from '../../../../utils/helpers/validationFunctions';
+import * as utilsAction from '../../../../redux/utils/utilsSlice';
 
 import CategoriesAutoCompleteView from './CategoriesAutoComplete.view';
 
 const CategoriesAutoComplete = (props) => {
+	const dispatch = useDispatch();
 	const label = props.label ? props.label : '';
 	const className = props.className ? props.className : '';
 	const error = props.error ? props.error : null;
@@ -44,6 +47,7 @@ const CategoriesAutoComplete = (props) => {
 			dispatch(utilsAction.getUtilsAsync());
 		}
 	}, []);
+
 	return (
 		<CategoriesAutoCompleteView
 			label={label}
