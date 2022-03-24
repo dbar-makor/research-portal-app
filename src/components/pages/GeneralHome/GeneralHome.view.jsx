@@ -3,7 +3,7 @@ import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import TabsUnstyled from '@mui/base/TabsUnstyled';
 import Grid from '@mui/material/Grid';
-import { Helmet } from 'react-helmet';
+import Helmet from 'react-helmet';
 import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 import Carousel from 'react-material-ui-carousel';
@@ -28,7 +28,7 @@ const GeneralHomeView = (props) => {
 		return (
 			<div style={cellStyle}>
 				<div style={dateStyle}>{dates}</div>
-				{props.events2.includes(dates) ? (
+				{props.events.includes(dates) ? (
 					<div
 						style={{
 							display: 'flex',
@@ -1056,31 +1056,19 @@ const GeneralHomeView = (props) => {
 									<Helmet>
 										<style>
 											{`
-                      .DayPicker {
-                        display: block;
-                        overflow-x: scroll;
-                      }
-                      .DayPicker::-webkit-scrollbar-track {
-                          border-radius: 10px;
-                          background-color: #F3F4F8;
-                      }
-                      .DayPicker::-webkit-scrollbar {
-                          border-radius: 10px;
-                          height: 7px;
-                          z-index: 2;
-                          background-color: #F5F5F5
-                      }
-                      .DayPicker::-webkit-scrollbar-thumb {
-                          border-radius: 10px;
-                          background-color: #D5DBE7;
-                      }
+					  .DayPicker-Day {
+						padding: 0.4em;
+						height: 2.5vw;
+						width: 3vw;
+						table-layout: fixed;
+					  }
+					  .DayPicker-Day:hover {
+						background-color: none;
+					  }
                       .DayPicker-Day--today {
                         font-weight: 400;
-                        background-color: #E2EBFC;
                         border-radius: 5px;
-                      }
-                      .DayPicker-Day:hover {
-                        border: '3px solid red';
+						color: blue;
                       }
                       .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside):hover {
                         background-color: white;
@@ -1088,6 +1076,9 @@ const GeneralHomeView = (props) => {
                       }
                       .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
                         font-weight: bold;
+                        background-color: white;
+                      }
+					  .DayPicker-Day:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
                         background-color: white;
                       }
                       .DayPicker-Month {
@@ -1104,10 +1095,10 @@ const GeneralHomeView = (props) => {
                       }
                       .DayPicker-NavButton {
                         margin-top: 8px;
-                      },
-                      .DayPicker-Weekdays {
-                        margin-top: 0;
                       }
+					  .DayPicker-Weekday {
+						font-size: 1em;
+					  }
                   `}
 										</style>
 									</Helmet>

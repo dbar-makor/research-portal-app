@@ -11,9 +11,9 @@ const GeneralHome = () => {
 	};
 
 	const [selectedDay, setSelectedDay] = useState(calendarDefaultValue);
-	const events2 = [1, 2, 3, 4, 5, 6, 7];
+	const events = [1, 2, 3, 4, 5, 6, 7, 22];
 
-	return <GeneralHomeView events2={events2} selectedDay={selectedDay} setSelectedDay={setSelectedDay} />;
+	return <GeneralHomeView events={events} selectedDay={selectedDay} setSelectedDay={setSelectedDay} />;
 };
 
 GeneralHome.displayName = 'MemberHome';
