@@ -385,6 +385,10 @@ const AuthorsNewArticleView = (props) => {
 									<OutlinedButton onClick={() => props.sendPublication('preview')}>
 										Preview
 									</OutlinedButton>
+									{console.log(props.validationResult,
+										props.validationResultEvent,
+									  props.coverImageOK.final,
+										props.contentNotOK.isText)}
 									<FilledButton
 										disabled={
 											!props.validationResult ||
