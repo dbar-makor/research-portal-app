@@ -20,20 +20,25 @@ const SalesUsers = () => {
 	const userLimit = useSelector(selectUsersLimit);
 	const hasMore = useSelector(selectUsersHasMore);
 	const observer = useRef(null);
+
 	const lastItemRef = useCallback(
 		(node) => {
 			if (loading) {
 				return;
 			}
+
 			if (observer.current) {
 				observer.current.disconnect();
 			}
+
 			observer.current = new IntersectionObserver((entries) => {
 				if (entries[0].isIntersecting && hasMore) {
 					const newOffset = userOffset + userLimit;
+
 					dispatch(setUserProperty({ key: 'offset', value: newOffset }));
 				}
 			});
+
 			if (node) {
 				observer.current.observe(node);
 			}
@@ -47,7 +52,7 @@ const SalesUsers = () => {
 			salesData={salesData}
 			lastItemRef={lastItemRef}
 			chosenUser={chosenUser}
-		></SalesUsersView>
+		/>
 	);
 };
 

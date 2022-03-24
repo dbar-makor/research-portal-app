@@ -1,10 +1,9 @@
 import React from 'react';
-import { useStyles } from '../../../../../styles/AllNotificationStyle';
 import { Grid, Typography } from '@material-ui/core';
+import { parseISO, formatDistanceToNow } from 'date-fns';
+import { useStyles } from '../../../../../styles/AllNotificationStyle';
 import { ReactComponent as FoldedPaper } from '../../../../../assets/icons/FoldedPaper.svg';
 import { ReactComponent as Like } from '../../../../../assets/icons/Like.svg';
-
-import { parseISO, formatDistanceToNow } from 'date-fns';
 
 const chooseIcon = (type) => {
 	switch (type) {
@@ -25,10 +24,13 @@ const shortify = (string) => {
 
 const TimeAgo = (timestamp) => {
 	let timeAgo = '';
+
 	if (timestamp) {
 		const date = parseISO(timestamp);
 		const timePeriod = formatDistanceToNow(date);
+
 		timeAgo = `${timePeriod} ago`;
+
 		return timeAgo;
 	}
 };

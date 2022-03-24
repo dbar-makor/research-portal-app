@@ -16,6 +16,7 @@ const publishedFieldLabels = [
 	'Most Read',
 	'Most Interacted',
 ];
+
 const publishedFields = [
 	'posts',
 	'total_words',
@@ -26,6 +27,7 @@ const publishedFields = [
 	'most_read',
 	'most_interacted',
 ];
+
 const draftFieldLabels = ['Saved', 'Total Words', 'Average Word Count'];
 const draftFields = ['saved', 'total_words', 'average_word_count'];
 

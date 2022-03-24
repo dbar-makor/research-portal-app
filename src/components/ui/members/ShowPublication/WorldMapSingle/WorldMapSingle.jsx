@@ -2,18 +2,18 @@ import React, { useState } from 'react';
 
 import WorldMapSingleView from './WorldMapSingle.view';
 
-const WorldMapSingle = ({ d, x, y, citiesStatus }) => {
+const WorldMapSingle = (props) => {
 	const [tooltipState, setTooltipState] = useState(false);
 
 	return (
 		<WorldMapSingleView
 			tooltipState={tooltipState}
 			setTooltipState={setTooltipState}
-			d={d}
-			x={x}
-			y={y}
-			citiesStatus={citiesStatus}
-		></WorldMapSingleView>
+			d={props.d}
+			x={props.x}
+			y={props.y}
+			citiesStatus={props.citiesStatus}
+		/>
 	);
 };
 

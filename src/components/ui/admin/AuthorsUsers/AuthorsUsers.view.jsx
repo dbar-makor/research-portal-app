@@ -1,8 +1,8 @@
 import React from 'react';
-import { useStyles } from '../../../../styles/MainStyles';
 import { Grid, Typography } from '@material-ui/core';
-import TableComponent from '../../reusables/TableComponent/TableComponent';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { useStyles } from '../../../../styles/MainStyles';
+import TableComponent from '../../reusables/TableComponent/TableComponent';
 import UserInfo from '../UserInfo/UserInfo';
 
 const AuthorsUsersView = (props) => {

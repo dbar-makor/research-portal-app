@@ -85,6 +85,7 @@ const useStyles = makeStyles((theme) => ({
 		'& .MuiFilledInput-root': {
 			backgroundColor: '#3e3e3e',
 			borderRadius: '5px',
+			caretColor: '#edf2fb',
 		},
 		'& .MuiFilledInput-input': {
 			paddingTop: '5px',

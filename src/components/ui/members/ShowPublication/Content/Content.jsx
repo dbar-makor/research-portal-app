@@ -2,8 +2,8 @@ import React from 'react';
 
 import ContentView from './Content.view';
 
-const Content = ({ contentBlocks }) => {
-	return <ContentView contentBlocks={contentBlocks}></ContentView>;
+const Content = (props) => {
+	return <ContentView contentBlocks={props.contentBlocks} />;
 };
 
 Content.displayName = 'Content';

@@ -1,28 +1,27 @@
-import React, {forwardRef} from 'react';
+import React, { forwardRef } from 'react';
 import { Typography, Table, TableBody, TableHead, TableRow } from '@material-ui/core';
 import { format } from 'date-fns';
-import { useStyles, StyledTableCell, StyledTableRow } from '../../../../styles/TableStyles';
-import { ReactComponent as GreenCheckmark } from '../../../../assets/icons/IconGreenCheckmark.svg';
-import { ReactComponent as RedCheckmark } from '../../../../assets/icons/IconRedCheckmark.svg';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import clsx from 'clsx';
 import { useSelector } from 'react-redux';
+import { useStyles, StyledTableCell, StyledTableRow } from '../../../../styles/TableStyles';
+import { ReactComponent as GreenCheckmark } from '../../../../assets/icons/IconGreenCheckmark.svg';
+import { ReactComponent as RedCheckmark } from '../../../../assets/icons/IconRedCheckmark.svg';
 import { selectType } from '../../../../redux/companies/companiesSlice';
 import { selectChosenUserData } from '../../../../redux/users/chosenUserSlice';
 import { selectChosenCompany } from '../../../../redux/companies/chosenCompanySlice';
 
-
 //import useStyles from './TableComponent.style';
 
-const TableComponentView = forwardRef((props,ref) => {
-  const { ref1, almostLastRowRef } = ref.current;
+const TableComponentView = forwardRef((props, ref) => {
+	const { ref1, almostLastRowRef } = ref.current;
 
 	const classes = useStyles();
-  const type = useSelector(selectType);
+	const type = useSelector(selectType);
 	const chosenUser = useSelector(selectChosenUserData);
 	const chosenCompany = useSelector(selectChosenCompany);
 
-  const tableHeadText = (col, index) => {
+	const tableHeadText = (col, index) => {
 		return (
 			<StyledTableCell key={index}>
 				<Typography
@@ -36,7 +35,8 @@ const TableComponentView = forwardRef((props,ref) => {
 			</StyledTableCell>
 		);
 	};
-  return props.data.length ? (
+
+	return props.data.length ? (
 		<Table stickyHeader className={classes.table}>
 			<TableHead>
 				<TableRow>
@@ -130,14 +130,14 @@ const TableComponentView = forwardRef((props,ref) => {
 										if (value) {
 											return (
 												<StyledTableCell key={i} align="center">
-													{<GreenCheckmark className={classes.checkmark} />}
+													<GreenCheckmark className={classes.checkmark} />
 												</StyledTableCell>
 											);
 										} else {
 											if (row.type === 'client') {
 												return (
 													<StyledTableCell key={i} align="center">
-														{<RedCheckmark className={classes.checkmark} />}
+														<RedCheckmark className={classes.checkmark} />
 													</StyledTableCell>
 												);
 											} else {
@@ -152,14 +152,12 @@ const TableComponentView = forwardRef((props,ref) => {
 								} else if (key === 'status') {
 									return (
 										<StyledTableCell key={i} align="center">
-											{
-												<FiberManualRecordIcon
-													style={{
-														fill: value ? '#00CA80' : '#FF3939',
-														fontSize: '14px',
-													}}
-												/>
-											}
+											<FiberManualRecordIcon
+												style={{
+													fill: value ? '#00CA80' : '#FF3939',
+													fontSize: '14px',
+												}}
+											/>
 										</StyledTableCell>
 									);
 								} else if (key === 'periodicity') {

@@ -1,12 +1,13 @@
 import React from 'react';
 
+import { Grid, Typography } from '@material-ui/core';
 import { useStyles } from '../../../../../styles/AllNotificationStyle';
 import { StyledTextField } from '../../../../../styles/MainStyles';
-import { Grid, Typography } from '@material-ui/core';
 import { ReactComponent as SearchIcon } from '../../../../../assets/icons/IconSearch.svg';
 
 const ControlBarView = (props) => {
 	const classes = useStyles();
+
 	return (
 		<Grid container className={classes.controlBarContainer}>
 			<Grid item>
@@ -17,8 +18,6 @@ const ControlBarView = (props) => {
 			<Grid item>
 				<StyledTextField
 					value={props.localSearch}
-					onChange={(e) => props.setLocalSearch(e.target.value)}
-					onKeyDown={props.handleSearch}
 					variant="outlined"
 					fullWidth
 					placeholder="Search"
@@ -32,6 +31,8 @@ const ControlBarView = (props) => {
 							/>
 						),
 					}}
+					onChange={(e) => props.setLocalSearch(e.target.value)}
+					onKeyDown={props.handleSearch}
 				/>
 			</Grid>
 		</Grid>

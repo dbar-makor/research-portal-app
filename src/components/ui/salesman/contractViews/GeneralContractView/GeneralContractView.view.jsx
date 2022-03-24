@@ -9,7 +9,7 @@ import useStyles from './GeneralContractView.style';
 const GeneralContractViewView = (props) => {
 	const classes = useStyles();
 
-  return (
+	return (
 		<Grid container justifyContent="center" className={classes.modalContainer}>
 			<Grid item xs={10} className={classes.modalBox}>
 				<Grid container justifyContent="center">
@@ -17,6 +17,7 @@ const GeneralContractViewView = (props) => {
 					<Grid item xs={12}>
 						<Grid container justifyContent="center">
 							<Typography className={classes.modalTitle}>
+								{/* eslint-disable-next-line */}
 								{props.chosenCompany?.name} &apos;s Contract
 							</Typography>
 						</Grid>
@@ -24,11 +25,7 @@ const GeneralContractViewView = (props) => {
 				</Grid>
 
 				{props.step === 1 && (
-					<Contract
-						setStep={props.setStep}
-						stepperMode={true}
-						setContractCopy={props.setContractCopy}
-					/>
+					<Contract setStep={props.setStep} stepperMode setContractCopy={props.setContractCopy} />
 				)}
 				{props.step === 2 && (
 					<SendContractView

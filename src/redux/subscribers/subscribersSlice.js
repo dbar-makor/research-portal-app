@@ -27,6 +27,7 @@ export const { getSubscribers, setChosenSubscriber } = subscribersSlice.actions;
 export const getSubscribersAsync = () => async (dispatch) => {
 	try {
 		const res = await axios.get('subscribersDummyData.json');
+
 		if (res.status === 200 && res.data) {
 			dispatch(getSubscribers(res.data.subscribers));
 		}

@@ -3,8 +3,6 @@ import React from 'react';
 import TextInputUnitView from './TextInputUnit.view';
 
 const TextInputUnit = (props) => {
-	const { className, name, value, label, onChange } = props;
-
 	const size = props.size ? props.size : 12;
 	const error = props.error ? props.error : null;
 	const id = props.id ? props.id : null;
@@ -15,18 +13,18 @@ const TextInputUnit = (props) => {
 
 	return (
 		<TextInputUnitView
-			className={className}
-			name={name}
-			value={value}
-			label={label}
-			onChange={onChange}
+			className={props.className}
+			name={props.name}
+			value={props.value}
+			label={props.label}
 			size={size}
 			error={error}
 			id={id}
 			inputProps={inputProps}
 			InputProps={InputProps}
-			onKeyDown={onKeyDown}
 			type={type}
+			onChange={props.onChange}
+			onKeyDown={onKeyDown}
 		/>
 	);
 };

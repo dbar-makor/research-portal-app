@@ -2,6 +2,8 @@ import React from 'react';
 import { Grid, Typography, Divider, TextField } from '@material-ui/core';
 import { Autocomplete } from '@material-ui/lab';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
+import SearchIcon from '@material-ui/icons/Search';
+import clsx from 'clsx';
 import {
 	BinButton,
 	EditButton,
@@ -15,8 +17,6 @@ import { ReactComponent as LocationIcon } from '../../../../assets/icons/iconLoc
 import { ReactComponent as EditIcon } from '../../../../assets/icons/IconEdit.svg';
 import { ReactComponent as WhiteCheckIcon } from '../../../../assets/icons/IconWhiteCheck.svg';
 import DeleteAlert from '../../reusables/DeleteAlert/DeleteAlert';
-import SearchIcon from '@material-ui/icons/Search';
-import clsx from 'clsx';
 
 const UserInfoView = (props) => {
 	const classes = useStyles();
@@ -59,7 +59,7 @@ const UserInfoView = (props) => {
 													</Typography>
 												)}
 											</Grid>
-											<Grid item xs={1}></Grid>
+											<Grid item xs={1} />
 											<Grid item xs={3}>
 												<Grid
 													container
@@ -166,10 +166,6 @@ const UserInfoView = (props) => {
 											return option.name;
 										}}
 										// error={errors.country}
-										onChange={(e, newValue) => props.updateUserField('country', newValue)}
-										onInputChange={(e, newInputValue) =>
-											props.setInputValue(newInputValue)
-										}
 										renderInput={(params) => (
 											<TextField
 												{...params}
@@ -177,6 +173,10 @@ const UserInfoView = (props) => {
 												autoComplete="off"
 											/>
 										)}
+										onChange={(e, newValue) => props.updateUserField('country', newValue)}
+										onInputChange={(e, newInputValue) =>
+											props.setInputValue(newInputValue)
+										}
 									/>
 								) : (
 									<Grid container alignItems="center">

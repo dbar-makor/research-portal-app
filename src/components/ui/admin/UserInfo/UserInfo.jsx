@@ -7,7 +7,6 @@ import {
 	changeChosenUser,
 } from '../../../../redux/users/chosenUserSlice';
 import * as actionSnackBar from '../../../../redux/SnackBar/action';
-import UserInfoView from './UserInfo.view';
 import {
 	getUsersByTypeAsync,
 	selectUsersLimit,
@@ -16,6 +15,7 @@ import {
 	selectUsersSearch,
 } from '../../../../redux/users/usersSlice';
 import { BASE_URL, END_POINT } from '../../../../utils/constants';
+import UserInfoView from './UserInfo.view';
 
 const UserInfo = () => {
 	const currentUser = useSelector(selectChosenUserData);
@@ -31,6 +31,7 @@ const UserInfo = () => {
 	useEffect(() => {
 		if (currentUser) {
 			const chosenUserCopy = { ...currentUser, isEditMode: false };
+
 			setChosenUser(chosenUserCopy);
 		}
 	}, [currentUser]);
@@ -38,6 +39,7 @@ const UserInfo = () => {
 	const handleCloseAlert = () => {
 		setOpenAlert(false);
 	};
+
 	const handleOpenAlert = () => {
 		setOpenAlert(true);
 	};
@@ -45,6 +47,7 @@ const UserInfo = () => {
 	const deleteUser = async (id) => {
 		try {
 			const res = await axios.delete(`${BASE_URL}${END_POINT.USER}/${id}`);
+
 			if (res.status === 200) {
 				console.log(res);
 				handleCloseAlert();
@@ -60,6 +63,7 @@ const UserInfo = () => {
 
 	const updateUserField = (key, value) => {
 		const userCopy = { ...chosenUser };
+
 		userCopy[key] = value;
 		setChosenUser(userCopy);
 	};
@@ -67,13 +71,16 @@ const UserInfo = () => {
 	const sendUpdatedUser = async () => {
 		setChosenUser({ ...chosenUser, isEditMode: false });
 		const userCopy = {};
+
 		userCopy.status = chosenUser.status;
 		userCopy.country = chosenUser.country ? chosenUser.country.code : currentUser.country.code;
 		userCopy.name = chosenUser.name ? chosenUser.name : currentUser.name;
 		userCopy.username = chosenUser.username ? chosenUser.username : currentUser.username;
 		userCopy.email = chosenUser.email ? chosenUser.email : currentUser.email;
+
 		try {
 			const res = await axios.put(`${BASE_URL}${END_POINT.USER}/${chosenUser.id}`, userCopy);
+
 			if (res.status === 200) {
 				dispatch(getUserByIdAsync(chosenUser.id));
 				dispatch(getUsersByTypeAsync(userOffset, userLimit, userSearch, chosenUser.type, userStatus));
@@ -82,11 +89,13 @@ const UserInfo = () => {
 		} catch (error) {
 			/* eslint no-console: "off" */
 			console.log(error);
+
 			if (error.response.status === 402) {
 				dispatch(actionSnackBar.setSnackBar('error', 'This user already exists', 2000));
 			} else {
 				dispatch(actionSnackBar.setSnackBar('error', 'Update failed', 2000));
 			}
+
 			dispatch(getUserByIdAsync(chosenUser.id));
 			dispatch(getUsersByTypeAsync(userOffset, userLimit, userSearch, chosenUser.type, userStatus));
 		}
@@ -103,9 +112,10 @@ const UserInfo = () => {
 			handleCloseAlert={handleCloseAlert}
 			deleteUser={deleteUser}
 			countriesArr={countriesArr}
-		></UserInfoView>
+		/>
 	);
 };
+
 UserInfo.displayName = 'UserInfo';
 UserInfo.defaultProps = {};
 

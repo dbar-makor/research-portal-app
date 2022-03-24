@@ -83,7 +83,7 @@ const ResearchesMainView = (props) => {
 																	{item.author_name}
 																</Typography>
 															</Grid>
-															<Grid item xs={12}></Grid>
+															<Grid item xs={12} />
 														</Grid>
 													</Grid>
 												</Grid>

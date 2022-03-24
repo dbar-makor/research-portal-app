@@ -48,4 +48,5 @@ const useStyles = makeStyles((theme) => ({
 		cursor: 'pointer',
 	},
 }));
+
 export default useStyles;

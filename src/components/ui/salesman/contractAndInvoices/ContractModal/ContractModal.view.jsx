@@ -5,20 +5,19 @@ import SubHeaderModal from '../../../reusables/SubHeaderModal/SubHeaderModal';
 import { useStyles } from '../../../../../styles/ContarctsModalStyles';
 import ContractAndInvoicesContent from '../ContractAndInvoicesContent/ContractAndInvoicesContent';
 
-
 const ContractModalView = (props) => {
 	const classes = useStyles();
 
-  return  (
+	return (
 		<Dialog
 			open={props.isOpen}
-			onClose={() => props.onClose()}
 			classes={{ paper: classes.contractModalPaper }}
 			BackdropProps={{
 				classes: {
 					root: classes.modalBackDrop,
 				},
 			}}
+			onClose={() => props.onClose()}
 		>
 			<Grid item xs={12} align="right" style={{ margin: '10px 10px 0px 0px' }}>
 				<IconButton size="small" onClick={() => props.onClose()}>
@@ -31,12 +30,17 @@ const ContractModalView = (props) => {
 						<Grid container alignItems="center" justifyContent="center">
 							<SubHeaderModal title="Contracts & Invoices" />
 							<Grid item xs={12}>
-								<Typography className={classes.modalSubHeader}>{props.client.name}</Typography>
+								<Typography className={classes.modalSubHeader}>
+									{props.client.name}
+								</Typography>
 							</Grid>
 						</Grid>
 					</Grid>
 					<Grid item xs={12}>
-						<ContractAndInvoicesContent clientId={props.client.id} clientName={props.client.name} />
+						<ContractAndInvoicesContent
+							clientId={props.client.id}
+							clientName={props.client.name}
+						/>
 					</Grid>
 				</Grid>
 			</DialogTitle>

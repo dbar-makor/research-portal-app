@@ -1,11 +1,13 @@
 import React from 'react';
 import { Grid, Typography, Avatar } from '@material-ui/core';
 import CreateIcon from '@material-ui/icons/Create';
-import { StyledTextField } from '../../../../styles/MainStyles';
 import { KeyboardDatePicker } from '@material-ui/pickers';
+import ArrowForwardIosOutlinedIcon from '@material-ui/icons/ArrowForwardIosOutlined';
 import { ReactComponent as CalendarIcon } from '../../../../assets/icons/iconCalendar.svg';
-import NumberInputUnit from '../../reusables/NumberInputUnit/NumberInputUnit';
+import { StyledTextField } from '../../../../styles/MainStyles';
+import NumberInputUnit from '../NumberInputUnit/NumberInputUnit';
 import NumberFormatCustom from '../../../layout/NumberFormatCustom/NumberFormatCustom';
+import ChangePassword from '../ChangePassword/ChangePassword';
 //import CategoriesAutoComplete from '../../reusables/CategoriesAutoComplete/CategoriesAutoComplete';
 
 //import AvatarEditor from 'react-avatar-editor';
@@ -13,6 +15,7 @@ import useStyles from './EditProfile.style';
 
 const EditProfileView = (props) => {
 	const classes = useStyles();
+
 	return (
 		<Grid container direction="column" className={classes.editWrapper}>
 			<Grid item>
@@ -43,7 +46,7 @@ const EditProfileView = (props) => {
 						variant="outlined"
 						fullWidth
 						label="Full Name"
-					></StyledTextField>
+					/>
 				</Grid>
 				<Grid item>
 					<StyledTextField
@@ -52,7 +55,7 @@ const EditProfileView = (props) => {
 						variant="outlined"
 						fullWidth
 						label="Email"
-					></StyledTextField>
+					/>
 				</Grid>
 				<Grid item>
 					<NumberInputUnit
@@ -68,7 +71,7 @@ const EditProfileView = (props) => {
 								minValue: 0,
 							},
 						}}
-					></NumberInputUnit>
+					/>
 				</Grid>
 				<Grid item>
 					<StyledTextField
@@ -77,7 +80,7 @@ const EditProfileView = (props) => {
 						variant="outlined"
 						fullWidth
 						label="Position"
-					></StyledTextField>
+					/>
 				</Grid>
 				<Grid item>
 					<StyledTextField
@@ -86,7 +89,7 @@ const EditProfileView = (props) => {
 						variant="outlined"
 						fullWidth
 						label="Username"
-					></StyledTextField>
+					/>
 				</Grid>
 				<Grid item>
 					<KeyboardDatePicker
@@ -96,7 +99,7 @@ const EditProfileView = (props) => {
 						disableToolbar
 						variant="inline"
 						inputVariant="outlined"
-						format={'dd/MM/yyyy'}
+						format="dd/MM/yyyy"
 						placeholder="Date"
 						value="01/01/2000"
 						InputAdornmentProps={{ position: 'end' }}
@@ -116,7 +119,22 @@ const EditProfileView = (props) => {
 					/> */}
 				</Grid>
 			</Grid>
-			<Grid item></Grid>
+			<Grid
+				item
+				xs={12}
+				className={props.chosenModal ? classes.chosenRoute : classes.notChosen}
+				onClick={() => props.handleOpenModal('modal')}
+			>
+				<Grid container alignItems="center">
+					<Grid item>
+						<Typography className={classes.link}>
+							Change Password
+							<ArrowForwardIosOutlinedIcon className={classes.arrowIcon} />
+						</Typography>
+					</Grid>
+				</Grid>
+			</Grid>
+			<ChangePassword chosenModal={props.chosenModal} handleCloseModal={props.handleCloseModal} />
 		</Grid>
 	);
 };

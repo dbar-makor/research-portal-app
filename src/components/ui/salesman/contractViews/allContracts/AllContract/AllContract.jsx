@@ -1,10 +1,11 @@
-import React,{ useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { BASE_URL, END_POINT } from '../../../../../../utils/constants';
 import axios from 'axios';
+import { BASE_URL, END_POINT } from '../../../../../../utils/constants';
 import * as actionSnackBar from '../../../../../../redux/SnackBar/action';
 
 import AllContractView from './AllContract.view';
+
 const periodicity = [
 	{ value: 'All', name: 'All' },
 	{ value: 'fully', name: 'Yearly' },
@@ -12,13 +13,15 @@ const periodicity = [
 	{ value: 'quarterly', name: 'Quarterly' },
 	{ value: 'monthly', name: 'Monthly' },
 ];
+
 const contractStatus = [
 	{ value: 'All', name: 'All' },
 	{ value: 'true', name: 'Signed' },
 	{ value: 'false', name: 'Unsigned' },
 ];
+
 const AllContract = () => {
-  const dispatch = useDispatch();
+	const dispatch = useDispatch();
 
 	const [loadingContract, setLoadingContract] = useState(true);
 
@@ -54,31 +57,39 @@ const AllContract = () => {
 			case 'PERIOD':
 				setFilterdPeriod(e.target.name);
 				setFilters({ ...filters, period: e.target.value });
+
 				break;
 			case 'STATUS':
 				setStatus(e.target.name);
 				setFilters({ ...filters, signed: e.target.value });
+
 				break;
 			case 'COMPANY_NAME':
 				e !== null
 					? setFilters({ ...filters, company_id: e.id })
 					: setFilters({ ...filters, company_id: '' });
+
 				break;
 		}
 	};
+
 	const getCompaniesNames = async () => {
 		try {
 			const resp = await axios.get(`${BASE_URL}${END_POINT.COMPANY}`);
+
 			if (resp.status === 200) {
 				const companies = resp.data.company.map((company) => {
 					const obj = {};
+
 					Object.entries(company).forEach(([key, value]) => {
 						if (key === 'name' || key === 'id') {
 							obj[key] = value;
 						}
 					});
+
 					return obj;
 				});
+
 				setCompaniesNames(companies);
 			}
 		} catch (err) {
@@ -90,6 +101,7 @@ const AllContract = () => {
 	const getAllContractAsync = async (filters) => {
 		try {
 			const params = {};
+
 			Object.entries(filters).forEach(([key, value]) => {
 				if (key === 'from') {
 					if (value !== null && value !== 'DD/MM/YYYY' && value !== '') {
@@ -113,6 +125,7 @@ const AllContract = () => {
 			});
 
 			const resp = await axios.get(`${BASE_URL}${END_POINT.CONTRACT}`, { params });
+
 			if (resp.status === 200) {
 				setLoadingContract(false);
 				setContractsRows(resp.data.contract);
@@ -132,22 +145,24 @@ const AllContract = () => {
 		getAllContractAsync(filters);
 	}, [filters]);
 
-	return <AllContractView
-		periodRange={periodRange}
-		setFrom={setFrom}
-		setTo={setTo}
-		filterdPeriod={filterdPeriod}
-		inputHandler={inputHandler}
-		periodicity={periodicity}
-		status={status}
-		contractStatus={contractStatus}
-		companiesNames={companiesNames}
-		filters={filters}
-		inputCompanyName={inputCompanyName}
-		setInputCompanyName={setInputCompanyName}
-		loadingContract={loadingContract}
-		contractsRows={contractsRows}
-	></AllContractView>;
+	return (
+		<AllContractView
+			periodRange={periodRange}
+			setFrom={setFrom}
+			setTo={setTo}
+			filterdPeriod={filterdPeriod}
+			inputHandler={inputHandler}
+			periodicity={periodicity}
+			status={status}
+			contractStatus={contractStatus}
+			companiesNames={companiesNames}
+			filters={filters}
+			inputCompanyName={inputCompanyName}
+			setInputCompanyName={setInputCompanyName}
+			loadingContract={loadingContract}
+			contractsRows={contractsRows}
+		/>
+	);
 };
 
 AllContract.displayName = 'AllContract';

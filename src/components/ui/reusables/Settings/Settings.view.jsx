@@ -1,7 +1,7 @@
 import React from 'react';
+import { Grid, Typography, Switch, withStyles } from '@material-ui/core';
 import SettingsSection from '../SettingsSection/SettingsSection';
 //import useStyles from './Settings.style';
-import { Grid, Typography, Switch, withStyles } from '@material-ui/core';
 
 const SettingsView = (props) => {
 	return (
@@ -43,10 +43,10 @@ const SettingsView = (props) => {
 										is_active={props.userSettings.is_active}
 										section={section}
 										userSettings={props.userSettings.settings}
-									></SettingsSection>
+									/>
 								);
 							})}
-							<Grid item></Grid>
+							<Grid item />
 						</Grid>
 					</Grid>
 				</>
@@ -58,7 +58,6 @@ const SettingsView = (props) => {
 SettingsView.displayName = 'SettingsView';
 SettingsView.defaultProps = {};
 
-export default React.memo(SettingsView);
 const AllNotificationSwitch = withStyles(() => ({
 	switchBase: {
 		'color': '#FFFFFF',
@@ -73,3 +72,5 @@ const AllNotificationSwitch = withStyles(() => ({
 	checked: {},
 	track: {},
 }))(Switch);
+
+export default React.memo(SettingsView);

@@ -1,10 +1,10 @@
 import React from 'react';
-import { useStyles } from '../../../../../styles/InfoStyles';
 import { Grid, Typography, Divider, TextField } from '@material-ui/core';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import SearchIcon from '@material-ui/icons/Search';
 import { Autocomplete } from '@material-ui/lab';
 import clsx from 'clsx';
+import { useStyles } from '../../../../../styles/InfoStyles';
 import {
 	GreenFilledButton,
 	BinButton,
@@ -25,6 +25,7 @@ import InitialCompanyStateBlock from '../InitialCompanyStateBlock/InitialCompany
 
 const CompanyInfoView = (props) => {
 	const classes = useStyles();
+
 	return props.chosenCompany ? (
 		<Grid container className={classes.infoContainer}>
 			<Grid item xs={12}>
@@ -62,7 +63,7 @@ const CompanyInfoView = (props) => {
 													</Typography>
 												)}
 											</Grid>
-											<Grid item xs={1}></Grid>
+											<Grid item xs={1} />
 											<Grid item xs={3}>
 												<Grid
 													container
@@ -172,12 +173,6 @@ const CompanyInfoView = (props) => {
 										getOptionLabel={(option) => {
 											return option.name;
 										}}
-										onChange={(e, newValue) =>
-											props.updateCompanyField('country', newValue)
-										}
-										onInputChange={(e, newInputValue) =>
-											props.setInputValue(newInputValue)
-										}
 										renderInput={(params) => (
 											<TextField
 												{...params}
@@ -185,6 +180,12 @@ const CompanyInfoView = (props) => {
 												autoComplete="off"
 											/>
 										)}
+										onChange={(e, newValue) =>
+											props.updateCompanyField('country', newValue)
+										}
+										onInputChange={(e, newInputValue) =>
+											props.setInputValue(newInputValue)
+										}
 									/>
 								) : (
 									<Grid container alignItems="center">
@@ -245,9 +246,9 @@ const CompanyInfoView = (props) => {
 							</Grid>
 						) : null}
 						<ContractsModal
-							onClose={() => props.closeContractDialong()}
 							isOpen={props.openDialog}
 							client={props.chosenCompany}
+							onClose={() => props.closeContractDialong()}
 						/>
 					</Grid>
 					{!props.chosenCompany.contract_status ? (

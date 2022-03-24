@@ -26,7 +26,7 @@ const SalesUsersScreen = () => {
 			userSearch={userSearch}
 			userStatus={userStatus}
 			setUserProperty={setUserProperty}
-		></SalesUsersScreenView>
+		/>
 	);
 };
 

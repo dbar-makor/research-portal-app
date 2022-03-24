@@ -3,8 +3,6 @@ import React from 'react';
 import DateInputUnitView from './DateInputUnit.view';
 
 const DateInputUnit = (props) => {
-	const { label, value, onChange } = props;
-
 	const className = props.className ? props.className : '';
 	const error = props.error ? props.error : null;
 	const datePickerClass = props.datePickerClass ? props.datePickerClass : '';
@@ -18,9 +16,9 @@ const DateInputUnit = (props) => {
 			inputVariant={inputVariant}
 			iconFontSize={iconFontSize}
 			className={className}
-			label={label}
-			value={value}
-			onChange={onChange}
+			label={props.label}
+			value={props.value}
+			onChange={props.onChange}
 		/>
 	);
 };

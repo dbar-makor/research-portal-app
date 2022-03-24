@@ -3,11 +3,7 @@ import React from 'react';
 import MakorLogoView from './MakorLogo.view';
 
 const MakorLogo = (props) => {
-  const {userType,classes}=props;
-  return <MakorLogoView
-  userType={userType}
-  classes={classes}
-  ></MakorLogoView>;
+	return <MakorLogoView userType={props.userType} classes={props.classes} />;
 };
 
 MakorLogo.displayName = 'MakorLogo';

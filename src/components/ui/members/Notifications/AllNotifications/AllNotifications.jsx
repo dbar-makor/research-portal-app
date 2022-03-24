@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import * as webSocketService from '../../../../../services/websocket';
 import { useSelector } from 'react-redux';
+import * as webSocketService from '../../../../../services/websocket';
 
 import AllNotificationsView from './AllNotifications.view';
 
@@ -15,15 +15,18 @@ const AllNotifications = () => {
 		const message = {
 			type: 'get-all-notiofications',
 		};
+
 		const ws = webSocketService.sendEvent(message, token);
-		console.log('here');
+
 		ws.onmessage = (event) => {
 			const data = JSON.parse(event.data);
 			let allNotifications;
+
 			switch (data.type) {
 				case 'notifcations':
 					allNotifications = data.notifications;
 					setNotifications([...allNotifications]);
+
 					break;
 				default:
 					break;
@@ -37,8 +40,10 @@ const AllNotifications = () => {
 		} else {
 			const filteredResults = notifications.filter((notification) => {
 				const title = JSON.parse(notification.content).title?.toLowerCase();
+
 				return title?.includes(searchTerm?.toLowerCase());
 			});
+
 			setFilteredNotifications(filteredResults);
 		}
 	}, [searchTerm, notifications]);
@@ -47,6 +52,7 @@ const AllNotifications = () => {
 		const data = {
 			type: 'mark-all-read',
 		};
+
 		webSocketService.sendEvent(data, token);
 		setMarkAsRead((prev) => prev + 1);
 	};
@@ -56,7 +62,7 @@ const AllNotifications = () => {
 			filteredNotifications={filteredNotifications}
 			setSearchTerm={setSearchTerm}
 			makeAllRead={makeAllRead}
-		></AllNotificationsView>
+		/>
 	);
 };
 

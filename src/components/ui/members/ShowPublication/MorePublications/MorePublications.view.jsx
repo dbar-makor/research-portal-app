@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { Grid, Typography } from '@material-ui/core';
-import { BASE_URL, END_POINT } from '../../../../../utils/constants';
 import { Link } from 'react-router-dom';
+import { BASE_URL, END_POINT } from '../../../../../utils/constants';
 
 import useStyles from './MorePublications.style';
 
@@ -16,6 +16,7 @@ const MorePublicationsView = (props) => {
 		if (publication.attachments.length) {
 			image = publication.attachments.find((attachment) => attachment.file_type === 'main_bg');
 			const imageName = image && image.file_name_system;
+
 			url = `${BASE_URL}${END_POINT.ASSETS}/${encodeURIComponent(imageName)}`;
 		}
 
@@ -53,7 +54,7 @@ const MorePublicationsView = (props) => {
 														: 'none',
 													backgroundColor: '#74b2f0',
 												}}
-											></Grid>
+											/>
 										</Link>
 									</Grid>
 									<Grid item>

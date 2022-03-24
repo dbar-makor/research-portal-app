@@ -7,6 +7,7 @@ import AuthorTopbar from '../topbarParts/AuthorTopbar/AuthorTopbar';
 import AdminTopbar from '../topbarParts/AdminTopbar/AdminTopbar';
 import MakorLogo from '../topbarParts/MakorLogo/MakorLogo';
 import useStyles from './TopBar.style';
+
 export const StyledButton = withStyles(() => ({
 	root: {
 		'width': '185px',
@@ -63,48 +64,46 @@ const TopBarView = forwardRef((props, ref) => {
 	};
 
 	return (
-		<>
-			<Grid container direction="column" className={`${classes.headerContainer} header`}>
-				<Grid item style={{ backgroundColor: '#000', width: '70vw', margin: '0 auto' }}>
-					<TradingHours
-						handleToggle={props.handleToggle}
-						notifications={props.notifications}
-						openNotification={props.openNotification}
-						setOpenNotification={props.setOpenNotification}
-						handleListKeyDown={props.handleListKeyDown}
-						handleClose={props.handleClose}
-						ref={ref}
-						userType={props.userType}
-						setOpen={props.setOpen}
-						open={props.open}
-					/>
-				</Grid>
-				<Divider className={classes.divider} />
-				<Grid item style={{ backgroundColor: '#000', width: '70vw', margin: '0 auto' }}>
-					<AppBar position="sticky" className={classes.header}>
-						<Toolbar style={{ width: 'inherit', padding: 0, justifyContent: 'space-between' }}>
-							<Grid item xs={4}>
-								<MakorLogo classes={classes} userType={props.userType} />
-							</Grid>
-							{props.isAuthenticated ? (
-								<>{handleBarOptions(props.userType)}</>
-							) : (
-								<Grid item style={{ paddingRight: 80 }}>
-									<Grid container justifyContent="space-between">
-										<Grid item style={{ paddingRight: 20 }}>
-											<StyledButton>Become a Costumer</StyledButton>
-										</Grid>
-										<Grid item>
-											<LoginButton>Login</LoginButton>
-										</Grid>
+		<Grid container direction="column" className={`${classes.headerContainer} header`}>
+			<Grid item style={{ backgroundColor: '#000', width: '70vw', margin: '0 auto' }}>
+				<TradingHours
+					handleToggle={props.handleToggle}
+					notifications={props.notifications}
+					openNotification={props.openNotification}
+					setOpenNotification={props.setOpenNotification}
+					handleListKeyDown={props.handleListKeyDown}
+					handleClose={props.handleClose}
+					ref={ref}
+					userType={props.userType}
+					setOpen={props.setOpen}
+					open={props.open}
+				/>
+			</Grid>
+			<Divider className={classes.divider} />
+			<Grid item style={{ backgroundColor: '#000', width: '70vw', margin: '0 auto' }}>
+				<AppBar position="sticky" className={classes.header}>
+					<Toolbar style={{ width: 'inherit', padding: 0, justifyContent: 'space-between' }}>
+						<Grid item xs={4}>
+							<MakorLogo classes={classes} userType={props.userType} />
+						</Grid>
+						{props.isAuthenticated ? (
+							<>{handleBarOptions(props.userType)}</>
+						) : (
+							<Grid item style={{ paddingRight: 80 }}>
+								<Grid container justifyContent="space-between">
+									<Grid item style={{ paddingRight: 20 }}>
+										<StyledButton>Become a Costumer</StyledButton>
+									</Grid>
+									<Grid item>
+										<LoginButton>Login</LoginButton>
 									</Grid>
 								</Grid>
-							)}
-						</Toolbar>
-					</AppBar>
-				</Grid>
+							</Grid>
+						)}
+					</Toolbar>
+				</AppBar>
 			</Grid>
-		</>
+		</Grid>
 	);
 });
 

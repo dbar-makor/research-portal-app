@@ -3,18 +3,15 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import PersonIcon from '@material-ui/icons/Person';
 import SettingsIcon from '@material-ui/icons/Settings';
 import InsertDriveFileIcon from '@material-ui/icons/InsertDriveFile';
-import { ReactComponent as BlueShape } from '../../assets/icons/blueBorder.svg';
 import { Switch, useHistory, useRouteMatch } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { ReactComponent as BlueShape } from '../../assets/icons/blueBorder.svg';
 import { useStyles } from '../../styles/AccountSettingsStyles';
 import EditProfile from '../ui/reusables/EditProfile/EditProfile';
-//import Settings from './Settings';
 import Settings from '../ui/reusables/Settings/Settings';
-import ContractAndTrails from './ContractsAndTrails';
-import PrivateRoute from '../../components/layout/PrivateRoute/PrivateRoute';
+import PrivateRoute from '../layout/PrivateRoute/PrivateRoute';
 import * as actionAuth from '../../redux/auth/action';
-import { useState, useCallback } from 'react';
-import ChangePassword from '../ui/reusables/ChangePassword/ChangePassword';
+import ContractAndTrails from './ContractsAndTrails';
 
 const AccountSettings = () => {
 	const userContent = useSelector((state) => state.auth.userContent);
@@ -23,23 +20,14 @@ const AccountSettings = () => {
 	const history = useHistory();
 	const classes = useStyles(chosenRouteName === 'contract_trails' ? 'on' : 'off');
 	const { path, url } = useRouteMatch('/settings');
-	const [chosenModal, setChosenModal] = useState(false);
 
 	const handleRoute = (type) => {
-		if (type === 'modal') {
-			setChosenModal(true);
-			return;
-		}
 		history.push(`${url}/${type}`);
 	};
 
 	const handleLogout = () => {
 		dispatch(actionAuth.logout());
 	};
-
-	const handleCloseModal = useCallback(() => {
-		setChosenModal(false);
-	});
 
 	return (
 		<>
@@ -181,20 +169,6 @@ const AccountSettings = () => {
 												</Grid>
 											</Grid>
 										</Grid>
-										<Grid
-											item
-											xs={12}
-											className={chosenModal ? classes.chosenRoute : classes.notChosen}
-											onClick={() => handleRoute('modal')}
-										>
-											<Grid container alignItems="center">
-												<Grid item>
-													<Typography style={{ fontSize: 14 }}>
-														Change Password
-													</Typography>
-												</Grid>
-											</Grid>
-										</Grid>
 									</Grid>
 								</Grid>
 							</Grid>
@@ -235,12 +209,10 @@ const AccountSettings = () => {
 					</Switch>
 				</Grid>
 			</Grid>
-			<ChangePassword
-			chosenModal={chosenModal}
-			handleCloseModal={handleCloseModal}
-			/>
 		</>
 	);
 };
+
+AccountSettings.displayName = 'AccountSettings';
 
 export default AccountSettings;

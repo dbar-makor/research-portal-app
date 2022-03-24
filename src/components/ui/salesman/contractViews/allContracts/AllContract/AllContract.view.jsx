@@ -1,10 +1,10 @@
 import React from 'react';
-import { useStyles } from '../../../../../../styles/MainStyles';
 import { Grid, Typography, CircularProgress } from '@material-ui/core';
+import { useStyles } from '../../../../../../styles/MainStyles';
 import RangeDatePicker from '../../../../reusables/RangeDatePicker/RangeDatePicker';
 import { ReactComponent as BlueShape } from '../../../../../../assets/icons/blueBorder.svg';
 import SelectInputUnit from '../../../../reusables/SelectInputUnit/SelectInputUnit';
-import ContractsTable from '../../allContracts/ContractsTable/ContractsTable';
+import ContractsTable from '../ContractsTable/ContractsTable';
 import AutoCompleteUnit from '../../../../reusables/AutoCompleteUnit/AutoCompleteUnit';
 
 //import useStyles from './AllContract.style';
@@ -12,7 +12,7 @@ import AutoCompleteUnit from '../../../../reusables/AutoCompleteUnit/AutoComplet
 const AllContractView = (props) => {
 	const classes = useStyles();
 
-  return (
+	return (
 		<>
 			<Grid
 				container
@@ -34,7 +34,7 @@ const AllContractView = (props) => {
 							<Grid container>
 								<Grid item xs={2}>
 									<RangeDatePicker
-										renderFrom={'filters'}
+										renderFrom="filters"
 										max_days_allowed={1460}
 										from={props.periodRange.from}
 										setFrom={props.setFrom}
@@ -48,12 +48,12 @@ const AllContractView = (props) => {
 										label={props.filterdPeriod ? '' : 'Period'}
 										name="periodicity"
 										value={props.filterdPeriod.value}
-										onChange={(e) => props.inputHandler(e, 'PERIOD')}
 										optionLabelField="name"
 										valueField="value"
 										placeholder="Type"
 										optionsArray={props.periodicity}
 										native={false}
+										onChange={(e) => props.inputHandler(e, 'PERIOD')}
 									/>
 								</Grid>
 								<Grid item xs={3} style={{ marginLeft: 15 }}>
@@ -65,8 +65,8 @@ const AllContractView = (props) => {
 										valueField="value"
 										placeholder="Type"
 										value={props.status.value}
-										onChange={(e) => props.inputHandler(e, 'STATUS')}
 										optionsArray={props.contractStatus}
+										onChange={(e) => props.inputHandler(e, 'STATUS')}
 									/>
 								</Grid>
 							</Grid>

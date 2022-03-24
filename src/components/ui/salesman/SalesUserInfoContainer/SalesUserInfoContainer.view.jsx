@@ -4,8 +4,9 @@ import { useStyles } from '../../../../styles/MainStyles';
 import TableComponent from '../../reusables/TableComponent/TableComponent';
 
 const SalesUserInfoContainerView = (props) => {
-  const classes = useStyles();
-  return (
+	const classes = useStyles();
+
+	return (
 		props.companiesData.length && (
 			<Grid
 				item
@@ -14,7 +15,11 @@ const SalesUserInfoContainerView = (props) => {
 				// onWheel={(e) => setWheel(e.nativeEvent.wheelDelta)}
 				onScroll={(e) => props.handleScroll(e)}
 			>
-				<TableComponent data={props.companiesData} pageType="companies" scrollIndex={props.scrollIndex} />
+				<TableComponent
+					data={props.companiesData}
+					pageType="companies"
+					scrollIndex={props.scrollIndex}
+				/>
 			</Grid>
 		)
 	);

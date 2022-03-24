@@ -12,7 +12,7 @@ import useStyles from './Contract.style';
 const ContractView = (props) => {
 	const classes = useStyles();
 
-  return (
+	return (
 		<Grid container className={classes.page}>
 			<Grid item xs={12}>
 				<Grid container className={classes.formContainer}>
@@ -99,7 +99,6 @@ const ContractView = (props) => {
 											name="amount"
 											label="Amount"
 											value={props.contract.amount || ''}
-											onChange={(e) => props.handleContract(e.target.value, 'amount')}
 											error={props.errors.amount}
 											InputProps={{
 												inputComponent: NumberFormatCustom,
@@ -108,6 +107,7 @@ const ContractView = (props) => {
 													minValue: 0,
 												},
 											}}
+											onChange={(e) => props.handleContract(e.target.value, 'amount')}
 										/>
 									</Grid>
 									<Grid item xs={1}>
@@ -144,9 +144,9 @@ const ContractView = (props) => {
 								</Typography>
 								<StatusSwitch
 									name="vat"
-									onChange={(e) => props.handleContract(e.target.checked, 'vat')}
 									checked={props.contract.vat}
 									className={classes.switch}
+									onChange={(e) => props.handleContract(e.target.checked, 'vat')}
 								/>
 								<Typography className={classes.vatLabel2}>VAT</Typography>
 							</Grid>
@@ -165,7 +165,9 @@ const ContractView = (props) => {
 									<Grid container>
 										<Grid item xs={12} className={classes.boxStyle}>
 											<Typography className={classes.amountType}>
-												{props.contract.currency && props.contract.amount && props.contract.periodicity
+												{props.contract.currency &&
+												props.contract.amount &&
+												props.contract.periodicity
 													? `${
 															typeof props.contract.currency === 'string'
 																? props.currenciesArr.find(
@@ -207,7 +209,6 @@ const ContractView = (props) => {
 										className={`${classes.memberField} ${classes.textFieldStyle}`}
 										name="members"
 										value={props.contract.members || ''}
-										onChange={(e) => props.handleContract(e.target.value, 'members')}
 										error={props.errors.members}
 										InputProps={{
 											inputComponent: NumberFormatCustom,
@@ -219,12 +220,15 @@ const ContractView = (props) => {
 													: 0,
 											},
 										}}
+										onChange={(e) => props.handleContract(e.target.value, 'members')}
 									/>
 								</Grid>
 								{props.chosenCompany && props.chosenCompany.members && (
 									<Grid item xs={12}>
 										<Typography className={classes.note}>
-											* Minimal No. is {props.chosenCompany.members.length}
+											* Minimal No. is
+											{' '}
+											{props.chosenCompany.members.length}
 										</Typography>
 									</Grid>
 								)}

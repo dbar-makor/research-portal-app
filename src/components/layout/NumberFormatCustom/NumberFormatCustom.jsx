@@ -1,19 +1,16 @@
 import React from 'react';
-import NumberFormatCustomView from './NumberFormatCustom.view';
 import PropTypes from 'prop-types';
+import NumberFormatCustomView from './NumberFormatCustom.view';
 
 const NumberFormatCustom = (props) => {
-	console.log('myprops',props);
-	const { inputRef, onChange, decimalNo, minValue, ...other } = props;
-
 	return (
 		<NumberFormatCustomView
-			inputRef={inputRef}
-			onChange={onChange}
-			decimalNo={decimalNo}
-			minValue={minValue}
-			{...other}
-		></NumberFormatCustomView>
+			inputRef={props.inputRef}
+			decimalNo={props.decimalNo}
+			minValue={props.minValue}
+			onChange={props.onChange}
+			{...props.other}
+		/>
 	);
 };
 
@@ -25,4 +22,5 @@ NumberFormatCustom.propTypes = {
 	decimalNo: PropTypes.number.isRequired,
 	minValue: PropTypes.number.isRequired,
 };
+
 export default React.memo(NumberFormatCustom);

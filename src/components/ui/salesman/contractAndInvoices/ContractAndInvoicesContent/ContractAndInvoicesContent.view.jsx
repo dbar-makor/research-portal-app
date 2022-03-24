@@ -27,9 +27,9 @@ const ContractAndInvoicesContentView = (props) => {
 							value={props.sortStatus || ''}
 							optionsArray={props.statusValues}
 							optionLabelField="name"
-							onChange={(e) => props.filterStatus(e.target.value)}
 							valueField="value"
 							native={false}
+							onChange={(e) => props.filterStatus(e.target.value)}
 						/>
 					</Grid>
 				</Grid>
@@ -75,6 +75,7 @@ ContractAndInvoicesContentView.displayName = 'ContractAndInvoicesContentView';
 ContractAndInvoicesContentView.defaultProps = {};
 
 export default React.memo(ContractAndInvoicesContentView);
+
 const HeaderCells = withStyles(() => ({
 	root: {
 		padding: '10px 0px 10px 2px',

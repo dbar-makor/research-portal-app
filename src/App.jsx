@@ -2,14 +2,14 @@ import './App.css';
 import { useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
+import { useDispatch, useSelector } from 'react-redux';
 import LoginPage from './components/pages/LoginPage/LoginPage';
 import GeneralHome from './components/pages/GeneralHome/GeneralHome';
 import PrivateRoute from './components/layout/PrivateRoute/PrivateRoute';
-import { MuiPickersUtilsProvider } from '@material-ui/pickers';
-import DateFnsUtils from '@date-io/date-fns';
 import { setAuthToken } from './utils/constants';
 
-import { useDispatch, useSelector } from 'react-redux';
 import { LOGIN_SUCCESS } from './redux/auth/constants';
 
 import AuthorsNewArticle from './components/ui/author/AuthorsnewArticle/AuthorsNewArticle';
@@ -30,21 +30,24 @@ import AllInvoices from './components/ui/salesman/contractViews/allInvoices/AllI
 import AllNotifications from './components/ui/members/Notifications/AllNotifications/AllNotifications';
 import AccountSettings from './components/AccountSettings/AccountSettings';
 
-function App() {
+const App = () => {
 	const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 	const dispatch = useDispatch();
 	const isAuthor = useSelector((state) => state.auth.userContent?.type === 'author');
 	const isSales = useSelector((state) => state.auth.userContent?.type === 'sales');
 	const isAdmin = useSelector((state) => state.auth.userContent?.type === 'admin');
+
 	const isMember = useSelector(
 		(state) => state.auth.userContent?.type === 'client' || state.auth.userContent?.type === 'prospect',
 	);
 
 	useEffect(() => {
 		const existingToken = localStorage.getItem('token');
+
 		if (existingToken) {
 			setAuthToken(existingToken);
 			const loggedUser = JSON.parse(localStorage.getItem('userContent'));
+
 			dispatch({
 				type: LOGIN_SUCCESS,
 				payload: { token: existingToken, userContent: loggedUser },
@@ -114,7 +117,7 @@ function App() {
 	const AuthorsViews = () => {
 		return (
 			<Switch>
-				<PrivateRoute  path="/settings" component={AccountSettings} />
+				<PrivateRoute path="/settings" component={AccountSettings} />
 				<PrivateRoute exact path="/researches" component={AllPublications} />
 				<PrivateRoute exact path="/new-article" component={AuthorsNewArticle} />
 				<PrivateRoute exact path="/upload-article" component={DeadArticle} />
@@ -124,6 +127,8 @@ function App() {
 			</Switch>
 		);
 	};
+
+	AuthorsViews.displayName = 'AuthorsViews';
 
 	const SalesmenViews = () => {
 		return (
@@ -138,6 +143,8 @@ function App() {
 		);
 	};
 
+	SalesmenViews.displayName = 'SalesmenViews';
+
 	const AdminViews = () => {
 		return (
 			<Switch>
@@ -151,17 +158,21 @@ function App() {
 		);
 	};
 
+	AdminViews.displayName = 'AdminViews';
+
 	const MembersView = () => {
 		return (
 			<Switch>
 				<PrivateRoute path="/home" component={MembersMain} />
 				<PrivateRoute path="/settings" component={AccountSettings} />
 				<PrivateRoute exact path="/article/:pubId" component={FullPublication} />
-				<PrivateRoute exact path="/all_notfications" component={AllNotifications} />
+				<PrivateRoute exact path="/all-notfications" component={AllNotifications} />
 				<PrivateRoute path="/*" component={LoginPage} />
 			</Switch>
 		);
 	};
+
+	MembersView.displayName = 'MembersView';
 
 	return (
 		<ThemeProvider theme={mainTheme}>
@@ -184,6 +195,8 @@ function App() {
 				(isMember ? <FooterMember style={{ position: 'absolute', bottom: 0 }} /> : <></>)}
 		</ThemeProvider>
 	);
-}
+};
+
+App.displayName = 'App';
 
 export default App;

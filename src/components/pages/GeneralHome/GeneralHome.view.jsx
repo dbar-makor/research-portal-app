@@ -3,21 +3,24 @@ import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import TabsUnstyled from '@mui/base/TabsUnstyled';
 import Grid from '@mui/material/Grid';
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet';
 import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 import Carousel from 'react-material-ui-carousel';
 
-import useStyles, {Tab, TabPanel,TabsList} from './GeneralHome.style';
+import useStyles, { Tab, TabPanel, TabsList } from './GeneralHome.style';
 
 const GeneralHomeView = (props) => {
 	const classes = useStyles();
+
 	const renderDay = (day) => {
 		const dates = day.getDate();
+
 		const dateStyle = {
 			color: '#000',
 			fontSize: 20,
 		};
+
 		const cellStyle = {
 			width: 38,
 		};
@@ -38,7 +41,7 @@ const GeneralHomeView = (props) => {
 								background: '#1c67ff',
 							}}
 							className="circle"
-						></div>
+						/>
 					</div>
 				) : (
 					<div
@@ -53,7 +56,7 @@ const GeneralHomeView = (props) => {
 								background: '#ACB1BF',
 							}}
 							className="circle"
-						></div>
+						/>
 					</div>
 				)}
 			</div>
@@ -1051,7 +1054,8 @@ const GeneralHomeView = (props) => {
 							<TabPanel value={0}>
 								<div>
 									<Helmet>
-										<style>{`
+										<style>
+											{`
                       .DayPicker {
                         display: block;
                         overflow-x: scroll;
@@ -1104,7 +1108,8 @@ const GeneralHomeView = (props) => {
                       .DayPicker-Weekdays {
                         margin-top: 0;
                       }
-                  `}</style>
+                  `}
+										</style>
 									</Helmet>
 									<DayPicker
 										renderDay={renderDay}
@@ -1119,7 +1124,7 @@ const GeneralHomeView = (props) => {
 												backgroundColor: '#ED5858',
 											}}
 											className={classes.eventsLabel}
-										></div>
+										/>
 										<div className={classes.eventsContentWrapper}>
 											<div className={classes.eventsInnerContentWrapper}>
 												<div className={classes.eventsHeader}>ARNA US</div>
@@ -1154,7 +1159,7 @@ const GeneralHomeView = (props) => {
 												backgroundColor: '#FAC100',
 											}}
 											className={classes.eventsLabel}
-										></div>
+										/>
 										<div className={classes.eventsContentWrapper}>
 											<div className={classes.eventsInnerContentWrapper}>
 												<div className={classes.eventsHeader}>ARNA US</div>
@@ -1187,7 +1192,7 @@ const GeneralHomeView = (props) => {
 										<div
 											style={{ backgroundColor: '#00CA80' }}
 											className={classes.eventsLabel}
-										></div>
+										/>
 										<div className={classes.eventsContentWrapper}>
 											<div className={classes.eventsInnerContentWrapper}>
 												<div className={classes.eventsHeader}>ARNA US</div>

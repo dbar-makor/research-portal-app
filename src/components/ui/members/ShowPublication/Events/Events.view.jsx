@@ -29,6 +29,8 @@ const EventsView = (props) => {
 		);
 	};
 
+	Event.displayName = 'Event';
+
 	const noEvents = () => {
 		return (
 			<Grid item xs={12} className={classes.contentGrid}>
@@ -41,7 +43,7 @@ const EventsView = (props) => {
 
 	return (
 		<Grid item xs={12}>
-			<Divider className={classes.divider}></Divider>
+			<Divider className={classes.divider} />
 			<Grid container style={{ paddingTop: '10px' }}>
 				<Grid item xs={12}>
 					<Grid container>

@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { BASE_URL } from '../../../../../utils/constants';
 import { Divider, Grid, Typography } from '@material-ui/core';
+import { BASE_URL } from '../../../../../utils/constants';
 import { useStyles } from '../../../../../styles/PublicationsStyles';
 import { ReactComponent as FileEmpty } from '../../../../../assets/icons/fileEmpty.svg';
 
@@ -44,7 +44,7 @@ const AttachmentsView = (props) => {
 
 	return (
 		<Grid item xs={12}>
-			<Divider className={classes.divider}></Divider>
+			<Divider className={classes.divider} />
 			<Grid container style={{ padding: '10px 0px' }}>
 				<Grid item xs={12}>
 					<Grid container>

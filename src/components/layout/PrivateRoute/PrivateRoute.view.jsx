@@ -4,9 +4,9 @@ import { Route, Redirect } from 'react-router-dom';
 //import useStyles from './PrivateRoute.style';
 
 const PrivateRouteView = (props) => {
-const Component = props.component;
+	const Component = props.component;
 
-  return  (
+	return (
 		<Route
 			{...props.rest}
 			render={(rest) =>
@@ -15,7 +15,7 @@ const Component = props.component;
 				) : (
 					<Redirect
 						to={{
-							pathname: '/Login',
+							pathname: '/login',
 							state: { from: rest.location },
 						}}
 					/>

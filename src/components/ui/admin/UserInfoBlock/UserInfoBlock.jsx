@@ -3,10 +3,8 @@ import React from 'react';
 import UserInfoBlockView from './UserInfoBlock.view';
 
 const UserInfoBlock = (props) => {
-	const { chosenUser, updateUserField } = props;
-
 	const userFields =
-		chosenUser.type === 'sales'
+		props.chosenUser.type === 'sales'
 			? [
 					'username',
 					'last_client_added',
@@ -35,15 +33,14 @@ const UserInfoBlock = (props) => {
 		'last_prospect_added',
 		'last_publication',
 	];
+
 	return (
 		<UserInfoBlockView
 			userFields={userFields}
-			chosenUser={chosenUser}
+			chosenUser={props.chosenUser}
 			dateFields={dateFields}
-			updateUserField={updateUserField}
-		>
-			{' '}
-		</UserInfoBlockView>
+			updateUserField={props.updateUserField}
+		/>
 	);
 };
 

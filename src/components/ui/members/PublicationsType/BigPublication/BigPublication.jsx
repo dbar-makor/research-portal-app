@@ -2,8 +2,8 @@ import React from 'react';
 
 import BigPublicationView from './BigPublication.view';
 
-const BigPublication = ({ publication }) => {
-	return <BigPublicationView publication={publication}></BigPublicationView>;
+const BigPublication = (props) => {
+	return <BigPublicationView publication={props.publication} />;
 };
 
 BigPublication.displayName = 'BigPublication';

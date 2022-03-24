@@ -72,5 +72,29 @@ const useStyles = makeStyles(() => ({
 			},
 		},
 	},
+	chosenRoute: {
+		marginTop: 20,
+		color: '#1C67FF',
+		backgroundColor: '#e0ebfc',
+		cursor: 'pointer',
+	},
+	notChosen: {
+		marginTop: 20,
+		color: '#000000',
+		backgroundColor: 'none',
+		cursor: 'pointer',
+	},
+	link: {
+		position: 'relative',
+		color: '#1C67FF',
+		textDecoration: 'underline',
+	},
+	arrowIcon: {
+		fontSize: '14px',
+		paddingTop: '5px',
+		position: 'absolute',
+		fill: '#1C67FF',
+	},
 }));
+
 export default useStyles;

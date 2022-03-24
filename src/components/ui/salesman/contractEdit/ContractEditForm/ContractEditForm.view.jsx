@@ -3,8 +3,10 @@ import { Grid, Typography, withStyles, Switch, TextField } from '@material-ui/co
 import AutoCompleteUnit from '../../../reusables/AutoCompleteUnit/AutoCompleteUnit';
 import NumberInputUnit from '../../../reusables/NumberInputUnit/NumberInputUnit';
 import DateInputUnit from '../../../reusables/DateInputUnit/DateInputUnit';
-import NumberFormatCustom from '../../../../../utils/components/NumberFormatCustom';
+import NumberFormatCustom from '../../../../layout/NumberFormatCustom/NumberFormatCustom';
+
 import useStyles from './ContractEditForm.style';
+
 const GreenSwitch = withStyles({
 	switchBase: {
 		'color': '#FFFFFF',
@@ -43,10 +45,11 @@ const StyledTextField = withStyles(() => ({
 		},
 	},
 }))(TextField);
+
 const ContractEditFormView = (props) => {
 	const classes = useStyles();
 
-  return (
+	return (
 		<Grid container className={classes.formWrapper}>
 			<Grid item xs={12}>
 				<Typography className={classes.formTitle}>Information</Typography>
@@ -116,7 +119,6 @@ const ContractEditFormView = (props) => {
 									name="amount"
 									label="Amount"
 									value={props.contractForm.amount || ''}
-									onChange={props.handleContract}
 									error={props.errors.amount}
 									InputProps={{
 										inputComponent: NumberFormatCustom,
@@ -125,6 +127,7 @@ const ContractEditFormView = (props) => {
 											minValue: 0,
 										},
 									}}
+									onChange={props.handleContract}
 								/>
 							</Grid>
 							<Grid item xs={1}>
@@ -189,10 +192,13 @@ const ContractEditFormView = (props) => {
 							</Grid>
 							<Grid item xs={4} className={classes.boxStyle}>
 								<Typography className={classes.amountType}>
-									{props.contractForm.currency && props.contractForm.amount && props.contractForm.periodicity
+									{props.contractForm.currency &&
+									props.contractForm.amount &&
+									props.contractForm.periodicity
 										? `${props.contractForm.currency.symbol}
                               ${(
-									props.contractForm.amount * props.periodToNum[props.contractForm.periodicity]
+									props.contractForm.amount *
+									props.periodToNum[props.contractForm.periodicity]
 								).toLocaleString()}`
 										: '0'}
 								</Typography>
@@ -218,7 +224,6 @@ const ContractEditFormView = (props) => {
 									className={`${classes.memberField} ${classes.textFieldStyle}`}
 									name="members"
 									value={props.contractForm.members || ''}
-									onChange={props.handleContract}
 									error={props.errors.members}
 									InputProps={{
 										inputComponent: NumberFormatCustom,
@@ -230,6 +235,7 @@ const ContractEditFormView = (props) => {
 												: 0,
 										},
 									}}
+									onChange={props.handleContract}
 								/>
 							</Grid>
 						</Grid>

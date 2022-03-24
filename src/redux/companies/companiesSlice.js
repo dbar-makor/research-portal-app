@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { BASE_URL, END_POINT } from '../../utils/constants';
 import { createSelector } from 'reselect';
+import { BASE_URL, END_POINT } from '../../utils/constants';
 import { setParams } from '../../utils/helpers/helperFunctions';
 
 export const companiesSlice = createSlice({
@@ -48,13 +48,21 @@ export const { getCompaniesData, setLoading, deleteCompany, setProperty, setComp
 //selectors
 
 export const selectCompaniesData = (state) => state.companies.companiesData;
+
 export const selectCompaniesMetaData = (state) => state.companies.metaData;
+
 export const selectCompaniesLoading = (state) => state.companies.loading;
+
 export const selectSearch = (state) => state.companies.search;
+
 export const selectType = (state) => state.companies.type;
+
 export const selectStatus = (state) => state.companies.status;
+
 export const selectOffset = (state) => state.companies.offset;
+
 export const selectLimit = (state) => state.companies.limit;
+
 export const selectHasMore = (state) => state.companies.hasMore;
 
 export const selectProspectCompanies = createSelector([selectCompaniesData], (companies) =>
@@ -76,9 +84,11 @@ export const getCompaniesDataAsync = (offset, limit, search, type, status) => as
 			BASE_URL + END_POINT.COMPANY,
 			setParams(offset, limit, search, type, status),
 		);
+
 		if (res.status === 200) {
 			dispatch(setProperty({ key: 'metaData', value: res.data.meta_data }));
 			dispatch(setLoading(false));
+
 			if (res.data.meta_data.sum_rows > state.companies.companiesData.length) {
 				dispatch(setHasMore(true));
 			} else {
@@ -88,8 +98,10 @@ export const getCompaniesDataAsync = (offset, limit, search, type, status) => as
 			if (offset === 0) {
 				dispatch(getCompaniesData(res.data.company));
 			}
+
 			if (offset !== 0 && res.data.meta_data.sum_rows > state.companies.companiesData.length) {
 				const dataCopy = [...state.companies.companiesData];
+
 				dataCopy.push(...res.data.company);
 				dispatch(getCompaniesData(dataCopy));
 			}
@@ -102,11 +114,12 @@ export const getCompaniesDataAsync = (offset, limit, search, type, status) => as
 export const deleteCompanyAsync = (id) => async (dispatch) => {
 	try {
 		const res = await axios.delete(`${BASE_URL}${END_POINT.COMPANY}/${id}`);
+
 		if (res.status === 200) {
 			dispatch(getCompaniesDataAsync());
 		}
 	} catch (err) {
-				/* eslint no-console: "off" */
+		/* eslint no-console: "off" */
 		console.log(err.message);
 	}
 };

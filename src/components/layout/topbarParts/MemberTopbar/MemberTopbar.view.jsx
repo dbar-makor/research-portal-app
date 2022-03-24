@@ -1,13 +1,12 @@
 import React from 'react';
 import { Grid, Typography } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import SelectInputUnit from '../../../../components/ui/reusables/SelectInputUnit/SelectInputUnit';
+import SelectInputUnit from '../../../ui/reusables/SelectInputUnit/SelectInputUnit';
 import { ReactComponent as SearchIcon } from '../../../../assets/icons/IconSearch.svg';
 import { StyledTextField } from '../../../../styles/MainStyles';
 
 const MemberTopbarView = (props) => {
-
-  return (
+	return (
 		<Grid item xs={8}>
 			<Grid container justifyContent="space-between">
 				<Grid item xs={6}>
@@ -18,12 +17,12 @@ const MemberTopbarView = (props) => {
 							</Link>
 						</Grid>
 						<Grid item xs={4}>
-							<Link to={'/'} className={props.classes.styledLinks}>
+							<Link to="/" className={props.classes.styledLinks}>
 								Ideas
 							</Link>
 						</Grid>
 						<Grid item xs={4}>
-							<Link to={'/'} className={props.classes.styledLinks}>
+							<Link to="/" className={props.classes.styledLinks}>
 								Mkt Calendar
 							</Link>
 						</Grid>
@@ -40,12 +39,12 @@ const MemberTopbarView = (props) => {
 								valueField="value"
 								placeholder="All Regions"
 								optionsArray={props.options}
-								native={true}
-							></SelectInputUnit>
+								native
+							/>
 						</Grid>
 						<Grid item xs={6}>
 							<StyledTextField
-               id="regionSelect"
+								id="regionSelect"
 								className={props.classes.search}
 								// value={localSearch}
 								// onChange={(e) => setLocalSearch(e.target.value)}
@@ -57,7 +56,7 @@ const MemberTopbarView = (props) => {
 									endAdornment: (
 										<SearchIcon
 											className={props.classes.searchIcon}
-											style={{ cursor: 'pointer' }}
+											style={{ cursor: 'pointer', stroke: 'none' }}
 										/>
 									),
 								}}

@@ -3,18 +3,20 @@ import { useDispatch } from 'react-redux';
 import FiltersView from './Filters.view';
 
 const Filters = (props) => {
-	const {  setProperty, pageType } = props;
 	const dispatch = useDispatch();
 	const [localSearch, setLocalSearch] = useState('');
-	const userType = pageType === 'salesUsers' ? 'sales' : pageType === 'authorsUsers' ? 'author' : '';
-  useEffect(() => {
+
+	const userType =
+		props.pageType === 'salesUsers' ? 'sales' : props.pageType === 'authorsUsers' ? 'author' : '';
+
+	useEffect(() => {
 		return () => {
-			dispatch(setProperty({ key: 'search', value: '' }));
-			dispatch(setProperty({ key: 'status', value: '' }));
+			dispatch(props.setProperty({ key: 'search', value: '' }));
+			dispatch(props.setProperty({ key: 'status', value: '' }));
 		};
 	}, []);
 
-  	// eslint-disable-next-line no-unused-vars
+	// eslint-disable-next-line no-unused-vars
 	const [open, setOpen] = useState(false);
 
 	const handleOpen = () => {
@@ -25,19 +27,20 @@ const Filters = (props) => {
 		setOpen(false);
 	};
 
-	return <FiltersView
-  handleOpen={handleOpen}
-  handleClose={handleClose}
-  localSearch={localSearch}
-  setLocalSearch={setLocalSearch}
-  setProperty={setProperty}
-  pageType={pageType}
-  type={props.type}
-  userType={userType}
-  status={props.status}
-  open={open}
-
-  />;
+	return (
+		<FiltersView
+			handleOpen={handleOpen}
+			handleClose={handleClose}
+			localSearch={localSearch}
+			setLocalSearch={setLocalSearch}
+			setProperty={props.setProperty}
+			pageType={props.pageType}
+			type={props.type}
+			userType={userType}
+			status={props.status}
+			open={open}
+		/>
+	);
 };
 
 Filters.displayName = 'Filters';

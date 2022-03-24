@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, forwardRef } from 'react';
 import { useDispatch } from 'react-redux';
 import * as chosenCompanyActions from '../../../../redux/companies/chosenCompanySlice';
-import TableComponentView from './TableComponent.view';
 import { getUserByIdAsync } from '../../../../redux/users/chosenUserSlice';
+import TableComponentView from './TableComponent.view';
 
 const TableComponent = forwardRef((props, ref1) => {
 	const { data, pageType } = props;
@@ -20,6 +20,7 @@ const TableComponent = forwardRef((props, ref1) => {
 
 	useEffect(() => {
 		if (data.length < 16) return;
+
 		almostLastRowRef.current.scrollIntoView({ behavior: 'smooth' });
 	}, [data]);
 

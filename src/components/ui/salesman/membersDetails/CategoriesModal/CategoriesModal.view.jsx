@@ -9,17 +9,18 @@ import { ReactComponent as CloseIcon } from '../../../../../assets/icons/closeIc
 
 const CategoriesModalView = (props) => {
 	const classes = useStyles();
-  return (
+
+	return (
 		props.currentMember && (
 			<Dialog
 				open={props.open}
-				onClose={props.handleClose}
 				classes={{ paper: classes.contractModalPaper }}
 				BackdropProps={{
 					classes: {
 						root: classes.modalBackDrop,
 					},
 				}}
+				onClose={props.handleClose}
 			>
 				<Grid
 					container
@@ -29,7 +30,7 @@ const CategoriesModalView = (props) => {
 				>
 					<Grid item xs={12}>
 						<Grid container justifyContent="flex-end">
-							<CloseIcon onClick={props.handleClose} className={classes.closeIcon} />
+							<CloseIcon className={classes.closeIcon} onClick={props.handleClose} />
 						</Grid>
 					</Grid>
 					<Grid item xs={12}>
@@ -61,7 +62,9 @@ const CategoriesModalView = (props) => {
 					</Grid>
 					<Grid item className={classes.saveBtn}>
 						<Grid container justifyContent="center">
-							<FilledButton onClick={() => props.sendMember(props.currentMember, props.currentMember.id)}>
+							<FilledButton
+								onClick={() => props.sendMember(props.currentMember, props.currentMember.id)}
+							>
 								Save
 							</FilledButton>
 						</Grid>

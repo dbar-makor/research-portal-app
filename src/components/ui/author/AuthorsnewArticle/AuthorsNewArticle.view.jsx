@@ -1,11 +1,12 @@
 import React from 'react';
 import { Grid, Typography, Divider } from '@material-ui/core';
-import { useStyles, AtricleTitleTextField } from '../../../../styles/AuthorsStyles';
 import MUIRichTextEditor from 'mui-rte';
 import AddIcon from '@material-ui/icons/Add';
 import { KeyboardDatePicker } from '@material-ui/pickers';
 import ClearIcon from '@material-ui/icons/Clear';
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
+import clsx from 'clsx';
+import { useStyles, AtricleTitleTextField } from '../../../../styles/AuthorsStyles';
 import SubHeader from '../../reusables/SubHeader/SubHeader';
 import {
 	StyledTextField,
@@ -19,7 +20,6 @@ import DropZoneMulti from '../../reusables/DropZoneMulti/DropZoneMulti';
 import CategoriesAutoComplete from '../../reusables/CategoriesAutoComplete/CategoriesAutoComplete';
 import TagsAutoComplete from '../../reusables/TagsAutoComplete/TagsAutoComplete';
 import { ReactComponent as CalendarIcon } from '../../../../assets/icons/iconCalendar.svg';
-import clsx from 'clsx';
 
 const AuthorsNewArticleView = (props) => {
 	const classes = useStyles();
@@ -32,7 +32,7 @@ const AuthorsNewArticleView = (props) => {
 					<Grid item xs={6}>
 						<Grid container className={classes.newArticleLeftContainer}>
 							<Grid item xs={12}>
-								<Grid container justifyContent="space-between" alignItems="flex-end"></Grid>
+								<Grid container justifyContent="space-between" alignItems="flex-end" />
 							</Grid>
 							<Grid item xs={12}>
 								<Grid container justifyContent="space-between" alignItems="flex-end">
@@ -46,9 +46,6 @@ const AuthorsNewArticleView = (props) => {
 												<AtricleTitleTextField
 													variant="outlined"
 													value={props.localForm.title}
-													onChange={(e) =>
-														props.handleChange(e.target.value, 'title')
-													}
 													style={{ width: '100%' }}
 													placeholder="Article Title*"
 													error={!!props.errors.title}
@@ -57,6 +54,9 @@ const AuthorsNewArticleView = (props) => {
 														style: { fontSize: '32px', fontWeight: 600 },
 														maxLength: 50,
 													}}
+													onChange={(e) =>
+														props.handleChange(e.target.value, 'title')
+													}
 												/>
 											</Grid>
 										</Grid>
@@ -79,7 +79,6 @@ const AuthorsNewArticleView = (props) => {
 											onFocus={props.handleEditorOnFocus}
 											//shows error if field was ever focused, something was already typed and there is no content
 											// error={contentNotOK.focus &&  contentNotOK.everTyped && !contentNotOK.isText }
-
 											{...(props.chosenResearch &&
 												Object.keys(props.chosenResearch.content).length && {
 													defaultValue:
@@ -144,12 +143,12 @@ const AuthorsNewArticleView = (props) => {
 											<DropZone
 												className={classes.dropZone}
 												fileTypes=".png, .jpg, .svg, .jfif, .webp"
-												onDrop={props.onDropCover}
 												uploadedImage={props.coverImage}
 												setUploadedImage={props.setCoverImage}
 												purpose="cover image*"
 												fileOK={props.coverImageOK}
 												setFileOK={props.setCoverImageOK}
+												onDrop={props.onDropCover}
 												//  error={errors.coverImage}
 											/>
 											{!props.coverImageOK.initial && (
@@ -198,6 +197,13 @@ const AuthorsNewArticleView = (props) => {
 											>
 												<Grid item xs={5}>
 													<StyledTextField
+														value={props.currentEvent.title}
+														variant="outlined"
+														placeholder="Title"
+														className={classes.textField}
+														inputProps={{
+															maxLength: 50,
+														}}
 														onChange={(e) => {
 															props.setCurrentEvent({
 																...props.currentEvent,
@@ -210,13 +216,6 @@ const AuthorsNewArticleView = (props) => {
 																props.setValidationResultEvent,
 															);
 														}}
-														value={props.currentEvent.title}
-														variant="outlined"
-														placeholder="Title"
-														className={classes.textField}
-														inputProps={{
-															maxLength: 50,
-														}}
 													/>
 												</Grid>
 												<Grid item xs={5}>
@@ -226,7 +225,7 @@ const AuthorsNewArticleView = (props) => {
 														disableToolbar
 														variant="inline"
 														inputVariant="outlined"
-														format={'dd/MM/yyyy'}
+														format="dd/MM/yyyy"
 														placeholder="Date"
 														value={props.currentEvent.date}
 														className={classes.eventDatePicker}
@@ -234,6 +233,9 @@ const AuthorsNewArticleView = (props) => {
 														keyboardIcon={
 															<CalendarIcon className={classes.calendarIcon} />
 														}
+														PopoverProps={{
+															classes: { paper: classes.calendarPaper },
+														}}
 														onChange={(date) => {
 															props.setCurrentEvent({
 																...props.currentEvent,
@@ -245,9 +247,6 @@ const AuthorsNewArticleView = (props) => {
 																props.setErrorsEvent,
 																props.setValidationResultEvent,
 															);
-														}}
-														PopoverProps={{
-															classes: { paper: classes.calendarPaper },
 														}}
 													/>
 												</Grid>
@@ -282,6 +281,13 @@ const AuthorsNewArticleView = (props) => {
 													>
 														<Grid item xs={5}>
 															<StyledTextField
+																value={event.title}
+																variant="outlined"
+																placeholder="Title"
+																className={classes.textField}
+																inputProps={{
+																	maxLength: 50,
+																}}
 																onChange={(e) =>
 																	props.updatePropertyField(
 																		index,
@@ -290,13 +296,6 @@ const AuthorsNewArticleView = (props) => {
 																		'events',
 																	)
 																}
-																value={event.title}
-																variant="outlined"
-																placeholder="Title"
-																className={classes.textField}
-																inputProps={{
-																	maxLength: 50,
-																}}
 															/>
 														</Grid>
 														<Grid item xs={5}>
@@ -306,7 +305,7 @@ const AuthorsNewArticleView = (props) => {
 																disableToolbar
 																variant="inline"
 																inputVariant="outlined"
-																format={'dd/MM/yyyy'}
+																format="dd/MM/yyyy"
 																placeholder="Date"
 																value={event.date}
 																className={classes.eventDatePicker}
@@ -314,11 +313,15 @@ const AuthorsNewArticleView = (props) => {
 																keyboardIcon={
 																	props.localForm.events[index]
 																		.date ? null : (
-																		<CalendarIcon
-																			className={classes.calendarIcon}
-																		/>
+																			<CalendarIcon
+																				className={classes.calendarIcon}
+																			/>
 																	)
 																}
+																style={{ width: '100%', maxHeight: '53px' }}
+																PopoverProps={{
+																	classes: { paper: classes.calendarPaper },
+																}}
 																onChange={(date) =>
 																	props.updatePropertyField(
 																		index,
@@ -327,10 +330,6 @@ const AuthorsNewArticleView = (props) => {
 																		'events',
 																	)
 																}
-																style={{ width: '100%', maxHeight: '53px' }}
-																PopoverProps={{
-																	classes: { paper: classes.calendarPaper },
-																}}
 															/>
 														</Grid>
 														<Grid item xs={1}>
@@ -362,10 +361,10 @@ const AuthorsNewArticleView = (props) => {
 											<DropZoneMulti
 												className={classes.uploadAttachment}
 												fileTypes=".jpg, .png, .svg, .doc, .docx, .pdf"
-												onDrop={props.onDrop}
 												purpose="your files"
 												localForm={props.localForm}
 												deleteItem={props.deleteItem}
+												onDrop={props.onDrop}
 											/>
 										</Grid>
 									</Grid>

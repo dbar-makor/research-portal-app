@@ -9,21 +9,22 @@ import AutoCompleteUnit from '../../reusables/AutoCompleteUnit/AutoCompleteUnit'
 
 const NewUserModalView = (props) => {
 	const classes = useStyles();
+
 	return (
 		<Dialog
 			open={props.open}
-			onClose={props.clearAndClose}
 			classes={{ paper: classes.alertModalPaper }}
 			BackdropProps={{
 				classes: {
 					root: classes.modalBackDrop,
 				},
 			}}
+			onClose={props.clearAndClose}
 		>
 			<Grid container justifyContent="center">
 				<Grid item xs={12}>
 					<Grid container justifyContent="flex-end">
-						<CloseIcon onClick={props.clearAndClose} className={classes.closeIcon} />
+						<CloseIcon className={classes.closeIcon} onClick={props.clearAndClose} />
 					</Grid>
 				</Grid>
 				<SubHeaderModal title={`Add ${props.userType}`} />
@@ -34,8 +35,8 @@ const NewUserModalView = (props) => {
 								name="name"
 								label="Name"
 								value={props.newUser.name}
-								onChange={(e) => props.updateUserField(e.target.value, 'name')}
 								error={props.errors.name}
+								onChange={(e) => props.updateUserField(e.target.value, 'name')}
 							/>
 						</Grid>
 						<Grid item xs={6} style={{ height: '60px' }}>
@@ -43,8 +44,8 @@ const NewUserModalView = (props) => {
 								name="username"
 								label="Username"
 								value={props.newUser.username}
-								onChange={(e) => props.updateUserField(e.target.value, 'username')}
 								error={props.errors.username}
+								onChange={(e) => props.updateUserField(e.target.value, 'username')}
 							/>
 						</Grid>
 					</Grid>
@@ -56,8 +57,8 @@ const NewUserModalView = (props) => {
 								name="email"
 								label="Email"
 								value={props.newUser.email}
-								onChange={(e) => props.updateUserField(e.target.value, 'email')}
 								error={props.errors.email}
+								onChange={(e) => props.updateUserField(e.target.value, 'email')}
 							/>
 						</Grid>
 						<Grid item xs={6} style={{ height: '60px' }}>

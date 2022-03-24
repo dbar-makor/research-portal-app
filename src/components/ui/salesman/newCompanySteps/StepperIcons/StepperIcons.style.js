@@ -24,4 +24,5 @@ const useStyles = makeStyles({
 		border: '1px solid #1C67FF',
 	},
 });
+
 export default useStyles;

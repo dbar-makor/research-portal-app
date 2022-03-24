@@ -7,14 +7,16 @@ import SnackbarView from './Snackbar.view';
 const Snackbar = () => {
 	const dispatch = useDispatch();
 	const snackBarOBJ = useSelector((state) => state.snackBar);
+
 	const handleClose = (event, reason) => {
 		if (reason === 'clickaway') {
 			return;
 		}
+
 		dispatch(actionSnackBar.disableSnackBar());
 	};
 
-	return <SnackbarView snackBarOBJ={snackBarOBJ} handleClose={handleClose}></SnackbarView>;
+	return <SnackbarView snackBarOBJ={snackBarOBJ} handleClose={handleClose} />;
 };
 
 Snackbar.displayName = 'Snackbar';

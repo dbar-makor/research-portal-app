@@ -191,10 +191,19 @@ export const useStyles = makeStyles((theme) => ({
 	},
 	cityWrapper: {
 		margin: '10px auto',
-		width: 'fit-content',
+	},
+	cityInnerWrapper: {
+		display: 'flex',
+		flexDirection: 'column',
 	},
 	userBarWrapper: {
 		justifyContent: 'flex-end',
+		maxWidth: 'fit-content',
+		marginRight: '2vh',
+	},
+	userIconWrapper: {
+		marginLeft: '10px',
+		minWidth: '9vh',
 	},
 }));
 

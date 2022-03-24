@@ -2,20 +2,14 @@ import React from 'react';
 
 import AllPublicationsStatColumnView from './AllPublicationsStatColumn.view';
 
-const AllPublicationsStatColumn = ({
-	publishedFieldLabels,
-	publishedFields,
-	draftFieldLabels,
-	draftFields,
-	statistics,
-}) => {
+const AllPublicationsStatColumn = (props) => {
 	return (
 		<AllPublicationsStatColumnView
-			publishedFieldLabels={publishedFieldLabels}
-			publishedFields={publishedFields}
-			draftFieldLabels={draftFieldLabels}
-			draftFields={draftFields}
-			statistics={statistics}
+			publishedFieldLabels={props.publishedFieldLabels}
+			publishedFields={props.publishedFields}
+			draftFieldLabels={props.draftFieldLabels}
+			draftFields={props.draftFields}
+			statistics={props.statistics}
 		/>
 	);
 };

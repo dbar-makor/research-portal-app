@@ -60,11 +60,71 @@ export const validateCompany = (fieldValues, errors, setErrors, setValidationRes
 		company.type === 'prospect'
 			? ['name', 'country', 'type', 'start_at', 'end_at']
 			: ['name', 'country', 'type', 'start_at'];
+
 	const tempResult1 = allFields.every((field) => Object.keys(temp).includes(field));
 	const tempResult2 = Object.values(temp).every((x) => x === '');
 
 	const result = tempResult1 && tempResult2;
+
 	setValidationResult(result);
+};
+
+export const validateChangedPassword = (
+	fieldValues,
+	errors,
+	setErrors,
+	setValidationResult,
+	newPassword,
+	newPasswordConfirm,
+	handler,
+) => {
+	const temp = { ...errors };
+
+	if ('old_password' in fieldValues) {
+		temp['old_password'] = fieldValues['old_password'] ? '' : 'This field is required';
+	}
+
+	if ('new_password' in fieldValues) {
+		if (!('new_password_confirm' in temp)) {
+			temp['new_password'] = fieldValues['new_password'] ? '' : 'This field is required';
+		} else {
+			temp['new_password'] =
+				fieldValues['new_password'] ===
+				newPasswordConfirm.substring(0, fieldValues.new_password.length)
+					? ''
+					: 'New password and confirm password do not match';
+		}
+		//upon submission, make another equlity check of new and confirm, this time with the full strings
+
+		if (handler === 'submit') {
+			temp['new_password'] =
+				fieldValues['new_password'] === newPasswordConfirm
+					? ''
+					: 'New password and confirm password do not match';
+		}
+	}
+
+	if ('new_password_confirm' in fieldValues) {
+		if (
+			fieldValues.new_password_confirm ===
+			newPassword.substring(0, fieldValues.new_password_confirm.length)
+		) {
+			temp['new_password_confirm'] = '';
+		} else {
+			temp['new_password_confirm'] = 'New password and confirm password do not match';
+		}
+	}
+
+	setErrors({ ...temp });
+	const allFields = ['old_password', 'new_password', 'new_password_confirm'];
+	const tempResult1 = allFields.every((field) => Object.keys(temp).includes(field));
+	const tempResult2 = Object.values(temp).every((x) => x === '');
+
+	const result = tempResult1 && tempResult2;
+
+	setValidationResult(result);
+
+	return result;
 };
 
 export const validateMember = (fieldValues, errors, setErrors, setValidationResult) => {
@@ -81,11 +141,13 @@ export const validateMember = (fieldValues, errors, setErrors, setValidationResu
 	if ('email' in fieldValues) {
 		const pattern =
 			/^(([^<>()\]\\.,;:\s@"]+(\.[^<>()\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
 		if (fieldValues.email) {
 			temp.email = '';
 		} else {
 			temp.email = 'This field is required';
 		}
+
 		if (fieldValues.email && pattern.test(fieldValues.email.toLowerCase())) {
 			temp.email = '';
 		} else {
@@ -103,6 +165,7 @@ export const validateMember = (fieldValues, errors, setErrors, setValidationResu
 	//const tempResult3 = (company.members > 1) && ()
 
 	const result = tempResult1 && tempResult2;
+
 	setValidationResult(result);
 };
 
@@ -130,6 +193,7 @@ export const validateContract = (fieldValues, errors, setErrors, setValidationRe
 
 		if (isValid(new Date(fieldValues.start_at))) {
 			temp.start_at = '';
+
 			if (!fieldValues.start_at) {
 				temp.start_at = 'This field is required';
 			}
@@ -142,6 +206,7 @@ export const validateContract = (fieldValues, errors, setErrors, setValidationRe
 	const tempResult1 = allFields.every((field) => Object.keys(temp).includes(field));
 	const tempResult2 = Object.values(temp).every((x) => x === '');
 	const result = tempResult1 && tempResult2;
+
 	setValidationResult(result);
 };
 
@@ -168,6 +233,7 @@ export const validateEditedContract = (fieldValues, errors, setErrors, setValida
 
 		if (isValid(new Date(fieldValues.start_at))) {
 			temp.start_at = '';
+
 			if (!fieldValues.start_at) {
 				temp.start_at = 'This field is required';
 			}
@@ -178,6 +244,7 @@ export const validateEditedContract = (fieldValues, errors, setErrors, setValida
 
 	setErrors({ ...temp });
 	const result = Object.values(temp).every((x) => x === '');
+
 	setValidationResult(result);
 };
 
@@ -208,6 +275,7 @@ export const validateLogin = (fieldValues, errors, setErrors, validationResult, 
 	const tempResult2 = Object.values(temp).every((x) => x === '');
 
 	const result = tempResult1 && tempResult2;
+
 	setValidationResult(result);
 };
 
@@ -291,11 +359,13 @@ export const validateUser = (fieldValues, errors, setErrors, setValidationResult
 	if ('email' in fieldValues) {
 		const pattern =
 			/^(([^<>()\]\\.,;:\s@"]+(\.[^<>()\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
 		if (fieldValues.email) {
 			temp.email = '';
 		} else {
 			temp.email = 'This field is required';
 		}
+
 		if (fieldValues.email && pattern.test(fieldValues.email.toLowerCase())) {
 			temp.email = '';
 		} else {
@@ -308,6 +378,7 @@ export const validateUser = (fieldValues, errors, setErrors, setValidationResult
 	const tempResult2 = Object.values(temp).every((x) => x === '');
 
 	const result = tempResult1 && tempResult2;
+
 	setValidationResult(result);
 };
 
@@ -320,6 +391,7 @@ export const validateDeadPublication = (
 ) => {
 	const temp = { ...errors };
 	const someFields = ['title', 'description'];
+
 	const allFields =
 		selectedValue === 'pdf'
 			? ['title', 'description', 'categories', 'title_pdf', 'file_pdf']
@@ -342,6 +414,7 @@ export const validateDeadPublication = (
 		if ('title_pdf' in fieldValues) {
 			temp.title_pdf = fieldValues.title_pdf ? '' : 'This field is required';
 		}
+
 		if ('file_pdf' in fieldValues) {
 			temp.file_pdf = fieldValues.file_pdf ? '' : 'This field is required';
 		}
@@ -351,6 +424,7 @@ export const validateDeadPublication = (
 		if ('title_video' in fieldValues) {
 			temp.title_video = fieldValues.title_video ? '' : 'This field is required';
 		}
+
 		if ('link_video' in fieldValues) {
 			temp.link_video = fieldValues.link_video ? '' : 'This field is required';
 		}
@@ -361,6 +435,7 @@ export const validateDeadPublication = (
 	const tempResult2 = Object.values(temp).every((x) => x === '');
 
 	const result = tempResult1 && tempResult2;
+
 	setValidationResult(result);
 };
 
@@ -373,6 +448,7 @@ export const validateEditedDeadPublication = (
 ) => {
 	const temp = { ...errors };
 	const someFields = ['title', 'description'];
+
 	someFields.forEach((field) => {
 		if (field in fieldValues) {
 			temp[field] = fieldValues[field] ? '' : 'This field is required';
@@ -387,6 +463,7 @@ export const validateEditedDeadPublication = (
 		if ('title_pdf' in fieldValues) {
 			temp.title_pdf = fieldValues.title_pdf ? '' : 'This field is required';
 		}
+
 		if ('file_pdf' in fieldValues) {
 			temp.file_pdf = fieldValues.file_pdf ? '' : 'This field is required';
 		}
@@ -396,6 +473,7 @@ export const validateEditedDeadPublication = (
 		if ('title_video' in fieldValues) {
 			temp.title_video = fieldValues.title_video ? '' : 'This field is required';
 		}
+
 		if ('link_video' in fieldValues) {
 			temp.link_video = fieldValues.link_video ? '' : 'This field is required';
 		}
@@ -403,6 +481,7 @@ export const validateEditedDeadPublication = (
 
 	setErrors({ ...temp });
 	const result = Object.values(temp).every((x) => x === '');
+
 	setValidationResult(result);
 };
 
@@ -425,11 +504,13 @@ export const validateLivePublication = (fieldValues, errors, setErrors, setValid
 	const tempResult2 = Object.values(temp).every((x) => x === '');
 
 	const result = tempResult1 && tempResult2;
+
 	setValidationResult(result);
 };
 
 export const validateEditedLivePublication = (fieldValues, errors, setErrors, setValidationResult) => {
 	const temp = { ...errors };
+
 	if ('title' in fieldValues) {
 		temp['title'] = fieldValues['title'] ? '' : 'This field is required';
 	}
@@ -459,6 +540,7 @@ export const validateEvent = (fieldValues, errors, setErrors, setValidationResul
 
 		if (isValid(new Date(fieldValues.date))) {
 			temp.date = '';
+
 			if (!fieldValues.date) {
 				temp.date = 'This field is required';
 			}

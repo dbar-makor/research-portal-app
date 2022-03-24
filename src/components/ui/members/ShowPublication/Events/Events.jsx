@@ -2,8 +2,8 @@ import React from 'react';
 
 import EventsView from './Events.view';
 
-const Events = ({ events }) => {
-	return <EventsView events={events}></EventsView>;
+const Events = (props) => {
+	return <EventsView events={props.events} />;
 };
 
 Events.displayName = 'Events';

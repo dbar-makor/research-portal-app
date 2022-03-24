@@ -1,11 +1,11 @@
 import React from 'react';
 import { Dialog, DialogTitle, Grid, IconButton, Typography } from '@material-ui/core';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import { format } from 'date-fns';
 import { useStyles } from '../../../../../styles/ContarctsModalStyles';
 import SubHeaderModal from '../../../reusables/SubHeaderModal/SubHeaderModal';
 import Contract from '../../contractViews/Contract/Contract';
 import SideForm from '../SideForm/SideForm';
-import { format } from 'date-fns';
 
 const ContractEditMainView = (props) => {
 	const classes = useStyles();
@@ -13,13 +13,13 @@ const ContractEditMainView = (props) => {
 	return (
 		<Dialog
 			open={props.openEdit}
-			onClose={() => props.openModal()}
 			classes={{ paper: classes.contractModalPaper }}
 			BackdropProps={{
 				classes: {
 					root: classes.modalBackDrop,
 				},
 			}}
+			onClose={() => props.openModal()}
 		>
 			<Grid item xs={12} align="right" style={{ margin: '10px 10px 0px 0px' }}>
 				<IconButton size="small" onClick={() => props.openModal()}>
@@ -48,12 +48,12 @@ const ContractEditMainView = (props) => {
 									/>
 								</Grid>
 								<Grid item>
-									<Typography
-										style={{ fontSize: 16, color: '#000' }}
-									>{`Editing Contract of ${format(
-										new Date(props.contract.start_at),
-										'dd MMM, yyyy',
-									)} `}</Typography>
+									<Typography style={{ fontSize: 16, color: '#000' }}>
+										{`Editing Contract of ${format(
+											new Date(props.contract.start_at),
+											'dd MMM, yyyy',
+										)} `}
+									</Typography>
 								</Grid>
 							</Grid>
 						</Grid>

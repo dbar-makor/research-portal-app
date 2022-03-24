@@ -4,7 +4,6 @@ import { validateMember } from '../../../../utils/helpers/validationFunctions';
 import CategoriesAutoCompleteView from './CategoriesAutoComplete.view';
 
 const CategoriesAutoComplete = (props) => {
-	const { formObject, setFormObject, handler } = props;
 	const label = props.label ? props.label : '';
 	const className = props.className ? props.className : '';
 	const error = props.error ? props.error : null;
@@ -16,22 +15,26 @@ const CategoriesAutoComplete = (props) => {
 	const chipVariant = props.chipVariant ? props.chipVariant : 'outlined';
 
 	const itemIndex =
-		parentArr && parentArr.length && parentArr.findIndex((item) => item.id === formObject.id);
+		parentArr && parentArr.length && parentArr.findIndex((item) => item.id === props.formObject.id);
 
 	//always an arr:
-	const adjustedFormObject = formObject.categories ? formObject.categories : formObject;
+	const adjustedFormObject = props.formObject.categories ? props.formObject.categories : props.formObject;
 
 	const deleteItem = (index) => {
 		const categoryCopy = [...adjustedFormObject];
-		categoryCopy.splice(index, 1);
-		const formObjectCopy = { ...formObject, categories: categoryCopy };
 
-		setFormObject(formObjectCopy);
+		categoryCopy.splice(index, 1);
+		const formObjectCopy = { ...props.formObject, categories: categoryCopy };
+
+		props.setFormObject(formObjectCopy);
+
 		if (parentArr?.length) {
 			const parentArrCopy = [...parentArr];
+
 			parentArrCopy.splice(itemIndex, 1, formObjectCopy);
 			setParentArr(parentArrCopy);
 		}
+
 		errors && validateMember({ categories: categoryCopy }, errors, setErrors, setValidationResult);
 	};
 
@@ -39,8 +42,8 @@ const CategoriesAutoComplete = (props) => {
 		<CategoriesAutoCompleteView
 			label={label}
 			className={className}
-			handler={handler}
-			formObject={formObject}
+			handler={props.handler}
+			formObject={props.formObject}
 			error={error}
 			adjustedFormObject={adjustedFormObject}
 			chipVariant={chipVariant}

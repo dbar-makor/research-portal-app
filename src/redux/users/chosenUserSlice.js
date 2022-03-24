@@ -25,11 +25,12 @@ export const selectChosenUserData = (state) => state.chosenUser.chosenUser;
 export const getUserByIdAsync = (id) => async (dispatch) => {
 	try {
 		const res = await axios.get(`${BASE_URL}${END_POINT.USER}/${id}`);
+
 		if (res.status === 200) {
 			dispatch(changeChosenUser(res.data));
 		}
 	} catch (error) {
-				/* eslint no-console: "off" */
+		/* eslint no-console: "off" */
 		console.log(error, error.message);
 	}
 };

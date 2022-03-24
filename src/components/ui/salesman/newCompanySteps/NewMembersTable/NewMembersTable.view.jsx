@@ -9,8 +9,8 @@ import Paper from '@material-ui/core/Paper';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import { DotsButton } from '../../../../../styles/MainStyles';
 import { Grid } from '@material-ui/core';
+import { DotsButton } from '../../../../../styles/MainStyles';
 
 import useStyles from './NewMembersTable.style';
 
@@ -41,7 +41,7 @@ const NewMembersTableView = (props) => {
 								<TableCell className={classes.headerCell} align="left" style={{ width: 80 }}>
 									Categories
 								</TableCell>
-								<TableCell className={classes.headerCell} align="left"></TableCell>
+								<TableCell className={classes.headerCell} align="left" />
 							</TableRow>
 						</TableHead>
 						<TableBody className={classes.tableBody}>
@@ -77,7 +77,6 @@ const NewMembersTableView = (props) => {
 										<Menu
 											open={props.open}
 											anchorEl={props.anchorEl}
-											onClose={props.handleClose}
 											keepMounted
 											className={classes.menu}
 											PaperProps={{
@@ -86,16 +85,17 @@ const NewMembersTableView = (props) => {
 													width: '12ch',
 												},
 											}}
+											onClose={props.handleClose}
 										>
 											<MenuItem
-												onClick={() => props.editMember(index)}
 												className={classes.option}
+												onClick={() => props.editMember(index)}
 											>
 												Edit
 											</MenuItem>
 											<MenuItem
-												onClick={() => props.deleteMember(index)}
 												className={classes.option}
+												onClick={() => props.deleteMember(index)}
 											>
 												Delete
 											</MenuItem>

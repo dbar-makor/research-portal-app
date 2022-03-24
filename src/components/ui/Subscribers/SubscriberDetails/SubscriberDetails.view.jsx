@@ -1,8 +1,8 @@
 import React from 'react';
 import { Button, Grid, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles';
-import SubscriberInfo from '../../Subscribers/SubscriberInfo/SubscriberInfo';
-import SubscriberInfoEdit from '../../Subscribers/SubscriberInfoEdit/SubscriberInfoEdit';
+import SubscriberInfo from '../SubscriberInfo/SubscriberInfo';
+import SubscriberInfoEdit from '../SubscriberInfoEdit/SubscriberInfoEdit';
 
 const StyledBtn = withStyles(() => ({
 	root: {
@@ -48,7 +48,7 @@ const SubscriberDetailsView = (props) => {
 						<Grid item xs={11}>
 							<Typography style={{ fontSize: '20px' }}>Logs</Typography>
 							<Grid container style={{ height: '350px', backgroundColor: 'lightyellow' }}>
-								<Grid item></Grid>
+								<Grid item />
 							</Grid>
 						</Grid>
 					</>

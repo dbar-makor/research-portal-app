@@ -15,7 +15,7 @@ const TitleView = (props) => {
 				<Grid item xs={12}>
 					<Grid container alignItems="center">
 						<Grid item>
-							<Link onClick={() => history.push('/home')} className={classes.breadCrumbs}>
+							<Link className={classes.breadCrumbs} onClick={() => history.push('/home')}>
 								Home
 							</Link>
 						</Grid>
@@ -30,7 +30,7 @@ const TitleView = (props) => {
 					</Grid>
 				</Grid>
 				<Grid item xs={12}>
-					<Divider className={classes.divider} style={{ marginTop: 10 }}></Divider>
+					<Divider className={classes.divider} style={{ marginTop: 10 }} />
 					<Grid container>
 						<Grid item xs={12} style={{ paddingBlock: 16 }}>
 							<Typography className={classes.title}>{props.title}</Typography>

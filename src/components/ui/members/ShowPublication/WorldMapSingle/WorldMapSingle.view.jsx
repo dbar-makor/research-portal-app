@@ -7,9 +7,9 @@ const WorldMapSingleView = (props) => {
 				cx={props.x}
 				cy={props.y}
 				r={4}
+				fill={props.citiesStatus[props.d.city] === 'open' ? '#1C67FF' : '#868DA2'}
 				onMouseEnter={() => props.setTooltipState(true)}
 				onMouseLeave={() => props.setTooltipState(false)}
-				fill={props.citiesStatus[props.d.city] === 'open' ? '#1C67FF' : '#868DA2'}
 			/>
 			<g>
 				{props.tooltipState && (

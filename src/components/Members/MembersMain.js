@@ -1,14 +1,14 @@
 import axios from 'axios';
-import { BASE_URL, END_POINT } from '../../utils/constants';
 import { FormControl, Grid, InputLabel, MenuItem, Select } from '@material-ui/core';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { BASE_URL, END_POINT } from '../../utils/constants';
 import { StyledTextField } from '../../styles/MainStyles';
 import { ReactComponent as SearchIcon } from '../../assets/icons/IconSearch.svg';
-import PublicationsGrid from './PublicationsGrid';
 import { useStyles } from '../../styles/PublicationsStyles';
 
 import * as actionSnackBar from '../../redux/SnackBar/action';
+import PublicationsGrid from './PublicationsGrid';
 
 const MembersMain = () => {
 	const dispatch = useDispatch();
@@ -24,6 +24,7 @@ const MembersMain = () => {
 	const getPublications = async () => {
 		try {
 			const resp = await axios.get(`${BASE_URL}${END_POINT.PUBLICATION}/user`);
+
 			setPublications(resp.data);
 			setFilterPublications(resp.data);
 		} catch (err) {
@@ -34,11 +35,14 @@ const MembersMain = () => {
 	const filterByCategory = (category) => {
 		setFilter(true);
 		setCategory(category);
+
 		if (category.id !== '') {
 			const filterPublications = publications.filter((p) => {
 				const categoriesNames = p.categories.map((category) => category.name);
+
 				return categoriesNames.includes(category.name);
 			});
+
 			setFilterPublications(filterPublications);
 		} else {
 			setFilterPublications(publications);
@@ -53,14 +57,17 @@ const MembersMain = () => {
 		if (search === '') {
 			setFilterPublications(publications);
 		}
+
 		if (search !== '') {
 			const filterPublications = publications.filter((publication) =>
 				//let categoriesNames = p.categories.map((category) => category.name)
 				publication.title.toLowerCase().includes(search),
 			);
+
 			setFilterPublications(filterPublications);
 		}
 	}, [search]);
+
 	//
 	return (
 		<Grid
@@ -80,12 +87,12 @@ const MembersMain = () => {
 							</InputLabel>
 							<Select
 								disableUnderline
-								onChange={(e) => filterByCategory(e.target.value)}
 								MenuProps={{
 									classes: { paper: classes.sortDropdownStyle, input: classes.input },
 								}}
 								className={classes.sortSelect}
 								disableScrollLock
+								onChange={(e) => filterByCategory(e.target.value)}
 							>
 								<MenuItem value={{ id: '', name: '' }}>All</MenuItem>
 								{/* eslint no-unused-vars: 0 */}
@@ -103,13 +110,13 @@ const MembersMain = () => {
 						<StyledTextField
 							value={search}
 							size="small"
-							onChange={(e) => setSearch(e.target.value.toLowerCase().trim())}
 							variant="outlined"
 							fullWidth
 							placeholder="Search"
 							InputProps={{
 								endAdornment: <SearchIcon className={classes.searchIcon} />,
 							}}
+							onChange={(e) => setSearch(e.target.value.toLowerCase().trim())}
 						/>
 					</Grid>
 				</Grid>
@@ -122,5 +129,7 @@ const MembersMain = () => {
 		</Grid>
 	);
 };
+
+MembersMain.displayName = 'MembersMain';
 
 export default MembersMain;

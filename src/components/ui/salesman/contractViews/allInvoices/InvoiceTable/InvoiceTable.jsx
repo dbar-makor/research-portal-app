@@ -6,9 +6,10 @@ import * as actionSnackBar from '../../../../../../redux/SnackBar/action';
 import InvoiceTableView from './InvoiceTable.view';
 
 const headersName = ['No.', 'Company', 'Date', 'Amount', 'Status', 'Download'];
+
 const InvoiceTable = (props) => {
-  const { invoiceRows } = props;
 	const dispatch = useDispatch();
+
 	const showInvoice = async (invoiceId) => {
 		try {
 			const res = await axios.get(`${BASE_URL}${END_POINT.INVOICE}/pdf/${invoiceId}`, {
@@ -20,12 +21,15 @@ const InvoiceTable = (props) => {
 
 				const byteCharacters = window.atob(pdfString);
 				const byteNumbers = new Array(byteCharacters.length);
+
 				for (let i = 0; i < byteCharacters.length; i++) {
 					byteNumbers[i] = byteCharacters.charCodeAt(i);
 				}
+
 				const byteArray = new Uint8Array(byteNumbers);
 				const file = new Blob([byteArray], { type: 'application/pdf;base64' });
 				const fileURL = URL.createObjectURL(file);
+
 				window.open(fileURL);
 
 				dispatch(actionSnackBar.setSnackBar('success', 'Contract successfully created', 2000));
@@ -34,11 +38,14 @@ const InvoiceTable = (props) => {
 			dispatch(actionSnackBar.setSnackBar('error', 'Failed to create a invoice', 2000));
 		}
 	};
-	return <InvoiceTableView
-		headersName={headersName}
-		invoiceRows={invoiceRows}
-		showInvoice={showInvoice}
-	></InvoiceTableView>;
+
+	return (
+		<InvoiceTableView
+			headersName={headersName}
+			invoiceRows={props.invoiceRows}
+			showInvoice={showInvoice}
+		/>
+	);
 };
 
 InvoiceTable.displayName = 'InvoiceTable';

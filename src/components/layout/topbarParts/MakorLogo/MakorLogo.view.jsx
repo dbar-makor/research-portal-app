@@ -1,14 +1,19 @@
 import React from 'react';
-import { ReactComponent as Logo } from '../../../../assets/icons/makorLogo.svg';
 import { Link } from 'react-router-dom';
+import { ReactComponent as Logo } from '../../../../assets/icons/makorLogo.svg';
 
 //import useStyles from './MakorLogo.style';
 
 const MakorLogoView = (props) => {
-
-  return  (
+	return (
 		<Link
-			to={props.userType === 'author' ? '/researches' : props.userType === 'sales' ? '/companies' : '/home'}
+			to={
+				props.userType === 'author'
+					? '/researches'
+					: props.userType === 'sales'
+					? '/companies'
+					: '/home'
+			}
 			className={props.classes.link}
 		>
 			<Logo />

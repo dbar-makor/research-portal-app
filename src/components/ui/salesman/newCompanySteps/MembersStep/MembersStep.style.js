@@ -51,4 +51,5 @@ const useStyles = makeStyles({
 		margin: '6px',
 	},
 });
+
 export default useStyles;
