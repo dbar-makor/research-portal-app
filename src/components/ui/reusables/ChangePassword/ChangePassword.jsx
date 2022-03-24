@@ -1,8 +1,8 @@
 import React, { useState, useCallback } from 'react';
-import { validateChangedPassword } from '../../../../utils/helpers/validationFunctions';
-import { END_POINT, BASE_URL } from '../../../../utils/constants';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
+import { validateChangedPassword } from '../../../../utils/helpers/validationFunctions';
+import { END_POINT, BASE_URL } from '../../../../utils/constants';
 import * as actionSnackBar from '../../../../redux/SnackBar/action';
 import ChangePasswordView from './ChangePassword.view';
 
@@ -12,6 +12,7 @@ const ChangePassword = (props) => {
 		new_password: '',
 		new_password_confirm: '',
 	};
+
 	const initStateRules = {
 		length: false,
 		uppercase: false,
@@ -40,6 +41,7 @@ const ChangePassword = (props) => {
 		const lowerCase = /[a-z]/;
 		const num = /[0-9]/;
 		const other = /[\W]|[_]/;
+
 		if (type === 'new') {
 			if (value.length >= 8 && type === 'new') {
 				setPasswordRules((prev) => ({ ...prev, length: true }));
@@ -58,11 +60,13 @@ const ChangePassword = (props) => {
 			} else {
 				setPasswordRules((prev) => ({ ...prev, lowercase: false }));
 			}
+
 			if (num.test(value) && type === 'new') {
 				setPasswordRules((prev) => ({ ...prev, number: true }));
 			} else {
 				setPasswordRules((prev) => ({ ...prev, number: false }));
 			}
+
 			if (other.test(value) && type === 'new') {
 				setPasswordRules((prev) => ({ ...prev, other: true }));
 			} else {
@@ -79,7 +83,6 @@ const ChangePassword = (props) => {
 	};
 
 	const handleFormSubmit = async () => {
-
 		const result = validateChangedPassword(
 			{ new_password: localForm.new_password },
 			errors,
@@ -89,10 +92,12 @@ const ChangePassword = (props) => {
 			localForm.new_password_confirm,
 			'submit',
 		);
-    if (result) {
+
+		if (result) {
 			try {
 				const res = await axios.put(`${BASE_URL}${END_POINT.AUTH}/change-password`, localForm);
 				//history.push('/researches');
+
 				if (res.status === 201) {
 					dispatch(actionSnackBar.setSnackBar('success', 'Password changed successfully', 2000));
 					handleReset();
@@ -115,6 +120,7 @@ const ChangePassword = (props) => {
 			handleReset={handleReset}
 		/>
 	);
+};
 
 ChangePassword.displayName = 'ChangePassword';
 ChangePassword.defaultProps = {};

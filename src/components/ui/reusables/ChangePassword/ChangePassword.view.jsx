@@ -1,8 +1,8 @@
 import React from 'react';
 import { Dialog, Grid, Typography } from '@material-ui/core';
+import DoneIcon from '@material-ui/icons/Done';
 import { ReactComponent as CloseIcon } from '../../../../assets/icons/closeIcon.svg';
 import { FilledButton, StyledTextField } from '../../../../styles/MainStyles';
-import DoneIcon from '@material-ui/icons/Done';
 
 import useStyles from './ChangePassword.style';
 
@@ -23,11 +23,7 @@ const ChangePasswordView = (props) => {
 			<Grid container>
 				<Grid item xs={12}>
 					<Grid container justifyContent="flex-end">
-
-						<CloseIcon
-							onClick={props.handleReset}
-							className={classes.closeIcon}
-						/>
+						<CloseIcon className={classes.closeIcon} onClick={props.handleReset} />
 					</Grid>
 				</Grid>
 				<Grid item xs={12}>
@@ -37,35 +33,35 @@ const ChangePasswordView = (props) => {
 					<Grid item xs={12} lg={6} container direction="column" className={classes.fieldsWrapper}>
 						<StyledTextField
 							value={props.localForm['old_password']}
-							onChange={(e) => props.handleFormChange(e.target.value, 'old_password', 'old')}
 							variant="outlined"
 							fullWidth
 							label="Old Password"
 							className={classes.textField}
 							error={!!props.errors.old_password}
 							helperText={props.errors.old_password}
+							onChange={(e) => props.handleFormChange(e.target.value, 'old_password', 'old')}
 						/>
 						<StyledTextField
 							value={props.localForm['new_password']}
-							onChange={(e) => props.handleFormChange(e.target.value, 'new_password', 'new')}
 							variant="outlined"
 							fullWidth
 							label="New Password"
 							className={classes.textField}
 							error={!!props.errors.new_password}
 							helperText={props.errors.new_password}
+							onChange={(e) => props.handleFormChange(e.target.value, 'new_password', 'new')}
 						/>
 						<StyledTextField
 							value={props.localForm['new_password_confirm']}
-							onChange={(e) =>
-								props.handleFormChange(e.target.value, 'new_password_confirm', 'confirm')
-							}
 							variant="outlined"
 							fullWidth
 							label="Confirm Password"
 							className={classes.textField}
 							error={!!props.errors.new_password_confirm}
 							helperText={props.errors.new_password_confirm}
+							onChange={(e) =>
+								props.handleFormChange(e.target.value, 'new_password_confirm', 'confirm')
+							}
 						/>
 					</Grid>
 					<Grid item xs={12} lg={6}>
@@ -74,7 +70,7 @@ const ChangePasswordView = (props) => {
 							<ul>
 								<li className={classes.rule}>
 									<Typography className={classes.ruleContent}>
-										8 characters{' '}
+										8 characters
 										{props.passwordRules.length ? (
 											<DoneIcon fontSize="small" className={classes.ruleMet} />
 										) : null}
@@ -82,7 +78,7 @@ const ChangePasswordView = (props) => {
 								</li>
 								<li className={classes.rule}>
 									<Typography className={classes.ruleContent}>
-										1 Uppercase alpha character(A,B, ...Z){' '}
+										1 Uppercase alpha character(A,B, ...Z)
 										{props.passwordRules.uppercase ? (
 											<DoneIcon fontSize="small" className={classes.ruleMet} />
 										) : null}
@@ -90,7 +86,7 @@ const ChangePasswordView = (props) => {
 								</li>
 								<li className={classes.rule}>
 									<Typography className={classes.ruleContent}>
-										1 Lowercase alpha character(a,b, ...z){' '}
+										1 Lowercase alpha character(a,b, ...z)
 										{props.passwordRules.lowercase ? (
 											<DoneIcon fontSize="small" className={classes.ruleMet} />
 										) : null}
@@ -98,7 +94,7 @@ const ChangePasswordView = (props) => {
 								</li>
 								<li className={classes.rule}>
 									<Typography className={classes.ruleContent}>
-										1 number (1,2,3,4,5,6,7,8,9,0){' '}
+										1 number (1,2,3,4,5,6,7,8,9,0)
 										{props.passwordRules.number ? (
 											<DoneIcon fontSize="small" className={classes.ruleMet} />
 										) : null}
@@ -106,8 +102,9 @@ const ChangePasswordView = (props) => {
 								</li>
 								<li className={classes.rule}>
 									<Typography className={classes.ruleContent}>
-										1 Non-alphanumeric ASCII character (!@#$%^& *.:;~ &#39; `&#34; */\+?-
-										_|=()[] {} &#60; &#62;){' '}
+										1 Non-alphanumeric ASCII character !@#$%^& *.:;~ &#39; `&#34; */\+?-
+										{/* eslint-disable-next-line */}
+										_|=()[] {} &#60; &#62;
 										{props.passwordRules.other ? (
 											<DoneIcon fontSize="small" className={classes.ruleMet} />
 										) : null}
@@ -115,14 +112,16 @@ const ChangePasswordView = (props) => {
 								</li>
 							</ul>
 						</Grid>
-
 					</Grid>
 					<Grid item xs={6} />
 				</Grid>
 				<Grid item xs={12} className={classes.buttonBox}>
 					<Grid container justifyContent="center">
 						<FilledButton
-							disabled={!props.validationResult || !Object.values(props.passwordRules).every((rule) => rule === true)}
+							disabled={
+								!props.validationResult ||
+								!Object.values(props.passwordRules).every((rule) => rule === true)
+							}
 							onClick={props.handleFormSubmit}
 						>
 							Done
