@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Typography } from '@material-ui/core';
-import MembersTableView from './MembersTable.view';
-import { useStyles } from '../../../../../styles/InfoStyles';
 import { useSelector, useDispatch } from 'react-redux';
+import axios from 'axios';
+import _ from 'lodash';
+import { useStyles } from '../../../../../styles/InfoStyles';
 import {
 	selectChosenCompany,
 	getChosenCompanyAsync,
 } from '../../../../../redux/companies/chosenCompanySlice';
 import { BASE_URL, END_POINT } from '../../../../../utils/constants';
-import axios from 'axios';
 import * as actionSnackBar from '../../../../../redux/SnackBar/action';
-import _ from 'lodash';
+import MembersTableView from './MembersTable.view';
 
 const MembersTable = () => {
 	const classes = useStyles();
@@ -24,6 +24,7 @@ const MembersTable = () => {
 	const [memberSearch, setMemberSearch] = useState('');
 	const [openAddMember, setOpenAddMember] = useState(false);
 	const [originalRows, setOriginalRows] = useState([]);
+
 	const [newMember, setNewMember] = useState({
 		member_name: '',
 		email: '',
@@ -31,9 +32,11 @@ const MembersTable = () => {
 		position: '',
 		categories: [],
 	});
+
 	const handleCloseModal = () => {
 		setOpenAddMember(false);
 	};
+
 	const handleOpenModal = () => {
 		setOpenAddMember(true);
 	};
@@ -45,9 +48,12 @@ const MembersTable = () => {
 			categories: member.categories.map((category) => category.id),
 			company: chosenCompany.id,
 		};
+
 		delete memberToAdd.member_name;
+
 		try {
 			const res = await axios.post(`${BASE_URL}${END_POINT.USER}`, memberToAdd);
+
 			if (res.status === 201 && chosenCompany) {
 				dispatch(getChosenCompanyAsync(chosenCompany.id));
 				handleCloseModal();
@@ -71,6 +77,7 @@ const MembersTable = () => {
 				position: '',
 				categories: [],
 			});
+
 			if (error.response.status === 402) {
 				dispatch(actionSnackBar.setSnackBar('error', 'This member already exists', 2000));
 			} else {
@@ -95,6 +102,7 @@ const MembersTable = () => {
 		newMember,
 		setNewMember,
 	};
+
 	const timer = 0;
 	const delay = 200;
 	const prevent = false;
@@ -102,6 +110,7 @@ const MembersTable = () => {
 	useEffect(() => {
 		if (chosenCompany) {
 			const rowsCopy = [...chosenCompany.members];
+
 			setOriginalRows(rowsCopy);
 			setMembersRows(rowsCopy);
 		}
@@ -110,6 +119,7 @@ const MembersTable = () => {
 	const handleClose = () => {
 		setOpen(false);
 	};
+
 	const handleOpen = (index) => {
 		setCurrentMember(membersRows[index]);
 		setOpen(true);
@@ -118,6 +128,7 @@ const MembersTable = () => {
 	const handleCloseAlert = () => {
 		setOpenAlert(false);
 	};
+
 	const handleOpenAlert = () => {
 		setOpenAlert(true);
 	};
@@ -127,10 +138,9 @@ const MembersTable = () => {
 			return null;
 		} else {
 			return (
-				<Typography
-					style={{ textAlign: 'right' }}
-					className={`${classes.moreCategories} moreCategs`}
-				>{`+${length - 1}`}</Typography>
+				<Typography style={{ textAlign: 'right' }} className={`${classes.moreCategories} moreCategs`}>
+					{`+${length - 1}`}
+				</Typography>
 			);
 		}
 	};
@@ -153,15 +163,19 @@ const MembersTable = () => {
 	const updateMemberField = (value, key, index) => {
 		let memberToUpdate = { ...membersRows[index] };
 		const updatedMembersRows = [...membersRows];
+
 		if (key !== 'categories') {
 			memberToUpdate[key] = value;
 		} else {
 			const newCats = [];
+
 			for (const cat of value) {
 				newCats.push(cat);
 			}
+
 			memberToUpdate = { ...memberToUpdate, categories: newCats };
 		}
+
 		setCurrentMember(memberToUpdate);
 
 		updatedMembersRows.splice(index, 1, memberToUpdate);
@@ -173,9 +187,12 @@ const MembersTable = () => {
 			...member,
 			categories: member.categories.map((category) => category.id),
 		};
+
 		delete readyMember.isEditMode;
+
 		try {
 			const res = await axios.put(`${BASE_URL}${END_POINT.USER}/${id}`, readyMember);
+
 			if (res.status === 200) {
 				handleClose();
 				dispatch(actionSnackBar.setSnackBar('success', 'Successfully updated', 2000));
@@ -189,6 +206,7 @@ const MembersTable = () => {
 	const deleteMember = async (id) => {
 		try {
 			const res = await axios.delete(`${BASE_URL}${END_POINT.USER}/${id}`);
+
 			if (res.status === 200 && chosenCompany) {
 				dispatch(getChosenCompanyAsync(chosenCompany.id));
 				handleCloseAlert();
@@ -253,7 +271,7 @@ const MembersTable = () => {
 			openAlert={openAlert}
 			handleCloseAlert={handleCloseAlert}
 			deleteMember={deleteMember}
-		></MembersTableView>
+		/>
 	);
 };
 

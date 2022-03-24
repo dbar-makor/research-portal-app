@@ -1,11 +1,11 @@
 import React from 'react';
+import AddIcon from '@material-ui/icons/Add';
+import { Grid } from '@material-ui/core';
 import TextInputUnit from '../../../reusables/TextInputUnit/TextInputUnit';
 import CategoriesAutoComplete from '../../../reusables/CategoriesAutoComplete/CategoriesAutoComplete';
 import NewMembersTable from '../NewMembersTable/NewMembersTable';
 import { AddButton, CheckButton } from '../../../../../styles/MainStyles';
-import AddIcon from '@material-ui/icons/Add';
 import { ReactComponent as CheckIcon } from '../../../../../assets/icons/IconGreenCheck.svg';
-import { Grid } from '@material-ui/core';
 import useStyles from './MembersStep.style';
 
 const MembersStepView = (props) => {
@@ -60,16 +60,16 @@ const MembersStepView = (props) => {
 				{props.editedMemberIndex >= 0 ? (
 					<Grid item xs={1} className={classes.checkIconWrapper}>
 						<CheckButton
-							onClick={props.addEditedMember}
 							disabled={!props.validationResult}
 							className={classes.checkIcon}
+							onClick={props.addEditedMember}
 						>
 							<CheckIcon />
 						</CheckButton>
 					</Grid>
 				) : (
 					<Grid item xs={1} className={classes.addIconWrapper}>
-						<AddButton onClick={props.addMember} disabled={!props.validationResult}>
+						<AddButton disabled={!props.validationResult} onClick={props.addMember}>
 							<AddIcon className={classes.addIcon} />
 						</AddButton>
 					</Grid>

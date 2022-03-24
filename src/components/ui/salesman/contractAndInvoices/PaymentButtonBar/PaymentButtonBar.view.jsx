@@ -1,22 +1,26 @@
 import React from 'react';
-import { useStyles } from '../../../../../styles/ContarctsModalStyles';
 import { IconButton, Typography, Popover, withStyles, Grid } from '@material-ui/core';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import ContractEditMain from '../../../salesman/contractEdit/ContractEditMain/ContractEditMain';
+import { useStyles } from '../../../../../styles/ContarctsModalStyles';
+import ContractEditMain from '../../contractEdit/ContractEditMain/ContractEditMain';
 
 const PaymentButtonBarView = (props) => {
 	const classes = useStyles(props.precentage);
 
 	return (
 		<div style={{ display: 'flex' }}>
-			<div className={classes.paymentBar} style={{ cursor: 'pointer' }} onClick={() => props.openInvoices()}>
+			<div
+				className={classes.paymentBar}
+				style={{ cursor: 'pointer' }}
+				onClick={() => props.openInvoices()}
+			>
 				<div className={classes.progressBar}>
 					<div>
-						<Typography
-							style={{ fontSize: 14, color: '#1C67FF' }}
-						>{`${props.precentage}%`}</Typography>
+						<Typography style={{ fontSize: 14, color: '#1C67FF' }}>
+							{`${props.precentage}%`}
+						</Typography>
 					</div>
 					<div
 						style={{ backgroundColor: '#B8C3D8', width: '90px', height: '5px', borderRadius: 4 }}
@@ -28,7 +32,7 @@ const PaymentButtonBarView = (props) => {
 								backgroundColor: '#1C67FF',
 								borderRadius: 4,
 							}}
-						></div>
+						/>
 					</div>
 				</div>
 				{props.isOpen ? (
@@ -44,7 +48,6 @@ const PaymentButtonBarView = (props) => {
 				id={props.id}
 				open={props.open}
 				anchorEl={props.anchorEl}
-				onClose={props.handleClose}
 				anchorOrigin={{
 					vertical: 'top',
 					horizontal: 'left',
@@ -53,6 +56,7 @@ const PaymentButtonBarView = (props) => {
 					vertical: 'top',
 					horizontal: 'left',
 				}}
+				onClose={props.handleClose}
 			>
 				<Grid container direction="column" spacing={2} style={{ paddingTop: 12 }}>
 					<Grid item xs={11} style={{ marginLeft: '16px' }}>
@@ -90,6 +94,7 @@ PaymentButtonBarView.displayName = 'PaymentButtonBarView';
 PaymentButtonBarView.defaultProps = {};
 
 export default React.memo(PaymentButtonBarView);
+
 const StyledPop = withStyles({
 	top: 455,
 	root: {

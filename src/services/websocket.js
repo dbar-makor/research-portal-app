@@ -1,12 +1,15 @@
 export let ws = null;
 
 let messages = [];
+
 export const connectWS = (token) => {
 	if ((ws === null || ws.readyState === 3) && token) {
 					// eslint-disable-next-line no-undef
 		ws = new WebSocket(`ws://10.0.0.24:3040/?token=${token}`);
 	}
+
 	messages = [];
+
 	return ws;
 };
 
@@ -17,6 +20,7 @@ export const sendEvent = (data, token) => {
 		} else {
 			ws.send(JSON.stringify(data));
 		}
+
 		ws.onopen = () => {
 			messages.forEach((message) => {
 				ws.send(JSON.stringify(message));
@@ -31,6 +35,7 @@ export const sendEvent = (data, token) => {
 				}, 2000);
 			}
 		};
+
 		return ws;
 	} else {
 		connectWS(token);

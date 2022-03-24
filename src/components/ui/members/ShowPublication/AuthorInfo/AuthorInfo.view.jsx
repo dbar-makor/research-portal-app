@@ -4,19 +4,18 @@ import { format } from 'date-fns';
 import Avatar from '@material-ui/core/Avatar';
 import { Divider, Grid, Typography } from '@material-ui/core';
 
+import { FacebookShareButton, WhatsappShareButton, TwitterShareButton } from 'react-share';
 import { ReactComponent as FbIcon } from '../../../../../assets/icons/fb.svg';
 import { ReactComponent as TtrIcon } from '../../../../../assets/icons/ttr.svg';
 import { ReactComponent as WaIcon } from '../../../../../assets/icons/wa.svg';
 import { useStyles } from '../../../../../styles/PublicationsStyles';
-
-import { FacebookShareButton, WhatsappShareButton, TwitterShareButton } from 'react-share';
 
 const AuthorInfoView = (props) => {
 	const classes = useStyles();
 
 	return (
 		<Grid item xs={12}>
-			<Divider className={classes.divider}></Divider>
+			<Divider className={classes.divider} />
 			<Grid
 				container
 				direction="row"
@@ -45,10 +44,12 @@ const AuthorInfoView = (props) => {
 								</Grid>
 								{props.lastDate ? (
 									<Grid item xs={12}>
-										<Typography className={classes.autherFont}>{`Updated: ${format(
-											new Date(props.lastDate),
-											'dd MMM, yyyy hh:mm',
-										)}`}</Typography>
+										<Typography className={classes.autherFont}>
+											{`Updated: ${format(
+												new Date(props.lastDate),
+												'dd MMM, yyyy hh:mm',
+											)}`}
+										</Typography>
 									</Grid>
 								) : null}
 							</Grid>

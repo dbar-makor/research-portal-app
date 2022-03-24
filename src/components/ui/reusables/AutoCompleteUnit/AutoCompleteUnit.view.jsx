@@ -26,22 +26,15 @@ const AutoCompleteUnitView = (props) => {
 							<ArrowDropDownIcon />
 						)
 					}
-					onChange={(e, newvalue) => props.handler(newvalue, props.name)}
-					onInputChange={(event, newInputValue, reason) => {
-						if (event === null && reason === 'reset') {
-							return;
-						} else if (event.type === 'blur' && reason === 'reset') {
-							return;
-						}
-						props.setInputValue(newInputValue);
-					}}
 					inputValue={props.inputValue}
 					style={{ width: '100%' }}
 					options={props.options}
 					getOptionLabel={(option) => {
 						return option[props.fieldForLabel];
 					}}
-					getOptionSelected={(option, value) => option[props.fieldForLabel] === value[props.fieldForLabel]}
+					getOptionSelected={(option, value) =>
+						option[props.fieldForLabel] === value[props.fieldForLabel]
+					}
 					renderInput={(params) => (
 						<TextField
 							{...params}
@@ -51,6 +44,16 @@ const AutoCompleteUnitView = (props) => {
 							{...(props.error && { error: true, helperText: props.error })}
 						/>
 					)}
+					onChange={(e, newvalue) => props.handler(newvalue, props.name)}
+					onInputChange={(event, newInputValue, reason) => {
+						if (event === null && reason === 'reset') {
+							return;
+						} else if (event.type === 'blur' && reason === 'reset') {
+							return;
+						}
+
+						props.setInputValue(newInputValue);
+					}}
 				/>
 			</Grid>
 		</Grid>

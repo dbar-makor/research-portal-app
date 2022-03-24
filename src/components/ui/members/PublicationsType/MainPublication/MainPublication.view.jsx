@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { Grid, Typography } from '@material-ui/core';
-import { BASE_URL, END_POINT } from '../../../../../utils/constants';
 import { Link } from 'react-router-dom';
+import { BASE_URL, END_POINT } from '../../../../../utils/constants';
 
 import useStyles from './MainPublication.style';
 
@@ -12,16 +12,20 @@ const MainPublicationView = (props) => {
 	const chooseImage = (publication) => {
 		let image = '';
 		let url = '';
+
 		if (publication.attachments.length) {
 			image = publication.attachments.find((attachment) => attachment.file_type === 'main_bg');
 			const imageName = image && image.file_name_system;
+
 			url = `${BASE_URL}${END_POINT.ASSETS}/${encodeURIComponent(imageName)}`;
 		}
+
 		return url;
 	};
 
 	const truncateDescription = (string) => {
 		const descrptionLength = string.length;
+
 		if (descrptionLength > 105) {
 			return `${string.substring(0, 105)}...`;
 		} else {
@@ -44,7 +48,7 @@ const MainPublicationView = (props) => {
 									: 'none',
 								backgroundColor: '#74b2f0',
 							}}
-						></Grid>
+						/>
 					</Link>
 				</Grid>
 				<Grid item xs={12}>

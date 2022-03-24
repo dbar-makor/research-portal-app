@@ -1,13 +1,12 @@
 import React from 'react';
-import {  useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { Grid } from '@material-ui/core';
 import TextInputUnit from '../../../reusables/TextInputUnit/TextInputUnit';
 import SelectInputUnit from '../../../reusables/SelectInputUnit/SelectInputUnit';
 import AutoCompleteUnit from '../../../reusables/AutoCompleteUnit/AutoCompleteUnit';
 import DateInputUnit from '../../../reusables/DateInputUnit/DateInputUnit';
-import useStyles from './InfoStep.style';
-import { Grid } from '@material-ui/core';
 import DropZone from '../../../reusables/DropZone/DropZone';
-
+import useStyles from './InfoStep.style';
 
 const typeArray = [
 	{
@@ -23,7 +22,7 @@ const typeArray = [
 const InfoStepView = (props) => {
 	const countriesArr = useSelector((state) => state.utils.utils.country);
 
-  const classes = useStyles();
+	const classes = useStyles();
 
 	return (
 		<Grid item xs={6} className={classes.stepFormContanier}>
@@ -34,18 +33,18 @@ const InfoStepView = (props) => {
 						name="name"
 						label="Customer"
 						value={props.company.name || ''}
-						onChange={props.handleCompany}
 						error={props.errors.name}
+						onChange={props.handleCompany}
 					/>
 				</Grid>
 
 				<Grid item xs={12} className={classes.fieldWrapper} style={{ marginTop: -10 }}>
 					<DropZone
 						className={classes.dropZone}
-						onDrop={props.onDrop}
 						uploadedImage={props.uploadedImage}
 						setUploadedImage={props.setUploadedImage}
 						purpose="logo"
+						onDrop={props.onDrop}
 						// imageData='uploadedImage'
 					/>
 				</Grid>
@@ -75,10 +74,10 @@ const InfoStepView = (props) => {
 						optionLabelField="name"
 						valueField="value"
 						value={props.company.type || ''}
-						onChange={props.handleCompany}
 						optionsArray={typeArray}
 						error={props.errors.type}
 						native={false}
+						onChange={props.handleCompany}
 					/>
 				</Grid>
 				<Grid item xs={12} className={classes.fieldWrapper}>
@@ -104,7 +103,7 @@ const InfoStepView = (props) => {
 						/>
 					</Grid>
 				) : (
-					<></>
+					''
 				)}
 			</Grid>
 		</Grid>

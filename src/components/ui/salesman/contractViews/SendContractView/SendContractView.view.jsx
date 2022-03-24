@@ -1,14 +1,15 @@
 import React from 'react';
 import { Grid, Typography, Divider } from '@material-ui/core';
 import { ReactComponent as ContractIcon } from '../../../../../assets/icons/contract.svg';
-import useStyles from './SendContractView.style';
 import AutoCompleteUnit from '../../../reusables/AutoCompleteUnit/AutoCompleteUnit';
 import { OutlinedButton } from '../../../../../styles/MainStyles';
 import ButtonRow from '../ButtonRow/ButtonRow';
+import useStyles from './SendContractView.style';
 
 const SendContractViewView = (props) => {
 	const classes = useStyles();
-  return (
+
+	return (
 		<Grid container className={classes.formContainer}>
 			<Grid item xs={12}>
 				<Grid container>
@@ -18,8 +19,8 @@ const SendContractViewView = (props) => {
 							The Contract is Ready
 							<Typography
 								variant="caption"
-								onClick={props.presentPDFContract}
 								className={classes.pdfLink}
+								onClick={props.presentPDFContract}
 							>
 								Visualize
 							</Typography>
@@ -51,7 +52,8 @@ const SendContractViewView = (props) => {
 									onClick={props.sendEmail}
 								>
 									{' '}
-									Send Link{' '}
+									Send Link
+									{' '}
 								</OutlinedButton>
 							</Grid>
 						</Grid>

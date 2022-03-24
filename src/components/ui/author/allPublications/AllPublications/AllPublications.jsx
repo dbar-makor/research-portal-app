@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback  } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { BASE_URL, END_POINT } from '../../../../../utils/constants';
@@ -20,6 +20,7 @@ const AllPublications = () => {
 	const fetchStatistics = useCallback(async () => {
 		try {
 			const res = await axios.get(`${BASE_URL}${END_POINT.USER}/statistics`);
+
 			if (res.status === 201 || res.status === 200) {
 				setStatistics(res.data);
 			}
@@ -30,7 +31,7 @@ const AllPublications = () => {
 		fetchStatistics();
 	}, []);
 
-	return <AllPublicationsView statistics={statistics} fetchStatistics={fetchStatistics}/>;
+	return <AllPublicationsView statistics={statistics} fetchStatistics={fetchStatistics} />;
 };
 
 AllPublications.displayName = 'AllPublications';

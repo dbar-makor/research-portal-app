@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, Typography } from '@material-ui/core';
-import { useStyles } from '../../../../styles/MainStyles';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { useStyles } from '../../../../styles/MainStyles';
 import TableComponent from '../../reusables/TableComponent/TableComponent';
 import UserInfo from '../UserInfo/UserInfo';
 

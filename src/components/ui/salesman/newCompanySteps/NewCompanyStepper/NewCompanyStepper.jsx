@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import axios from 'axios';
-import { BASE_URL, END_POINT } from '../../../../../utils/constants';
 import { useDispatch, useSelector } from 'react-redux';
+import { BASE_URL, END_POINT } from '../../../../../utils/constants';
 import {
 	getCompaniesDataAsync,
 	selectSearch,
@@ -11,10 +11,10 @@ import {
 	selectLimit,
 } from '../../../../../redux/companies/companiesSlice';
 import { validateCompany } from '../../../../../utils/helpers/validationFunctions';
-import NewCompanyStepperView from './NewCompanyStepper.view';
 import * as actionSnackBar from '../../../../../redux/SnackBar/action';
+import NewCompanyStepperView from './NewCompanyStepper.view';
 
-const NewCompanyStepper = ({ handleClose, open }) => {
+const NewCompanyStepper = (props) => {
 	const dispatch = useDispatch();
 	const search = useSelector(selectSearch);
 	const type = useSelector(selectType);
@@ -38,6 +38,7 @@ const NewCompanyStepper = ({ handleClose, open }) => {
 	const [validationResult1, setValidationResult1] = useState(false);
 	const [validationResult2, setValidationResult2] = useState(false);
 	const [uploadedImage, setUploadedImage] = useState('');
+
 	const initStateMember = {
 		member_name: null,
 		username: null,
@@ -45,6 +46,7 @@ const NewCompanyStepper = ({ handleClose, open }) => {
 		position: null,
 		categories: [],
 	};
+
 	const [currentMember, setCurrentMember] = useState(initStateMember);
 	const [inputValue, setInputValue] = useState('');
 	const [activeStep, setActiveStep] = useState(0);
@@ -76,6 +78,7 @@ const NewCompanyStepper = ({ handleClose, open }) => {
 		}
 
 		let name;
+
 		if (
 			fieldIndicator === 'start_at' ||
 			fieldIndicator === 'end_at' ||
@@ -101,8 +104,10 @@ const NewCompanyStepper = ({ handleClose, open }) => {
 		//changing array of object categories into array of categories' IDs
 
 		const updatedMembers = [];
+
 		company.members.forEach((member) => {
 			const updatedMember = { ...member, categories: member.categories.map((category) => category.id) };
+
 			updatedMembers.push(updatedMember);
 		});
 
@@ -133,7 +138,8 @@ const NewCompanyStepper = ({ handleClose, open }) => {
 		} catch (err) {
 			dispatch(actionSnackBar.setSnackBar('error', 'Creation failed', 2000));
 		}
-		handleClose();
+
+		props.handleClose();
 	});
 
 	return (
@@ -147,10 +153,10 @@ const NewCompanyStepper = ({ handleClose, open }) => {
 			handleBack={handleBack}
 			handleCompany={handleCompany}
 			handleSubmit={handleSubmit}
-			handleClose={handleClose}
+			handleClose={props.handleClose}
 			initStateMember={initStateMember}
 			inputValue={inputValue}
-			open={open}
+			open={props.open}
 			setCompany={setCompany}
 			setCurrentMember={setCurrentMember}
 			setErrors1={setErrors1}

@@ -1,5 +1,6 @@
 import React from 'react';
 import ContractsTableView from './ContractsTable.view';
+
 const headersName = [
 	'Status',
 	'Signaturre',
@@ -13,12 +14,7 @@ const headersName = [
 ];
 
 const ContractsTable = (props) => {
-  const { contractsRows } = props;
-
-	return <ContractsTableView
-		headersName={headersName}
-		contractsRows={contractsRows}
-	></ContractsTableView>;
+	return <ContractsTableView headersName={headersName} contractsRows={props.contractsRows} />;
 };
 
 ContractsTable.displayName = 'ContractsTable';

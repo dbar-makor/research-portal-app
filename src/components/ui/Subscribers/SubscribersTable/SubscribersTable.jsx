@@ -11,12 +11,8 @@ const SubscribersTable = () => {
 	const setChosenSubscriber = (sub) => {
 		dispatch(subscribersAction.setChosenSubscriber(sub));
 	};
-	return (
-		<SubscribersTableView
-			subscribers={subscribers}
-			setChosenSubscriber={setChosenSubscriber}
-		></SubscribersTableView>
-	);
+
+	return <SubscribersTableView subscribers={subscribers} setChosenSubscriber={setChosenSubscriber} />;
 };
 
 SubscribersTable.displayName = 'SubscribersTable';

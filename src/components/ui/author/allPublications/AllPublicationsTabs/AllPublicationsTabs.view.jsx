@@ -3,11 +3,11 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import TabContext from '@material-ui/lab/TabContext';
+import Grid from '@material-ui/core/Grid';
+import AddIcon from '@material-ui/icons/Add';
 import PublicationsTab from '../PublicationsTab/PublicationsTab';
 import TabPanel from '../TabPanel/TabPanel';
-import Grid from '@material-ui/core/Grid';
 import { AddButton } from '../../../../../styles/MainStyles';
-import AddIcon from '@material-ui/icons/Add';
 import AuthorsNewArticleModal from '../../AuthorsNewArticleModal/AuthorsNewArticleModal';
 
 import useStyles from './AllPublicationsTabs.style';
@@ -18,29 +18,33 @@ function a11yProps(index) {
 		'aria-controls': `simple-tabpanel-${index}`,
 	};
 }
+
 const AllPublicationsTabsView = (props) => {
 	const classes = useStyles();
-  const publishedResearches = props.publications.filter((research) => research.status === 'published');
+	const publishedResearches = props.publications.filter((research) => research.status === 'published');
 	const draftResearches = props.publications.filter((research) => research.status === 'draft');
 
-  return (
-    <div className={classes.root}>
+	return (
+		<div className={classes.root}>
 			<TabContext value={props.value.toString()}>
 				<Grid item xs={12}>
 					<Grid container className={classes.barWrapper}>
 						<Grid item xs={4}>
 							<Tabs
 								value={props.value}
-								onChange={props.handleChange}
 								className={classes.tabs}
 								aria-label="tabs"
+								onChange={props.handleChange}
 							>
 								<Tab label="Published" {...a11yProps(0)} className={classes.tab} />
 								<Tab label="Drafts" {...a11yProps(1)} className={classes.tab} />
 							</Tabs>
 						</Grid>
 						<Grid item xs={1}>
-							<AddButton className={classes.newBtn} onClick={() => props.handleOpenNewPublication()}>
+							<AddButton
+								className={classes.newBtn}
+								onClick={() => props.handleOpenNewPublication()}
+							>
 								<AddIcon />
 								New
 							</AddButton>
@@ -88,10 +92,13 @@ const AllPublicationsTabsView = (props) => {
 						<Typography className={classes.noPublications}>No publications yet</Typography>
 					)}
 				</Grid>
-				<AuthorsNewArticleModal handleClose={props.handleCloseNewPublication} open={props.openNewPublication} />
+				<AuthorsNewArticleModal
+					handleClose={props.handleCloseNewPublication}
+					open={props.openNewPublication}
+				/>
 			</TabContext>
 		</div>
-  );
+	);
 };
 
 AllPublicationsTabsView.displayName = 'AllPublicationsTabsView';

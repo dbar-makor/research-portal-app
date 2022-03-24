@@ -1,9 +1,8 @@
-import React,{ useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 import ContractRowView from './ContractRow.view';
 
 const ContractRow = (props) => {
-  const { contract } = props;
 	const [anchorEl, setAnchorEl] = useState(null);
 
 	const contractEditMainRef = useRef();
@@ -30,16 +29,19 @@ const ContractRow = (props) => {
 
 	const open = Boolean(anchorEl);
 	const id = open ? 'simple-popover' : undefined;
-	return <ContractRowView
-		contract={contract}
-		calcYearlyCost={calcYearlyCost}
-		handleClick={handleClick}
-		id={id}
-		open={open}
-		anchorEl={anchorEl}
-		handleClose={handleClose}
-		contractEditMainRef={contractEditMainRef}
-	></ContractRowView>;
+
+	return (
+		<ContractRowView
+			contract={props.contract}
+			calcYearlyCost={calcYearlyCost}
+			handleClick={handleClick}
+			id={id}
+			open={open}
+			anchorEl={anchorEl}
+			handleClose={handleClose}
+			contractEditMainRef={contractEditMainRef}
+		/>
+	);
 };
 
 ContractRow.displayName = 'ContractRow';

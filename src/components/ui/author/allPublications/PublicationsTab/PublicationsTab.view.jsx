@@ -1,11 +1,11 @@
 import React from 'react';
 import { Grid, Typography } from '@material-ui/core';
 import VisibilityIcon from '@material-ui/icons/Visibility';
-import { BinButton, EditButton } from '../../../../../styles/MainStyles';
 import EditIcon from '@material-ui/icons/Edit';
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import { BinButton, EditButton } from '../../../../../styles/MainStyles';
 import { ReactComponent as DeleteIcon } from '../../../../../assets/icons/IconTrash.svg';
 import DeleteAlert from '../../../reusables/DeleteAlert/DeleteAlert';
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import { ReactComponent as EmptyFile } from '../../../../../assets/icons/fileEmpty.svg';
 import useStyles from './PublicationsTab.style';
 
@@ -47,10 +47,16 @@ const PublicationsTabView = (props) => {
 						)}
 					</Grid>
 					<Grid item xs={12} className={classes.backdrop}>
-						<BinButton className={classes.binBtn} onClick={() => props.handleDeleteBtn(props.publication.id)}>
+						<BinButton
+							className={classes.binBtn}
+							onClick={() => props.handleDeleteBtn(props.publication.id)}
+						>
 							<DeleteIcon />
 						</BinButton>
-						<EditButton className={classes.editBtn} onClick={() => props.handleEdit(props.publication.id)}>
+						<EditButton
+							className={classes.editBtn}
+							onClick={() => props.handleEdit(props.publication.id)}
+						>
 							<EditIcon />
 						</EditButton>
 					</Grid>

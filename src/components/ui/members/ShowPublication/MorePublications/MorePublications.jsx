@@ -5,21 +5,25 @@ import { BASE_URL, END_POINT } from '../../../../../utils/constants';
 
 import MorePublicationsView from './MorePublications.view';
 
-const MorePublications = ({ categories, title }) => {
-	const localCatNames = categories.map((cat) => cat.name);
+const MorePublications = (props) => {
+	const localCatNames = props.categories.map((cat) => cat.name);
 	const [morePub, setMorePub] = useState(null);
 
 	const getMorePublicationAsync = async () => {
 		try {
 			const resp = await axios.get(`${BASE_URL}${END_POINT.PUBLICATION}/user`);
+
 			if (resp.status === 200) {
 				let filterdPublication = resp.data
 					.filter((pub) => {
 						const categoriesNames = pub.categories.map((category) => category.name);
+
 						return categoriesNames.includes(localCatNames[0]);
 					})
 					.slice(0, 3);
-				filterdPublication = filterdPublication.filter((pub) => pub.title !== title);
+
+				filterdPublication = filterdPublication.filter((pub) => pub.title !== props.title);
+
 				if (filterdPublication.length > 0) {
 					setMorePub(filterdPublication);
 				} else {
@@ -36,7 +40,7 @@ const MorePublications = ({ categories, title }) => {
 		getMorePublicationAsync();
 	}, []);
 
-	return <MorePublicationsView morePup={morePub}></MorePublicationsView>;
+	return <MorePublicationsView morePup={morePub} />;
 };
 
 MorePublications.displayName = 'MorePublications';

@@ -6,15 +6,16 @@ import useStyles from './EditProfile.style';
 
 const EditProfileView = (props) => {
 	const classes = useStyles();
+
 	return (
 		<Grid container direction="column" className={classes.editWrapper}>
 			<Grid item>
 				<Typography variant="h6">Personal Information</Typography>
-				<Avatar className={classes.avatar}  src={props.avatar} />
+				<Avatar className={classes.avatar} src={props.avatar} />
 				<CreateIcon className={classes.editIcon} />
 			</Grid>
-			<Grid item></Grid>
-			<Grid item></Grid>
+			<Grid item />
+			<Grid item />
 		</Grid>
 	);
 };

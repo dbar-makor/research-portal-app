@@ -1,4 +1,5 @@
 import React, { useRef, useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
 	selectAuthorsUsersData,
 	setUserProperty,
@@ -7,7 +8,6 @@ import {
 	selectUsersLoading,
 	selectUsersHasMore,
 } from '../../../../redux/users/usersSlice';
-import { useDispatch, useSelector } from 'react-redux';
 
 import { selectChosenUserData } from '../../../../redux/users/chosenUserSlice';
 import AuthorsUsersView from './AuthorsUsers.view';
@@ -27,28 +27,33 @@ const AuthorsUsers = () => {
 			if (loading) {
 				return;
 			}
+
 			if (observer.current) {
 				observer.current.disconnect();
 			}
+
 			observer.current = new IntersectionObserver((entries) => {
 				if (entries[0].isIntersecting && hasMore) {
 					const newOffset = userOffset + userLimit;
+
 					dispatch(setUserProperty({ key: 'offset', value: newOffset }));
 				}
 			});
+
 			if (node) {
 				observer.current.observe(node);
 			}
 		},
 		[loading, hasMore],
 	);
+
 	return (
 		<AuthorsUsersView
 			loading={loading}
 			authorsData={authorsData}
 			lastItemRef={lastItemRef}
 			chosenUser={chosenUser}
-		></AuthorsUsersView>
+		/>
 	);
 };
 

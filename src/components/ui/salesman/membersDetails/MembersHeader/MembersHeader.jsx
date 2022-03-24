@@ -3,37 +3,22 @@ import React from 'react';
 import MembersHeaderView from './MembersHeader.view';
 
 const MembersHeader = (props) => {
-	const {
-		allMembersAmount,
-		activeMembersAmount,
-		showAll,
-		setShowAll,
-		memberSearch,
-		setMemberSearch,
-		companyName,
-		addMember,
-		handleCloseModal,
-		handleOpenModal,
-		openAddMember,
-		newMember,
-		setNewMember,
-	} = props;
 	return (
 		<MembersHeaderView
-			allMembersAmount={allMembersAmount}
-			activeMembersAmount={activeMembersAmount}
-			showAll={showAll}
-			setShowAll={setShowAll}
-			memberSearch={memberSearch}
-			setMemberSearch={setMemberSearch}
-			companyName={companyName}
-			addMember={addMember}
-			handleCloseModal={handleCloseModal}
-			handleOpenModal={handleOpenModal}
-			openAddMember={openAddMember}
-			newMember={newMember}
-			setNewMember={setNewMember}
-		></MembersHeaderView>
+			allMembersAmount={props.allMembersAmount}
+			activeMembersAmount={props.activeMembersAmount}
+			showAll={props.showAll}
+			setShowAll={props.setShowAll}
+			memberSearch={props.memberSearch}
+			setMemberSearch={props.setMemberSearch}
+			companyName={props.companyName}
+			addMember={props.addMember}
+			handleCloseModal={props.handleCloseModal}
+			handleOpenModal={props.handleOpenModal}
+			openAddMember={props.openAddMember}
+			newMember={props.newMember}
+			setNewMember={props.setNewMember}
+		/>
 	);
 };
 

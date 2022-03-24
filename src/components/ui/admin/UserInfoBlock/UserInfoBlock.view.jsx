@@ -1,10 +1,11 @@
 import React from 'react';
 import { Grid, Typography, TextField } from '@material-ui/core';
-import { useStyles } from '../../../../styles/InfoStyles';
 import { format } from 'date-fns';
+import { useStyles } from '../../../../styles/InfoStyles';
 
 const UserInfoBlockView = (props) => {
 	const classes = useStyles();
+
 	return (
 		<Grid container spacing={1} justifyContent="space-around" className={classes.userInfoBlock}>
 			{props.userFields.map((field, index) => {

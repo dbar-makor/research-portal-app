@@ -3,17 +3,17 @@ import Dialog from '@material-ui/core/Dialog';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import { useSelector } from 'react-redux';
 import StepperConnector from '../StepperConnector';
 import StepperIcons from '../StepperIcons/StepperIcons';
 import { ReactComponent as CloseIcon } from '../../../../../assets/icons/closeIcon.svg';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
 import { FilledButton, OutlinedButton } from '../../../../../styles/MainStyles';
 import InfoStep from '../InfoStep/InfoStep';
 import MembersStep from '../MembersStep/MembersStep';
-import useStyles from './NewCompanyStepper.style';
 import SubHeaderModal from '../../../reusables/SubHeaderModal/SubHeaderModal';
-import { useSelector } from 'react-redux';
+import useStyles from './NewCompanyStepper.style';
 
 const NewCompanyStepperView = (props) => {
 	const classes = useStyles();
@@ -63,20 +63,20 @@ const NewCompanyStepperView = (props) => {
 		<Dialog
 			className={classes.dialogBox}
 			open={props.open}
-			onClose={props.handleClose}
 			classes={{ container: classes.container, paper: classes.contractModalPaper }}
 			BackdropProps={{
 				classes: {
 					root: classes.modalBackDrop,
 				},
 			}}
+			onClose={props.handleClose}
 		>
 			<Grid container justifyContent="center" className={classes.dialogContainer}>
 				<Grid item xs={10}>
 					<Grid container>
 						<Grid item xs={12}>
 							<Grid container justifyContent="flex-end">
-								<CloseIcon onClick={props.handleClose} className={classes.closeIcon} />
+								<CloseIcon className={classes.closeIcon} onClick={props.handleClose} />
 							</Grid>
 						</Grid>
 						<Grid item xs={12}>
@@ -116,36 +116,39 @@ const NewCompanyStepperView = (props) => {
 									</Grid>
 									<Grid container className={classes.btnRow}>
 										{props.activeStep === 0 ? (
-											<div></div>
+											<div />
 										) : (
 											<OutlinedButton
-												onClick={props.handleBack}
 												className={classes.buttonBack}
+												onClick={props.handleBack}
 											>
 												{' '}
-												Back{' '}
+												Back
+												{' '}
 											</OutlinedButton>
 										)}
 										{props.activeStep === 0 ? (
 											<FilledButton
-												onClick={props.handleNext}
 												className={classes.buttonNext}
 												disabled={!props.validationResult1}
+												onClick={props.handleNext}
 											>
 												{' '}
-												Next{' '}
+												Next
+												{' '}
 											</FilledButton>
 										) : (
 											<FilledButton
-												onClick={props.handleSubmit}
 												className={classes.buttonNext}
 												disabled={
 													!props.validationResult2 ||
 													props.company.members.length < 1
 												}
+												onClick={props.handleSubmit}
 											>
 												{' '}
-												Create{' '}
+												Create
+												{' '}
 											</FilledButton>
 										)}
 									</Grid>

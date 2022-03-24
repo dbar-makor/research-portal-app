@@ -10,21 +10,22 @@ import CategoriesAutoComplete from '../../reusables/CategoriesAutoComplete/Categ
 
 const AddMemberModalView = (props) => {
 	const classes = useStyles();
-  return  (
+
+	return (
 		<Dialog
 			open={props.open}
-			onClose={props.handleClose}
 			classes={{ paper: classes.addMemberModalPaper }}
 			BackdropProps={{
 				classes: {
 					root: classes.modalBackDrop,
 				},
 			}}
+			onClose={props.handleClose}
 		>
 			<Grid container justifyContent="center">
 				<Grid item xs={12}>
 					<Grid container justifyContent="flex-end">
-						<CloseIcon onClick={props.handleClose} className={classes.closeIcon} />
+						<CloseIcon className={classes.closeIcon} onClick={props.handleClose} />
 					</Grid>
 				</Grid>
 				<Grid item xs={12}>
@@ -41,8 +42,8 @@ const AddMemberModalView = (props) => {
 								name="member_name"
 								label="Full Name"
 								value={props.newMember.member_name}
-								onChange={props.updateMemberField}
 								error={props.errors.member_name}
+								onChange={props.updateMemberField}
 							/>
 						</Grid>
 						<Grid item xs={6} className={classes.fieldWrapper}>
@@ -51,8 +52,8 @@ const AddMemberModalView = (props) => {
 								name="username"
 								label="Username"
 								value={props.newMember.username}
-								onChange={props.updateMemberField}
 								error={props.errors.username}
+								onChange={props.updateMemberField}
 							/>
 						</Grid>
 					</Grid>
@@ -66,8 +67,8 @@ const AddMemberModalView = (props) => {
 								email="email"
 								label="Email"
 								value={props.newMember.email}
-								onChange={props.updateMemberField}
 								error={props.errors.email}
+								onChange={props.updateMemberField}
 							/>
 						</Grid>
 						<Grid item xs={6} className={classes.fieldWrapper}>
@@ -76,8 +77,8 @@ const AddMemberModalView = (props) => {
 								name="position"
 								label="Position"
 								value={props.newMember.position}
-								onChange={props.updateMemberField}
 								error={props.errors.position}
+								onChange={props.updateMemberField}
 							/>
 						</Grid>
 					</Grid>

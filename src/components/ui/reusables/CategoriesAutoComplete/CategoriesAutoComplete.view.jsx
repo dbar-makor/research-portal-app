@@ -1,15 +1,15 @@
 import React from 'react';
 import { Grid, Typography, TextField, Chip } from '@material-ui/core';
 import ClearIcon from '@material-ui/icons/Clear';
-import { StyledAutoComplete } from '../../../../styles/MainStyles';
 import { useSelector } from 'react-redux';
+import { StyledAutoComplete } from '../../../../styles/MainStyles';
 import useStyles from './CategoriesAutoComplete.style';
 
 const CategoriesAutoCompleteView = (props) => {
 	const classes = useStyles();
-  const categoriesArr = useSelector((state) => state.utils.utils.category);
+	const categoriesArr = useSelector((state) => state.utils.utils.category);
 
-//console.log('categoriesArr', categoriesArr);
+	//console.log('categoriesArr', categoriesArr);
 	return (
 		<>
 			{categoriesArr && (
@@ -29,7 +29,11 @@ const CategoriesAutoCompleteView = (props) => {
 							options={categoriesArr}
 							renderTags={() => <></>}
 							fullWidth
-							value={props.formObject.categories ? props.formObject.categories : props.formObject || ''}
+							value={
+								props.formObject.categories
+									? props.formObject.categories
+									: props.formObject || ''
+							}
 							onChange={(e, values) => props.handler(values)}
 							{...(props.error && { error: true, helperText: props.error })}
 							getOptionLabel={(option) => option.name || ''}
@@ -55,9 +59,9 @@ const CategoriesAutoCompleteView = (props) => {
 											<Chip
 												variant={props.chipVariant}
 												label={el.name}
-												onDelete={() => props.deleteItem(index)}
 												deleteIcon={<ClearIcon />}
 												className={classes.chip}
+												onDelete={() => props.deleteItem(index)}
 											/>
 										</Grid>
 									))}

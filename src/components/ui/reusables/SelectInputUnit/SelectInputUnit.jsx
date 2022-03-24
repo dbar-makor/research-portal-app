@@ -14,11 +14,11 @@ const SelectInputUnit = (props) => {
 			name={props.name}
 			label={props.label}
 			value={props.value}
-			onChange={props.onChange}
 			optionsArray={props.optionsArray}
 			optionLabelField={props.optionLabelField}
 			valueField={props.valueField}
 			placeholder={props.placeholder}
+			onChange={props.onChange}
 		/>
 	);
 };

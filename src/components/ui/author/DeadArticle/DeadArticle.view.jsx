@@ -2,11 +2,14 @@ import React, { forwardRef } from 'react';
 import { Grid, Typography, Button, Divider } from '@material-ui/core';
 import ClearIcon from '@material-ui/icons/Clear';
 import Radio from '@material-ui/core/Radio';
+import AddIcon from '@material-ui/icons/Add';
+import { KeyboardDatePicker } from '@material-ui/pickers';
+import clsx from 'clsx';
+import { useSelector } from 'react-redux';
 import SubHeader from '../../reusables/SubHeader/SubHeader';
 import { useStyles, AtricleTitleTextField } from '../../../../styles/AuthorsStyles';
 import { ReactComponent as FileUpload } from '../../../../assets/icons/fileUpload.svg';
 import { ReactComponent as InsertLink } from '../../../../assets/icons/insertLink.svg';
-import AddIcon from '@material-ui/icons/Add';
 import {
 	DeleteButton,
 	StyledTextField,
@@ -14,14 +17,11 @@ import {
 	OutlinedButton,
 	FilledButton,
 } from '../../../../styles/MainStyles';
-import { KeyboardDatePicker } from '@material-ui/pickers';
 import { ReactComponent as CalendarIcon } from '../../../../assets/icons/iconCalendar.svg';
-import clsx from 'clsx';
-import DropZone from '../../../ui/reusables/DropZone/DropZone';
+import DropZone from '../../reusables/DropZone/DropZone';
 import CategoriesAutoComplete from '../../reusables/CategoriesAutoComplete/CategoriesAutoComplete';
 import TagsAutoComplete from '../../reusables/TagsAutoComplete/TagsAutoComplete';
 import { selectChosenResearch } from '../../../../redux/researches/chosenResearchSlice';
-import { useSelector } from 'react-redux';
 
 //import useStyles from './DeadArticle.style';
 
@@ -29,6 +29,7 @@ const DeadArticleView = forwardRef((props, ref) => {
 	const chosenResearch = useSelector(selectChosenResearch);
 
 	const classes = useStyles();
+
 	return (
 		<Grid container justifyContent="center" className={classes.newArticleWrapper}>
 			<Grid item xs={10} className={classes.newArticleContainer}>
@@ -71,13 +72,13 @@ const DeadArticleView = forwardRef((props, ref) => {
 						<AtricleTitleTextField
 							variant="outlined"
 							value={props.localForm.title}
-							onChange={(e) => props.handleChange(e.target.value, 'title')}
 							placeholder="Article Title*"
 							error={!!props.errors.title}
 							helperText={props.errors.title}
 							inputProps={{
 								style: { fontSize: '16px', fontWeight: 500, color: '#868DA2' },
 							}}
+							onChange={(e) => props.handleChange(e.target.value, 'title')}
 						/>
 					</Grid>
 				</Grid>
@@ -90,7 +91,6 @@ const DeadArticleView = forwardRef((props, ref) => {
 							className={classes.descriptionStyle}
 							variant="outlined"
 							value={props.localForm.description}
-							onChange={(e) => props.handleChange(e.target.value, 'description')}
 							placeholder="Description*"
 							error={!!props.errors.description}
 							helperText={props.errors.description}
@@ -108,6 +108,7 @@ const DeadArticleView = forwardRef((props, ref) => {
 								maxLength: 500,
 								// maxHeight: "92px",
 							}}
+							onChange={(e) => props.handleChange(e.target.value, 'description')}
 						/>
 					</Grid>
 				</Grid>
@@ -128,12 +129,12 @@ const DeadArticleView = forwardRef((props, ref) => {
 							<Grid item xs={9} style={{ marginBottom: 10 }}>
 								<DropZone
 									className={classes.dropZone}
-									onDrop={props.onDropCover}
 									uploadedImage={props.coverImage}
 									setUploadedImage={props.setCoverImage}
 									purpose="cover image*"
 									fileOK={props.coverImageOK}
 									setFileOK={props.setCoverImageOK}
+									onDrop={props.onDropCover}
 								/>
 								{!props.coverImageOK.initial && (
 									<Typography variant="caption" className={classes.customError}>
@@ -203,6 +204,15 @@ const DeadArticleView = forwardRef((props, ref) => {
 							>
 								<Grid item xs={6} style={{ paddingRight: 10 }}>
 									<StyledTextField
+										value={props.currentEvent.title}
+										error={!!props.errorsEvent.title}
+										helperText={props.errorsEvent.title}
+										variant="outlined"
+										placeholder="Title"
+										className={classes.textField}
+										inputProps={{
+											maxLength: 50,
+										}}
 										onChange={(e) => {
 											props.setCurrentEvent({
 												...props.currentEvent,
@@ -215,15 +225,6 @@ const DeadArticleView = forwardRef((props, ref) => {
 												props.setValidationResultEvent,
 											);
 										}}
-										value={props.currentEvent.title}
-										error={!!props.errorsEvent.title}
-										helperText={props.errorsEvent.title}
-										variant="outlined"
-										placeholder="Title"
-										className={classes.textField}
-										inputProps={{
-											maxLength: 50,
-										}}
 									/>
 								</Grid>
 								<Grid item xs={5} style={{ paddingLeft: 10 }}>
@@ -233,7 +234,7 @@ const DeadArticleView = forwardRef((props, ref) => {
 										disableToolbar
 										variant="inline"
 										inputVariant="outlined"
-										format={'dd/MM/yyyy'}
+										format="dd/MM/yyyy"
 										placeholder="Date"
 										error={!!props.errorsEvent.date}
 										helperText={props.errorsEvent.date}
@@ -241,6 +242,9 @@ const DeadArticleView = forwardRef((props, ref) => {
 										className={classes.eventDatePicker}
 										InputAdornmentProps={{ position: 'end' }}
 										keyboardIcon={<CalendarIcon className={classes.calendarIcon} />}
+										PopoverProps={{
+											classes: { paper: classes.calendarPaper },
+										}}
 										onChange={(date) => {
 											props.setCurrentEvent({ ...props.currentEvent, date: date });
 											props.validateEvent(
@@ -249,9 +253,6 @@ const DeadArticleView = forwardRef((props, ref) => {
 												props.setErrorsEvent,
 												props.setValidationResultEvent,
 											);
-										}}
-										PopoverProps={{
-											classes: { paper: classes.calendarPaper },
 										}}
 									/>
 								</Grid>
@@ -283,6 +284,13 @@ const DeadArticleView = forwardRef((props, ref) => {
 									>
 										<Grid item xs={6} style={{ paddingRight: 10 }}>
 											<StyledTextField
+												value={event.title}
+												variant="outlined"
+												placeholder="Title"
+												className={classes.textField}
+												inputProps={{
+													maxLength: 50,
+												}}
 												onChange={(e) =>
 													props.updatePropertyField(
 														index,
@@ -291,13 +299,6 @@ const DeadArticleView = forwardRef((props, ref) => {
 														'events',
 													)
 												}
-												value={event.title}
-												variant="outlined"
-												placeholder="Title"
-												className={classes.textField}
-												inputProps={{
-													maxLength: 50,
-												}}
 											/>
 										</Grid>
 										<Grid item xs={5} style={{ paddingLeft: 10 }}>
@@ -307,7 +308,7 @@ const DeadArticleView = forwardRef((props, ref) => {
 												disableToolbar
 												variant="inline"
 												inputVariant="outlined"
-												format={'dd/MM/yyyy'}
+												format="dd/MM/yyyy"
 												placeholder="Date"
 												value={event.date}
 												className={classes.eventDatePicker}
@@ -317,13 +318,13 @@ const DeadArticleView = forwardRef((props, ref) => {
 														<CalendarIcon className={classes.calendarIcon} />
 													)
 												}
-												onChange={(date) =>
-													props.updatePropertyField(index, date, 'date', 'events')
-												}
 												style={{ width: '100%', maxHeight: '53px' }}
 												PopoverProps={{
 													classes: { paper: classes.calendarPaper },
 												}}
+												onChange={(date) =>
+													props.updatePropertyField(index, date, 'date', 'events')
+												}
 											/>
 										</Grid>
 										<Grid item xs={1} style={{ textAlignLast: 'right' }}>
@@ -360,31 +361,29 @@ const DeadArticleView = forwardRef((props, ref) => {
 								>
 									<Radio
 										checked={props.selectedValue === 'pdf'}
-										onChange={props.handleChangeRadio}
 										value="pdf"
 										color="default"
-										// style={{
-										//   color: selectedValue === "a" ? "#1C67FF" : "#868DA2",
-										// }}
 										className={
 											props.selectedValue === 'pdf'
 												? classes.radioStyle
 												: classes.disabledRadio
 										}
+										// style={{
+										//   color: selectedValue === "a" ? "#1C67FF" : "#868DA2",
+										// }}
 										name="radio-button-demo"
 										inputProps={{ 'aria-label': 'pdf' }}
+										onChange={props.handleChangeRadio}
 									/>
 									Upload PDF
 									<AtricleTitleTextField
 										variant="outlined"
 										style={{ marginBottom: '16px', marginTop: 5 }}
 										value={props.localForm.title_pdf || ''}
-										onChange={(e) => props.handleChange(e.target.value, 'title_pdf')}
 										placeholder="Title"
 										disabled={props.selectedValue === 'video'}
 										error={!!props.errors.title_pdf}
 										helperText={props.errors.title_pdf}
-										// className={selectedValue === "video" ? "notselected" : ""}
 										inputProps={{
 											helpertextcolor: props.selectedValue === 'video' ? 'grey' : 'red',
 											style: {
@@ -393,15 +392,17 @@ const DeadArticleView = forwardRef((props, ref) => {
 												color: '#0F0F0F',
 											},
 										}}
+										// className={selectedValue === "video" ? "notselected" : ""}
+										onChange={(e) => props.handleChange(e.target.value, 'title_pdf')}
 									/>
 									<input
 										type="file"
 										accept=".pdf"
 										style={{ marginBottom: '48px', display: 'none' }}
 										disabled={props.selectedValue === 'video'}
-										onChange={props.onPDFUpload}
 										placeholder="Upload PDF"
 										id="raised-button-file"
+										onChange={props.onPDFUpload}
 									/>
 									<label htmlFor="raised-button-file">
 										<Button
@@ -420,6 +421,7 @@ const DeadArticleView = forwardRef((props, ref) => {
 																title_pdf: '',
 																file_pdf: '',
 															}));
+
 															if (chosenResearch) {
 																props.validateEditedDeadPublication(
 																	{ file_pdf: props.localForm.title_pdf },
@@ -483,7 +485,6 @@ const DeadArticleView = forwardRef((props, ref) => {
 								>
 									<Radio
 										checked={props.selectedValue === 'video'}
-										onChange={props.handleChangeRadio}
 										value="video"
 										name="radio-button-demo"
 										color="default"
@@ -493,6 +494,7 @@ const DeadArticleView = forwardRef((props, ref) => {
 												: classes.disabledRadio
 										}
 										inputProps={{ 'aria-label': 'B' }}
+										onChange={props.handleChangeRadio}
 									/>
 									Video Link
 									<AtricleTitleTextField
@@ -505,7 +507,6 @@ const DeadArticleView = forwardRef((props, ref) => {
 										value={props.localForm.title_video}
 										error={!!props.errors.title_video}
 										helperText={props.errors.title_video}
-										onChange={(e) => props.handleChange(e.target.value, 'title_video')}
 										placeholder="Title"
 										inputProps={{
 											style: {
@@ -514,13 +515,13 @@ const DeadArticleView = forwardRef((props, ref) => {
 												color: '#0F0F0F',
 											},
 										}}
+										onChange={(e) => props.handleChange(e.target.value, 'title_video')}
 									/>
 									<AtricleTitleTextField
 										variant="outlined"
 										disabled={props.selectedValue === 'pdf'}
 										style={{ marginBottom: '76px' }}
 										value={props.localForm.link_video}
-										onChange={(e) => props.handleChange(e.target.value, 'link_video')}
 										error={!!props.errors.link_video}
 										helperText={props.errors.link_video}
 										placeholder="Insert Link"
@@ -542,6 +543,7 @@ const DeadArticleView = forwardRef((props, ref) => {
 												color: '#0F0F0F',
 											},
 										}}
+										onChange={(e) => props.handleChange(e.target.value, 'link_video')}
 									/>
 								</Grid>
 							</>
@@ -552,7 +554,7 @@ const DeadArticleView = forwardRef((props, ref) => {
 					<Grid item xs={12}>
 						<Grid container>
 							<Grid item xs={3}>
-								<Button onClick={props.handleCancle} className={classes.cancelStyle}>
+								<Button className={classes.cancelStyle} onClick={props.handleCancle}>
 									cancel
 								</Button>
 							</Grid>
@@ -582,8 +584,8 @@ const DeadArticleView = forwardRef((props, ref) => {
 										!props.validationResultEvent ||
 										!props.coverImageOK.final
 									}
-									onClick={() => props.sendPublication('done')}
 									className={classes.publishStyle}
+									onClick={() => props.sendPublication('done')}
 								>
 									Publish
 								</FilledButton>

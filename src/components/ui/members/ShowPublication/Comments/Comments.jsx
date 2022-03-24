@@ -7,25 +7,27 @@ import { BASE_URL, END_POINT } from '../../../../../utils/constants';
 
 import CommentsView from './Comments.view';
 
-const Comments = ({ comments, pubId }) => {
+const Comments = (props) => {
 	const dispatch = useDispatch();
 	const [visibleCmnt, setVisibleCmnt] = useState(3);
-	const [localComments, setLocalComments] = useState(comments);
+	const [localComments, setLocalComments] = useState(props.comments);
 	const [openAddCmnt, setOpenAddCmnt] = useState(false);
-	const [newComment, setNewComment] = useState({ publication_id: pubId, content: '' });
+	const [newComment, setNewComment] = useState({ publication_id: props.pubId, content: '' });
 	const userType = useSelector((state) => state.auth.userContent.type);
 
 	const addComment = async (content) => {
 		try {
 			let res = await axios.post(`${BASE_URL}${END_POINT.COMMENT}`, content);
+
 			if (res.status === 201) {
 				dispatch(actionSnackBar.setSnackBar('success', 'comment successfully', 3000));
-				res = await axios.get(`${BASE_URL}${END_POINT.COMMENT}`, { params: { id: pubId } });
+				res = await axios.get(`${BASE_URL}${END_POINT.COMMENT}`, { params: { id: props.pubId } });
 				setLocalComments(res.data);
 			}
 		} catch (err) {
 			dispatch(actionSnackBar.setSnackBar('error', 'Network error', 3000));
 		}
+
 		setNewComment({ ...newComment, content: '' });
 	};
 
@@ -35,8 +37,8 @@ const Comments = ({ comments, pubId }) => {
 
 	return (
 		<CommentsView
-			pubId={pubId}
-			comments={comments}
+			pubId={props.pubId}
+			comments={props.comments}
 			localComments={localComments}
 			openAddCmnt={openAddCmnt}
 			setOpenAddCmnt={setOpenAddCmnt}
@@ -46,7 +48,7 @@ const Comments = ({ comments, pubId }) => {
 			visibleCmnt={visibleCmnt}
 			newComment={newComment}
 			setNewComment={setNewComment}
-		></CommentsView>
+		/>
 	);
 };
 

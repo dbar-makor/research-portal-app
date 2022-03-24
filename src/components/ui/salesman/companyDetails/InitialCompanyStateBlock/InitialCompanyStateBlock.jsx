@@ -28,6 +28,7 @@ const InitialCompanyStateBlock = (props) => {
 	const [trialEditMode, setTrialEditMode] = useState(false);
 	const salesmenArr = useSelector((state) => state.utils.utils.sales);
 	const [inputValue, setInputValue] = useState('');
+
 	const [stateToUpdate, setStateToUpdate] = useState({
 		sales_agent: {
 			name: '',
@@ -36,12 +37,15 @@ const InitialCompanyStateBlock = (props) => {
 		start_at: '',
 		end_at: '',
 	});
+
 	const [trialPeriod, setTrialPeriod] = useState('-');
+
 	const [errors, setErrors] = useState({
 		sales_agent: '',
 		start_at: '',
 		end_at: '',
 	});
+
 	const search = useSelector(selectSearch);
 	const stype = useSelector(selectType);
 	const status = useSelector(selectStatus);
@@ -59,6 +63,7 @@ const InitialCompanyStateBlock = (props) => {
 
 	const handleTrialChange = (key, value) => {
 		const stateCopy = { ...stateToUpdate, [key]: value };
+
 		setStateToUpdate(stateCopy);
 
 		validateProspectTrial({ [key]: value }, errors, setErrors, stateCopy);
@@ -66,7 +71,9 @@ const InitialCompanyStateBlock = (props) => {
 
 	const sendUpdatedTrial = async (id) => {
 		const trialToSend = { ...stateToUpdate };
+
 		setTrialEditMode(false);
+
 		for (const [key, value] of Object.entries(errors)) {
 			if (value) {
 				if (key === 'sales_agent') {
@@ -80,8 +87,10 @@ const InitialCompanyStateBlock = (props) => {
 				}
 			}
 		}
+
 		try {
 			const res = await axios.put(`${BASE_URL}${END_POINT.PROSPECT}/${id}`, trialToSend);
+
 			if (res.status === 201) {
 				dispatch(actionSnackBar.setSnackBar('success', 'Successfully updated', 2000));
 				dispatch(getChosenCompanyAsync(id));
@@ -122,6 +131,7 @@ const InitialCompanyStateBlock = (props) => {
 			setTrialPeriod('-');
 		}
 	}, [stateToUpdate.start_at, stateToUpdate.end_at]);
+
 	return (
 		<InitialCompanyStateBlockView
 			trialEditMode={trialEditMode}
@@ -141,7 +151,7 @@ const InitialCompanyStateBlock = (props) => {
 			title={title}
 			trial_period={trial_period}
 			type={type}
-		></InitialCompanyStateBlockView>
+		/>
 	);
 };
 

@@ -1,11 +1,12 @@
 import { makeStyles, withStyles, TextField } from '@material-ui/core';
+
 export const useStyles = makeStyles(() => ({
 	newArticleContainer: {
 		marginTop: '4.3vh',
 		height: 'fit-content',
 	},
-	newArticleWrapper:{
-		height: 'content-fit'
+	newArticleWrapper: {
+		height: 'content-fit',
 	},
 	marginBottom35: {
 		marginBottom: '35px',
@@ -169,7 +170,7 @@ export const useStyles = makeStyles(() => ({
 	},
 	newArticleRightContainer: {
 		'position': 'relative',
-		alignContent: 'space-between',
+		'alignContent': 'space-between',
 		'marginLeft': '16px',
 		'height': '100%',
 		'width': 'inherit',
@@ -205,7 +206,7 @@ export const useStyles = makeStyles(() => ({
 		color: '#868DA2',
 		fontSize: '16px',
 	},
-	autoCompletesContainer:{
+	autoCompletesContainer: {
 		marginBottom: '16px',
 	},
 	divider: {

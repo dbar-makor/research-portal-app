@@ -13,12 +13,14 @@ export const researchesSlice = createSlice({
 		},
 	},
 });
+
 export const { getResearchesData } = researchesSlice.actions;
 
 export const getResearchesDataAsync = () => async (dispatch) => {
 	try {
 		// const res = await axios.get(BASE_URL + END_POINT.DASHBOARD)
 		const res = researches;
+
 		// if (res.status === 200) {
 		/* eslint no-console: "off" */
 		console.log('ressss', res);

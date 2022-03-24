@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Divider, Grid, Typography, TextField } from '@material-ui/core';
+import { format } from 'date-fns';
 import {
 	useStyles,
 	StyledCollape,
@@ -10,7 +11,6 @@ import {
 import { ReactComponent as ArrowUp } from '../../../../../assets/icons/PolygonUp.svg';
 import { ReactComponent as ArrowDown } from '../../../../../assets/icons/PolygonDown.svg';
 
-import { format } from 'date-fns';
 import Reply from '../Reply/Reply';
 
 const CommentView = (props) => {
@@ -18,13 +18,16 @@ const CommentView = (props) => {
 
 	return (
 		<Grid item style={{ paddingTop: 10 }}>
-			<Divider className={classes.divider}></Divider>
+			<Divider className={classes.divider} />
 			<Grid container direction="column" style={{ paddingTop: 18 }}>
 				<Grid item xs={12} style={{ paddingBottom: 10 }}>
 					<Grid container>
 						<Grid item>
 							<Typography style={{ fontSize: 14 }}>
-								<b>{`${props.cmtNo}.`} </b>
+								<b>
+									{`${props.cmtNo}.`}
+									{' '}
+								</b>
 								{props.comment.content}
 							</Typography>
 						</Grid>
@@ -33,14 +36,16 @@ const CommentView = (props) => {
 				<Grid item xs={12}>
 					<Grid container alignItems="center">
 						<Grid item>
-							<Typography className={classes.commentWriter}>{`${
-								props.comment.user.name
-							} | ${format(
-								new Date(
-									props.comment.created_at ? props.comment.created_at : props.comment.date,
-								),
-								'dd.MM.yyy',
-							)}`}</Typography>
+							<Typography className={classes.commentWriter}>
+								{`${props.comment.user.name} | ${format(
+									new Date(
+										props.comment.created_at
+											? props.comment.created_at
+											: props.comment.date,
+									),
+									'dd.MM.yyy',
+								)}`}
+							</Typography>
 						</Grid>
 						{props.userType && props.userType !== 'prospect' ? (
 							<Grid item style={{ marginLeft: 15 }}>
@@ -79,10 +84,10 @@ const CommentView = (props) => {
 									variant="outlined"
 									placeholder="Add a reply..."
 									className={classes.textField}
+									value={props.reply.content}
 									onChange={(e) =>
 										props.setReply({ ...props.reply, content: e.target.value })
 									}
-									value={props.reply.content}
 								/>
 							</Grid>
 							<Grid item xs={12} style={{ paddingTop: 10 }}>

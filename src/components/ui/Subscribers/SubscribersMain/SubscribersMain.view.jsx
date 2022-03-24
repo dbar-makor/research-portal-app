@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid, Typography } from '@material-ui/core';
 
 import SubscriberDetails from '../SubscriberDetails/SubscriberDetails';
-import SubscribersTable from './SubscribersTable/SubscribersTable';
+import SubscribersTable from '../SubscribersTable/SubscribersTable';
 
 const SubscribersMainView = () => {
 	return (

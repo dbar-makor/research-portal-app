@@ -1,9 +1,8 @@
-import React,{ useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 import PaymentButtonBarView from './PaymentButtonBar.view.jsx';
 
 const PaymentButtonBar = (props) => {
-  const { precentage, openInvoices, isOpen, clientName, contract } = props;
 	const [anchorEl, setAnchorEl] = useState(null);
 
 	const contractEditMainRef = useRef();
@@ -18,19 +17,24 @@ const PaymentButtonBar = (props) => {
 
 	const open = Boolean(anchorEl);
 	const id = open ? 'simple-popover' : undefined;
-	return <PaymentButtonBarView
-		precentage={precentage}
-		isOpen={isOpen}
-		id={id}
-		open={open}
-		anchorEl={anchorEl}
-		handleClose={handleClose}
-		contractEditMainRef={contractEditMainRef}
-		contract={contract}
-		clientName={clientName}
-		openInvoices={openInvoices}
-		handleClick={handleClick}
-	> </PaymentButtonBarView>;
+
+	return (
+		<PaymentButtonBarView
+			precentage={props.precentage}
+			isOpen={props.isOpen}
+			id={id}
+			open={open}
+			anchorEl={anchorEl}
+			handleClose={handleClose}
+			contractEditMainRef={contractEditMainRef}
+			contract={props.contract}
+			clientName={props.clientName}
+			openInvoices={props.openInvoices}
+			handleClick={handleClick}
+		>
+			{' '}
+		</PaymentButtonBarView>
+	);
 };
 
 PaymentButtonBar.displayName = 'PaymentButtonBar';

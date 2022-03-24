@@ -16,7 +16,7 @@ const SnackbarView = (props) => {
 					elevation={4}
 					variant="filled"
 					severity={props.snackBarOBJ.type}
-					action={
+					action={(
 						<IconButton
 							style={{ height: '20px', width: '20px' }}
 							elevation={4}
@@ -26,7 +26,7 @@ const SnackbarView = (props) => {
 						>
 							<CloseIcon style={{ color: 'white' }} />
 						</IconButton>
-					}
+    )}
 				>
 					<Typography id="snackbarMessage">{props.snackBarOBJ.message}</Typography>
 				</Alert>

@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { END_POINT, BASE_URL } from '../../../../utils/constants';
 import { convertToRaw } from 'draft-js';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { isValid } from 'date-fns';
-import { selectChosenResearch, changeChosenResearch } from '../../../../redux/researches/chosenResearchSlice';
 import { useHistory, useLocation } from 'react-router';
+import { selectChosenResearch, changeChosenResearch } from '../../../../redux/researches/chosenResearchSlice';
+import { END_POINT, BASE_URL } from '../../../../utils/constants';
 import * as actionSnackBar from '../../../../redux/SnackBar/action';
 import {
 	validateLivePublication,
@@ -23,10 +23,12 @@ const AuthorsNewArticle = () => {
 	const [coverImage, setCoverImage] = useState('');
 	const [localCats, setLocalCats] = useState([]);
 	const [description, setDescription] = useState('');
+
 	const [currentEvent, setCurrentEvent] = useState({
 		date: null,
 		title: '',
 	});
+
 	const initState = {
 		title: '',
 		content: '',
@@ -54,6 +56,7 @@ const AuthorsNewArticle = () => {
 	const executeScroll = () => {
 		if (localForm.events.length) {
 			const lastIndex = tableRowsRefs.current.length - 1;
+
 			if (scrollLocation === 'bottom') {
 				tableRowsRefs.current[lastIndex].scrollIntoView();
 			}
@@ -72,10 +75,13 @@ const AuthorsNewArticle = () => {
 			const coverImg = chosenResearch.attachments.find(
 				(attachment) => attachment.file_type === 'main_bg',
 			);
+
 			const otherFiles = chosenResearch.attachments.filter(
 				(attachment) => attachment.file_type !== 'main_bg',
 			);
+
 			const editedLocalForm = { ...chosenResearch, attachments: otherFiles };
+
 			delete editedLocalForm.created_at;
 			delete editedLocalForm.name;
 			delete editedLocalForm.updated_at;
@@ -94,6 +100,7 @@ const AuthorsNewArticle = () => {
 				if (!coverImg) {
 					setCoverImageOK((prev) => ({ ...prev, final: false }));
 				}
+
 				if (!chosenResearch.categories.length || !chosenResearch.title) {
 					setValidationResult(false);
 				}
@@ -111,12 +118,14 @@ const AuthorsNewArticle = () => {
 			const coverImg = publication.attachments?.find(
 				(attachment) => attachment.file_type === 'main_bg',
 			);
+
 			const otherFiles = publication.attachments?.filter(
 				(attachment) => attachment.file_type !== 'main_bg',
 			);
 
 			// let categoriesIDs = publication.categories?.map(category => category.id)
 			const editedLocalForm = { ...publication, attachments: otherFiles };
+
 			// let editedLocalForm = {...publication, attachments: otherFiles, content: JSON.stringify(publication.content)};
 			delete editedLocalForm.created_at;
 			delete editedLocalForm.name;
@@ -131,6 +140,7 @@ const AuthorsNewArticle = () => {
 			if (coverImg) {
 				setCoverImageOK((prev) => ({ ...prev, final: true }));
 			}
+
 			if (publication.categories.length && publication.title) {
 				setValidationResult(true);
 			}
@@ -139,6 +149,7 @@ const AuthorsNewArticle = () => {
 
 	const sendPublication = async (buttonMarker) => {
 		const attachmentsCopy = [...localForm.attachments];
+
 		if (coverImage?.file_name) {
 			attachmentsCopy.push(coverImage);
 		}
@@ -190,21 +201,25 @@ const AuthorsNewArticle = () => {
 				pathname: '/prearticle',
 				state: { publication: formToSend, from: 'new-publication' },
 			});
+
 			return;
 		}
 
 		try {
 			let res;
+
 			if (formToSend.id) {
 				res = await axios.put(`${BASE_URL}${END_POINT.PUBLICATION}/${formToSend.id}`, formToSend);
 				history.push('/researches');
 				dispatch(changeChosenResearch(null));
+
 				if (res.status === 201) {
 					dispatch(actionSnackBar.setSnackBar('success', 'Successfully updated', 2000));
 				}
 			} else {
 				res = await axios.post(`${BASE_URL}${END_POINT.PUBLICATION}`, formToSend);
 				history.push('/researches');
+
 				if (res.status === 201) {
 					dispatch(actionSnackBar.setSnackBar('success', 'Successfully published', 2000));
 				}
@@ -223,6 +238,7 @@ const AuthorsNewArticle = () => {
 
 	const handleChange = (value, key) => {
 		setLocalForm({ ...localForm, [key]: value });
+
 		if (chosenResearch) {
 			validateEditedLivePublication({ [key]: value }, errors, setErrors, setValidationResult);
 		} else {
@@ -232,10 +248,13 @@ const AuthorsNewArticle = () => {
 
 	const handleCatsChange = (values) => {
 		const newCats = [];
+
 		for (const cat of values) {
 			newCats.push(cat.id);
 		}
+
 		setLocalCats(values);
+
 		if (chosenResearch) {
 			validateEditedLivePublication({ categories: newCats }, errors, setErrors, setValidationResult);
 		} else {
@@ -245,6 +264,7 @@ const AuthorsNewArticle = () => {
 
 	const addEvent = () => {
 		const execEvents = [...localForm.events];
+
 		execEvents.push(currentEvent);
 		setLocalForm({
 			...localForm,
@@ -262,6 +282,7 @@ const AuthorsNewArticle = () => {
 		if (category === 'localCats') {
 			const catsCopy = [...localCats];
 			const formCats = [...localForm.categories];
+
 			catsCopy.splice(index, 1);
 			formCats.splice(index, 1);
 			setLocalCats(catsCopy);
@@ -269,6 +290,7 @@ const AuthorsNewArticle = () => {
 				...localForm,
 				categories: formCats,
 			});
+
 			if (chosenResearch) {
 				validateEditedLivePublication(
 					{ categories: formCats },
@@ -281,6 +303,7 @@ const AuthorsNewArticle = () => {
 			}
 		} else {
 			const categoryCopy = [...localForm[category]];
+
 			categoryCopy.splice(index, 1);
 			setLocalForm({
 				...localForm,
@@ -291,11 +314,13 @@ const AuthorsNewArticle = () => {
 
 	const updatePropertyField = (rowIndex, value, key, category) => {
 		const categoryCopy = [...localForm[category]];
+
 		categoryCopy[rowIndex][key] = value;
 		setLocalForm({
 			...localForm,
 			[category]: categoryCopy,
 		});
+
 		if (category === 'events') {
 			setScrollLocation('event');
 		}
@@ -303,11 +328,13 @@ const AuthorsNewArticle = () => {
 
 	const checkIfCurrentEventFilled = () => {
 		let check = true;
+
 		for (const [key, value] of Object.entries(currentEvent)) {
 			if (!value || (key === 'date' && !isValid(new Date(value)))) {
 				check = false;
 			}
 		}
+
 		return check;
 	};
 
@@ -316,18 +343,23 @@ const AuthorsNewArticle = () => {
 	const onDrop = async (acceptedFiles) => {
 		// Do something with the files
 		const attachmentsCopy = [...localForm.attachments];
+
 		for (const file of acceptedFiles) {
 			// eslint-disable-next-line no-undef
 			const formData = new FormData();
+
 			formData.append('file', file);
+
 			try {
 				const res = await axios.post(`${BASE_URL}${END_POINT.FILE}`, formData);
+
 				if (res.status === 200) {
 					const newAttachment = {
 						file_name: file.name,
 						file_type: file.name.slice(file.name.lastIndexOf('.')),
 						file_name_system: res.data.file,
 					};
+
 					attachmentsCopy.push(newAttachment);
 					setLocalForm({ ...localForm, attachments: attachmentsCopy });
 				}
@@ -341,15 +373,19 @@ const AuthorsNewArticle = () => {
 		const coverImage = acceptedFiles[0];
 		// eslint-disable-next-line no-undef
 		const formData = new FormData();
+
 		formData.append('file', coverImage);
+
 		try {
 			const res = await axios.post(`${BASE_URL}${END_POINT.FILE}`, formData);
+
 			if (res.status === 200) {
 				const newCover = {
 					file_type: 'main_bg',
 					file_name: coverImage.name,
 					file_name_system: res.data.file,
 				};
+
 				setCoverImage(newCover);
 				setCoverImageOK((prev) => ({ ...prev, final: true }));
 			}
@@ -361,6 +397,7 @@ const AuthorsNewArticle = () => {
 	const handleTagsValue = (e, values) => {
 		const tempTags = [];
 		const tagNamesCopy = [...localTags.map((tag) => tag.name)];
+
 		values.forEach((value) => {
 			//new user value with enter key
 			if (typeof value === 'string' && !tagNamesCopy.includes(value)) {
@@ -382,11 +419,13 @@ const AuthorsNewArticle = () => {
 
 	const handleEditorChange = (event) => {
 		const plaintext = event.getCurrentContent().getPlainText();
+
 		if (plaintext.length < 200) {
 			setDescription(plaintext);
 		} else {
 			setDescription(plaintext.slice(0, 200));
 		}
+
 		const content = convertToRaw(event.getCurrentContent());
 
 		setLocalForm({ ...localForm, content: content });
@@ -421,7 +460,6 @@ const AuthorsNewArticle = () => {
 			chosenResearch={chosenResearch}
 			location={location}
 			contentNotOK={contentNotOK}
-			onDropCover={onDropCover}
 			coverImage={coverImage}
 			setCoverImage={setCoverImage}
 			coverImageOK={coverImageOK}
@@ -445,8 +483,9 @@ const AuthorsNewArticle = () => {
 			tableRowsRefs={tableRowsRefs}
 			updatePropertyField={updatePropertyField}
 			deleteItem={deleteItem}
-			onDrop={onDrop}
 			sendPublication={sendPublication}
+			onDropCover={onDropCover}
+			onDrop={onDrop}
 		/>
 	);
 };

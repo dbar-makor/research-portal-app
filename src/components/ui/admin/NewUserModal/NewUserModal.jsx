@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import NewUserModalView from './NewUserModal.view';
+import axios from 'axios';
 import {
 	getUsersByTypeAsync,
 	selectUsersLimit,
@@ -11,18 +11,19 @@ import {
 import { validateUser } from '../../../../utils/helpers/validationFunctions';
 import * as actionSnackBar from '../../../../redux/SnackBar/action';
 import { BASE_URL, END_POINT } from '../../../../utils/constants';
-import axios from 'axios';
+import NewUserModalView from './NewUserModal.view';
 
 const NewUserModal = (props) => {
 	const dispatch = useDispatch();
 	const countriesArr = useSelector((state) => state.utils.utils.country);
-	const { open, handleClose, userType } = props;
+
 	const [newUser, setNewUser] = useState({
 		name: '',
 		username: '',
 		email: '',
 		country: null,
 	});
+
 	const [inputValueCountry, setInputValueCountry] = useState('');
 	const [errors, setErrors] = useState({});
 	const [validationResult, setValidationResult] = useState(false);
@@ -30,6 +31,7 @@ const NewUserModal = (props) => {
 	const userLimit = useSelector(selectUsersLimit);
 	const userSearch = useSelector(selectUsersSearch);
 	const userStatus = useSelector(selectUsersStatus);
+
 	const clearAndClose = () => {
 		setNewUser({
 			name: '',
@@ -38,22 +40,25 @@ const NewUserModal = (props) => {
 			country: null,
 		});
 		setInputValueCountry('');
-		handleClose();
+		props.handleClose();
 	};
 
 	const updateUserField = (value, key) => {
 		const userCopy = { ...newUser, [key]: value };
+
 		setNewUser(userCopy);
 		validateUser({ [key]: value }, errors, setErrors, setValidationResult);
 	};
 
 	const sendNewUser = async () => {
-		const userToSend = { ...newUser, country: newUser.country.code, type: userType };
+		const userToSend = { ...newUser, country: newUser.country.code, type: props.userType };
+
 		try {
 			const res = await axios.post(`${BASE_URL}${END_POINT.USER}`, userToSend);
+
 			if (res.status === 201) {
 				dispatch(actionSnackBar.setSnackBar('success', 'Successfully added', 2000));
-				dispatch(getUsersByTypeAsync(userOffset, userLimit, userSearch, userType, userStatus));
+				dispatch(getUsersByTypeAsync(userOffset, userLimit, userSearch, props.userType, userStatus));
 				clearAndClose();
 			}
 		} catch (error) {
@@ -62,15 +67,16 @@ const NewUserModal = (props) => {
 			} else {
 				dispatch(actionSnackBar.setSnackBar('error', 'Failed adding user', 2000));
 			}
-			handleClose();
+
+			props.handleClose();
 		}
 	};
 
 	return (
 		<NewUserModalView
-			open={open}
+			open={props.open}
 			clearAndClose={clearAndClose}
-			userType={userType}
+			userType={props.userType}
 			newUser={newUser}
 			updateUserField={updateUserField}
 			errors={errors}
@@ -79,7 +85,7 @@ const NewUserModal = (props) => {
 			setInputValueCountry={setInputValueCountry}
 			validationResult={validationResult}
 			sendNewUser={sendNewUser}
-		></NewUserModalView>
+		/>
 	);
 };
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Dialog, Grid, Typography } from '@material-ui/core';
-//import { useStyles } from '../../../../styles/InfoStyles';
 import { ReactComponent as CloseIcon } from '../../../../assets/icons/closeIcon.svg';
 import { FilledButton, StyledTextField } from '../../../../styles/MainStyles';
 import DoneIcon from '@material-ui/icons/Done';
@@ -9,20 +8,22 @@ import useStyles from './ChangePassword.style';
 
 const ChangePasswordView = (props) => {
 	const classes = useStyles();
+
 	return (
 		<Dialog
 			open={props.chosenModal}
-			onClose={props.handleCloseModal}
 			classes={{ paper: classes.alertModalPaper }}
 			BackdropProps={{
 				classes: {
 					root: classes.modalBackDrop,
 				},
 			}}
+			onClose={props.handleCloseModal}
 		>
 			<Grid container>
 				<Grid item xs={12}>
 					<Grid container justifyContent="flex-end">
+
 						<CloseIcon
 							onClick={props.handleReset}
 							className={classes.closeIcon}
@@ -32,7 +33,6 @@ const ChangePasswordView = (props) => {
 				<Grid item xs={12}>
 					<Typography className={classes.title}>Change Password</Typography>
 				</Grid>
-				{/* main content */}
 				<Grid item xs={12} container spacing={2} className={classes.contentWrapper}>
 					<Grid item xs={12} lg={6} container direction="column" className={classes.fieldsWrapper}>
 						<StyledTextField
@@ -115,7 +115,9 @@ const ChangePasswordView = (props) => {
 								</li>
 							</ul>
 						</Grid>
+
 					</Grid>
+					<Grid item xs={6} />
 				</Grid>
 				<Grid item xs={12} className={classes.buttonBox}>
 					<Grid container justifyContent="center">

@@ -115,7 +115,6 @@ const ChangePassword = (props) => {
 			handleReset={handleReset}
 		/>
 	);
-};
 
 ChangePassword.displayName = 'ChangePassword';
 ChangePassword.defaultProps = {};

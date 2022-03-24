@@ -4,7 +4,8 @@ import SalesTopbarView from './SalesTopbar.view';
 
 const SalesTopbar = (props) => {
 	const classes = props.classes;
-	return <SalesTopbarView classes={classes}></SalesTopbarView>;
+
+	return <SalesTopbarView classes={classes} />;
 };
 
 SalesTopbar.displayName = 'SalesTopbar';

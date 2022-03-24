@@ -1,19 +1,19 @@
 import React from 'react';
 import { Grid, Typography, TextField, Chip } from '@material-ui/core';
 import ClearIcon from '@material-ui/icons/Clear';
-import { StyledAutoComplete } from '../../../../styles/MainStyles';
 import { createFilterOptions } from '@material-ui/lab/Autocomplete';
-import useStyles from './TagsAutoComplete.style';
 import { useSelector } from 'react-redux';
+import { StyledAutoComplete } from '../../../../styles/MainStyles';
+import useStyles from './TagsAutoComplete.style';
 
 const filter = createFilterOptions();
 
 const TagsAutoCompleteView = (props) => {
 	const classes = useStyles();
-  const tagsArr = useSelector((state) => state.utils.utils.tag);
+	const tagsArr = useSelector((state) => state.utils.utils.tag);
 	const tagsArrNames = tagsArr?.map((tag) => tag.name);
 
-  return (
+	return (
 		<>
 			{tagsArr && (
 				<Grid container className={props.className}>
@@ -37,6 +37,7 @@ const TagsAutoCompleteView = (props) => {
 										title: `Add "${params.inputValue}"`,
 									});
 								}
+
 								return filtered;
 							}}
 							renderOption={(option) => option.name || option.title}
@@ -56,10 +57,12 @@ const TagsAutoCompleteView = (props) => {
 								if (typeof option === 'string') {
 									return option;
 								}
+
 								// Add "xxx" option created dynamically
 								if (option.inputValue) {
 									return option.inputValue;
 								}
+
 								// Regular option
 								return option.name;
 							}}
@@ -88,9 +91,9 @@ const TagsAutoCompleteView = (props) => {
 											<Chip
 												variant={props.chipVariant}
 												label={`#${el.name}`}
-												onDelete={() => props.deleteItem(index)}
 												deleteIcon={<ClearIcon />}
 												className={classes.chip}
+												onDelete={() => props.deleteItem(index)}
 											/>
 										</Grid>
 									))}
