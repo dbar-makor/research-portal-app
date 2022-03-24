@@ -27,6 +27,7 @@ const UserInfo = () => {
 	const userLimit = useSelector(selectUsersLimit);
 	const userSearch = useSelector(selectUsersSearch);
 	const userStatus = useSelector(selectUsersStatus);
+  const [inputValue, setInputValue] = useState('');
 
 	useEffect(() => {
 		if (currentUser) {
@@ -112,6 +113,8 @@ const UserInfo = () => {
 			handleCloseAlert={handleCloseAlert}
 			deleteUser={deleteUser}
 			countriesArr={countriesArr}
+			inputValue={inputValue}
+			setInputValue={setInputValue}
 		/>
 	);
 };
