@@ -4,7 +4,8 @@ let messages = [];
 
 export const connectWS = (token) => {
 	if ((ws === null || ws.readyState === 3) && token) {
-		ws = new WebSocket(`ws://10.0.0.29:3040/?token=${token}`);
+					// eslint-disable-next-line no-undef
+		ws = new WebSocket(`ws://10.0.0.24:3040/?token=${token}`);
 	}
 
 	messages = [];
