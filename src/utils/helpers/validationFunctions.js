@@ -69,6 +69,64 @@ export const validateCompany = (fieldValues, errors, setErrors, setValidationRes
 	setValidationResult(result);
 };
 
+export const validateChangedPassword = (
+	fieldValues,
+	errors,
+	setErrors,
+	setValidationResult,
+	newPassword,
+	newPasswordConfirm,
+	handler,
+) => {
+	const temp = { ...errors };
+
+	if ('old_password' in fieldValues) {
+		temp['old_password'] = fieldValues['old_password'] ? '' : 'This field is required';
+	}
+
+	if ('new_password' in fieldValues) {
+		if (!('new_password_confirm' in temp)) {
+			temp['new_password'] = fieldValues['new_password'] ? '' : 'This field is required';
+		} else {
+			temp['new_password'] =
+				fieldValues['new_password'] ===
+				newPasswordConfirm.substring(0, fieldValues.new_password.length)
+					? ''
+					: 'New password and confirm password do not match';
+		}
+		//upon submission, make another equlity check of new and confirm, this time with the full strings
+
+		if (handler === 'submit') {
+			temp['new_password'] =
+				fieldValues['new_password'] === newPasswordConfirm
+					? ''
+					: 'New password and confirm password do not match';
+		}
+	}
+
+	if ('new_password_confirm' in fieldValues) {
+		if (
+			fieldValues.new_password_confirm ===
+			newPassword.substring(0, fieldValues.new_password_confirm.length)
+		) {
+			temp['new_password_confirm'] = '';
+		} else {
+			temp['new_password_confirm'] = 'New password and confirm password do not match';
+		}
+	}
+
+	setErrors({ ...temp });
+	const allFields = ['old_password', 'new_password', 'new_password_confirm'];
+	const tempResult1 = allFields.every((field) => Object.keys(temp).includes(field));
+	const tempResult2 = Object.values(temp).every((x) => x === '');
+
+	const result = tempResult1 && tempResult2;
+
+	setValidationResult(result);
+
+	return result;
+};
+
 export const validateMember = (fieldValues, errors, setErrors, setValidationResult) => {
 	const temp = { ...errors };
 	const someFields = ['member_name', 'username', 'position'];

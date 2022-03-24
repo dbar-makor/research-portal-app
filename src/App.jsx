@@ -128,6 +128,8 @@ const App = () => {
 		);
 	};
 
+	AuthorsViews.displayName = 'AuthorsViews';
+
 	const SalesmenViews = () => {
 		return (
 			<Switch>
@@ -140,6 +142,8 @@ const App = () => {
 			</Switch>
 		);
 	};
+
+	SalesmenViews.displayName = 'SalesmenViews';
 
 	const AdminViews = () => {
 		return (
@@ -154,17 +158,21 @@ const App = () => {
 		);
 	};
 
+	AdminViews.displayName = 'AdminViews';
+
 	const MembersView = () => {
 		return (
 			<Switch>
 				<PrivateRoute path="/home" component={MembersMain} />
 				<PrivateRoute path="/settings" component={AccountSettings} />
 				<PrivateRoute exact path="/article/:pubId" component={FullPublication} />
-				<PrivateRoute exact path="/all_notfications" component={AllNotifications} />
+				<PrivateRoute exact path="/all-notfications" component={AllNotifications} />
 				<PrivateRoute path="/*" component={LoginPage} />
 			</Switch>
 		);
 	};
+
+	MembersView.displayName = 'MembersView';
 
 	return (
 		<ThemeProvider theme={mainTheme}>
@@ -188,5 +196,7 @@ const App = () => {
 		</ThemeProvider>
 	);
 };
+
+App.displayName = 'App';
 
 export default App;

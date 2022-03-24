@@ -85,7 +85,7 @@ const BellNotificationsView = (props) => {
 													<Typography style={{ fontSize: 12 }}>
 														{props.countAlerts > 0
 															? `${props.countAlerts} New`
-															: 'No New'}
+															: 'None'}
 													</Typography>
 												</Grid>
 											</Grid>
@@ -107,7 +107,7 @@ const BellNotificationsView = (props) => {
 									item
 									align="center"
 									style={{ cursor: 'pointer' }}
-									onClick={() => props.redirect('all_notfications')}
+									onClick={() => props.redirect('all-notfications')}
 								>
 									<Typography
 										style={{
