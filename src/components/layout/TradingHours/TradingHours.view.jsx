@@ -10,7 +10,7 @@ const TradingHoursView = forwardRef((props, ref) => {
 
 	return (
 		<Grid container className={classes.topTopWrapper}>
-			<Grid item xs={9} container direction="row" className={classes.cityWrapper}>
+			<Grid item xs={9} container direction="row">
 				{props.formattedData.map((item, key) => {
 					return <TradingHourUnit key={key} item={item} classes={classes} />;
 				})}

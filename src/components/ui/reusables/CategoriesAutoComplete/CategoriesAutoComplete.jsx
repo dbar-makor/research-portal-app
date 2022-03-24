@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import { validateMember } from '../../../../utils/helpers/validationFunctions';
 
 import CategoriesAutoCompleteView from './CategoriesAutoComplete.view';
@@ -13,6 +13,7 @@ const CategoriesAutoComplete = (props) => {
 	const setParentArr = props.setParentArr ? props.setParentArr : () => {};
 	const parentArr = props.parentArr ? props.parentArr : null;
 	const chipVariant = props.chipVariant ? props.chipVariant : 'outlined';
+	const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
 	const itemIndex =
 		parentArr && parentArr.length && parentArr.findIndex((item) => item.id === props.formObject.id);
@@ -38,6 +39,11 @@ const CategoriesAutoComplete = (props) => {
 		errors && validateMember({ categories: categoryCopy }, errors, setErrors, setValidationResult);
 	};
 
+	useEffect(() => {
+		if (isAuthenticated) {
+			dispatch(utilsAction.getUtilsAsync());
+		}
+	}, []);
 	return (
 		<CategoriesAutoCompleteView
 			label={label}
