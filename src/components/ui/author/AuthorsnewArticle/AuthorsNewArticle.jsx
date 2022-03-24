@@ -29,29 +29,41 @@ const AuthorsNewArticle = () => {
 		title: '',
 	});
 
-	const initState = {
-		title: '',
-		content: '',
-		categories: [],
-		attachments: [],
-		events: [],
-		tags: [],
-		type: 'live',
-	};
+	let initState;
+	const localStorageArticle = localStorage.getItem('article');
+
+	if (!localStorageArticle) {
+		initState = {
+			title: '',
+			content: '',
+			categories: [],
+			attachments: [],
+			events: [],
+			tags: [],
+			type: 'live',
+		};
+	} else {
+		initState = JSON.parse(localStorageArticle);
+	}
 
 	const [localForm, setLocalForm] = useState(initState);
+
 	const [localTags, setLocalTags] = useState([]);
 	const [scrollLocation, setScrollLocation] = useState('bottom');
 	const tableRowsRefs = useRef([]);
 	const [errors, setErrors] = useState({});
 	const [validationResult, setValidationResult] = useState(false);
 	const [errorsEvent, setErrorsEvent] = useState({});
-	//true as default because not mandatory
 	/* eslint no-unused-vars: 0 */
 	const [validationResultEvent, setValidationResultEvent] = useState(true);
 	const [coverImageOK, setCoverImageOK] = useState({ initial: true, final: false });
 	const [contentNotOK, setContentNotOK] = useState({ focus: false, isText: false, everTyped: false });
 	const showEditorError = contentNotOK.focus && contentNotOK.everTyped && !contentNotOK.isText;
+
+	// Save article in localStorage
+	const localStorageArticleSaver = (data) => {
+		localStorage.setItem('article', JSON.stringify(data));
+	};
 
 	const executeScroll = () => {
 		if (localForm.events.length) {
@@ -63,12 +75,12 @@ const AuthorsNewArticle = () => {
 		}
 	};
 
-	useEffect(() => {
-		if (localForm) {
-			tableRowsRefs.current = tableRowsRefs.current.slice(0, localForm.events.length);
-			executeScroll();
-		}
-	}, [localForm.events]);
+	// useEffect(() => {
+	// 	if (localForm) {
+	// 		tableRowsRefs.current = tableRowsRefs.current.slice(0, localForm.events.length);
+	// 		executeScroll();
+	// 	}
+	// }, [localForm.events]);
 
 	useEffect(() => {
 		if (chosenResearch) {
@@ -104,8 +116,6 @@ const AuthorsNewArticle = () => {
 				if (!chosenResearch.categories.length || !chosenResearch.title) {
 					setValidationResult(false);
 				}
-				// if (JSON.parse(chosenResearch.content)) {
-				// }
 			}
 		}
 	}, [chosenResearch]);
@@ -224,6 +234,8 @@ const AuthorsNewArticle = () => {
 					dispatch(actionSnackBar.setSnackBar('success', 'Successfully published', 2000));
 				}
 			}
+
+			localStorage.removeItem('article');
 		} catch (error) {
 			dispatch(actionSnackBar.setSnackBar('error', 'Publish failed', 2000));
 		}
@@ -237,7 +249,10 @@ const AuthorsNewArticle = () => {
 	}, []);
 
 	const handleChange = (value, key) => {
-		setLocalForm({ ...localForm, [key]: value });
+		const data = { ...localForm, [key]: value };
+
+		setLocalForm(data);
+		localStorageArticleSaver(data);
 
 		if (chosenResearch) {
 			validateEditedLivePublication({ [key]: value }, errors, setErrors, setValidationResult);
@@ -266,10 +281,15 @@ const AuthorsNewArticle = () => {
 		const execEvents = [...localForm.events];
 
 		execEvents.push(currentEvent);
-		setLocalForm({
+
+		const data = {
 			...localForm,
 			events: execEvents,
-		});
+		};
+
+		setLocalForm(data);
+		localStorageArticleSaver(data);
+
 		setCurrentEvent({
 			date: null,
 			title: '',
@@ -286,10 +306,13 @@ const AuthorsNewArticle = () => {
 			catsCopy.splice(index, 1);
 			formCats.splice(index, 1);
 			setLocalCats(catsCopy);
-			setLocalForm({
+			const data = {
 				...localForm,
 				categories: formCats,
-			});
+			};
+
+			setLocalForm(data);
+			localStorageArticleSaver(data);
 
 			if (chosenResearch) {
 				validateEditedLivePublication(
@@ -305,10 +328,14 @@ const AuthorsNewArticle = () => {
 			const categoryCopy = [...localForm[category]];
 
 			categoryCopy.splice(index, 1);
-			setLocalForm({
+
+			const data = {
 				...localForm,
 				[category]: categoryCopy,
-			});
+			};
+
+			setLocalForm(data);
+			localStorageArticleSaver(data);
 		}
 	};
 
@@ -316,10 +343,13 @@ const AuthorsNewArticle = () => {
 		const categoryCopy = [...localForm[category]];
 
 		categoryCopy[rowIndex][key] = value;
-		setLocalForm({
+		const data = {
 			...localForm,
 			[category]: categoryCopy,
-		});
+		};
+
+		setLocalForm(data);
+		localStorageArticleSaver(data);
 
 		if (category === 'events') {
 			setScrollLocation('event');
@@ -345,7 +375,6 @@ const AuthorsNewArticle = () => {
 		const attachmentsCopy = [...localForm.attachments];
 
 		for (const file of acceptedFiles) {
-			// eslint-disable-next-line no-undef
 			const formData = new FormData();
 
 			formData.append('file', file);
@@ -361,7 +390,11 @@ const AuthorsNewArticle = () => {
 					};
 
 					attachmentsCopy.push(newAttachment);
-					setLocalForm({ ...localForm, attachments: attachmentsCopy });
+
+					const data = { ...localForm, attachments: attachmentsCopy };
+
+					setLocalForm(data);
+					localStorageArticleSaver(data);
 				}
 			} catch (error) {
 				dispatch(actionSnackBar.setSnackBar('error', 'File upload failed', 2000));
@@ -371,7 +404,6 @@ const AuthorsNewArticle = () => {
 
 	const onDropCover = async (acceptedFiles) => {
 		const coverImage = acceptedFiles[0];
-		// eslint-disable-next-line no-undef
 		const formData = new FormData();
 
 		formData.append('file', coverImage);
@@ -412,6 +444,7 @@ const AuthorsNewArticle = () => {
 				tempTags.push(value);
 			}
 		});
+
 		setLocalTags(tempTags);
 
 		//if tag exists in server- send tag's id; if new- send tag's name, server will include it in tag list
@@ -427,8 +460,10 @@ const AuthorsNewArticle = () => {
 		}
 
 		const content = convertToRaw(event.getCurrentContent());
+		const data = { ...localForm, content: content };
 
-		setLocalForm({ ...localForm, content: content });
+		setLocalForm(content);
+		localStorageArticleSaver(content);
 
 		//if ever typed- lst change will not be null
 		if (event.getLastChangeType()) {
