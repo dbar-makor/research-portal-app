@@ -33,7 +33,6 @@ export const useStyles = makeStyles({
 		},
 	},
 	searchIcon: {
-		'stroke': '#1C67FF',
 		'&:hover': {
 			cursor: 'pointer',
 		},
