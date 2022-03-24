@@ -189,17 +189,12 @@ export const useStyles = makeStyles((theme) => ({
 		justifyContent: 'space-between',
 		minHeight: 55,
 	},
-	cityWrapper: {
-		margin: '10px auto',
-	},
 	cityInnerWrapper: {
 		display: 'flex',
 		flexDirection: 'column',
 	},
 	userBarWrapper: {
 		justifyContent: 'flex-end',
-		maxWidth: 'fit-content',
-		marginRight: '2vh',
 	},
 	userIconWrapper: {
 		marginLeft: '10px',
