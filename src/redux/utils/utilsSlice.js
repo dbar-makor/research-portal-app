@@ -21,6 +21,7 @@ export const getUtilsAsync = () => async (dispatch) => {
 		const res = await axios.get(`${BASE_URL}${END_POINT.UTILS}`);
 
 		if (res.status === 200) {
+			console.log('data',res.data)
 			dispatch(setUtils(res.data));
 		}
 	} catch (error) {

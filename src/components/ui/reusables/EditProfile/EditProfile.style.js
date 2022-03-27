@@ -95,6 +95,34 @@ const useStyles = makeStyles(() => ({
 		position: 'absolute',
 		fill: '#1C67FF',
 	},
+	textFieldStyle: {
+		'borderColor': '#A5AFC233',
+		'& .MuiOutlinedInput-input': {
+			padding: '10.6px',
+		},
+		'& .MuiInputBase-input': {
+			fontFamily: 'inter',
+			fontSize: '.MuiInputBase-input',
+			borderRadius: '8px',
+			color: '#0F0F0F',
+		},
+		'& .MuiOutlinedInput-root': {
+			borderRadius: '8px',
+			color: '#868DA2',
+		},
+		'& .MuiOutlinedInput-notchedOutline': {
+			borderColor: '#A5AFC233',
+		},
+		'& .MuiAutocomplete-inputRoot[class*="MuiOutlinedInput-root"]': {
+			padding: 2,
+		},
+		'& .makeStyles-textFieldStyle-453 .MuiInputBase-input': {
+			color: 'red',
+		},
+		'& .MuiOutlinedInput-adornedStart': {
+			padding: 0,
+		},
+	},
 }));
 
 export default useStyles;

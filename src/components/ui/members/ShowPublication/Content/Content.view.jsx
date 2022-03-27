@@ -12,10 +12,10 @@ const ContentView = (props) => {
 		<Grid item xs={12}>
 			<Divider className={classes.divider} style={{ marginTop: 10 }} />
 			<Grid container>
-				{props.contentBlocks !== '{}' ? (
+				{props.contentBlock !== '{}' ? (
 					<StyledEditor
 						defaultValue={
-							typeof contentBlocks === 'object'
+							typeof props.contentBlocks === 'object'
 								? JSON.stringify(props.contentBlocks)
 								: props.contentBlocks
 						}

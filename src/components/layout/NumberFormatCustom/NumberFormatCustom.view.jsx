@@ -1,10 +1,7 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import NumberFormat from 'react-number-format';
 
-//import useStyles from './NumberFormatCustom.style';
-
-const NumberFormatCustomView = (props) => {
-
+const NumberFormatCustomView = forwardRef((props, ref) => {
 	return (
 		<NumberFormat
 			{...props.other}
@@ -17,7 +14,7 @@ const NumberFormatCustomView = (props) => {
 			allowNegative={false}
 			defaultValue={props.value}
 			decimalScale={props.decimalNo}
-			getInputRef={props.inputRef}
+			getInputRef={ref}
 			thousandSeparator
 			isNumericString
 			onValueChange={(values) => {
@@ -30,7 +27,7 @@ const NumberFormatCustomView = (props) => {
 			}}
 		/>
 	);
-};
+});
 
 NumberFormatCustomView.displayName = 'NumberFormatCustomView';
 NumberFormatCustomView.defaultProps = {};

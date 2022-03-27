@@ -2,6 +2,7 @@ import React from 'react';
 import { Grid, TextField } from '@material-ui/core';
 
 const NumberInputUnitView = (props) => {
+	console.log(props.value);
 	return (
 		<Grid container className={props.className}>
 			<Grid item xs={12}>
@@ -12,8 +13,8 @@ const NumberInputUnitView = (props) => {
 					variant="outlined"
 					placeholder={props.label}
 					InputProps={props.InputProps}
-					onChange={props.onChange}
 					{...(props.error && { error: true, helperText: props.error })}
+					onChange={props.onChange}
 				/>
 			</Grid>
 		</Grid>

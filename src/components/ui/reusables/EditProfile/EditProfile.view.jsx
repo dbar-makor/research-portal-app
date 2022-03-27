@@ -5,9 +5,9 @@ import { KeyboardDatePicker } from '@material-ui/pickers';
 import ArrowForwardIosOutlinedIcon from '@material-ui/icons/ArrowForwardIosOutlined';
 import { ReactComponent as CalendarIcon } from '../../../../assets/icons/iconCalendar.svg';
 import { StyledTextField } from '../../../../styles/MainStyles';
-import NumberInputUnit from '../NumberInputUnit/NumberInputUnit';
-import NumberFormatCustom from '../../../layout/NumberFormatCustom/NumberFormatCustom';
 import ChangePassword from '../ChangePassword/ChangePassword';
+import PhoneInput from '../PhoneInput/PhoneInput';
+
 //import CategoriesAutoComplete from '../../reusables/CategoriesAutoComplete/CategoriesAutoComplete';
 
 //import AvatarEditor from 'react-avatar-editor';
@@ -58,20 +58,7 @@ const EditProfileView = (props) => {
 					/>
 				</Grid>
 				<Grid item>
-					<NumberInputUnit
-						className={classes.textField}
-						value={props.fullName}
-						variant="outlined"
-						fullWidth
-						label="Full Name"
-						InputProps={{
-							inputComponent: NumberFormatCustom,
-							inputProps: {
-								decimalNo: 0,
-								minValue: 0,
-							},
-						}}
-					/>
+					<PhoneInput/>
 				</Grid>
 				<Grid item>
 					<StyledTextField

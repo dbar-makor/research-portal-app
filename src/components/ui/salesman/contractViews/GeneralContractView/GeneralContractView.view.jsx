@@ -17,8 +17,8 @@ const GeneralContractViewView = (props) => {
 					<Grid item xs={12}>
 						<Grid container justifyContent="center">
 							<Typography className={classes.modalTitle}>
-								{/* eslint-disable-next-line */}
-								{props.chosenCompany?.name} &apos;s Contract
+								{props.chosenCompany?.name}
+								&apos; s Contract
 							</Typography>
 						</Grid>
 					</Grid>

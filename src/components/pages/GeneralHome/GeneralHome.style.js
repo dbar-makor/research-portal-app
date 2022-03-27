@@ -269,10 +269,11 @@ const useStyles = makeStyles({
 		color: '#151515',
 	},
 	events: {
+		minWidth: '35vh',
 		borderRadius: '8px',
-		backgroundColor: '#fff',
-		border: '2px solid #EDEEF1',
 		padding: '10px',
+		border: '2px solid #EDEEF1',
+		backgroundColor: '#fff',
 	},
 	eventsWrapper: {
 		display: 'flex',
