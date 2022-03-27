@@ -1,5 +1,4 @@
 import React from 'react';
-
 import NumberInputUnitView from './NumberInputUnit.view';
 
 const NumberInputUnit = (props) => {
@@ -9,8 +8,8 @@ const NumberInputUnit = (props) => {
 		<NumberInputUnitView
 			className={props.className}
 			name={props.name}
+			label={props.label}
 			value={props.value}
-			placeholder={props.label}
 			InputProps={props.InputProps}
 			error={error}
 			onChange={props.onChange}
