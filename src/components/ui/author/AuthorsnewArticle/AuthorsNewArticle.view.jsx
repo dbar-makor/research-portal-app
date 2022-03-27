@@ -74,29 +74,34 @@ const AuthorsNewArticleView = (props) => {
 											}
 											// style={showEditorError ? {border: "2px solid red"} : {}}
 											inlineToolbar
-											label="Enter article body*..."
+											label="Enter article body..."
 											onChange={props.handleEditorChange}
 											onFocus={props.handleEditorOnFocus}
 											//shows error if field was ever focused, something was already typed and there is no content
 											// error={contentNotOK.focus &&  contentNotOK.everTyped && !contentNotOK.isText }
-											{...(props.chosenResearch &&
-												Object.keys(props.chosenResearch.content).length && {
-													defaultValue:
-														typeof props.chosenResearch.content !== 'string'
-															? JSON.stringify(props.chosenResearch.content)
-															: props.chosenResearch.content,
-												})}
-											{...(props.location.state?.from === 'prearticle' &&
-												Object.keys(props.location.state?.publication.content)
-													.length && {
-													defaultValue:
-														typeof props.location.state?.publication.content !==
-														'string'
-															? JSON.stringify(
-																	props.location.state?.publication.content,
-															  )
-															: props.location.state.publication.content,
-												})}
+											{...(props.chosenResearch
+												? {
+														defaultValue:
+															typeof props.chosenResearch.content !== 'string'
+																? JSON.stringify(props.chosenResearch.content)
+																: props.chosenResearch.content,
+												  }
+												: props.localForm.content.blocks?.some((block) => {
+														return block.text !== '';
+												  }) && {
+														defaultValue: JSON.stringify(props.localForm.content),
+												  })}
+											// {...(props.location.state?.from === 'prearticle' &&
+											// 	Object.keys(props.location.state?.publication.content)
+											// 		.length && {
+											// 		defaultValue:
+											// 			typeof props.location.state?.publication.content !==
+											// 			'string'
+											// 				? JSON.stringify(
+											// 						props.location.state?.publication.content,
+											// 				  )
+											// 				: props.location.state.publication.content,
+											// 	})}
 											controls={[
 												'bold',
 												'italic',
@@ -313,9 +318,9 @@ const AuthorsNewArticleView = (props) => {
 																keyboardIcon={
 																	props.localForm.events[index]
 																		.date ? null : (
-																			<CalendarIcon
-																				className={classes.calendarIcon}
-																			/>
+																		<CalendarIcon
+																			className={classes.calendarIcon}
+																		/>
 																	)
 																}
 																style={{ width: '100%', maxHeight: '53px' }}
@@ -385,12 +390,6 @@ const AuthorsNewArticleView = (props) => {
 									<OutlinedButton onClick={() => props.sendPublication('preview')}>
 										Preview
 									</OutlinedButton>
-									{console.log(
-										props.validationResult,
-										props.validationResultEvent,
-										props.coverImageOK.final,
-										props.contentNotOK.isText,
-									)}
 									<FilledButton
 										disabled={
 											!props.validationResult ||

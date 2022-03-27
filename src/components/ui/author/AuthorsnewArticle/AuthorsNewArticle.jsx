@@ -4,7 +4,11 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { isValid } from 'date-fns';
 import { useHistory, useLocation } from 'react-router';
-import { selectChosenResearch, changeChosenResearch } from '../../../../redux/researches/chosenResearchSlice';
+import {
+	getChosenResearchAsync,
+	selectChosenResearch,
+	changeChosenResearch,
+} from '../../../../redux/researches/chosenResearchSlice';
 import { END_POINT, BASE_URL } from '../../../../utils/constants';
 import * as actionSnackBar from '../../../../redux/SnackBar/action';
 import {
@@ -16,6 +20,8 @@ import AuthorsNewArticleView from './AuthorsNewArticle.view';
 
 const AuthorsNewArticle = () => {
 	const chosenResearch = useSelector(selectChosenResearch);
+
+	if (chosenResearch) sessionStorage.setItem('articleId', chosenResearch.id);
 
 	const dispatch = useDispatch();
 	const history = useHistory();
@@ -29,39 +35,47 @@ const AuthorsNewArticle = () => {
 		title: '',
 	});
 
-	let initState;
-	const localStorageArticle = localStorage.getItem('article');
+	const initState = {
+		title: '',
+		content: '',
+		categories: [],
+		attachments: [],
+		events: [],
+		tags: [],
+		type: 'live',
+	};
 
-	if (!localStorageArticle) {
-		initState = {
-			title: '',
-			content: '',
-			categories: [],
-			attachments: [],
-			events: [],
-			tags: [],
-			type: 'live',
-		};
-	} else {
-		initState = JSON.parse(localStorageArticle);
-	}
+	const articleId = sessionStorage.getItem('articleId');
 
-	const [localForm, setLocalForm] = useState(initState);
+	const [localForm, setLocalForm] = useState(() => {
+		if (articleId) dispatch(getChosenResearchAsync(articleId));
+
+		const article = JSON.parse(localStorage.getItem('article'));
+
+		if (!article || chosenResearch) return initState;
+
+		return article;
+	});
 
 	const [localTags, setLocalTags] = useState([]);
+
 	const [scrollLocation, setScrollLocation] = useState('bottom');
 	const tableRowsRefs = useRef([]);
+
 	const [errors, setErrors] = useState({});
 	const [validationResult, setValidationResult] = useState(false);
 	const [errorsEvent, setErrorsEvent] = useState({});
 	/* eslint no-unused-vars: 0 */
 	const [validationResultEvent, setValidationResultEvent] = useState(true);
+
 	const [coverImageOK, setCoverImageOK] = useState({ initial: true, final: false });
 	const [contentNotOK, setContentNotOK] = useState({ focus: false, isText: false, everTyped: false });
 	const showEditorError = contentNotOK.focus && contentNotOK.everTyped && !contentNotOK.isText;
 
 	// Save article in localStorage
-	const localStorageArticleSaver = (data) => {
+	const setLocalStorageArticle = (data) => {
+		if (chosenResearch || articleId) return;
+
 		localStorage.setItem('article', JSON.stringify(data));
 	};
 
@@ -98,7 +112,7 @@ const AuthorsNewArticle = () => {
 			delete editedLocalForm.name;
 			delete editedLocalForm.updated_at;
 
-			setCoverImage(coverImg ? coverImg : '');
+			setCoverImage(coverImg);
 			setLocalCats(chosenResearch.categories);
 			setLocalForm(editedLocalForm);
 			setLocalTags(chosenResearch.tags);
@@ -141,7 +155,7 @@ const AuthorsNewArticle = () => {
 			delete editedLocalForm.name;
 			delete editedLocalForm.updated_at;
 
-			setCoverImage(coverImg ? coverImg : '');
+			setCoverImage(coverImg);
 			setLocalCats(publication.categories);
 			setLocalForm(editedLocalForm);
 			setLocalTags(publication.tags);
@@ -221,7 +235,7 @@ const AuthorsNewArticle = () => {
 			if (formToSend.id) {
 				res = await axios.put(`${BASE_URL}${END_POINT.PUBLICATION}/${formToSend.id}`, formToSend);
 				history.push('/researches');
-				dispatch(changeChosenResearch(null));
+				// dispatch(changeChosenResearch(null));
 
 				if (res.status === 201) {
 					dispatch(actionSnackBar.setSnackBar('success', 'Successfully updated', 2000));
@@ -241,18 +255,18 @@ const AuthorsNewArticle = () => {
 		}
 	};
 
-	//when user navigates outside the component- chosen research is cleared
-	useEffect(() => {
-		return () => {
-			dispatch(changeChosenResearch(null));
-		};
-	}, []);
+	// When user navigates outside the component- chosen research is cleared
+	// useEffect(() => {
+	// 	return () => {
+	// 		dispatch(changeChosenResearch(null));
+	// 	};
+	// }, []);
 
 	const handleChange = (value, key) => {
 		const data = { ...localForm, [key]: value };
 
 		setLocalForm(data);
-		localStorageArticleSaver(data);
+		setLocalStorageArticle(data);
 
 		if (chosenResearch) {
 			validateEditedLivePublication({ [key]: value }, errors, setErrors, setValidationResult);
@@ -288,7 +302,7 @@ const AuthorsNewArticle = () => {
 		};
 
 		setLocalForm(data);
-		localStorageArticleSaver(data);
+		setLocalStorageArticle(data);
 
 		setCurrentEvent({
 			date: null,
@@ -305,14 +319,16 @@ const AuthorsNewArticle = () => {
 
 			catsCopy.splice(index, 1);
 			formCats.splice(index, 1);
+
 			setLocalCats(catsCopy);
+
 			const data = {
 				...localForm,
 				categories: formCats,
 			};
 
 			setLocalForm(data);
-			localStorageArticleSaver(data);
+			setLocalStorageArticle(data);
 
 			if (chosenResearch) {
 				validateEditedLivePublication(
@@ -335,7 +351,7 @@ const AuthorsNewArticle = () => {
 			};
 
 			setLocalForm(data);
-			localStorageArticleSaver(data);
+			setLocalStorageArticle(data);
 		}
 	};
 
@@ -349,7 +365,7 @@ const AuthorsNewArticle = () => {
 		};
 
 		setLocalForm(data);
-		localStorageArticleSaver(data);
+		setLocalStorageArticle(data);
 
 		if (category === 'events') {
 			setScrollLocation('event');
@@ -394,7 +410,7 @@ const AuthorsNewArticle = () => {
 					const data = { ...localForm, attachments: attachmentsCopy };
 
 					setLocalForm(data);
-					localStorageArticleSaver(data);
+					setLocalStorageArticle(data);
 				}
 			} catch (error) {
 				dispatch(actionSnackBar.setSnackBar('error', 'File upload failed', 2000));
@@ -462,8 +478,8 @@ const AuthorsNewArticle = () => {
 		const content = convertToRaw(event.getCurrentContent());
 		const data = { ...localForm, content: content };
 
-		setLocalForm(content);
-		localStorageArticleSaver(content);
+		setLocalForm(data);
+		setLocalStorageArticle(data);
 
 		//if ever typed- lst change will not be null
 		if (event.getLastChangeType()) {

@@ -23,7 +23,6 @@ const ArticleView = (props) => {
 							<Grid item xs={12}>
 								<Typography className={classes.bigAuthorName}>
 									Written by
-									{' '}
 									{props.article.author_name}
 								</Typography>
 							</Grid>
