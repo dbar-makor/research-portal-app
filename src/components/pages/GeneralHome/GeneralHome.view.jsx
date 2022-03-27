@@ -3,7 +3,7 @@ import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import TabsUnstyled from '@mui/base/TabsUnstyled';
 import Grid from '@mui/material/Grid';
-import { Helmet } from 'react-helmet';
+import Helmet from 'react-helmet';
 import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 import Carousel from 'react-material-ui-carousel';
@@ -21,44 +21,28 @@ const GeneralHomeView = (props) => {
 			fontSize: 20,
 		};
 
-		const cellStyle = {
+		const dateCellStyle = {
 			width: 38,
 		};
 
+		const circleStyle = props.events.includes(dates)
+			? { background: '#1c67ff' }
+			: props.today === dates
+			? { background: '#ed5858' }
+			: { background: '#ACB1BF' };
+
 		return (
-			<div style={cellStyle}>
+			<div style={dateCellStyle}>
 				<div style={dateStyle}>{dates}</div>
-				{props.events2.includes(dates) ? (
-					<div
-						style={{
-							display: 'flex',
-							justifyContent: 'center',
-							marginTop: '4px',
-						}}
-					>
-						<div
-							style={{
-								background: '#1c67ff',
-							}}
-							className="circle"
-						/>
-					</div>
-				) : (
-					<div
-						style={{
-							display: 'flex',
-							justifyContent: 'center',
-							marginTop: '4px',
-						}}
-					>
-						<div
-							style={{
-								background: '#ACB1BF',
-							}}
-							className="circle"
-						/>
-					</div>
-				)}
+				<div
+					style={{
+						display: 'flex',
+						justifyContent: 'center',
+						marginTop: '4px',
+					}}
+				>
+					<div style={circleStyle} className="circle" />
+				</div>
 			</div>
 		);
 	};
@@ -1056,59 +1040,44 @@ const GeneralHomeView = (props) => {
 									<Helmet>
 										<style>
 											{`
-                      .DayPicker {
-                        display: block;
-                        overflow-x: scroll;
-                      }
-                      .DayPicker::-webkit-scrollbar-track {
-                          border-radius: 10px;
-                          background-color: #F3F4F8;
-                      }
-                      .DayPicker::-webkit-scrollbar {
-                          border-radius: 10px;
-                          height: 7px;
-                          z-index: 2;
-                          background-color: #F5F5F5
-                      }
-                      .DayPicker::-webkit-scrollbar-thumb {
-                          border-radius: 10px;
-                          background-color: #D5DBE7;
-                      }
-                      .DayPicker-Day--today {
-                        font-weight: 400;
-                        background-color: #E2EBFC;
-                        border-radius: 5px;
-                      }
-                      .DayPicker-Day:hover {
-                        border: '3px solid red';
-                      }
-                      .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside):hover {
-                        background-color: white;
-                        font-weight: bold;
-                      }
-                      .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
-                        font-weight: bold;
-                        background-color: white;
-                      }
-                      .DayPicker-Month {
-                        margin: 0;
-                        margin-top: 20px;
-                      }
-                      .DayPicker-wrapper {
-                        padding-bottom: 0;
-                      }
-                      .DayPicker-Months {
-                        display: table;
-                        width: 100%;
-                        table-layout: fixed;
-                      }
-                      .DayPicker-NavButton {
-                        margin-top: 8px;
-                      },
-                      .DayPicker-Weekdays {
-                        margin-top: 0;
-                      }
-                  `}
+												.DayPicker-Day {
+													padding: 0.4em;
+													height: 2.5vw;
+													width: 3vw;
+													table-layout: fixed;
+												}
+												.DayPicker-Day--today {
+													font-weight: 400;
+												}
+												.DayPicker:not(.DayPicker--interactionDisabled) .DayPicker-Day:not(.DayPicker-Day--disabled):not(.DayPicker-Day--selected):not(.DayPicker-Day--outside):hover {
+													background-color: #fff;
+												}
+												.DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside):hover {
+													background-color: white;
+												}
+												.DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
+													font-weight: bold;
+													background-color: white;
+												}
+												.DayPicker-Month {
+													margin: 0;
+													margin-top: 20px;
+												}
+												.DayPicker-wrapper {
+													padding-bottom: 0;
+												}
+												.DayPicker-Months {
+													display: table;
+													width: 100%;
+													table-layout: fixed;
+												}
+												.DayPicker-NavButton {
+													margin-top: 8px;
+												}
+												.DayPicker-Weekday {
+													font-size: 1em;
+												}
+											`}
 										</style>
 									</Helmet>
 									<DayPicker

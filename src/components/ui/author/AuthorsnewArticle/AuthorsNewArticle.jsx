@@ -512,6 +512,7 @@ const AuthorsNewArticle = () => {
 			validateEvent={validateEvent}
 			errorsEvent={errorsEvent}
 			setErrorsEvent={setErrorsEvent}
+			validationResultEvent={validationResultEvent}
 			setValidationResultEvent={setValidationResultEvent}
 			ifCurrentEventFilled={ifCurrentEventFilled}
 			addEvent={addEvent}

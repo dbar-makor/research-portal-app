@@ -4,6 +4,8 @@ import GeneralHomeView from './GeneralHome.view';
 const GeneralHome = () => {
 	const date = new Date();
 
+	const today = date.getDate();
+
 	const calendarDefaultValue = {
 		year: date.getFullYear(),
 		month: date.getMonth(),
@@ -11,9 +13,16 @@ const GeneralHome = () => {
 	};
 
 	const [selectedDay, setSelectedDay] = useState(calendarDefaultValue);
-	const events2 = [1, 2, 3, 4, 5, 6, 7];
+	const events = [1, 2, 3, 4, 5, 6, 7, 22];
 
-	return <GeneralHomeView events2={events2} selectedDay={selectedDay} setSelectedDay={setSelectedDay} />;
+	return (
+		<GeneralHomeView
+			events={events}
+			today={today}
+			selectedDay={selectedDay}
+			setSelectedDay={setSelectedDay}
+		/>
+	);
 };
 
 GeneralHome.displayName = 'MemberHome';
