@@ -8,7 +8,6 @@ import useStyles from './CategoriesAutoComplete.style';
 const CategoriesAutoCompleteView = (props) => {
 	const classes = useStyles();
 	const categoriesArr = useSelector((state) => state.utils.utils.category);
-
 	return (
 		<>
 			{categoriesArr && (

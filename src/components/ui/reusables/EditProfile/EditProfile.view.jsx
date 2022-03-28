@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Typography, Avatar } from '@material-ui/core';
+import { Grid, Typography, Avatar, Divider } from '@material-ui/core';
 import CreateIcon from '@material-ui/icons/Create';
 import { KeyboardDatePicker } from '@material-ui/pickers';
 import ArrowForwardIosOutlinedIcon from '@material-ui/icons/ArrowForwardIosOutlined';
@@ -7,8 +7,7 @@ import { ReactComponent as CalendarIcon } from '../../../../assets/icons/iconCal
 import { StyledTextField } from '../../../../styles/MainStyles';
 import ChangePassword from '../ChangePassword/ChangePassword';
 import PhoneInput from '../PhoneInput/PhoneInput';
-
-//import CategoriesAutoComplete from '../../reusables/CategoriesAutoComplete/CategoriesAutoComplete';
+import CategoriesAutoComplete from '../../reusables/CategoriesAutoComplete/CategoriesAutoComplete';
 
 //import AvatarEditor from 'react-avatar-editor';
 import useStyles from './EditProfile.style';
@@ -39,7 +38,7 @@ const EditProfileView = (props) => {
 				alignItems="center"
 				justifyContent="space-evenly"
 			>
-				<Grid item>
+				<Grid item xs={4}>
 					<StyledTextField
 						className={classes.textField}
 						value={props.userInformation.name}
@@ -48,7 +47,7 @@ const EditProfileView = (props) => {
 						label="Full Name"
 					/>
 				</Grid>
-				<Grid item>
+				<Grid item xs={4}>
 					<StyledTextField
 						className={classes.textField}
 						value={props.userInformation.email}
@@ -57,53 +56,59 @@ const EditProfileView = (props) => {
 						label="Email"
 					/>
 				</Grid>
-				<Grid item>
-					<PhoneInput/>
+				<Grid item xs={4}>
+					<PhoneInput />
 				</Grid>
-				<Grid item>
-					<StyledTextField
-						className={classes.textField}
-						value={props.userInformation.position}
-						variant="outlined"
-						fullWidth
-						label="Position"
+				<Grid container item xs={12} className={classes.padding}>
+					<Grid item xs={4}>
+						<StyledTextField
+							className={classes.textField}
+							value={props.userInformation.position}
+							variant="outlined"
+							fullWidth
+							label="Position"
+						/>
+					</Grid>
+					<Grid item xs={4}>
+						<StyledTextField
+							className={classes.textField}
+							value={props.userInformation.username}
+							variant="outlined"
+							fullWidth
+							label="Username"
+						/>
+					</Grid>
+					<Grid item xs={4}>
+						<KeyboardDatePicker
+							className={classes.birthdayPicker}
+							autoOk
+							orientation="portrait"
+							disableToolbar
+							variant="inline"
+							inputVariant="outlined"
+							format="dd/MM/yyyy"
+							placeholder="Date"
+							value={props.userInformation.birthday}
+							InputAdornmentProps={{ position: 'end' }}
+							keyboardIcon={<CalendarIcon className={classes.calendarIcon} />}
+						/>
+					</Grid>
+				</Grid>
+				<Grid item xs={8} className={classes.padding}>
+					<CategoriesAutoComplete
+						formObject={props.localCats}
+						setFormObject={props.setLocalCats}
+						handler={props.handleCatsChange}
+						error={props.errors.categories}
+						errors={props.errors}
+						setErrors={props.setErrors}
+						validationResult={props.validationResult}
+						setValidationResult={props.setValidationResult}
 					/>
 				</Grid>
-				<Grid item>
-					<StyledTextField
-						className={classes.textField}
-						value={props.userInformation.username}
-						variant="outlined"
-						fullWidth
-						label="Username"
-					/>
-				</Grid>
-				<Grid item>
-					<KeyboardDatePicker
-						className={classes.birthdayPicker}
-						autoOk
-						orientation="portrait"
-						disableToolbar
-						variant="inline"
-						inputVariant="outlined"
-						format="dd/MM/yyyy"
-						placeholder="Date"
-						value="01/01/2000"
-						InputAdornmentProps={{ position: 'end' }}
-						keyboardIcon={<CalendarIcon className={classes.calendarIcon} />}
-					/>
-				</Grid>
-				<Grid item>
-					{/* <CategoriesAutoComplete
-						// formObject={props.localCats}
-						// setFormObject={props.setLocalCats}
-						// handler={props.handleCatsChange}
-						// error={props.errors.categories}
-						// errors={props.errors}
-						// setErrors={props.setErrors}
-						// validationResult={props.validationResult}
-						// setValidationResult={props.setValidationResult}
-					/> */}
+				<Grid item xs={12} className={classes.padding}>
+				<Divider style={{ margin: 'auto', width: '100%', marginBottom: '26px' }} />
+
 				</Grid>
 			</Grid>
 			<Grid

@@ -1,12 +1,28 @@
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { Autocomplete } from '@material-ui/lab';
 import { TextField, Popper } from '@material-ui/core';
-const useStyles = makeStyles(() => ({}));
-export const PopperMy = function (props) {
+
+const useStyles = makeStyles(() => ({
+	flagImg: {
+		height: 18,
+		width: 24,
+	},
+	inputFlag: {
+		position: 'absolute',
+		top: '10px',
+	},
+	// dialingCodeField:{
+
+	// }
+}));
+
+export default useStyles;
+
+export const PopperMy = (props) => {
 	return <Popper {...props} style={{ width: 'fit-content' }} placement="bottom-start" />;
 };
-export default useStyles;
-export const StyledAutoComplete = withStyles((theme) => ({
+
+export const StyledAutoComplete = withStyles(() => ({
 	popupIndicatorOpen: {
 		transform: 'rotate(0deg)',
 	},
@@ -18,19 +34,18 @@ export const StyledAutoComplete = withStyles((theme) => ({
 		},
 	},
 	inputRoot: {
+		color: '#0000',
+		fontWeight: 400,
+		fontSize: '6px',
+		backgroundColor: '#FFFF',
+		width:'80%',
 		'&.MuiOutlinedInput-root ': {
 			borderRadius: 0,
-			borderBottom: `2px solid #FFFF`,
+			borderBottom: '2px solid #A5AFC233',
 		},
 		'&.MuiIconButton-root': {
 			color: '#0000',
 		},
-
-		'color': '#0000',
-		'fontWeight': 400,
-		'fontSize': '6px',
-		'backgroundColor': '#FFFF',
-
 		'&[class*="MuiOutlinedInput-root"] .MuiAutocomplete-input:first-child': {
 			padding: '2px 0px 2px 0px',
 		},
@@ -46,11 +61,17 @@ export const StyledAutoComplete = withStyles((theme) => ({
 		'&.Mui-focused .MuiOutlinedInput-notchedOutline': {
 			border: 'none',
 		},
+		'& .MuiAutocomplete-input':{
+     marginLeft: '27px',
+		 marginTop: '2px',
+
+		},
+	
 	},
 	paper: {
 		'&.MuiAutocomplete-paper': {
 			backgroundColor: '#FFFF',
-			borderBottom: `2px solid red`,
+			borderBottom: '2px solid #FFFF',
 			margin: 0,
 			// marginTop: 5,
 			borderRadius: 0,
@@ -63,6 +84,7 @@ export const StyledAutoComplete = withStyles((theme) => ({
 		},
 	},
 	listbox: {
+		position: 'absolute',
 		'&.MuiAutocomplete-listbox': {
 			'&::-webkit-scrollbar': {
 				width: '3px',
@@ -103,26 +125,17 @@ export const StyledAutoComplete = withStyles((theme) => ({
 	},
 }))(Autocomplete);
 
-export const CustomTextField = withStyles((theme) => ({
+export const CustomTextField = withStyles(() => ({
 	root: {
 		'width': '100%',
 		'& .MuiFormLabel-root': {
-			color: '#0000',
-			fontSize: '14px',
+			color: '#B8C3D8',
+			fontSize: '16px',
 		},
 		'& .MuiOutlinedInput-root': {
 			backgroundColor: '#ffff',
+			border: '1px solid #A5AFC233',
 			borderRadius: 5,
-			// check if not needed:
-			// '& fieldset': {
-			//   borderColor: '#212121'
-			// },
-			// '&:hover fieldset': {
-			//   border: '1px solid #212121'
-			// },
-			// '&.Mui-focused fieldset': {
-			//   border: '1px solid #212121'
-			// }
 		},
 		'& .MuiOutlinedInput-inputMarginDense': {
 			padding: '13px 8px',
@@ -131,21 +144,24 @@ export const CustomTextField = withStyles((theme) => ({
 			paddingRight: 0,
 		},
 		'& .MuiInputBase-input': {
-			color: '#000', // Text color
+			color: '#000',
 			fontSize: '14px',
 			fontWeight: 400,
 		},
 		'& .MuiInput-underline:before': {
-			borderBottom: `1px solid #FFFF`, // Semi-transparent underline
+			borderBottom: '1px solid #FFFF',
 		},
 		'& .MuiInput-underline:hover:before': {
-			borderBottom: `1px solid #FFFF`, // Solid underline on hover
+			borderBottom: '1px solid #FFFF',
 		},
 		'& .MuiInput-underline:after': {
-			borderBottom: `1px solid #FFFF`, // Solid underline on focus
+			borderBottom: '1px solid #FFFF',
 		},
 		'& .MuiInput-underline.Mui-error:after': {
-			borderBottom: `1px solid #FFFF`,
+			borderBottom: '1px solid #FFFF',
 		},
+		'& .MuiAutocomplete-endAdornment':{
+			right: '10px !important' ,
+		}
 	},
 }))(TextField);

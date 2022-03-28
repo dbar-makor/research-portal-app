@@ -6,17 +6,17 @@ const PhoneInput = () => {
 	const dispatch = useDispatch();
 	const [countryInput, setCountryInput] = useState('');
 	const [countryInputValue, setCountryInputValue] = useState('');
-  const [countryCodeInput, setCountryCodeInput] = useState('');
+	const [countryCodeInput, setCountryCodeInput] = useState('');
 	const [countryCodeInputValue, setCountryCodeInputValue] = useState('');
 	const [phoneInput, setPhoneInput] = useState('');
-	const [adorment, setAdorment] = useState(null);
-
+	const [adornment, setAdornment] = useState(null);
 
 	const handleSelect = (newValue) => {
+		console.log('newValue', newValue.code);
 		const value = newValue ? Number(newValue.dialing_code) : '';
-		const adorment = newValue ? newValue.country_code : '';
+		const tempAdornment = newValue ? newValue.code : '';
 		setCountryCodeInput(value);
-		setAdorment(adorment);
+		setAdornment(tempAdornment);
 	};
 
 	const handleSelectInput = (e, value, reason) => {
@@ -34,18 +34,18 @@ const PhoneInput = () => {
 			setPhoneInput(value);
 		}
 	};
-  
+
 	return (
 		<PhoneInputView
 			countryInput={countryInput}
 			countryInputValue={countryInputValue}
-      countryCodeInput={countryCodeInput}
+			countryCodeInput={countryCodeInput}
 			countryCodeInputValue={countryCodeInputValue}
 			handleSelect={handleSelect}
 			handleSelectInput={handleSelectInput}
 			handlePhoneInput={handlePhoneInput}
 			phoneInput={phoneInput}
-			andorment={adorment}
+			adornment={adornment}
 		/>
 	);
 };

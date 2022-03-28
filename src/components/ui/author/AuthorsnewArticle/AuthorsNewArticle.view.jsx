@@ -157,6 +157,7 @@ const AuthorsNewArticleView = (props) => {
 												</Typography>
 											)}
 											<Grid container className={classes.autoCompletesContainer}>
+												{console.log('props.localCats',props.localCats)}
 												<CategoriesAutoComplete
 													formObject={props.localCats}
 													setFormObject={props.setLocalCats}
