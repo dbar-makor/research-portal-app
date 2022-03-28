@@ -13,11 +13,12 @@ const SelectInputUnit = (props) => {
 			className={props.className}
 			name={props.name}
 			label={props.label}
-			value={props.value}
+			value={props.value || ''}
 			optionsArray={props.optionsArray}
 			optionLabelField={props.optionLabelField}
 			valueField={props.valueField}
 			placeholder={props.placeholder}
+			native={props.native}
 			onChange={props.onChange}
 		/>
 	);

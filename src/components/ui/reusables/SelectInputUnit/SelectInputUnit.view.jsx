@@ -7,6 +7,8 @@ import useStyles from './SelectInputUnit.style';
 const SelectInputUnitView = (props) => {
 	const classes = useStyles();
 
+	console.log('props.native', props.native);
+
 	return (
 		<Grid container className={props.className}>
 			<Grid item xs={12}>
