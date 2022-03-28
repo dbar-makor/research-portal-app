@@ -12,7 +12,7 @@ const NumberInputUnitView = (props) => {
 					variant="outlined"
 					placeholder={props.label}
 					InputProps={props.InputProps}
-					{...(props.error && { error: true, helperText: props.error })}
+					{...(props.error && { error: true, helpertext: props.error })}
 					onChange={props.onChange}
 				/>
 			</Grid>

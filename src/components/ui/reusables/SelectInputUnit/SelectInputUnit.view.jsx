@@ -26,7 +26,7 @@ const SelectInputUnitView = (props) => {
 						shrink: false,
 					}}
 					onChange={props.onChange}
-					{...(props.error && { error: true, helperText: props.error })}
+					{...(props.error && { error: true, helpertext: props.error })}
 				>
 					{props.optionsArray.map((option, index) => (
 						<option key={`${option[props.valueField]}${index}`} value={option[props.valueField]}>

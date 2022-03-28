@@ -4,7 +4,11 @@ import { isValid } from 'date-fns';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router';
 import { END_POINT, BASE_URL } from '../../../../utils/constants';
-import { selectChosenResearch, changeChosenResearch } from '../../../../redux/researches/chosenResearchSlice';
+import {
+	getChosenResearchAsync,
+	selectChosenResearch,
+	changeChosenResearch,
+} from '../../../../redux/researches/chosenResearchSlice';
 import * as actionSnackBar from '../../../../redux/SnackBar/action';
 import {
 	validateDeadPublication,
@@ -15,13 +19,16 @@ import {
 import DeadArticleView from './DeadArticle.view';
 
 const DeadArticle = () => {
+	const chosenResearch = useSelector(selectChosenResearch);
+
+	// Check if edit mode
+	if (chosenResearch) sessionStorage.setItem('deadArticleId', chosenResearch.id);
+
+	const deadArticleId = sessionStorage.getItem('deadArticleId');
+
 	const dispatch = useDispatch();
 	const history = useHistory();
-	const chosenResearch = useSelector(selectChosenResearch);
-	const [coverImage, setCoverImage] = useState(null);
 	const [coverImageOK, setCoverImageOK] = useState({ initial: true, final: false });
-	const [localCats, setLocalCats] = useState([]);
-	const [localTags, setLocalTags] = useState([]);
 	const [errors, setErrors] = useState({});
 	const [validationResult, setValidationResult] = useState(false);
 	const [errorsEvent, setErrorsEvent] = useState({});
@@ -33,21 +40,73 @@ const DeadArticle = () => {
 		title: '',
 	});
 
-	const initStateForm = {
+	const formInitState = {
 		title: '',
 		description: '',
 		events: [],
 		tags: [],
 		categories: [],
 		attachments: [],
-		type: 'dead',
 		title_video: '',
 		link_video: '',
 		title_pdf: '',
 		file_pdf: '',
+		type: 'dead',
 	};
 
-	const [localForm, setLocalForm] = useState(initStateForm);
+	const [localForm, setLocalForm] = useState(() => {
+		// Check for article ID exsistence in sessionStorage
+		if (deadArticleId) dispatch(getChosenResearchAsync(deadArticleId));
+
+		// Get article from localStorage
+		const localStorageDeadArticle = localStorage.getItem('deadArticle');
+
+		// Check for article in localStorage or article is in edit mode
+		if (!localStorageDeadArticle || localStorageDeadArticle === 'undefined' || chosenResearch) {
+			return formInitState;
+		}
+
+		const deadArticle = JSON.parse(localStorageDeadArticle);
+
+		return deadArticle;
+	});
+
+	const [coverImage, setCoverImage] = useState(() => {
+		// Get cover image from localStorage
+		const localStorageCoverImage = localStorage.getItem('deadArticleCoverImage');
+
+		// Check for cover image in localStorage or article is in edit mode
+		if (!localStorageCoverImage || localStorageCoverImage === 'undefined' || chosenResearch) return '';
+
+		const coverImage = JSON.parse(localStorageCoverImage);
+
+		return coverImage;
+	});
+
+	const [localCats, setLocalCats] = useState(() => {
+		// Get cover image from localStorage
+		const localStorageCategories = localStorage.getItem('deadArticleCategories');
+
+		// Check for categories in localStorage or article is in edit mode
+		if (!localStorageCategories || localStorageCategories === 'undefined' || chosenResearch) return [];
+
+		const categories = JSON.parse(localStorageCategories);
+
+		return categories;
+	});
+
+	const [localTags, setLocalTags] = useState(() => {
+		// Get tags from localStorage
+		const localStorageTags = localStorage.getItem('deadArticleTags');
+
+		// Check for tags in localStorage or article is in edit mode
+		if (!localStorageTags || localStorageTags === 'undefined' || chosenResearch) return [];
+
+		const tags = JSON.parse(localStorageTags);
+
+		return tags;
+	});
+
 	const [scrollLocation, setScrollLocation] = useState('bottom');
 	const tableRowsRefs = useRef([]);
 	const [selectedValue, setSelectedValue] = useState('pdf');
@@ -65,6 +124,13 @@ const DeadArticle = () => {
 				tableRowsRefs.current[lastIndex].scrollIntoView();
 			}
 		}
+	};
+
+	// Save dead article in localStorage
+	const setLocalStorageDeadArticle = (data) => {
+		if (chosenResearch || deadArticleId) return;
+
+		localStorage.setItem('deadArticle', JSON.stringify(data));
 	};
 
 	useEffect(() => {
@@ -111,7 +177,6 @@ const DeadArticle = () => {
 	}, [chosenResearch]);
 
 	//if coming back from preview (chosenResearch is now null even if it is saved in server)
-
 	useEffect(() => {
 		if (location.state?.from === 'prearticle') {
 			const publication = location.state?.publication;
@@ -142,10 +207,10 @@ const DeadArticle = () => {
 		}
 	}, [chosenResearch]);
 
-	//clearing states when leaving component
+	// Clearing states when leaving component
 	useEffect(() => {
 		return () => {
-			setLocalForm(initStateForm);
+			setLocalForm(formInitState);
 			setCoverImage(null);
 			setLocalCats([]);
 			setCurrentEvent({ date: null, title: '' });
@@ -156,10 +221,14 @@ const DeadArticle = () => {
 		const categoryCopy = [...localForm[category]];
 
 		categoryCopy[rowIndex][key] = value;
-		setLocalForm({
+
+		const data = {
 			...localForm,
 			[category]: categoryCopy,
-		});
+		};
+
+		setLocalForm(data);
+		setLocalStorageDeadArticle(data);
 
 		if (category === 'events') {
 			setScrollLocation('event');
@@ -184,10 +253,15 @@ const DeadArticle = () => {
 		const execEvents = [...localForm.events];
 
 		execEvents.push(currentEvent);
-		setLocalForm({
+
+		const data = {
 			...localForm,
 			events: execEvents,
-		});
+		};
+
+		setLocalForm(data);
+		setLocalStorageDeadArticle(data);
+
 		setCurrentEvent({
 			date: null,
 			title: '',
@@ -206,7 +280,12 @@ const DeadArticle = () => {
 
 		setLocalCats(values);
 
-		// setLocalForm({ ...localForm, categories: newCats });
+		// Check if not in edit mode
+		if (!deadArticleId) {
+			// Update categories in localStorage
+			localStorage.setItem('deadArticleCategories', JSON.stringify(values));
+		}
+
 		if (chosenResearch) {
 			validateEditedDeadPublication(
 				{ categories: newCats },
@@ -244,13 +323,23 @@ const DeadArticle = () => {
 				tempTags.push(value);
 			}
 		});
+
 		setLocalTags(tempTags);
+
+		// Check if not in edit mode
+		if (!deadArticleId) {
+			// Update tags in localStorage
+			localStorage.setItem('deadArticleTags', JSON.stringify(tempTags));
+		}
 
 		//if tag exists in server- send tag's id; if new- send tag's name, server will include it in tag list
 	};
 
 	const handleChange = (value, key) => {
-		setLocalForm({ ...localForm, [key]: value });
+		const data = { ...localForm, [key]: value };
+
+		setLocalForm(data);
+		setLocalStorageDeadArticle(data);
 
 		if (chosenResearch) {
 			validateEditedDeadPublication(
@@ -273,10 +362,14 @@ const DeadArticle = () => {
 			catsCopy.splice(index, 1);
 			formCats.splice(index, 1);
 			setLocalCats(catsCopy);
-			setLocalForm({
+
+			const data = {
 				...localForm,
 				categories: formCats,
-			});
+			};
+
+			setLocalForm(data);
+			setLocalStorageDeadArticle(data);
 
 			if (chosenResearch) {
 				validateEditedDeadPublication(
@@ -299,10 +392,14 @@ const DeadArticle = () => {
 			const categoryCopy = [...localForm[category]];
 
 			categoryCopy.splice(index, 1);
-			setLocalForm({
+
+			const data = {
 				...localForm,
 				[category]: categoryCopy,
-			});
+			};
+
+			setLocalForm(data);
+			setLocalStorageDeadArticle(data);
 		}
 	};
 
@@ -317,6 +414,20 @@ const DeadArticle = () => {
 
 			if (res.status === 200 && res.data.file) {
 				setLocalForm((prev) => ({ ...prev, file_pdf: res.data.file }));
+
+				const localStorageDeadArticle = localStorage.getItem('deadArticle');
+
+				if (localStorageDeadArticle || localStorageDeadArticle !== 'undefined') {
+					const deadArticle = JSON.parse(localStorageDeadArticle);
+
+					// Removing old PDF file from localStorage
+					delete deadArticle.file_pdf;
+
+					// Adding new PDF file
+					deadArticle.file_pdf = res.data.file;
+
+					localStorage.setItem('deadArticle', JSON.stringify(deadArticle));
+				}
 
 				if (chosenResearch) {
 					validateEditedDeadPublication(
@@ -337,8 +448,7 @@ const DeadArticle = () => {
 				}
 			}
 		} catch (error) {
-			/* eslint no-console: "off" */
-			console.log(error.message);
+			return error;
 		}
 	};
 
@@ -359,6 +469,13 @@ const DeadArticle = () => {
 				};
 
 				setCoverImage(newCover);
+
+				// Check if not in edit mode
+				if (!deadArticleId) {
+					// Update cover image in localStorage
+					localStorage.setItem('deadArticleCoverImage', JSON.stringify(newCover));
+				}
+
 				setCoverImageOK((prev) => ({ ...prev, final: true }));
 			}
 		} catch (error) {}
@@ -416,7 +533,6 @@ const DeadArticle = () => {
 		try {
 			let res;
 
-			// if (chosenResearch && chosenResearch.id) {
 			if (formToSend.id) {
 				res = await axios.put(`${BASE_URL}${END_POINT.PUBLICATION}/${formToSend.id}`, formToSend);
 				history.push('/researches');
@@ -433,6 +549,8 @@ const DeadArticle = () => {
 					dispatch(actionSnackBar.setSnackBar('success', 'Successfully published', 2000));
 				}
 			}
+
+			localStorage.removeItem('article');
 		} catch (error) {
 			dispatch(actionSnackBar.setSnackBar('error', 'Publish failed', 2000));
 		}
@@ -472,6 +590,7 @@ const DeadArticle = () => {
 			handleCancle={handleCancle}
 			handleTagsValue={handleTagsValue}
 			handleChange={handleChange}
+			deadArticleId={deadArticleId}
 			handleChangeRadio={handleChangeRadio}
 			ifCurrentEventFilled={ifCurrentEventFilled}
 			localCats={localCats}

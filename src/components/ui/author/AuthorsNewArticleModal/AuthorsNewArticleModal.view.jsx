@@ -74,7 +74,11 @@ const AuthorsNewArticleModalView = (props) => {
 									<Grid item xs={5}>
 										<Button
 											className={classes.button2Style}
-											onClick={() => props.history.push('/upload-article')}
+											onClick={() => {
+												props.removeDeadArticleId();
+												dispatch(getChosenResearchAsync(''));
+												props.history.push('/upload-article');
+											}}
 										>
 											<Grid container>
 												<Grid item xs={12}>

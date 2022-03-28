@@ -21,13 +21,14 @@ import AuthorsNewArticleView from './AuthorsNewArticle.view';
 const AuthorsNewArticle = () => {
 	const chosenResearch = useSelector(selectChosenResearch);
 
+	// Check if edit mode
 	if (chosenResearch) sessionStorage.setItem('articleId', chosenResearch.id);
+
+	const articleId = sessionStorage.getItem('articleId');
 
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const location = useLocation();
-	const [coverImage, setCoverImage] = useState('');
-	const [localCats, setLocalCats] = useState([]);
 	const [description, setDescription] = useState('');
 
 	const [currentEvent, setCurrentEvent] = useState({
@@ -35,7 +36,7 @@ const AuthorsNewArticle = () => {
 		title: '',
 	});
 
-	const initState = {
+	const formInitState = {
 		title: '',
 		content: '',
 		categories: [],
@@ -45,19 +46,58 @@ const AuthorsNewArticle = () => {
 		type: 'live',
 	};
 
-	const articleId = sessionStorage.getItem('articleId');
-
 	const [localForm, setLocalForm] = useState(() => {
+		// Check for article ID exsistence in sessionStorage
 		if (articleId) dispatch(getChosenResearchAsync(articleId));
 
-		const article = JSON.parse(localStorage.getItem('article'));
+		// Get article from localStorage
+		const localStorageArticle = localStorage.getItem('article');
 
-		if (!article || chosenResearch) return initState;
+		// Check for article in localStorage or article is in edit mode
+		if (!localStorageArticle || localStorageArticle === 'undefined' || chosenResearch) {
+			return formInitState;
+		}
+
+		const article = JSON.parse(localStorageArticle);
 
 		return article;
 	});
 
-	const [localTags, setLocalTags] = useState([]);
+	const [coverImage, setCoverImage] = useState(() => {
+		// Get cover image from localStorage
+		const localStorageCoverImage = localStorage.getItem('coverImage');
+
+		// Check for cover image in localStorage or article is in edit mode
+		if (!localStorageCoverImage || localStorageCoverImage === 'undefined' || chosenResearch) return '';
+
+		const coverImage = JSON.parse(localStorageCoverImage);
+
+		return coverImage;
+	});
+
+	const [localCats, setLocalCats] = useState(() => {
+		// Get cover image from localStorage
+		const localStorageCategories = localStorage.getItem('categories');
+
+		// Check for categories in localStorage or article is in edit mode
+		if (!localStorageCategories || localStorageCategories === 'undefined' || chosenResearch) return [];
+
+		const categories = JSON.parse(localStorageCategories);
+
+		return categories;
+	});
+
+	const [localTags, setLocalTags] = useState(() => {
+		// Get tags from localStorage
+		const localStorageTags = localStorage.getItem('tags');
+
+		// Check for tags in localStorage or article is in edit mode
+		if (!localStorageTags || localStorageTags === 'undefined' || chosenResearch) return [];
+
+		const tags = JSON.parse(localStorageTags);
+
+		return tags;
+	});
 
 	const [scrollLocation, setScrollLocation] = useState('bottom');
 	const tableRowsRefs = useRef([]);
@@ -88,13 +128,6 @@ const AuthorsNewArticle = () => {
 			}
 		}
 	};
-
-	// useEffect(() => {
-	// 	if (localForm) {
-	// 		tableRowsRefs.current = tableRowsRefs.current.slice(0, localForm.events.length);
-	// 		executeScroll();
-	// 	}
-	// }, [localForm.events]);
 
 	useEffect(() => {
 		if (chosenResearch) {
@@ -133,43 +166,6 @@ const AuthorsNewArticle = () => {
 			}
 		}
 	}, [chosenResearch]);
-
-	//if coming back from preview (chosenResearch is now null even if it is saved in server)
-	useEffect(() => {
-		if (location.state?.from === 'prearticle') {
-			const publication = location.state?.publication;
-
-			const coverImg = publication.attachments?.find(
-				(attachment) => attachment.file_type === 'main_bg',
-			);
-
-			const otherFiles = publication.attachments?.filter(
-				(attachment) => attachment.file_type !== 'main_bg',
-			);
-
-			// let categoriesIDs = publication.categories?.map(category => category.id)
-			const editedLocalForm = { ...publication, attachments: otherFiles };
-
-			// let editedLocalForm = {...publication, attachments: otherFiles, content: JSON.stringify(publication.content)};
-			delete editedLocalForm.created_at;
-			delete editedLocalForm.name;
-			delete editedLocalForm.updated_at;
-
-			setCoverImage(coverImg);
-			setLocalCats(publication.categories);
-			setLocalForm(editedLocalForm);
-			setLocalTags(publication.tags);
-
-			//validations
-			if (coverImg) {
-				setCoverImageOK((prev) => ({ ...prev, final: true }));
-			}
-
-			if (publication.categories.length && publication.title) {
-				setValidationResult(true);
-			}
-		}
-	}, [location.state]);
 
 	const sendPublication = async (buttonMarker) => {
 		const attachmentsCopy = [...localForm.attachments];
@@ -221,6 +217,7 @@ const AuthorsNewArticle = () => {
 				description: description,
 				created_at: new Date(),
 			};
+
 			history.push({
 				pathname: '/prearticle',
 				state: { publication: formToSend, from: 'new-publication' },
@@ -235,7 +232,6 @@ const AuthorsNewArticle = () => {
 			if (formToSend.id) {
 				res = await axios.put(`${BASE_URL}${END_POINT.PUBLICATION}/${formToSend.id}`, formToSend);
 				history.push('/researches');
-				// dispatch(changeChosenResearch(null));
 
 				if (res.status === 201) {
 					dispatch(actionSnackBar.setSnackBar('success', 'Successfully updated', 2000));
@@ -254,13 +250,6 @@ const AuthorsNewArticle = () => {
 			dispatch(actionSnackBar.setSnackBar('error', 'Publish failed', 2000));
 		}
 	};
-
-	// When user navigates outside the component- chosen research is cleared
-	// useEffect(() => {
-	// 	return () => {
-	// 		dispatch(changeChosenResearch(null));
-	// 	};
-	// }, []);
 
 	const handleChange = (value, key) => {
 		const data = { ...localForm, [key]: value };
@@ -283,6 +272,12 @@ const AuthorsNewArticle = () => {
 		}
 
 		setLocalCats(values);
+
+		// Check if not in edit mode
+		if (!articleId) {
+			// Update categories in localStorage
+			localStorage.setItem('categories', JSON.stringify(values));
+		}
 
 		if (chosenResearch) {
 			validateEditedLivePublication({ categories: newCats }, errors, setErrors, setValidationResult);
@@ -435,6 +430,13 @@ const AuthorsNewArticle = () => {
 				};
 
 				setCoverImage(newCover);
+
+				// Check if not in edit mode
+				if (!articleId) {
+					// Update cover image in localStorage
+					localStorage.setItem('coverImage', JSON.stringify(newCover));
+				}
+
 				setCoverImageOK((prev) => ({ ...prev, final: true }));
 			}
 		} catch (error) {
@@ -462,6 +464,12 @@ const AuthorsNewArticle = () => {
 		});
 
 		setLocalTags(tempTags);
+
+		// Check if not in edit mode
+		if (!articleId) {
+			// Update tags in localStorage
+			localStorage.setItem('tags', JSON.stringify(tempTags));
+		}
 
 		//if tag exists in server- send tag's id; if new- send tag's name, server will include it in tag list
 	};
@@ -492,8 +500,6 @@ const AuthorsNewArticle = () => {
 			setContentNotOK((prevState) => ({ ...prevState, isText: false }));
 		}
 	};
-
-	//checking if user ever entered the rich editor field
 
 	const handleEditorOnFocus = () => {
 		setContentNotOK((prevState) => ({ ...prevState, focus: true }));
