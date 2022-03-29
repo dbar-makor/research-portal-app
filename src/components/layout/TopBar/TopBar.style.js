@@ -49,6 +49,14 @@ const useStyles = makeStyles((theme) => ({
 	formControl: {
 		display: 'block',
 	},
+	'& .MuiMenu-paper':{
+		transform: 'translate(0px, 100%) !important',
+	},
+	selectBox:{
+		marginTop: 6,
+		minWidth: 140,
+		maxWidth: 160,
+	},
 	select: {
 		'marginBottom': '15px',
 		'& svg': {
@@ -56,19 +64,19 @@ const useStyles = makeStyles((theme) => ({
 			fill: 'transparent',
 			paddingTop: '3px',
 		},
-		'& select': {
-			'color': '#fff',
-			'border': 'none',
-			'outline': 'none',
-			'paddingTop': 12,
-			'&::placeholder': {
-				color: '#fff',
-			},
-		},
-		'& option': {
-			paddingBottom: 10,
-			color: '#000',
-		},
+		// '& select': {
+		// 	'color': '#fff',
+		// 	'paddingTop': 12,
+		// 	transform: 'translate(0px, 80%)',
+		// 	'&::placeholder': {
+		// 		color: '#fff',
+		// 	},
+		// },
+		// '& option': {
+		// 	paddingBottom: 8,
+		// 	paddingTop: 8,
+		// 	color: '#000',
+		// },
 		'& .MuiSelect-nativeInput': {
 			opacity: 1,
 			color: '#ffff',

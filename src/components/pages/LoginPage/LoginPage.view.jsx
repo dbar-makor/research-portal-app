@@ -24,7 +24,7 @@ const LoginPageView = (props) => {
 	const classes = useStyles();
 
 	return (
-		<Grid container xs={12} justifyContent="center" alignItems="center" className={classes.page}>
+		<Grid container item xs={12} justifyContent="center" alignItems="center" className={classes.page}>
 			<Grid
 				container
 				item

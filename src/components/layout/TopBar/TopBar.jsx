@@ -18,9 +18,10 @@ const TopBar = () => {
 
 	// eslint-disable-next-line no-unused-vars
 	const options = [
-		{ value: 'region1', name: 'Region1' },
-		{ value: 'region2', name: 'Region2' },
-		{ value: 'region3', name: 'Region3' },
+		{value: 'allRegions', name: 'All Regions'},
+		{ value: 'asiaPacific', name: 'Asia-Pacific' },
+		{ value: 'europe', name: 'Europe' },
+		{ value: 'unitedStates', name: 'United States' },
 	];
 
 	const webSocket = useRef(null);
