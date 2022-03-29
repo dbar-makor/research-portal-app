@@ -1,13 +1,11 @@
 import React from 'react';
 import { Grid } from '@material-ui/core';
 import { StyledTextField } from '../../../../styles/MainStyles';
-
 import useStyles from './SelectInputUnit.style';
+
 
 const SelectInputUnitView = (props) => {
 	const classes = useStyles();
-
-	console.log('props.native', props.native);
 
 	return (
 		<Grid container className={props.className}>
@@ -15,7 +13,7 @@ const SelectInputUnitView = (props) => {
 				<StyledTextField
 					select
 					label={props.label}
-					className={classes.arrowIcon}
+					className={classes.field}
 					name={props.name}
 					value={props.value}
 					style={{ width: '100%' }}

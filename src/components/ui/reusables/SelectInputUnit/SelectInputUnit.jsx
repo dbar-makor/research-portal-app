@@ -19,6 +19,7 @@ const SelectInputUnit = (props) => {
 			valueField={props.valueField}
 			placeholder={props.placeholder}
 			native={props.native}
+			//PopperComponent={props.PopperComponent}
 			onChange={props.onChange}
 		/>
 	);

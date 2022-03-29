@@ -75,7 +75,7 @@ const AdminTopbarView = (props) => {
 								<Paper>
 									<ClickAwayListener onClickAway={(e) => props.handleClose(e, 'user_mgmt')}>
 										<MenuList
-											autoFocusItem={open}
+											autoFocusItem={props.open}
 											id="composition-menu"
 											aria-labelledby="composition-button"
 										>
