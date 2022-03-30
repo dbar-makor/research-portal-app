@@ -35,9 +35,20 @@ code {
 	height: 25px !important;
 }
 
+.circle {
+	border-radius: 50%;
+	width: 8px;
+	height: 8px;
+}
+
+.css-1m9128y {
+	position: absolute;
+	bottom: 0;
+}
+
 .css-ohwg9z {
-	min-height: 9vh;
-	max-height: 9vh;
+	min-height: 8.2vh;
+	max-height: 8.2vh;
 }
 
 @keyframes mostClickedIdeas {
@@ -57,20 +68,3 @@ code {
 		transform: translateY(100%);
 	}
 }
-
-.circle {
-	border-radius: 50%;
-	width: 8px;
-	height: 8px;
-}
-
-.css-1m9128y {
-	position: absolute;
-	bottom: 0;
-}
-
-.css-ohwg9z {
-	min-height: 8.2vh;
-	max-height: 8.2vh;
-}
-
