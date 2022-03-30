@@ -3,7 +3,7 @@ import TabsListUnstyled from '@mui/base/TabsListUnstyled';
 import TabPanelUnstyled from '@mui/base/TabPanelUnstyled';
 import { styled } from '@mui/material/styles';
 import TabUnstyled, { tabUnstyledClasses } from '@mui/base/TabUnstyled';
-import buttonUnstyledClasses from '@mui/base/ButtonUnstyled';
+import { buttonUnstyledClasses } from '@mui/base/ButtonUnstyled';
 
 const useStyles = makeStyles({
 	header: {
@@ -269,7 +269,7 @@ const useStyles = makeStyles({
 		color: '#151515',
 	},
 	events: {
-		minWidth: '35vh',
+		minWidth: '29vh',
 		borderRadius: '8px',
 		padding: '10px',
 		border: '2px solid #EDEEF1',
@@ -317,7 +317,7 @@ const useStyles = makeStyles({
 export default useStyles;
 
 export const Tab = styled(TabUnstyled)`
-	font-family: IBM Plex Sans, sans-serif;
+	font-family: Inter;
 	color: #868da2;
 	cursor: pointer;
 	font-size: 0.875rem;
@@ -329,7 +329,7 @@ export const Tab = styled(TabUnstyled)`
 	justify-content: center;
 
 	&:hover {
-		background-color: #1c67ff;
+		background-color: #ccdcfc;
 		padding: 6px 6px;
 	}
 
