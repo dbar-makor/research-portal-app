@@ -129,7 +129,6 @@ const UserInfoView = (props) => {
 																isEditMode: !props.chosenUser.isEditMode,
 															})
 														}
-														//  onBlur={() => setIsEditMode(false)}
 													>
 														<EditIcon />
 													</EditButton>
@@ -159,13 +158,11 @@ const UserInfoView = (props) => {
 										options={props.countriesArr}
 										value={props.chosenUser.country}
 										inputValue={props.inputValue}
-										// onBlur={() => sendUpdatedCompany()}
 										getOptionSelected={(option, value) => option.name === value.name}
 										popupIcon={<SearchIcon style={{ color: '#1C67FF' }} />}
 										getOptionLabel={(option) => {
 											return option.name;
 										}}
-										// error={errors.country}
 										renderInput={(params) => (
 											<TextField
 												{...params}

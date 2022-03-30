@@ -12,7 +12,6 @@ export const login = (email, password) => async (dispatch) => {
 	try {
 		const headers = { 'Content-Type': 'application/json' };
 
-		console.log('BASE_URL', BASE_URL);
 		const res = await axios({
 			method: 'PUT',
 			url: `${BASE_URL}${END_POINT.AUTH}`,
