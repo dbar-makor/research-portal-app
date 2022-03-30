@@ -187,7 +187,7 @@ const Settings = () => {
 	);
 };
 
-export default Settings;
+Settings.displayName = 'Settings';
 
 const AllNotificationSwitch = withStyles(() => ({
 	switchBase: {
@@ -222,3 +222,5 @@ const GreenSwitch = withStyles(() => ({
 	checked: {},
 	track: {},
 }))(Switch);
+
+export default Settings;

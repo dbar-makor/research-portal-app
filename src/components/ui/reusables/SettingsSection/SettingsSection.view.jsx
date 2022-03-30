@@ -9,7 +9,7 @@ const SettingsSectionView = (props) => {
 			<Grid container direction="column">
 				<Grid item>
 					<Typography style={{ marginLeft: 10, color: '#868DA2', fontSize: 14 }}>
-						{props.section}
+						{props.section.replace('_', ' ')}
 					</Typography>
 				</Grid>
 				{props.userSettings &&

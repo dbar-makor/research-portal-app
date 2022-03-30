@@ -1,7 +1,6 @@
 import React from 'react';
 import { Grid, Typography, Switch, withStyles } from '@material-ui/core';
 import SettingsSection from '../SettingsSection/SettingsSection';
-//import useStyles from './Settings.style';
 
 const SettingsView = (props) => {
 	return (

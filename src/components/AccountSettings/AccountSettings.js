@@ -9,7 +9,6 @@ import { useState, useCallback } from 'react';
 import { ReactComponent as BlueShape } from '../../assets/icons/blueBorder.svg';
 import { useStyles } from '../../styles/AccountSettingsStyles';
 import EditProfile from '../ui/reusables/EditProfile/EditProfile';
-//import Settings from './Settings';
 import Settings from '../ui/reusables/Settings/Settings';
 import PrivateRoute from '../layout/PrivateRoute/PrivateRoute';
 import * as actionAuth from '../../redux/auth/action';
@@ -228,7 +227,6 @@ const AccountSettings = () => {
 						</Grid>
 					</Grid>
 				</Grid>
-				{/* ROUTING GRID */}
 				<Grid item xs={9}>
 					<Switch>
 						<PrivateRoute path={`${path}/settings`} component={Settings} />
