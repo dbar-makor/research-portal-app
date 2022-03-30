@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
 		},
 	},
 	tabs: {
+		'minWidth': '30vh',
 		'& .MuiTabs-indicator': {
 			backgroundColor: '#1C67FF',
 		},
