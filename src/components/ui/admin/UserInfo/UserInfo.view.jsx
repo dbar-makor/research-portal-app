@@ -115,8 +115,13 @@ const UserInfoView = (props) => {
 										</Grid>
 									</Grid>
 									<Grid item xs={2}>
-										<Grid container alignItems="center" justifyContent="flex-end">
-											<Grid item style={{ marginRight: '16px' }}>
+										<Grid container alignItems="center" justifyContent="flex-end" style={{ minWidth:'90px'}} >
+											<Grid
+												item
+												style={{
+													marginRight: '16px',
+												}}
+											>
 												{props.chosenUser.isEditMode ? (
 													<EditDoneButton onClick={() => props.sendUpdatedUser()}>
 														<WhiteCheckIcon />
@@ -177,7 +182,7 @@ const UserInfoView = (props) => {
 									/>
 								) : (
 									<Grid container alignItems="center">
-										<Grid item>
+										<Grid item style={{ marginRight: '5px'}}>
 											<LocationIcon />
 										</Grid>
 										<Grid item>
