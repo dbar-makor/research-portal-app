@@ -79,14 +79,14 @@
 		"preinstall": "npx only-allow yarn",
 		"husky:install": "husky install",
 		"git:config": "git config --local include.path ../.gitconfig",
+		"prepare": "run-p husky:install git:config",
 		"start": "react-scripts start",
 		"build": "react-scripts build",
 		"lint": "eslint \"src/**/*.{js,jsx}\"",
 		"lint:fix": "eslint \"src/**/*.{js,jsx}\" --fix",
 		"format": "prettier --write \"src/**/*.{js,jsx}\"",
 		"template:page": "hygen component new-page",
-		"template:ui": "hygen component new-ui",
-		"prepare": "husky install"
+		"template:ui": "hygen component new-ui"
 	},
 	"browserslist": {
 		"production": [
