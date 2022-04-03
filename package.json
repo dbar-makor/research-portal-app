@@ -80,7 +80,7 @@
 		"preinstall": "npx only-allow yarn",
 		"husky:install": "husky install",
 		"git:config": "git config --local include.path ../.gitconfig",
-		"prepare": "run-p husky:install git:config",
+		"prepare": "run-p husky:install git:config && husky install",
 		"start": "react-scripts start",
 		"build": "react-scripts build",
 		"lint": "eslint \"src/**/*.{js,jsx}\"",
@@ -100,9 +100,5 @@
 			"last 1 firefox version",
 			"last 1 safari version"
 		]
-	},
-	"lint-staged": {
-		"src/**/*.{js,jsx}": "eslint --fix",
-		"*.{js,jsx,json}": "prettier --write"
 	}
 }
