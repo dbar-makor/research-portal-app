@@ -75,6 +75,7 @@
 		"prettier": "^2.5.1"
 	},
 	"scripts": {
+		"preinstall": "npx only-allow yarn",
 		"start": "react-scripts start",
 		"lint": "eslint \"src/**/*.{js,jsx}\" --fix",
 		"format": "prettier --write \"src/**/*.{js,jsx}\"",
