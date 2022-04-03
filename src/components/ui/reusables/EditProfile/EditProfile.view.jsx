@@ -4,10 +4,10 @@ import CreateIcon from '@material-ui/icons/Create';
 import { KeyboardDatePicker } from '@material-ui/pickers';
 import ArrowForwardIosOutlinedIcon from '@material-ui/icons/ArrowForwardIosOutlined';
 import { ReactComponent as CalendarIcon } from '../../../../assets/icons/iconCalendar.svg';
-import { StyledTextField } from '../../../../styles/MainStyles';
+import { FilledButton, StyledTextField } from '../../../../styles/MainStyles';
 import ChangePassword from '../ChangePassword/ChangePassword';
 import PhoneInput from '../PhoneInput/PhoneInput';
-import CategoriesAutoComplete from '../../reusables/CategoriesAutoComplete/CategoriesAutoComplete';
+import CategoriesAutoComplete from '../CategoriesAutoComplete/CategoriesAutoComplete';
 
 //import AvatarEditor from 'react-avatar-editor';
 import useStyles from './EditProfile.style';
@@ -94,7 +94,7 @@ const EditProfileView = (props) => {
 						/>
 					</Grid>
 				</Grid>
-				<Grid item xs={8} className={classes.padding}>
+				<Grid item xs={6} className={`${classes.padding} ${classes.autoComplete}`}>
 					<CategoriesAutoComplete
 						formObject={props.localCats}
 						setFormObject={props.setLocalCats}
@@ -107,25 +107,35 @@ const EditProfileView = (props) => {
 					/>
 				</Grid>
 				<Grid item xs={12} className={classes.padding}>
-				<Divider style={{ margin: 'auto', width: '100%', marginBottom: '26px' }} />
-
+					<Divider style={{ width: '100%' }} />
 				</Grid>
-			</Grid>
-			<Grid
-				item
-				xs={12}
-				className={props.chosenModal ? classes.chosenRoute : classes.notChosen}
-				onClick={() => props.handleOpenModal('modal')}
-			>
-				<Grid container alignItems="center">
-					<Grid item>
-						<Typography className={classes.link}>
-							Change Password
-							<ArrowForwardIosOutlinedIcon className={classes.arrowIcon} />
-						</Typography>
+				<Grid
+					item
+					xs={12}
+					className={props.chosenModal ? classes.chosenRoute : classes.notChosen}
+					onClick={() => props.handleOpenModal('modal')}
+				>
+					<Grid container alignItems="center">
+						<Grid item>
+							<Typography className={classes.link}>
+								Change Password
+								<ArrowForwardIosOutlinedIcon className={classes.arrowIcon} />
+							</Typography>
+						</Grid>
+					</Grid>
+				</Grid>
+				<Grid item xs={12} className={classes.saveButton}>
+					<Grid container justifyContent="flex-end">
+						<FilledButton
+							disabled={false}
+							//onClick={props.handleFormSubmit}
+						>
+							Save
+						</FilledButton>
 					</Grid>
 				</Grid>
 			</Grid>
+
 			<ChangePassword chosenModal={props.chosenModal} handleCloseModal={props.handleCloseModal} />
 		</Grid>
 	);

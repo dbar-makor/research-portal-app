@@ -6,6 +6,7 @@ import useStyles, { StyledAutoComplete, CustomTextField, PopperMy } from './Phon
 const PhoneInputView = (props) => {
 	const countries = useSelector((state) => state.utils.utils.country);
 	const classes = useStyles();
+
 	return (
 		<Grid container>
 			<Grid item xs={5}>
@@ -26,7 +27,7 @@ const PhoneInputView = (props) => {
 					}
 					renderOption={(option, props) => {
 						return (
-							<Box component="li" {...props}>
+							<Box component="li" className={classes.flagBox} {...props}>
 								<img
 									className={classes.flagImg}
 									loading="eager"
@@ -71,7 +72,7 @@ const PhoneInputView = (props) => {
 					}}
 				/>
 			</Grid>
-			<Grid item xs={6} >
+			<Grid item xs={6}>
 				<CustomTextField
 					variant="outlined"
 					size="small"

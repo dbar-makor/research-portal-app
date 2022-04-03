@@ -1,10 +1,16 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(() => ({
-	padding:{
-		paddingTop:'25px'
+	padding: {
+		paddingTop: '25px',
 	},
-
+	saveButton: {
+		position: 'relative',
+		paddingTop: '50px'
+	},
+	autoComplete: {
+		marginLeft: '-409px',
+	},
 	editWrapper: {
 		paddingTop: '30px',
 		paddingLeft: '30px',
@@ -77,13 +83,13 @@ const useStyles = makeStyles(() => ({
 		},
 	},
 	chosenRoute: {
-		marginTop: 100,
+		marginTop: 20,
 		color: '#1C67FF',
 		backgroundColor: '#e0ebfc',
 		cursor: 'pointer',
 	},
 	notChosen: {
-		marginTop: 100,
+		marginTop: 20,
 		color: '#000000',
 		backgroundColor: 'none',
 		cursor: 'pointer',

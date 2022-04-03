@@ -11,6 +11,9 @@ const useStyles = makeStyles(() => ({
 		position: 'absolute',
 		top: '10px',
 	},
+	flagBox: {
+		width: '200px',
+	},
 	// dialingCodeField:{
 
 	// }
@@ -33,12 +36,13 @@ export const StyledAutoComplete = withStyles(() => ({
 			},
 		},
 	},
+
 	inputRoot: {
-		color: '#0000',
-		fontWeight: 400,
-		fontSize: '6px',
-		backgroundColor: '#FFFF',
-		width:'80%',
+		'color': '#0000',
+		'fontWeight': 400,
+		'fontSize': '6px',
+		'backgroundColor': '#FFFF',
+		'width': '80%',
 		'&.MuiOutlinedInput-root ': {
 			borderRadius: 0,
 			borderBottom: '2px solid #A5AFC233',
@@ -61,12 +65,10 @@ export const StyledAutoComplete = withStyles(() => ({
 		'&.Mui-focused .MuiOutlinedInput-notchedOutline': {
 			border: 'none',
 		},
-		'& .MuiAutocomplete-input':{
-     marginLeft: '27px',
-		 marginTop: '2px',
-
+		'& .MuiAutocomplete-input': {
+			marginLeft: '27px',
+			marginTop: '2px',
 		},
-	
 	},
 	paper: {
 		'&.MuiAutocomplete-paper': {
@@ -84,7 +86,7 @@ export const StyledAutoComplete = withStyles(() => ({
 		},
 	},
 	listbox: {
-		position: 'absolute',
+		'position': 'absolute',
 		'&.MuiAutocomplete-listbox': {
 			'&::-webkit-scrollbar': {
 				width: '3px',
@@ -160,8 +162,8 @@ export const CustomTextField = withStyles(() => ({
 		'& .MuiInput-underline.Mui-error:after': {
 			borderBottom: '1px solid #FFFF',
 		},
-		'& .MuiAutocomplete-endAdornment':{
-			right: '10px !important' ,
-		}
+		'& .MuiAutocomplete-endAdornment': {
+			right: '10px !important',
+		},
 	},
 }))(TextField);

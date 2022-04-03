@@ -4,11 +4,14 @@ import axios from 'axios';
 import { BASE_URL, END_POINT } from '../../../../utils/constants';
 import * as utilsAction from '../../../../redux/utils/utilsSlice';
 import EditProfileView from './EditProfile.view';
+
 const EditProfile = () => {
 	const userContent = useSelector((state) => state.auth.userContent);
+
 	const [avatar, setAvatar] = useState(
 		'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
 	);
+
 	const dispatch = useDispatch();
 	const [fullName, setFullName] = useState('');
 	const [userInformation, setUserInformation] = useState({});
@@ -16,6 +19,7 @@ const EditProfile = () => {
 	const [errors, setErrors] = useState({});
 	const [validationResult, setValidationResult] = useState(false);
 	const [chosenModal, setChosenModal] = useState(false);
+
 	const handleCloseModal = useCallback(() => {
 		setChosenModal(false);
 	});
@@ -30,8 +34,9 @@ const EditProfile = () => {
 
 			if (res.status === 201 || res.status === 200) {
 				const userInformation = res.data;
+
 				userInformation.phone = JSON.parse(userInformation.phone);
-				userInformation.birthday='01/01/2000';
+				userInformation.birthday = '01/01/2000';
 				userInformation.categories = [
 					{
 						id: '4c9b048d-4c27-11ec-8f4c-10e7c6179426',
@@ -72,12 +77,15 @@ const EditProfile = () => {
 			}
 		} catch (error) {}
 	});
+
 	const handleCatsChange = (values) => {
 		setLocalCats(values);
 	};
+
 	useEffect(() => {
 		dispatch(utilsAction.getUtilsAsync());
 		fetchUserInformation();
+
 		return () => {
 			setUserInformation({});
 		};
