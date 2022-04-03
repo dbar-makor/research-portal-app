@@ -41,8 +41,6 @@ const SettingsSectionView = (props) => {
 SettingsSectionView.displayName = 'SettingsSectionView';
 SettingsSectionView.defaultProps = {};
 
-export default React.memo(SettingsSectionView);
-
 const GreenSwitch = withStyles(() => ({
 	switchBase: {
 		'color': '#FFFFFF',
@@ -61,3 +59,5 @@ const GreenSwitch = withStyles(() => ({
 	checked: {},
 	track: {},
 }))(Switch);
+
+export default React.memo(SettingsSectionView);

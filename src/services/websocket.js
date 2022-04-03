@@ -1,10 +1,11 @@
+// eslint-disable-next-line import/exports-last
 export let ws = null;
 
 let messages = [];
 
 export const connectWS = (token) => {
 	if ((ws === null || ws.readyState === 3) && token) {
-					// eslint-disable-next-line no-undef
+		// eslint-disable-next-line no-undef
 		ws = new WebSocket(`ws://10.0.0.24:3040/?token=${token}`);
 	}
 
