@@ -52,7 +52,7 @@ const EventsView = (props) => {
 						</Grid>
 					</Grid>
 					{props.events.length > 0
-						? props.vents.map((event, idx) => {
+						? props.events.map((event, idx) => {
 								return Event(event, idx);
 						  })
 						: noEvents()}
