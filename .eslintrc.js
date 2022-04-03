@@ -10,6 +10,7 @@ module.exports = {
 		'plugin:react/jsx-runtime',
 		'plugin:import/recommended',
 		'plugin:import/react',
+		'prettier',
 	],
 	parserOptions: {
 		ecmaVersion: 12,
