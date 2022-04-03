@@ -21,9 +21,6 @@ jobs:
             - name: Installing dependencies
               run: yarn install --immutable --immutable-cache --check-cache
 
-            - name: Check unused dependencies
-              run: yarn run depcheck
-
             - name: Check ESLint
               run: yarn run lint
 
