@@ -123,6 +123,7 @@ const App = () => {
 				<PrivateRoute exact path="/upload-article" component={DeadArticle} />
 				<PrivateRoute exact path="article/:id" component={Article} />
 				<PrivateRoute path="/prearticle" component={FullPublication} />
+				<PrivateRoute exact path="/all-notfications" component={AllNotifications} />
 				<PrivateRoute path="/*" component={LoginPage} />
 			</Switch>
 		);
@@ -138,6 +139,7 @@ const App = () => {
 				<PrivateRoute exact path="/contracts" component={AllContracts} />
 				<PrivateRoute exact path="/invoices" component={AllInvoices} />
 				<PrivateRoute exact path="/contract" component={GeneralContractView} />
+				<PrivateRoute exact path="/all-notfications" component={AllNotifications} />
 				<PrivateRoute path="/*" component={LoginPage} />
 			</Switch>
 		);
@@ -153,6 +155,7 @@ const App = () => {
 				<PrivateRoute exact path="/contract" component={GeneralContractView} />
 				<PrivateRoute exact path="/authors" component={AuthorsUsersScreen} />
 				<PrivateRoute exact path="/sales" component={SalesUsersScreen} />
+				<PrivateRoute exact path="/all-notfications" component={AllNotifications} />
 				<PrivateRoute path="/*" component={LoginPage} />
 			</Switch>
 		);
