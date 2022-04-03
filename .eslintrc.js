@@ -199,7 +199,6 @@ module.exports = {
 		'import/no-mutable-exports': ['warn'],
 		'import/no-unused-modules': ['error'],
 		'import/no-amd': ['error'],
-		'import/no-nodejs-modules': ['error'],
 		'import/first': ['error'],
 		'import/exports-last': ['warn'],
 		'import/no-duplicates': ['error'],
