@@ -69,6 +69,54 @@ export const validateCompany = (fieldValues, errors, setErrors, setValidationRes
 	setValidationResult(result);
 };
 
+export const validateUserInformation = (fieldValues, errors, setErrors, setValidationResult) => {
+	const temp = { ...errors };
+
+	if ('name' in fieldValues) {
+		temp.name = fieldValues.name ? '' : 'This field is required';
+	}
+
+	if ('dialing_code' in fieldValues) {
+		temp.dialing_code = fieldValues.dialing_code ? '' : 'This field is required';
+	}
+
+	if ('email' in fieldValues) {
+		const pattern =
+			/^(([^<>()\]\\.,;:\s@"]+(\.[^<>()\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+		if (fieldValues.email) {
+			temp.email = '';
+		} else {
+			temp.email = 'This field is required';
+		}
+
+		if (fieldValues.email && pattern.test(fieldValues.email.toLowerCase())) {
+			temp.email = '';
+		} else {
+			temp.email = 'Email is invalid';
+		}
+	}
+
+	setErrors({ ...temp });
+	const allFields = [
+		'name',
+		'email',
+		'dialing_code',
+		'number',
+		'position',
+		'username',
+		'birthday',
+		'categories',
+	];
+
+	const tempResult1 = allFields.every((field) => Object.keys(temp).includes(field));
+	const tempResult2 = Object.values(temp).every((x) => x === '');
+
+	const result = tempResult1 && tempResult2;
+
+	setValidationResult(result);
+};
+
 export const validateChangedPassword = (
 	fieldValues,
 	errors,

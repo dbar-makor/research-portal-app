@@ -11,6 +11,7 @@ const NumberFormatCustom = (props) => {
 			inputRef={props.inputRef}
 			decimalNo={props.decimalNo}
 			minValue={props.minValue}
+			thousandSeparator={props.thousandSeparator}
 			other={other}
 			onChange={props.onChange}
 		/>

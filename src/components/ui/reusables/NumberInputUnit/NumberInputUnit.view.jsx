@@ -2,7 +2,6 @@ import React from 'react';
 import { Grid, TextField } from '@material-ui/core';
 
 const NumberInputUnitView = (props) => {
-	console.log(props.value);
 	return (
 		<Grid container className={props.className}>
 			<Grid item xs={12}>

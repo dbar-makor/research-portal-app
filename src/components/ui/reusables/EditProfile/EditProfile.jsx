@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import { BASE_URL, END_POINT } from '../../../../utils/constants';
 import * as utilsAction from '../../../../redux/utils/utilsSlice';
+import { validateUserInformation } from '../../../../utils/helpers/validationFunctions';
 import EditProfileView from './EditProfile.view';
 
 const EditProfile = () => {
@@ -13,8 +14,9 @@ const EditProfile = () => {
 	);
 
 	const dispatch = useDispatch();
-	const [fullName, setFullName] = useState('');
 	const [userInformation, setUserInformation] = useState({});
+	const [dialingCodeInputValue, setDialingCodeInputValue] = useState('');
+	const [adornment, setAdornment] = useState(null);
 	const [localCats, setLocalCats] = useState([]);
 	const [errors, setErrors] = useState({});
 	const [validationResult, setValidationResult] = useState(false);
@@ -33,11 +35,12 @@ const EditProfile = () => {
 			const res = await axios.get(`${BASE_URL}${END_POINT.USER}/${userContent.id}`);
 
 			if (res.status === 201 || res.status === 200) {
-				const userInformation = res.data;
+				const userData = res.data;
 
-				userInformation.phone = JSON.parse(userInformation.phone);
-				userInformation.birthday = '01/01/2000';
-				userInformation.categories = [
+				userData.phone = JSON.parse(userData.phone);
+				userData.country = { ...userData.country, dialing_code: userData.phone.dialing_code };
+				userData.birthday = '01/01/2000';
+				userData.categories = [
 					{
 						id: '4c9b048d-4c27-11ec-8f4c-10e7c6179426',
 						name: 'Investment strategy',
@@ -71,15 +74,29 @@ const EditProfile = () => {
 						name: 'Weekly macroscopy',
 					},
 				];
-				console.log('userInformation', userInformation);
-				setLocalCats(userInformation.categories);
-				setUserInformation(userInformation);
+				setLocalCats(userData.categories);
+				setUserInformation(userData);
+				setDialingCodeInputValue(userData.phone.dialing_code);
+				setAdornment(userData.country.code);
 			}
 		} catch (error) {}
 	});
 
 	const handleCatsChange = (values) => {
 		setLocalCats(values);
+		validateUserInformation({ categories: values }, errors, setErrors, setValidationResult);
+	};
+
+	const handleUserInformationChange = (key, value) => {
+		validateUserInformation({ [key]: value }, errors, setErrors, setValidationResult);
+
+		if (key === 'number') {
+			setUserInformation((prev) => ({ ...prev, phone: { ...prev.phone, number: value } }));
+
+			return;
+		}
+
+		setUserInformation((prev) => ({ ...prev, [key]: value }));
 	};
 
 	useEffect(() => {
@@ -87,29 +104,38 @@ const EditProfile = () => {
 		fetchUserInformation();
 
 		return () => {
+			console.log('return');
 			setUserInformation({});
 		};
 	}, []);
 
 	return (
-		<EditProfileView
-			avatar={avatar}
-			setAvatar={setAvatar}
-			fullName={fullName}
-			setFullName={setFullName}
-			userInformation={userInformation}
-			chosenModal={chosenModal}
-			setChosenModal={setChosenModal}
-			handleCloseModal={handleCloseModal}
-			handleOpenModal={handleOpenModal}
-			errors={errors}
-			setErrors={setErrors}
-			validationResult={validationResult}
-			setValidationResult={setValidationResult}
-			handleCatsChange={handleCatsChange}
-			localCats={localCats}
-			setLocalCats={setLocalCats}
-		/>
+		<>
+			{userInformation ? (
+				<EditProfileView
+					avatar={avatar}
+					setAvatar={setAvatar}
+					userInformation={userInformation}
+					setUserInformation={setUserInformation}
+					chosenModal={chosenModal}
+					setChosenModal={setChosenModal}
+					handleCloseModal={handleCloseModal}
+					handleOpenModal={handleOpenModal}
+					errors={errors}
+					setErrors={setErrors}
+					validationResult={validationResult}
+					setValidationResult={setValidationResult}
+					handleCatsChange={handleCatsChange}
+					handleUserInformationChange={handleUserInformationChange}
+					localCats={localCats}
+					setLocalCats={setLocalCats}
+					dialingCodeInputValue={dialingCodeInputValue}
+					setDialingCodeInputValue={setDialingCodeInputValue}
+					adornment={adornment}
+					setAdornment={setAdornment}
+				/>
+			) : null}
+		</>
 	);
 };
 

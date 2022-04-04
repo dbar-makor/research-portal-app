@@ -45,6 +45,9 @@ const EditProfileView = (props) => {
 						variant="outlined"
 						fullWidth
 						label="Full Name"
+						onChange={(e) => {
+							props.handleUserInformationChange('name', e.target.value);
+						}}
 					/>
 				</Grid>
 				<Grid item xs={4}>
@@ -54,10 +57,25 @@ const EditProfileView = (props) => {
 						variant="outlined"
 						fullWidth
 						label="Email"
+						onChange={(e) => {
+							props.handleUserInformationChange('email', e.target.value);
+						}}
 					/>
 				</Grid>
 				<Grid item xs={4}>
-					<PhoneInput />
+					<PhoneInput
+						errors={props.errors}
+						setErrors={props.setErrors}
+						validationResult={props.validationResult}
+						setValidationResult={props.setValidationResult}
+						handleUserInformationChange={props.handleUserInformationChange}
+						setUserInformation={props.setUserInformation}
+						userInformation={props.userInformation}
+						dialingCodeInputValue={props.dialingCodeInputValue}
+						setDialingCodeInputValue={props.setDialingCodeInputValue}
+						adornment={props.adornment}
+						setAdornment={props.setAdornment}
+					/>
 				</Grid>
 				<Grid container item xs={12} className={classes.padding}>
 					<Grid item xs={4}>
@@ -67,6 +85,9 @@ const EditProfileView = (props) => {
 							variant="outlined"
 							fullWidth
 							label="Position"
+							onChange={(e) => {
+								props.handleUserInformationChange('position', e.target.value);
+							}}
 						/>
 					</Grid>
 					<Grid item xs={4}>
@@ -76,6 +97,9 @@ const EditProfileView = (props) => {
 							variant="outlined"
 							fullWidth
 							label="Username"
+							onChange={(e) => {
+								props.handleUserInformationChange('username', e.target.value);
+							}}
 						/>
 					</Grid>
 					<Grid item xs={4}>
@@ -90,7 +114,14 @@ const EditProfileView = (props) => {
 							placeholder="Date"
 							value={props.userInformation.birthday}
 							InputAdornmentProps={{ position: 'end' }}
-							keyboardIcon={<CalendarIcon className={classes.calendarIcon} />}
+							keyboardIcon={(
+								<CalendarIcon
+									className={classes.calendarIcon}
+									onChange={(date) => {
+										props.handleUserInformationChange('birthday', date);
+									}}
+								/>
+      )}
 						/>
 					</Grid>
 				</Grid>

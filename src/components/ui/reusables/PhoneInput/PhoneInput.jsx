@@ -1,22 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { validateUserInformation } from '../../../../utils/helpers/validationFunctions';
 import PhoneInputView from './PhoneInput.view';
 
-const PhoneInput = () => {
-	const dispatch = useDispatch();
-	const [countryInput, setCountryInput] = useState('');
-	const [countryInputValue, setCountryInputValue] = useState('');
-	const [countryCodeInput, setCountryCodeInput] = useState('');
-	const [countryCodeInputValue, setCountryCodeInputValue] = useState('');
-	const [phoneInput, setPhoneInput] = useState('');
-	const [adornment, setAdornment] = useState(null);
-
+const PhoneInput = (props) => {
 	const handleSelect = (newValue) => {
-		console.log('newValue', newValue.code);
-		const value = newValue ? Number(newValue.dialing_code) : '';
 		const tempAdornment = newValue ? newValue.code : '';
-		setCountryCodeInput(value);
-		setAdornment(tempAdornment);
+
+		validateUserInformation(
+			{ dialing_code: newValue?.dialing_code },
+			props.errors,
+			props.setErrors,
+			props.setValidationResult,
+		);
+		props.setUserInformation((prev) => ({
+			...prev,
+			phone: { ...prev.phone, dialing_code: newValue?.dialing_code },
+		}));
+		props.setAdornment(tempAdornment);
 	};
 
 	const handleSelectInput = (e, value, reason) => {
@@ -25,27 +25,24 @@ const PhoneInput = () => {
 		} else if (e.type === 'blur' && reason === 'reset') {
 			return;
 		}
-		setCountryCodeInputValue(value);
-	};
 
-	const handlePhoneInput = (value) => {
-		const numberValidation = /^\d*\.?\d*$/.test(value);
-		if (numberValidation) {
-			setPhoneInput(value);
-		}
+		props.setDialingCodeInputValue(value);
 	};
 
 	return (
 		<PhoneInputView
-			countryInput={countryInput}
-			countryInputValue={countryInputValue}
-			countryCodeInput={countryCodeInput}
-			countryCodeInputValue={countryCodeInputValue}
+			dialingCodeInputValue={props.dialingCodeInputValue}
+			setDialingCodeInputValue={props.setDialingCodeInputValue}
 			handleSelect={handleSelect}
 			handleSelectInput={handleSelectInput}
-			handlePhoneInput={handlePhoneInput}
-			phoneInput={phoneInput}
-			adornment={adornment}
+			handleUserInformationChange={props.handleUserInformationChange}
+			userInformation={props.userInformation}
+			adornment={props.adornment}
+			setAdornment={props.setAdornment}
+			errors={props.errors}
+			setErrors={props.setErrors}
+			validationResult={props.validationResult}
+			setValidationResult={props.setValidationResult}
 		/>
 	);
 };
