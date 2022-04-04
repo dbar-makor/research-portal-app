@@ -32,7 +32,7 @@ const SettingsView = (props) => {
 							</Grid>
 						</Grid>
 					</Grid>
-					<Grid item xs={5} style={{ paddingTop: '27px' }}>
+					<Grid item xs={5} style={{ minWidth: '390px', paddingTop: '27px' }}>
 						<Grid container>
 							{Object.keys(props.userSettings.settings).map((section) => {
 								return (
