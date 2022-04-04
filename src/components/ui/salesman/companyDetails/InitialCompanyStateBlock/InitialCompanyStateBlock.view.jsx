@@ -13,7 +13,7 @@ const InitialCompanyStateBlockView = (props) => {
 	const classes = useStyles();
 
 	return props ? (
-		<Grid container>
+		<Grid className={classes.prospectTrialWrapper} container>
 			<Grid item xs={12}>
 				{props.type === 'prospect' ? (
 					<Grid container justifyContent="space-between" alignItems="center">
@@ -39,7 +39,7 @@ const InitialCompanyStateBlockView = (props) => {
 					</Typography>
 				)}
 			</Grid>
-			<Grid item xs={12} className={classes.marginBottom8}>
+			<Grid item xs={12} className={classes.marginBottom}>
 				<Grid container justifyContent="space-between" alignItems="center">
 					<Grid item xs={3}>
 						<Typography className={classes.fieldName}>Agent</Typography>
@@ -57,7 +57,6 @@ const InitialCompanyStateBlockView = (props) => {
 								getOptionLabel={(option) => {
 									return option.name;
 								}}
-								// error={errors.country}
 								renderInput={(params) => (
 									<TextField
 										{...params}
@@ -82,7 +81,7 @@ const InitialCompanyStateBlockView = (props) => {
 					</Grid>
 				</Grid>
 			</Grid>
-			<Grid item xs={12} className={classes.marginBottom8}>
+			<Grid item xs={12} className={classes.marginBottom}>
 				<Grid container justifyContent="space-between" alignItems="center">
 					<Grid item>
 						<Typography className={classes.fieldName}>Start Date</Typography>
@@ -110,7 +109,7 @@ const InitialCompanyStateBlockView = (props) => {
 			</Grid>
 			{props.title === 'prospect_trial' && (
 				<>
-					<Grid item xs={12} className={classes.marginBottom8}>
+					<Grid item xs={12} className={classes.marginBottom}>
 						<Grid container justifyContent="space-between" alignItems="center">
 							<Grid item>
 								<Typography className={classes.fieldName}>End Date</Typography>
@@ -136,7 +135,7 @@ const InitialCompanyStateBlockView = (props) => {
 							</Grid>
 						</Grid>
 					</Grid>
-					<Grid item xs={12} className={classes.marginBottom8}>
+					<Grid item xs={12} className={classes.marginBottom}>
 						<Grid container justifyContent="space-between" alignItems="center">
 							<Grid item>
 								<Typography className={classes.fieldName}>Trial Period</Typography>
