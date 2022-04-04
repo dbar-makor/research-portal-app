@@ -17,13 +17,13 @@ const AllInvoicesView = (props) => {
 		<>
 			<Grid
 				container
-				style={{ position: 'absolute', width: '111px', top: 94, left: 140 }}
+				style={{ position: 'absolute', width: '111px', top: 140, left: 140 }}
 				flexDirection="column"
 			>
 				<Grid item xs={12}>
 					<BlueShape />
 				</Grid>
-				<Grid item style={{ paddingTop: 10 }}>
+				<Grid item style={{ paddingTop: 7 }}>
 					<Typography style={{ fontSize: 24, color: '#868DA2' }}>Invoices</Typography>
 				</Grid>
 			</Grid>
@@ -33,8 +33,8 @@ const AllInvoicesView = (props) => {
 						{/* SECTION OF FILTERS */}
 						<Grid item xs={11}>
 							<Grid container>
-								<Grid item xs={6}>
-									<Grid container>
+								<Grid item xs={6} >
+									<Grid container >
 										<Grid item xs={3}>
 											<RangeDatePicker
 												renderFrom="filters"
@@ -45,7 +45,13 @@ const AllInvoicesView = (props) => {
 												setTo={props.setTo}
 											/>
 										</Grid>
-										<Grid item xs={4} style={{ marginLeft: 105 }}>
+										<Grid
+											item
+											xs={4}
+											style={{
+												marginLeft: 115,
+											}}
+										>
 											<SelectInputUnit
 												className={classes.autoCompleteStyle}
 												name="name"

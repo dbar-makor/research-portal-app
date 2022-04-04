@@ -53,10 +53,10 @@ const InvoiceTableView = (props) => {
 									<TableCell style={{ textTransform: 'uppercase', fontWeight: 'bold' }}>
 										{`#${invoice.id.slice(0, 6)}`}
 									</TableCell>
-									<TableCell style={{ textTransform: 'capitalize' }}>
+									<TableCell style={{ textTransform: 'capitalize',minWidth: 100 }}>
 										{invoice.company_name}
 									</TableCell>
-									<TableCell>
+									<TableCell style={{ minWidth: 100}}>
 										{format(new Date(invoice.invoice_date), 'dd MMM, yyyy')}
 									</TableCell>
 									<TableCell style={{ textAlign: 'center' }}>
