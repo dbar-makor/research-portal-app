@@ -1,0 +1,12 @@
+ls:
+    src:
+        .dir: camelcase
+    src/components/**/*:
+        .dir: PascalCase
+
+ignore:
+    - _templates
+    - .github
+    - .husky
+    - .vscode
+    - node_modules

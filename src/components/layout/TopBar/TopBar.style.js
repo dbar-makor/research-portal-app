@@ -1,63 +1,60 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
-	headerContainer: {
+	'headerContainer': {
 		position: 'sticky',
 		top: 0,
 		backgroundColor: ' rgba(0, 0, 0, 1)',
 		zIndex: 1200,
 	},
-	header: {
+	'header': {
 		backgroundColor: '#000000',
 		width: 'inherit',
 		flexDirection: 'row',
 	},
-	divider: {
+	'divider': {
 		backgroundColor: '#353535',
 		height: 2,
 		width: '100%',
 	},
-	title: {
+	'title': {
 		flexGrow: 1,
 		color: '##fff',
 		fontSize: 16,
 	},
-	link: {
+	'link': {
 		textDecoration: 'none',
 		color: '#fff',
-		// '&:hover': {
-		// 	cursor: 'pointer',
-		// },
 	},
-	subTitle: {
+	'subTitle': {
 		color: '#000000',
 		fontSize: '20px',
 	},
-	styledLinks: {
+	'styledLinks': {
 		fontSize: 16,
 		textDecoration: 'none',
 		color: '#ffff',
 	},
-	label: {
+	'label': {
 		top: -10,
 		color: '#686d7d',
 	},
-	gridSpacing: {
+	'gridSpacing': {
 		marginRight: theme.spacing(2),
 		marginLeft: theme.spacing(10),
 	},
-	formControl: {
+	'formControl': {
 		display: 'block',
 	},
-	'& .MuiMenu-paper':{
+	'& .MuiMenu-paper': {
 		transform: 'translate(0px, 100%) !important',
 	},
-	selectBox:{
+	'selectBox': {
 		marginTop: 6,
 		minWidth: 140,
 		maxWidth: 160,
 	},
-	select: {
+	'select': {
 		'marginBottom': '15px',
 		'& svg': {
 			stroke: '#727789',
@@ -88,7 +85,7 @@ const useStyles = makeStyles((theme) => ({
 			border: 'none',
 		},
 	},
-	search: {
+	'search': {
 		'width': '250px',
 		'& .MuiFilledInput-root': {
 			backgroundColor: '#3e3e3e',
@@ -111,7 +108,7 @@ const useStyles = makeStyles((theme) => ({
 			},
 		},
 	},
-	searchIcon: {
+	'searchIcon': {
 		'& path': {
 			fill: '#1C67FF',
 		},
