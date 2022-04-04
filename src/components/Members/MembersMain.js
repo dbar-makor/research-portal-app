@@ -60,7 +60,6 @@ const MembersMain = () => {
 
 		if (search !== '') {
 			const filterPublications = publications.filter((publication) =>
-				//let categoriesNames = p.categories.map((category) => category.name)
 				publication.title.toLowerCase().includes(search),
 			);
 
