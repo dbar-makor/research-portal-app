@@ -10,7 +10,7 @@ export const useStyles = makeStyles((theme) => ({
 		borderRadius: '8px',
 		height: '12px',
 		marginBottom: '10px',
-		minWidth:'45px'
+		minWidth: '45px',
 	},
 	blueShapeModal: {
 		backgroundColor: '#1C67FF',
@@ -98,7 +98,6 @@ export const useStyles = makeStyles((theme) => ({
 	},
 	memberFooter: {
 		position: 'relative',
-		//width: "100%"
 		[theme.breakpoints.only('xs')]: {
 			height: '550px',
 		},
