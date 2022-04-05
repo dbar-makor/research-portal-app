@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(() => ({
-	arrowIcon: {
+	field: {
 		'& .MuiSvgIcon-root': {
 			color: '#1C67FF',
 		},

@@ -12,22 +12,19 @@ import {
 import React from 'react';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
-//import useStyles from './AdminTopbar.style';
+import useStyles from './AdminTopbar.style';
 
 const AdminTopbarView = (props) => {
+	const classes = useStyles();
+
 	return (
 		<Grid item xs={3} style={{ marginRight: 113 }}>
 			<Grid container justifyContent="flex-end">
-				<Grid item>
+				<Grid item className={classes.menueWrapper}>
 					<Grid container alignItems="center">
 						<Grid item>
 							<Typography
-								style={{
-									fontSize: 16,
-									color: '#fffff',
-									cursor: 'pointer',
-									fontWeight: 300,
-								}}
+								className={classes.textStyle}
 								onClick={() => props.handleToggle('user_mgmt')}
 							>
 								Users Management
@@ -43,9 +40,9 @@ const AdminTopbarView = (props) => {
 								onClick={() => props.handleToggle('user_mgmt')}
 							>
 								{props.openUserMgmt ? (
-									<ExpandLessIcon style={{ color: '#ffff' }} />
+									<ExpandLessIcon className={classes.expandLessIcon} />
 								) : (
-									<ExpandMoreIcon style={{ color: '#ffff' }} />
+									<ExpandMoreIcon className={classes.expandLessIcon} />
 								)}
 							</IconButton>
 						</Grid>
@@ -75,7 +72,7 @@ const AdminTopbarView = (props) => {
 								<Paper>
 									<ClickAwayListener onClickAway={(e) => props.handleClose(e, 'user_mgmt')}>
 										<MenuList
-											autoFocusItem={open}
+											autoFocusItem={props.open}
 											id="composition-menu"
 											aria-labelledby="composition-button"
 										>

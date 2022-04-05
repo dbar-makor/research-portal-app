@@ -142,8 +142,7 @@ const ContractRowView = (props) => {
 											props.filterInvoices.map((invoice, idx) => (
 												<TableRow key={idx}>
 													<TableCell component="th" scope="row">
-														#
-														{invoice.id?.slice(0, 6).toUpperCase()}
+														{`#${invoice.id?.slice(0, 6).toUpperCase()}`}
 													</TableCell>
 													<TableCell>
 														{format(
@@ -189,11 +188,11 @@ const ContractRowView = (props) => {
 ContractRowView.displayName = 'ContractRowView';
 ContractRowView.defaultProps = {};
 
-export default React.memo(ContractRowView);
-
 const StyledTableCell = withStyles(() => ({
 	root: {
 		textAlign: 'left',
 		padding: '10px 0px 10px 2px',
 	},
 }))(TableCell);
+
+export default React.memo(ContractRowView);

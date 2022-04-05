@@ -10,6 +10,7 @@ module.exports = {
 		'plugin:react/jsx-runtime',
 		'plugin:import/recommended',
 		'plugin:import/react',
+		'prettier',
 	],
 	parserOptions: {
 		ecmaVersion: 12,
@@ -149,7 +150,6 @@ module.exports = {
 		'react/jsx-one-expression-per-line': ['error', { allow: 'single-child' }],
 		'react/jsx-no-script-url': 'error',
 		'react/jsx-indent-props': ['error', 'tab'],
-		'react/jsx-indent': ['error', 'tab'],
 		'react/jsx-closing-tag-location': 'error',
 		'react/jsx-closing-bracket-location': 'error',
 		'react/jsx-boolean-value': ['error', 'never'],
@@ -199,7 +199,6 @@ module.exports = {
 		'import/no-mutable-exports': ['warn'],
 		'import/no-unused-modules': ['error'],
 		'import/no-amd': ['error'],
-		'import/no-nodejs-modules': ['error'],
 		'import/first': ['error'],
 		'import/exports-last': ['warn'],
 		'import/no-duplicates': ['error'],

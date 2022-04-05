@@ -3,7 +3,7 @@ import TabsListUnstyled from '@mui/base/TabsListUnstyled';
 import TabPanelUnstyled from '@mui/base/TabPanelUnstyled';
 import { styled } from '@mui/material/styles';
 import TabUnstyled, { tabUnstyledClasses } from '@mui/base/TabUnstyled';
-import buttonUnstyledClasses from '@mui/base/ButtonUnstyled';
+import { buttonUnstyledClasses } from '@mui/base/ButtonUnstyled';
 
 const useStyles = makeStyles({
 	header: {
@@ -17,39 +17,22 @@ const useStyles = makeStyles({
 		backgroundColor: '#F8F8F8',
 	},
 	horizontalScrollWrapper: {
-		'display': 'flex',
-		'minHeight': '7.9vh',
-		'overflow': 'hidden',
-		'&:hover': {
-			'overflowX': 'scroll',
-			'&::-webkit-scrollbar-track': {
-				borderRadius: '10px',
-				backgroundColor: '#F3F4F8',
-			},
-			'&::-webkit-scrollbar': {
-				borderRadius: '10px',
-				height: '7px',
-				zIndex: 2,
-				backgroundColor: '#F5F5F5',
-			},
-			'&::-webkit-scrollbar-thumb': {
-				borderRadius: '10px',
-				backgroundColor: '#D5DBE7',
-			},
-		},
+		display: 'flex',
+		minHeight: '7.9vh',
+		overflow: 'hidden',
 	},
 	mostClickedIdeasWrapper: {
 		display: 'flex',
 		justifyContent: 'space-between',
-		alignItems: 'center',
-		backgroundColor: '#EDF2FB',
 		padding: '0 10px 0 10px',
-		margin: '10px',
-		borderRadius: '8px',
-		minWidth: '25.2vh',
 		maxHeight: '6vh',
-		animation: 'mostClickedIdeas 10s -10s linear infinite',
+		minWidth: '25.2vh',
+		margin: '10px',
+		alignItems: 'center',
+		borderRadius: '8px',
+		backgroundColor: '#EDF2FB',
 		willChange: 'transform',
+		animation: 'mostClickedIdeas 10s -10s linear infinite',
 	},
 	mostClickedIdeasTitle: {
 		color: '#8197ae',
@@ -76,6 +59,8 @@ const useStyles = makeStyles({
 		borderRadius: '8px',
 		backgroundColor: '#fff',
 		border: '2px solid #EDEEF1',
+		minHeight: '41vh',
+		maxHeight: '41vh',
 	},
 	focusIdeasWrapper: {
 		display: 'flex',
@@ -85,29 +70,28 @@ const useStyles = makeStyles({
 		marginTop: '10px',
 		borderRadius: '8px',
 		backgroundColor: '#F3F4F8',
+		marginRight: '8px',
 	},
 	focusIdeasScroll: {
 		'display': 'flex',
 		'flexDirection': 'column',
-		'minHeight': '36vh',
-		'maxHeight': '36vh',
+		'minHeight': '39vh',
+		'maxHeight': '39vh',
 		'overflow': 'hidden',
-		'&:hover': {
-			'overflowY': 'scroll',
-			'&::-webkit-scrollbar-track': {
-				borderRadius: '10px',
-				backgroundColor: '#F3F4F8',
-			},
-			'&::-webkit-scrollbar': {
-				borderRadius: '10px',
-				maxWidth: '7px',
-				zIndex: 2,
-				backgroundColor: '#F5F5F5',
-			},
-			'&::-webkit-scrollbar-thumb': {
-				borderRadius: '10px',
-				backgroundColor: '#D5DBE7',
-			},
+		'overflowY': 'scroll',
+		'&::-webkit-scrollbar-track': {
+			borderRadius: '10px',
+			backgroundColor: '#F3F4F8',
+		},
+		'&::-webkit-scrollbar': {
+			borderRadius: '10px',
+			maxWidth: '7px',
+			zIndex: 2,
+			backgroundColor: '#F5F5F5',
+		},
+		'&::-webkit-scrollbar-thumb': {
+			borderRadius: '10px',
+			backgroundColor: '#D5DBE7',
 		},
 	},
 	focusIdeasDate: {
@@ -116,15 +100,17 @@ const useStyles = makeStyles({
 	},
 	focusIdeasContent: {
 		color: '#8197ae',
-		fontSize: '1.04rem',
+		fontSize: '0.9vw',
 		marginTop: '10px',
 	},
 	lastPublications: {
-		borderRadius: '8px',
-		backgroundColor: '#fff',
-		border: '2px solid #EDEEF1',
+		maxHeight: '29,5vh',
+		minHeight: '29.5vh',
 		padding: '10px',
 		marginBottom: '25px',
+		borderRadius: '8px',
+		border: '2px solid #EDEEF1',
+		backgroundColor: '#fff',
 	},
 	lastPublicationsWrapper: {
 		display: 'flex',
@@ -141,7 +127,7 @@ const useStyles = makeStyles({
 	lastPublicationsContent: {
 		color: '#151515',
 		fontWeight: 'bold',
-		fontSize: '1.1rem',
+		fontSize: '0.8vw',
 		marginTop: '10px',
 	},
 	industryRecoursed: {
@@ -162,7 +148,7 @@ const useStyles = makeStyles({
 	},
 	industryRecoursedContent: {
 		color: '#151515',
-		fontSize: '1.04rem',
+		fontSize: '0.8vw',
 		marginTop: '10px',
 	},
 	latestNews: {
@@ -173,28 +159,11 @@ const useStyles = makeStyles({
 		border: '2px solid #EDEEF1',
 	},
 	latestNewsScroll: {
-		'display': 'flex',
-		'flexDirection': 'column',
-		'minHeight': '20.1vh',
-		'maxHeight': '20.1vh',
-		'overflow': 'hidden',
-		'&:hover': {
-			'overflowY': 'scroll',
-			'&::-webkit-scrollbar-track': {
-				borderRadius: '10px',
-				backgroundColor: '#F3F4F8',
-			},
-			'&::-webkit-scrollbar': {
-				borderRadius: '10px',
-				maxWidth: '7px',
-				zIndex: 2,
-				backgroundColor: '#F5F5F5',
-			},
-			'&::-webkit-scrollbar-thumb': {
-				borderRadius: '10px',
-				backgroundColor: '#D5DBE7',
-			},
-		},
+		display: 'flex',
+		flexDirection: 'column',
+		minHeight: '20.1vh',
+		maxHeight: '20.1vh',
+		overflow: 'hidden',
 	},
 	latestNewsWrapper: {
 		'display': 'flex',
@@ -222,6 +191,7 @@ const useStyles = makeStyles({
 		backgroundColor: '#fff',
 		border: '2px solid #EDEEF1',
 		padding: '10px',
+		minHeight: '29vh',
 	},
 	morningNotesWrapper: {
 		'display': 'flex',
@@ -238,26 +208,25 @@ const useStyles = makeStyles({
 	morningNotesScroll: {
 		'display': 'flex',
 		'flexDirection': 'column',
-		'minHeight': '19.5vh',
-		'maxHeight': '19.5vh',
+		'minHeight': '21vh',
+		'maxHeight': '21vh',
 		'marginTop': '2px',
 		'overflow': 'hidden',
-		'&:hover': {
-			'overflowY': 'scroll',
-			'&::-webkit-scrollbar-track': {
-				borderRadius: '10px',
-				backgroundColor: '#F3F4F8',
-			},
-			'&::-webkit-scrollbar': {
-				borderRadius: '10px',
-				maxWidth: '7px',
-				zIndex: 2,
-				backgroundColor: '#F5F5F5',
-			},
-			'&::-webkit-scrollbar-thumb': {
-				borderRadius: '10px',
-				backgroundColor: '#D5DBE7',
-			},
+		'overflowY': 'scroll',
+		'&::-webkit-scrollbar-track': {
+			borderRadius: '10px',
+			backgroundColor: '#F3F4F8',
+		},
+		'&::-webkit-scrollbar': {
+			borderRadius: '10px',
+			maxWidth: '7px',
+			zIndex: 2,
+			backgroundColor: '#F5F5F5',
+		},
+		'&::-webkit-scrollbar-thumb': {
+			marginLeft: '30px',
+			borderRadius: '10px',
+			backgroundColor: '#D5DBE7',
 		},
 	},
 	morningNotesDate: {
@@ -269,7 +238,8 @@ const useStyles = makeStyles({
 		color: '#151515',
 	},
 	events: {
-		minWidth: '35vh',
+		minWidth: '29vh',
+		minHeight: '90vh',
 		borderRadius: '8px',
 		padding: '10px',
 		border: '2px solid #EDEEF1',
@@ -317,7 +287,7 @@ const useStyles = makeStyles({
 export default useStyles;
 
 export const Tab = styled(TabUnstyled)`
-	font-family: IBM Plex Sans, sans-serif;
+	font-family: Inter;
 	color: #868da2;
 	cursor: pointer;
 	font-size: 0.875rem;
@@ -329,7 +299,7 @@ export const Tab = styled(TabUnstyled)`
 	justify-content: center;
 
 	&:hover {
-		background-color: #1c67ff;
+		background-color: #ccdcfc;
 		padding: 6px 6px;
 	}
 

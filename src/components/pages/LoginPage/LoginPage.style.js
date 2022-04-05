@@ -1,19 +1,33 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(() => ({
+	page: {
+		height: '100vh',
+	},
 	modalContainer: {
 		backgroundColor: '#fff',
-		width: '30vw',
-		position: 'absolute',
-		top: '15vh',
-		left: '35vw',
+		minWidth: 300,
+		// minHeight: 300,
 		height: '535px',
-		flexDirection: 'column',
 		alignItems: 'center',
-		padding: '57px 67px 5px 49px',
 		borderRadius: '8px',
 		boxShadow: '0px 8px 24px #0018581F',
+		flexWrap: 'nowrap',
 	},
+	modalContent: {
+		maxHeight: '90%',
+		maxWidth: 370,
+		flexWrap: 'nowrap',
+	},
+	upperGroup: {
+		flexWrap: 'nowrap',
+		height: 'fit-content',
+	},
+	form: {
+		flexWrap: 'nowrap',
+		minHeight: 140,
+	},
+	buttonContainer: { height: 'fit-content', maxHeight: 50 },
 	textFieldStyle: {
 		'borderColor': '#A5AFC233',
 		'width': '100%',
@@ -21,14 +35,40 @@ const useStyles = makeStyles(() => ({
 			padding: '10.6px',
 		},
 		'& .MuiInputBase-input': {
-			'fontFamily': 'inter',
+			// 'fontFamily': 'inter',
 			'fontSize': '14px',
-			'borderRadius': '8px',
+			// 'borderRadius': '8px',
+			'color': '#000',
 			'&::placeholder': {
-				color: '#868DA2',
+				color: '#000',
 				opacity: 1,
 			},
 		},
+		'& input:-webkit-autofill': {
+			transition: 'background-color 5000s ease-in-out 0s',
+			backgroundColor: '#fff !important',
+		},
+		'& input:-webkit-autofill:focus': {
+			transition: 'background-color 5000s ease-in-out 0s',
+			backgroundColor: '#fff !important'
+		},
+		'& select:-webkit-autofill': {
+			transition: 'background-color 5000s ease-in-out 0s',
+			backgroundColor: '#fff !important'
+		},
+		'& select:-webkit-autofill:focus': {
+			transition: 'background-color 5000s ease-in-out 0s',
+			backgroundColor: '#fff !important'
+		},
+		'& textarea:-webkit-autofill': {
+			transition: 'background-color 5000s ease-in-out 0s',
+			backgroundColor: '#fff !important'
+		},
+
+		// '& fieldset': {
+		// 	backgroundColor: '#fff',
+		// 	color: '#000',
+		// },
 		'& .MuiOutlinedInput-root': {
 			borderRadius: '8px',
 		},
@@ -62,33 +102,20 @@ const useStyles = makeStyles(() => ({
 			padding: 0,
 		},
 	},
-	paddingOfGrid: {
-		padding: '48px 125px 32px 125px',
-	},
-	paddingTitle: {
-		padding: '16px 0 8px 0',
-	},
 	portalTitle: {
 		color: '#0F0F0F',
 		fontSize: '24px',
 		fontWeight: 400,
 		fontFamily: 'Inter',
+		marginBottom: 5,
 	},
 	logTitle: {
-		paddingBottom: '77px',
 		color: '#868DA2',
 		fontSize: '14px',
 		fontFamily: 'inter',
 	},
-	paddingBottom16px: {
-		paddingBottom: '16px',
-	},
-	paddingBottom8px: {
-		paddingBottom: '8px',
-	},
 	forgotStyle: {
 		textAlign: 'end',
-		paddingBottom: '135px',
 		color: '#0F0F0F',
 	},
 	linkStyle: {

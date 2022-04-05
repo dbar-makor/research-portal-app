@@ -200,7 +200,6 @@ const AccountSettings = () => {
 						</Grid>
 					</Grid>
 				</Grid>
-				{/* ROUTING GRID */}
 				<Grid item xs={9}>
 					<Switch>
 						<PrivateRoute path={`${path}/settings`} component={Settings} />
