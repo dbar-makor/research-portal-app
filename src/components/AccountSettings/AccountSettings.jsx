@@ -42,8 +42,6 @@ const AccountSettings = () => {
 		setChosenModal(false);
 	});
 
-	console.log(userContent);
-
 	return (
 		<>
 			<Grid
