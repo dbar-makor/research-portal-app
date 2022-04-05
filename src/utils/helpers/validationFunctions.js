@@ -80,6 +80,10 @@ export const validateUserInformation = (fieldValues, errors, setErrors, setValid
 		temp.dialing_code = fieldValues.dialing_code ? '' : 'This field is required';
 	}
 
+	if ('number' in fieldValues) {
+		temp.number = fieldValues.number ? '' : 'This field is required';
+	}
+
 	if ('email' in fieldValues) {
 		const pattern =
 			/^(([^<>()\]\\.,;:\s@"]+(\.[^<>()\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -97,22 +101,30 @@ export const validateUserInformation = (fieldValues, errors, setErrors, setValid
 		}
 	}
 
+	if ('position' in fieldValues) {
+		temp.position = fieldValues.position ? '' : 'This field is required';
+	}
+
+	if ('username' in fieldValues) {
+		temp.username = fieldValues.username ? '' : 'This field is required';
+	}
+
+	if ('birthday' in fieldValues) {
+		temp.birthday = fieldValues.birthday ? '' : 'This field is required';
+
+		if (isValid(new Date(fieldValues.birthday))) {
+			temp.birthday = '';
+
+			if (!fieldValues.birthday) {
+				temp.birthday = 'This field is required';
+			}
+		} else {
+			temp.birthday = 'Date is invalid';
+		}
+	}
+
 	setErrors({ ...temp });
-	const allFields = [
-		'name',
-		'email',
-		'dialing_code',
-		'number',
-		'position',
-		'username',
-		'birthday',
-		'categories',
-	];
-
-	const tempResult1 = allFields.every((field) => Object.keys(temp).includes(field));
-	const tempResult2 = Object.values(temp).every((x) => x === '');
-
-	const result = tempResult1 && tempResult2;
+	const result = Object.values(temp).every((x) => x === '');
 
 	setValidationResult(result);
 };

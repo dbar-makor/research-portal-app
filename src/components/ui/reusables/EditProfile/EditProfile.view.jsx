@@ -45,6 +45,8 @@ const EditProfileView = (props) => {
 						variant="outlined"
 						fullWidth
 						label="Full Name"
+						error={!!props.errors.name}
+						helperText={props.errors.name}
 						onChange={(e) => {
 							props.handleUserInformationChange('name', e.target.value);
 						}}
@@ -57,6 +59,8 @@ const EditProfileView = (props) => {
 						variant="outlined"
 						fullWidth
 						label="Email"
+						error={!!props.errors.email}
+						helperText={props.errors.email}
 						onChange={(e) => {
 							props.handleUserInformationChange('email', e.target.value);
 						}}
@@ -85,6 +89,8 @@ const EditProfileView = (props) => {
 							variant="outlined"
 							fullWidth
 							label="Position"
+							error={!!props.errors.position}
+							helperText={props.errors.position}
 							onChange={(e) => {
 								props.handleUserInformationChange('position', e.target.value);
 							}}
@@ -97,6 +103,8 @@ const EditProfileView = (props) => {
 							variant="outlined"
 							fullWidth
 							label="Username"
+							error={!!props.errors.username}
+							helperText={props.errors.username}
 							onChange={(e) => {
 								props.handleUserInformationChange('username', e.target.value);
 							}}
@@ -112,21 +120,21 @@ const EditProfileView = (props) => {
 							inputVariant="outlined"
 							format="dd/MM/yyyy"
 							placeholder="Date"
+							label="Birthday"
 							value={props.userInformation.birthday}
+							error={!!props.errors.birthday}
+							helperText={props.errors.birthday}
 							InputAdornmentProps={{ position: 'end' }}
-							keyboardIcon={(
-								<CalendarIcon
-									className={classes.calendarIcon}
-									onChange={(date) => {
-										props.handleUserInformationChange('birthday', date);
-									}}
-								/>
-      )}
+							keyboardIcon={<CalendarIcon className={classes.calendarIcon} />}
+							onChange={(date) => {
+								props.handleUserInformationChange('birthday', date);
+							}}
 						/>
 					</Grid>
 				</Grid>
 				<Grid item xs={6} className={`${classes.padding} ${classes.autoComplete}`}>
 					<CategoriesAutoComplete
+						className={classes.autoCompleteField}
 						formObject={props.localCats}
 						setFormObject={props.setLocalCats}
 						handler={props.handleCatsChange}
@@ -157,10 +165,7 @@ const EditProfileView = (props) => {
 				</Grid>
 				<Grid item xs={12} className={classes.saveButton}>
 					<Grid container justifyContent="flex-end">
-						<FilledButton
-							disabled={false}
-							//onClick={props.handleFormSubmit}
-						>
+						<FilledButton disabled={!props.validationResult} onClick={props.handleFormSubmit}>
 							Save
 						</FilledButton>
 					</Grid>

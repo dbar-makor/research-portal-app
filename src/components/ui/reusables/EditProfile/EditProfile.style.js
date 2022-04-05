@@ -5,11 +5,16 @@ const useStyles = makeStyles(() => ({
 		paddingTop: '25px',
 	},
 	saveButton: {
-		position: 'relative',
-		paddingTop: '50px'
+		position: 'absolute',
+		right: 10,
+		bottom: 10,
+		paddingTop: '50px',
 	},
 	autoComplete: {
 		marginLeft: '-409px',
+	},
+	autoCompleteField: {
+		width: '130%',
 	},
 	editWrapper: {
 		paddingTop: '30px',
@@ -49,6 +54,7 @@ const useStyles = makeStyles(() => ({
 	textField: {
 		'& .MuiInputLabel-outlined': {
 			transform: 'translate(14px, -6px) scale(0.75) !important',
+			backgroundColor: '#fff',
 		},
 		'& .MuiInputLabel-shrink': {
 			transform: 'translate(14px, -6px) scale(0.75) !important',

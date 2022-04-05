@@ -34,9 +34,9 @@ const PhoneInputView = (props) => {
 								/>
 								<Typography variant="span" component="span" style={{ marginLeft: '8px' }}>
 									{option.name}
-									{' '}
-									+
-									{option.dialing_code}
+{' '}
++
+{option.dialing_code}
 								</Typography>
 							</Box>
 						);
@@ -48,14 +48,14 @@ const PhoneInputView = (props) => {
 								label="Phone"
 								variant="outlined"
 								autoComplete="off"
-								//required
+								error={!!props.errors.dialing_code}
+								helperText={props.errors.dialing_code}
 								{...params}
 								InputProps={{
 									...params.InputProps,
 									autoComplete: 'dialing_code',
 									startAdornment: (
 										<InputAdornment position="start" style={{ position: 'relative' }}>
-											{console.log('adorn', props.adornment)}
 											<Box component="span" {...props}>
 												{props.adornment && (
 													<img
@@ -92,6 +92,8 @@ const PhoneInputView = (props) => {
 						},
 					}}
 					fontSize="14px"
+					error={!!props.errors.number}
+					helperText={props.errors.number}
 					onChange={(e) => props.handleUserInformationChange('number', e.target.value)}
 				/>
 			</Grid>

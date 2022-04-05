@@ -26,6 +26,12 @@ const PhoneInput = (props) => {
 			return;
 		}
 
+		validateUserInformation(
+			{ dialing_code: value },
+			props.errors,
+			props.setErrors,
+			props.setValidationResult,
+		);
 		props.setDialingCodeInputValue(value);
 	};
 
@@ -40,7 +46,6 @@ const PhoneInput = (props) => {
 			adornment={props.adornment}
 			setAdornment={props.setAdornment}
 			errors={props.errors}
-			setErrors={props.setErrors}
 			validationResult={props.validationResult}
 			setValidationResult={props.setValidationResult}
 		/>

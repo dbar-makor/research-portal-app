@@ -14,9 +14,12 @@ const useStyles = makeStyles(() => ({
 	flagBox: {
 		width: '200px',
 	},
-	// dialingCodeField:{
-
-	// }
+	phoneInput: {
+		'height': '-5px',
+		'& .MuiOutlinedInput-input': {
+			height: '5px',
+		},
+	},
 }));
 
 export default useStyles;
@@ -42,7 +45,7 @@ export const StyledAutoComplete = withStyles(() => ({
 		'fontWeight': 400,
 		'fontSize': '6px',
 		'backgroundColor': '#FFFF',
-		'width': '80%',
+		'width': '100%',
 		'&.MuiOutlinedInput-root ': {
 			borderRadius: 0,
 			borderBottom: '2px solid #A5AFC233',
