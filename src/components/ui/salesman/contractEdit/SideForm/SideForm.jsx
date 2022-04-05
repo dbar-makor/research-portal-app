@@ -10,6 +10,7 @@ import SideFormView from './SideForm.view';
 const SideForm = (props) => {
 	const [contractSigner, setContractSigner] = useState(props.chosenContract?.signer_user);
 	const [signerInputValue, setSignerInputValue] = useState(props.chosenContract?.signer_user.name);
+	const [loadingPDF, setLoadingPDF] = useState(false);
 	const [validationResult, setValidationResult] = useState({ step1: false, step2: false });
 	const dispatch = useDispatch();
 	const chosenCompany = useSelector(selectChosenCompany);
@@ -64,7 +65,11 @@ const SideForm = (props) => {
 	};
 
 	const presentPDFContract = async () => {
+		setLoadingPDF(true);
+
 		try {
+			console.log('did you call me?');
+
 			const res = await axios.get(
 				`${BASE_URL}${END_POINT.CONTRACT}/pdf/${props.chosenContract.contract_id}`,
 				{
@@ -86,11 +91,13 @@ const SideForm = (props) => {
 				const file = new Blob([byteArray], { type: 'application/pdf;base64' });
 				const fileURL = URL.createObjectURL(file);
 
+				setLoadingPDF(false);
 				window.open(fileURL);
 
 				dispatch(actionSnackBar.setSnackBar('success', 'Contract successfully created', 2000));
 			}
 		} catch (err) {
+			setLoadingPDF(false);
 			dispatch(actionSnackBar.setSnackBar('error', 'Failed to create a contract', 2000));
 		}
 	};
@@ -108,6 +115,7 @@ const SideForm = (props) => {
 			sendEmail={sendEmail}
 			validationResult={validationResult}
 			handleDone={handleDone}
+			loadingPDF={loadingPDF}
 		/>
 	);
 };
