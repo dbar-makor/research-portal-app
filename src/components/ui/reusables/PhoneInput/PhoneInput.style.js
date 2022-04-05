@@ -28,6 +28,8 @@ export const PopperMy = (props) => {
 	return <Popper {...props} style={{ width: 'fit-content' }} placement="bottom-start" />;
 };
 
+PopperMy.displayName = 'PopperMy';
+
 export const StyledAutoComplete = withStyles(() => ({
 	popupIndicatorOpen: {
 		transform: 'rotate(0deg)',

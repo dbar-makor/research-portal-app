@@ -60,7 +60,7 @@ const AccountSettings = () => {
 					borderRadius: '8px',
 				}}
 			>
-				<Grid item xs={3}>
+				<Grid style={{ flexBasis: '0%' }} item xs={3}>
 					<Grid
 						container
 						direction="row"
@@ -141,7 +141,9 @@ const AccountSettings = () => {
 													/>
 												</Grid>
 												<Grid item>
-													<Typography style={{ fontSize: 14 }}>Settings</Typography>
+													<Typography style={{ fontSize: 14 }}>
+														Setdtings
+													</Typography>
 												</Grid>
 											</Grid>
 										</Grid>
@@ -203,7 +205,7 @@ const AccountSettings = () => {
 						</Grid>
 					</Grid>
 				</Grid>
-				<Grid item xs={9}>
+				<Grid item xs={6}>
 					<Switch>
 						<PrivateRoute path={`${path}/settings`} component={Settings} />
 						<PrivateRoute path={`${path}/edit`} component={EditProfile} />
