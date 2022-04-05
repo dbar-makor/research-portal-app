@@ -16,6 +16,7 @@ import useStyles from './AdminTopbar.style';
 
 const AdminTopbarView = (props) => {
 	const classes = useStyles();
+
 	return (
 		<Grid item xs={3} style={{ marginRight: 113 }}>
 			<Grid container justifyContent="flex-end">
@@ -23,7 +24,7 @@ const AdminTopbarView = (props) => {
 					<Grid container alignItems="center">
 						<Grid item>
 							<Typography
-							className={classes.textStyle}
+								className={classes.textStyle}
 								onClick={() => props.handleToggle('user_mgmt')}
 							>
 								Users Managment

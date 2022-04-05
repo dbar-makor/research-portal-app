@@ -10,7 +10,7 @@ export const useStyles = makeStyles((theme) => ({
 		borderRadius: '8px',
 		height: '12px',
 		marginBottom: '10px',
-		minWidth:'45px'
+		minWidth: '45px',
 	},
 	blueShapeModal: {
 		backgroundColor: '#1C67FF',
@@ -41,6 +41,7 @@ export const useStyles = makeStyles((theme) => ({
 		},
 	},
 	autoCompleteStyle: {
+		'flex': 1,
 		'& .MuiAutocomplete-inputRoot[class*="MuiOutlinedInput-root"]': {
 			padding: '1.3px',
 		},

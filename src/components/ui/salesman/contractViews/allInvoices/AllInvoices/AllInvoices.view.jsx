@@ -33,9 +33,9 @@ const AllInvoicesView = (props) => {
 						{/* SECTION OF FILTERS */}
 						<Grid item xs={11}>
 							<Grid container>
-								<Grid item xs={6} >
-									<Grid container >
-										<Grid item xs={3}>
+								<Grid item xs={6}>
+									<Grid container spacing={2}>
+										<Grid item>
 											<RangeDatePicker
 												renderFrom="filters"
 												max_days_allowed={1460}
@@ -47,10 +47,11 @@ const AllInvoicesView = (props) => {
 										</Grid>
 										<Grid
 											item
-											xs={4}
-											style={{
-												marginLeft: 115,
-											}}
+											style={
+												{
+													// marginLeft: 115,
+												}
+											}
 										>
 											<SelectInputUnit
 												className={classes.autoCompleteStyle}
