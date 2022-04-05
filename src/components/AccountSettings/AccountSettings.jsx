@@ -55,24 +55,27 @@ const AccountSettings = () => {
 				style={{
 					position: 'relative',
 					margin: '60px 0px 59px 450px',
-					width: '60%',
 					height: 'calc(100vh - 220px)',
 					border: '1px solid #A5AFC233',
 					borderRadius: '8px',
 				}}
 			>
-				<Grid
-					item
-					xs={3}
-					style={{
-						backgroundColor: '#F6F9FC',
-						borderTop: '2px solid #A5AFC233',
-						borderRight: '1px solid #A5AFC233',
-						borderBottom: '2px solid #A5AFC233',
-						borderRadius: '8px',
-					}}
-				>
-					<Grid container direction="row" justifyContent="space-between" style={{ height: '100%' }}>
+				<Grid item xs={3}>
+					<Grid
+						container
+						direction="row"
+						justifyContent="space-between"
+						style={{
+							height: '100%',
+							maxWidth: '265px',
+							minWidth: '205px',
+							borderRadius: '8px',
+							borderTop: '2px solid #A5AFC233',
+							borderRight: '1px solid #A5AFC233',
+							borderBottom: '2px solid #A5AFC233',
+							backgroundColor: '#F6F9FC',
+						}}
+					>
 						<Grid item xs={12}>
 							<Grid container style={{ paddingTop: 20 }}>
 								<Grid item>
