@@ -68,8 +68,6 @@ const SideForm = (props) => {
 		setLoadingPDF(true);
 
 		try {
-			console.log('did you call me?');
-
 			const res = await axios.get(
 				`${BASE_URL}${END_POINT.CONTRACT}/pdf/${props.chosenContract.contract_id}`,
 				{
