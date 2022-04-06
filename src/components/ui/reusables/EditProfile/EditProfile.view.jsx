@@ -32,12 +32,7 @@ const EditProfileView = (props) => {
 					</Grid>
 				</Grid>
 			</Grid>
-			<Grid
-				container
-				className={classes.fieldsWrapper}
-				alignItems="center"
-				justifyContent="space-evenly"
-			>
+			<Grid container item className={classes.fieldsWrapper} spacing={1}>
 				<Grid item xs={4}>
 					<StyledTextField
 						className={classes.textField}
@@ -81,58 +76,56 @@ const EditProfileView = (props) => {
 						setAdornment={props.setAdornment}
 					/>
 				</Grid>
-				<Grid container item xs={12} className={classes.padding}>
-					<Grid item xs={4}>
-						<StyledTextField
-							className={classes.textField}
-							value={props.userInformation.position}
-							variant="outlined"
-							fullWidth
-							label="Position"
-							error={!!props.errors.position}
-							helperText={props.errors.position}
-							onChange={(e) => {
-								props.handleUserInformationChange('position', e.target.value);
-							}}
-						/>
-					</Grid>
-					<Grid item xs={4}>
-						<StyledTextField
-							className={classes.textField}
-							value={props.userInformation.username}
-							variant="outlined"
-							fullWidth
-							label="Username"
-							error={!!props.errors.username}
-							helperText={props.errors.username}
-							onChange={(e) => {
-								props.handleUserInformationChange('username', e.target.value);
-							}}
-						/>
-					</Grid>
-					<Grid item xs={4}>
-						<KeyboardDatePicker
-							className={classes.birthdayPicker}
-							autoOk
-							orientation="portrait"
-							disableToolbar
-							variant="inline"
-							inputVariant="outlined"
-							format="dd/MM/yyyy"
-							placeholder="Date"
-							label="Birthday"
-							value={props.userInformation.birthday}
-							error={!!props.errors.birthday}
-							helperText={props.errors.birthday}
-							InputAdornmentProps={{ position: 'end' }}
-							keyboardIcon={<CalendarIcon className={classes.calendarIcon} />}
-							onChange={(date) => {
-								props.handleUserInformationChange('birthday', date);
-							}}
-						/>
-					</Grid>
+				<Grid item xs={4}>
+					<StyledTextField
+						className={classes.textField}
+						value={props.userInformation.position}
+						variant="outlined"
+						fullWidth
+						label="Position"
+						error={!!props.errors.position}
+						helperText={props.errors.position}
+						onChange={(e) => {
+							props.handleUserInformationChange('position', e.target.value);
+						}}
+					/>
 				</Grid>
-				<Grid item xs={6} className={`${classes.padding} ${classes.autoComplete}`}>
+				<Grid item xs={4}>
+					<StyledTextField
+						className={classes.textField}
+						value={props.userInformation.username}
+						variant="outlined"
+						fullWidth
+						label="Username"
+						error={!!props.errors.username}
+						helperText={props.errors.username}
+						onChange={(e) => {
+							props.handleUserInformationChange('username', e.target.value);
+						}}
+					/>
+				</Grid>
+				<Grid item xs={4}>
+					<KeyboardDatePicker
+						className={classes.birthdayPicker}
+						autoOk
+						orientation="portrait"
+						disableToolbar
+						variant="inline"
+						inputVariant="outlined"
+						format="dd/MM/yyyy"
+						placeholder="Date"
+						label="Birthday"
+						value={props.userInformation.birthday}
+						error={!!props.errors.birthday}
+						helperText={props.errors.birthday}
+						InputAdornmentProps={{ position: 'end' }}
+						keyboardIcon={<CalendarIcon className={classes.calendarIcon} />}
+						onChange={(date) => {
+							props.handleUserInformationChange('birthday', date);
+						}}
+					/>
+				</Grid>
+				<Grid item xs={7} className={classes.autoComplete}>
 					<CategoriesAutoComplete
 						className={classes.autoCompleteField}
 						formObject={props.localCats}
@@ -145,12 +138,11 @@ const EditProfileView = (props) => {
 						setValidationResult={props.setValidationResult}
 					/>
 				</Grid>
-				<Grid item xs={12} className={classes.padding}>
+				<Grid item xs={12}>
 					<Divider style={{ width: '100%' }} />
 				</Grid>
 				<Grid
 					item
-					xs={12}
 					className={props.chosenModal ? classes.chosenRoute : classes.notChosen}
 					onClick={() => props.handleOpenModal('modal')}
 				>
@@ -163,15 +155,15 @@ const EditProfileView = (props) => {
 						</Grid>
 					</Grid>
 				</Grid>
-				<Grid item xs={12} className={classes.saveButton}>
-					<Grid container justifyContent="flex-end">
-						<FilledButton disabled={!props.validationResult} onClick={props.handleFormSubmit}>
-							Save
-						</FilledButton>
-					</Grid>
-				</Grid>
 			</Grid>
 
+			<Grid item className={classes.saveButton}>
+				<Grid container justifyContent="flex-end">
+					<FilledButton disabled={!props.validationResult} onClick={props.handleFormSubmit}>
+						Save
+					</FilledButton>
+				</Grid>
+			</Grid>
 			<ChangePassword chosenModal={props.chosenModal} handleCloseModal={props.handleCloseModal} />
 		</Grid>
 	);

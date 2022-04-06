@@ -16,9 +16,8 @@ const useStyles = makeStyles(() => ({
 		width: '200px',
 	},
 	phoneInput: {
-		'height': '-5px',
 		'& .MuiOutlinedInput-input': {
-			height: '5px',
+			width: '120px !important',
 		},
 	},
 }));
@@ -38,11 +37,13 @@ export const StyledAutoComplete = withStyles(() => ({
 	},
 
 	inputRoot: {
+		'height': '4.5vh',
 		'color': '#0000',
+		'border': '8px solid #ffff00',
 		'fontWeight': 400,
 		'fontSize': '6px',
 		'backgroundColor': '#FFFF',
-		'width': '100%',
+		'width': '95%',
 		'&.MuiOutlinedInput-root ': {
 			borderRadius: 0,
 			borderBottom: '2px solid #A5AFC233',
@@ -108,6 +109,8 @@ export const StyledAutoComplete = withStyles(() => ({
 			'color': '#4885ff',
 			'& .MuiSvgIcon-root': {
 				width: '0.8em',
+				position: 'absolute',
+				top: 1,
 			},
 		},
 	},
@@ -117,19 +120,10 @@ export const StyledAutoComplete = withStyles(() => ({
 			fontSize: '14px',
 		},
 	},
-	clearIndicator: {
-		'&.MuiAutocomplete-clearIndicator': {
-			'color': '#4885ff',
-			'& .MuiSvgIcon-fontSizeSmall': {
-				width: '0.6em',
-			},
-		},
-	},
 }))(Autocomplete);
 
 export const CustomTextField = withStyles(() => ({
 	root: {
-		'width': '100%',
 		'& .MuiFormLabel-root': {
 			color: '#B8C3D8',
 			fontSize: '16px',
