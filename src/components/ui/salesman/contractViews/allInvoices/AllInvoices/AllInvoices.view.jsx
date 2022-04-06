@@ -45,14 +45,7 @@ const AllInvoicesView = (props) => {
 												setTo={props.setTo}
 											/>
 										</Grid>
-										<Grid
-											item
-											style={
-												{
-													// marginLeft: 115,
-												}
-											}
-										>
+										<Grid item xs={4}>
 											<SelectInputUnit
 												className={classes.autoCompleteStyle}
 												name="name"
