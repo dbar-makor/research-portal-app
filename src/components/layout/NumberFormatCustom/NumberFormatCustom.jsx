@@ -9,6 +9,7 @@ const NumberFormatCustom = forwardRef((props, ref) => {
 			inputRef={props.inputRef}
 			decimalNo={props.decimalNo}
 			minValue={props.minValue}
+			thousandSeparator={props.thousandSeparator}
 			valueType={props.valueType}
 			value={props.value}
 			ref={ref}

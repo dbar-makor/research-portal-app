@@ -129,7 +129,6 @@ const ContractEditFormView = (props) => {
 									}}
 									onChange={props.handleContract}
 								/>
-								{' '}
 							</Grid>
 							<Grid item xs={1}>
 								<Typography style={{ textAlign: 'center', fontSize: 14, fontWeight: 'bold' }}>

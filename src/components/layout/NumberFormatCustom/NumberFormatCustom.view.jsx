@@ -15,7 +15,7 @@ const NumberFormatCustomView = forwardRef((props, ref) => {
 			defaultValue={props.value}
 			decimalScale={props.decimalNo}
 			ref={ref}
-			thousandSeparator
+			thousandSeparator={props.thousandSeparator === false ? false : true}
 			//isNumericString
 			onValueChange={(values, secondArg) => {
 				props.onChange({
