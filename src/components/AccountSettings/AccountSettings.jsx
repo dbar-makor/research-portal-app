@@ -24,6 +24,11 @@ const AccountSettings = () => {
 	const { path, url } = useRouteMatch('/settings');
 	const [chosenModal, setChosenModal] = useState(false);
 
+	const x = 3;
+
+	// eslint-disable-next-line no-console
+	console.log(x);
+
 	const handleRoute = (type) => {
 		if (type === 'modal') {
 			setChosenModal(true);
