@@ -2,9 +2,6 @@ import React, { forwardRef } from 'react';
 import NumberFormat from 'react-number-format';
 
 const NumberFormatCustomView = forwardRef((props, ref) => {
-	console.log('props.other', props.other);
-	console.log('props', props);
-
 	return (
 		<NumberFormat
 			{...props.other}
