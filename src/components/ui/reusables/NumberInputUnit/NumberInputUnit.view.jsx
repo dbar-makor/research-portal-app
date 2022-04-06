@@ -3,8 +3,6 @@ import { Grid } from '@material-ui/core';
 import { StyledTextField } from '../../../../styles/ContarctsModalStyles';
 
 const NumberInputUnitView = (props) => {
-	console.log('props', props);
-
 	return (
 		<Grid container className={props.className}>
 			<Grid item xs={12}>
