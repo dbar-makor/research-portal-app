@@ -6,6 +6,7 @@ import { BASE_URL, END_POINT } from '../../../../../utils/constants';
 import * as actionSnackBar from '../../../../../redux/SnackBar/action';
 import { changeChosenCompany, selectChosenCompany } from '../../../../../redux/companies/chosenCompanySlice';
 import { validateContract, validateEditedContract } from '../../../../../utils/helpers/validationFunctions';
+import useSessionStorageRedux from '../../../../../customHooks/useSessionStorageRedux';
 import ContractView from './Contract.view';
 
 const chargePeriods = [
@@ -48,8 +49,13 @@ const Contract = (props) => {
 	const salesmenArr = useSelector((state) => state.utils.utils.sales);
 	const chosenCompany = useSelector(selectChosenCompany);
 
+	// Saving chosen company & sales/currencies arrays in session storage so it will be kept when refreshing the contract page
+	//useSessionStorageRedux('company', chosenCompany);
+	useSessionStorageRedux('currencies', currenciesArr);
+	useSessionStorageRedux('salesmen', salesmenArr);
+
 	const initStateContract = {
-		id: chosenCompany?.id,
+		id: chosenCompany?.id ? chosenCompany.id : JSON.parse(sessionStorage.getItem('company')).id,
 		start_at: new Date(),
 		sales: loggedinSalesPerson.id,
 		vat: false,
@@ -62,17 +68,27 @@ const Contract = (props) => {
 	const [inputValueCurrency, setInputValueCurrency] = useState('');
 	const [inputValuePeriodicity, setInputValuePeriodicity] = useState('');
 
-	const handleContract = (value, name) => {
+	const handleContract = (value, name, reason) => {
 		if (name === 'periodicity') {
 			value = value ? value.value : '';
 		} else if (name === 'currency') {
 			value = value ? value.code : '';
 		}
+		//number fields trigger setContract only if reason is 'event'(component calls handleContract twice, only first time with reason === event and correct value)
 
-		setContract((prev) => ({
-			...prev,
-			[name]: name === 'members' || name === 'amount' ? Number(value) : value,
-		}));
+		if (name === 'members' || name === 'amount') {
+			if (reason === 'event') {
+				setContract((prev) => ({
+					...prev,
+					[name]: value,
+				}));
+			}
+		} else {
+			setContract((prev) => ({
+				...prev,
+				[name]: value,
+			}));
+		}
 
 		if (props.chosenContract) {
 			// in case of editing - this is the validation function
@@ -87,7 +103,6 @@ const Contract = (props) => {
 	useEffect(() => {
 		if (props.chosenContract) {
 			setContract(props.chosenContract);
-			// setParentValidationResult(true);
 			setInputValueSales(props.chosenContract.sales.name);
 			setInputValueCurrency(props.chosenContract.currency.name);
 			const periodicityName = chargePeriods.find(
@@ -110,6 +125,7 @@ const Contract = (props) => {
 			if (res.status === 200 || res.status === 201) {
 				props.setContractCopy({ ...contract, contract_id: res.data.id });
 				setContract({});
+				//sessionStorage.clear();
 				dispatch(actionSnackBar.setSnackBar('success', 'Contract successfully created', 2000));
 				props.setStep(2);
 			}
@@ -143,8 +159,6 @@ const Contract = (props) => {
 		const sales = contract.sales?.id;
 
 		contractCopy.sales = sales;
-		// const signer_user = contract.signer_user?.id;
-		// contractCopy.signer_user = signer_user;
 
 		try {
 			const res = await axios.put(`${BASE_URL}${END_POINT.CONTRACT}/${contract_id}`, contractCopy);
@@ -164,14 +178,15 @@ const Contract = (props) => {
 
 	return (
 		<ContractView
-			chosenCompany={chosenCompany}
+			chosenCompany={chosenCompany ? chosenCompany : JSON.parse(sessionStorage.getItem('company'))}
+			salesmenArr={salesmenArr ? salesmenArr : JSON.parse(sessionStorage.getItem('salesmen'))}
+			currenciesArr={currenciesArr ? currenciesArr : JSON.parse(sessionStorage.getItem('currencies'))}
 			contract={contract}
+			setContract={setContract}
 			handleContract={handleContract}
 			errors={errors}
-			salesmenArr={salesmenArr}
 			inputValueSales={inputValueSales}
 			setInputValueSales={setInputValueSales}
-			currenciesArr={currenciesArr}
 			inputValueCurrency={inputValueCurrency}
 			setInputValueCurrency={setInputValueCurrency}
 			chargePeriods={chargePeriods}

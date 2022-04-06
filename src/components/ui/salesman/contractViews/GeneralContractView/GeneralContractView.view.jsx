@@ -17,8 +17,10 @@ const GeneralContractViewView = (props) => {
 					<Grid item xs={12}>
 						<Grid container justifyContent="center">
 							<Typography className={classes.modalTitle}>
-								{props.chosenCompany?.name}
-								&apos; s Contract
+								{props.chosenCompany
+									? props.chosenCompany?.name
+									: JSON.parse(sessionStorage.getItem('company')).name}
+								&apos;s Contract
 							</Typography>
 						</Grid>
 					</Grid>

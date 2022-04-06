@@ -15,19 +15,28 @@ const NumberFormatCustomView = forwardRef((props, ref) => {
 			defaultValue={props.value}
 			decimalScale={props.decimalNo}
 			getInputRef={ref}
-			thousandSeparator={props.thousandSeparator === false ? props.thousandSeparator : true}
-			isNumericString
-			onValueChange={(values) => {
+			thousandSeparator={props.thousandSeparator === false ? false : true}
+			//isNumericString
+			onValueChange={(values, secondArg) => {
 				props.onChange({
+					reason: secondArg.source,
 					target: {
-						value: values.value,
-						name: props.name,
+						value: values.floatValue,
 					},
 				});
 			}}
 		/>
 	);
 });
+
+//[props.name] : values.floatValue
+
+// props.onChange({
+// 	target: {
+// 		value: values.floatValue,
+// 		name: props.name,
+// 	},
+// });
 
 NumberFormatCustomView.displayName = 'NumberFormatCustomView';
 NumberFormatCustomView.defaultProps = {};

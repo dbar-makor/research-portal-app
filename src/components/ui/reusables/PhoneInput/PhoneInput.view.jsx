@@ -94,7 +94,7 @@ const PhoneInputView = (props) => {
 					fontSize="14px"
 					error={!!props.errors.number}
 					helperText={props.errors.number}
-					onChange={(e) => props.handleUserInformationChange('number', e.target.value)}
+					onChange={(e) => props.handleUserInformationChange('number', e.target.value, e.reason)}
 				/>
 			</Grid>
 		</Grid>

@@ -112,10 +112,10 @@ const EditProfile = () => {
 		validateUserInformation({ categories: values }, errors, setErrors, setValidationResult);
 	};
 
-	const handleUserInformationChange = (key, value) => {
+	const handleUserInformationChange = (key, value, reason) => {
 		validateUserInformation({ [key]: value }, errors, setErrors, setValidationResult);
 
-		if (key === 'number') {
+		if (key === 'number' && reason === 'event') {
 			setUserInformation((prev) => ({ ...prev, phone: { ...prev.phone, number: value } }));
 
 			return;

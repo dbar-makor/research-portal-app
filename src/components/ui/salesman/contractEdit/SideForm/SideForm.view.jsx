@@ -20,7 +20,7 @@ const SideFormView = (props) => {
 								<Typography className={classes.progressbarTitle}>
 									{' '}
 									Updating Files...
-									{' '}
+{' '}
 								</Typography>
 							</Grid>
 						</Grid>
@@ -45,7 +45,7 @@ const SideFormView = (props) => {
 												<Typography
 													className={classes.pdfLink}
 													style={props.activeSidebar ? { color: '#1C67FF' } : {}}
-													onClick={props.presentPDFContract}
+													onClick={!props.loadingPDF && props.presentPDFContract}
 												>
 													Visualize Contract
 												</Typography>
