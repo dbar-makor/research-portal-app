@@ -218,7 +218,7 @@ const ContractView = (props) => {
 											inputProps: {
 												autoComplete: 'off',
 												decimalNo: 0,
-												minValue: props.chosenCompany.members
+												minValue: props.chosenCompany?.members
 													? props.chosenCompany.members.length
 													: 0,
 											},

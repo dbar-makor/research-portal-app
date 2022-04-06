@@ -228,7 +228,6 @@ export const StyledTextField = withStyles({
 				opacity: 1,
 			},
 		},
-
 		'& .MuiInputLabel-outlined': {
 			transform: 'translate(12px, 12px) scale(1)',
 		},
