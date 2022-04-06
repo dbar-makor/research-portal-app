@@ -1,24 +1,20 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(() => ({
-	padding: {
-		paddingTop: '25px',
-	},
 	saveButton: {
 		position: 'absolute',
 		right: 10,
 		bottom: 10,
 		paddingTop: '50px',
 	},
-	autoComplete: {
-		marginLeft: '-409px',
-	},
+	autoComplete: {},
 	autoCompleteField: {
-		width: '130%',
+		width: '100%',
 	},
 	editWrapper: {
 		paddingTop: '30px',
 		paddingLeft: '30px',
+		height: '100%',
 	},
 	avatar: {
 		height: '96px',
@@ -49,9 +45,10 @@ const useStyles = makeStyles(() => ({
 	fieldsWrapper: {
 		marginTop: '10px',
 		marginLeft: '-15px',
-		height: '140px',
+		height: '50%',
 	},
 	textField: {
+		'width': '11vw',
 		'& .MuiInputLabel-outlined': {
 			transform: 'translate(14px, -6px) scale(0.75) !important',
 			backgroundColor: '#fff',
@@ -59,11 +56,8 @@ const useStyles = makeStyles(() => ({
 		'& .MuiInputLabel-shrink': {
 			transform: 'translate(14px, -6px) scale(0.75) !important',
 		},
-		'width': '260px',
 	},
 	birthdayPicker: {
-		'width': '100%',
-		'height': '43px',
 		'& .MuiOutlinedInput-root': {
 			'borderRadius': '8px',
 			'& fieldset': {
@@ -78,7 +72,7 @@ const useStyles = makeStyles(() => ({
 		},
 		'& .MuiInputBase-root': {
 			height: '42px',
-			width: '250px',
+			width: '210px',
 		},
 	},
 	calendarIcon: {
@@ -89,13 +83,13 @@ const useStyles = makeStyles(() => ({
 		},
 	},
 	chosenRoute: {
-		marginTop: 20,
+		marginTop: 10,
 		color: '#1C67FF',
 		backgroundColor: '#e0ebfc',
 		cursor: 'pointer',
 	},
 	notChosen: {
-		marginTop: 20,
+		marginTop: 10,
 		color: '#000000',
 		backgroundColor: 'none',
 		cursor: 'pointer',
@@ -112,6 +106,7 @@ const useStyles = makeStyles(() => ({
 		fill: '#1C67FF',
 	},
 	textFieldStyle: {
+		'width': '50%',
 		'borderColor': '#A5AFC233',
 		'& .MuiOutlinedInput-input': {
 			padding: '10.6px',

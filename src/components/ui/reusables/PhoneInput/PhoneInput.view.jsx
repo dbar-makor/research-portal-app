@@ -17,6 +17,7 @@ const PhoneInputView = (props) => {
 					PopperComponent={PopperMy}
 					options={countries && countries.length ? countries : []}
 					autoComplete="off"
+					disableClearable
 					value={props.userInformation?.country}
 					inputValue={props.dialingCodeInputValue}
 					getOptionLabel={(option) => {
@@ -77,8 +78,9 @@ const PhoneInputView = (props) => {
 					onInputChange={(event, value, reason) => props.handleSelectInput(event, value, reason)}
 				/>
 			</Grid>
-			<Grid item xs={6}>
+			<Grid item xs={7}>
 				<NumberInputUnit
+					className={classes.phoneInput}
 					variant="outlined"
 					size="small"
 					id="phone"

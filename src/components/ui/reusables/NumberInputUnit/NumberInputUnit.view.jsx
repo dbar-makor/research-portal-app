@@ -9,7 +9,7 @@ const NumberInputUnitView = (props) => {
 				<StyledTextField
 					name={props.name}
 					value={props.value}
-					style={{ width: '100%' }}
+					//style={{ width: '100%' }}
 					variant="outlined"
 					placeholder={props.label}
 					InputProps={props.InputProps}
