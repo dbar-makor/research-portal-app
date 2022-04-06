@@ -27,7 +27,7 @@ const AdminTopbarView = (props) => {
 								className={classes.textStyle}
 								onClick={() => props.handleToggle('user_mgmt')}
 							>
-								Users Managment
+								Users Management
 							</Typography>
 						</Grid>
 						<Grid item>

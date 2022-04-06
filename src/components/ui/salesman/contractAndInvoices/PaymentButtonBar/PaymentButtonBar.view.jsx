@@ -93,8 +93,6 @@ const PaymentButtonBarView = (props) => {
 PaymentButtonBarView.displayName = 'PaymentButtonBarView';
 PaymentButtonBarView.defaultProps = {};
 
-export default React.memo(PaymentButtonBarView);
-
 const StyledPop = withStyles({
 	top: 455,
 	root: {
@@ -104,3 +102,5 @@ const StyledPop = withStyles({
 		},
 	},
 })(Popover);
+
+export default React.memo(PaymentButtonBarView);

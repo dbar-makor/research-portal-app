@@ -14,7 +14,7 @@ const MembersHeaderView = (props) => {
 
 	return (
 		<Grid container justifyContent="space-between" alignItems="center" className={classes.membersHeader}>
-			<Grid item xs={5}>
+			<Grid style={{ minWidth: '260px' }} item xs={5}>
 				<Grid container>
 					<Typography
 						style={{ marginRight: '16px' }}

@@ -58,17 +58,6 @@ const useStyles = makeStyles(() => ({
 			padding: 0,
 		},
 	},
-	vatGroupWrapper: {
-		display: 'flex',
-		justifyContent: 'center',
-		alignItems: 'center',
-		paddingBottom: 25,
-	},
-	vatGroup: {
-		display: 'flex',
-		alignItems: 'center',
-		justifyContent: 'center',
-	},
 	indiLabel: {
 		fontSize: '16px',
 		fontFamily: 'inter',

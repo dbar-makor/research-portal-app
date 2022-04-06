@@ -112,8 +112,6 @@ const ContractRowView = (props) => {
 ContractRowView.displayName = 'ContractRowView';
 ContractRowView.defaultProps = {};
 
-export default React.memo(ContractRowView);
-
 const StyledPop = withStyles({
 	root: {
 		'& .MuiPopover-paper': {
@@ -122,3 +120,5 @@ const StyledPop = withStyles({
 		},
 	},
 })(Popover);
+
+export default React.memo(ContractRowView);

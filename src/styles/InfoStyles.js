@@ -7,12 +7,14 @@ export const useStyles = makeStyles({
 		backgroundColor: '#F9FAFB',
 		padding: '18px 22px',
 		marginTop: '56px',
+		minWidth: '490px',
 	},
 	membersContainer: {
 		border: '1px solid #A5AFC233',
 		borderRadius: '8px',
 		backgroundColor: '#F9FAFB',
 		padding: '18px 0px 0px 0px',
+		minWidth: '490px',
 		marginTop: '16px',
 	},
 	companyName: {
@@ -35,6 +37,9 @@ export const useStyles = makeStyles({
 		fill: '#FF3939',
 		fontSize: '14px',
 	},
+	prospectTrialWrapper: {
+		minWidth: '190px',
+	},
 	blockHeader: {
 		color: '#B8C3D8',
 		fontSize: '14px',
@@ -56,7 +61,7 @@ export const useStyles = makeStyles({
 		fontSize: '16px',
 		marginLeft: '10px',
 	},
-	marginBottom8: {
+	marginBottom: {
 		marginBottom: '8px',
 	},
 	membersHeader: {
@@ -97,6 +102,7 @@ export const useStyles = makeStyles({
 	},
 	signBtn: {
 		padding: '7px 13px',
+		minWidth: '145px',
 	},
 	upgradeBtn: {
 		padding: '7px 13px',
@@ -110,6 +116,7 @@ export const useStyles = makeStyles({
 		border: '1px solid #B8C3D8',
 		borderRadius: '8px',
 		padding: '16px',
+		minWidth: '210px',
 	},
 	yearlyCost: {
 		color: '#868DA2',
@@ -124,7 +131,6 @@ export const useStyles = makeStyles({
 		fontSize: '14px',
 		fontWeight: 500,
 		marginLeft: '10px',
-		// paddingRight: '3px'
 	},
 	noCurrentContractHeader: {
 		color: '#FF3939',

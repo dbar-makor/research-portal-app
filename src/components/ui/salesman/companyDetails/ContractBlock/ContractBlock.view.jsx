@@ -56,7 +56,7 @@ const ContractBlockView = (props) => {
 				</Grid>
 			)}
 
-			<Grid item xs={12} className={classes.marginBottom8}>
+			<Grid item xs={12} className={classes.marginBottom}>
 				<Grid container justifyContent="space-between">
 					<Grid item>
 						<Typography className={classes.fieldName}>Agent</Typography>
@@ -70,7 +70,7 @@ const ContractBlockView = (props) => {
 					</Grid>
 				</Grid>
 			</Grid>
-			<Grid item xs={12} className={classes.marginBottom8}>
+			<Grid item xs={12} className={classes.marginBottom}>
 				<Grid container justifyContent="space-between">
 					<Grid item>
 						<Typography className={classes.fieldName}>Since</Typography>
@@ -84,7 +84,7 @@ const ContractBlockView = (props) => {
 					</Grid>
 				</Grid>
 			</Grid>
-			<Grid item xs={12} className={classes.marginBottom8}>
+			<Grid item xs={12} className={classes.marginBottom}>
 				<Grid container justifyContent="space-between">
 					<Grid item>
 						<Typography className={classes.fieldName}>Period</Typography>
@@ -98,7 +98,7 @@ const ContractBlockView = (props) => {
 					</Grid>
 				</Grid>
 			</Grid>
-			<Grid item xs={12} className={classes.marginBottom8}>
+			<Grid item xs={12} className={classes.marginBottom}>
 				<Grid container justifyContent="space-between">
 					<Grid item>
 						<Typography className={classes.fieldName}>Amount</Typography>

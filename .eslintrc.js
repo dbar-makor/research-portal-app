@@ -150,7 +150,6 @@ module.exports = {
 		'react/jsx-one-expression-per-line': ['error', { allow: 'single-child' }],
 		'react/jsx-no-script-url': 'error',
 		'react/jsx-indent-props': ['error', 'tab'],
-		'react/jsx-indent': ['error', 'tab'],
 		'react/jsx-closing-tag-location': 'error',
 		'react/jsx-closing-bracket-location': 'error',
 		'react/jsx-boolean-value': ['error', 'never'],

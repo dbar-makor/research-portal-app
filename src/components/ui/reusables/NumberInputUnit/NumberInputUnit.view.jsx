@@ -1,11 +1,12 @@
 import React from 'react';
-import { Grid, TextField } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
+import { StyledTextField } from '../../../../styles/ContarctsModalStyles';
 
 const NumberInputUnitView = (props) => {
 	return (
 		<Grid container className={props.className}>
 			<Grid item xs={12}>
-				<TextField
+				<StyledTextField
 					name={props.name}
 					value={props.value}
 					style={{ width: '100%' }}

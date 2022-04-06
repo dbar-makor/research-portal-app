@@ -28,16 +28,16 @@ const CompanyInfoView = (props) => {
 
 	return props.chosenCompany ? (
 		<Grid container className={classes.infoContainer}>
-			<Grid item xs={12}>
+			<Grid style={{ minWidth: '415px' }} item xs={12}>
 				<Grid container alignItems="center">
 					<Grid item xs={1}>
 						LOGO
 					</Grid>
 					<Grid item xs={11}>
-						<Grid container alignItems="center">
+						<Grid style={{ marginLeft: '5px' }} container alignItems="center">
 							<Grid item xs={12}>
 								<Grid container justifyContent="space-between" alignItems="center">
-									<Grid item xs={6}>
+									<Grid style={{ minWidth: '250px' }} item xs={6}>
 										<Grid container alignItems="center" justifyContent="space-between">
 											<Grid item xs={props.chosenCompany.name.length > 14 ? 8 : 6}>
 												{props.chosenCompany.isEditMode ? (
@@ -122,7 +122,7 @@ const CompanyInfoView = (props) => {
 											</Grid>
 										</Grid>
 									</Grid>
-									<Grid item xs={2}>
+									<Grid style={{ minWidth: '80px' }} item xs={2}>
 										<Grid container alignItems="center" justifyContent="flex-end">
 											<Grid item style={{ marginRight: '16px' }}>
 												{props.chosenCompany.isEditMode ? (
@@ -206,7 +206,7 @@ const CompanyInfoView = (props) => {
 			</Grid>
 
 			<Divider className={classes.infoDivider} />
-			<Grid container spacing={4}>
+			<Grid style={{ minWidth: '660px' }} container spacing={4}>
 				{props.chosenCompany.type === 'client' && (
 					<Grid item xs={4} style={{ marginTop: '35px' }}>
 						<ContractBlock {...props.currentContractProps} />

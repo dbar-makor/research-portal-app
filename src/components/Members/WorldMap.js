@@ -49,4 +49,6 @@ const WorldMap = () => {
 	);
 };
 
+WorldMap.displayName = 'WorldMap';
+
 export default WorldMap;

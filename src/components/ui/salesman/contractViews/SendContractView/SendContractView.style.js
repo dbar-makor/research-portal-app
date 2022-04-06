@@ -29,15 +29,12 @@ const useStyles = makeStyles(() => ({
 	lowerSection: {
 		marginTop: 20,
 		marginBottom: 20,
+		flexWrap: 'nowrap',
 	},
 	question: {
 		color: '#868DA2',
 		size: 16,
 		marginBottom: 20,
-	},
-	row: {
-		display: 'flex',
-		justifyContent: 'space-between',
 	},
 	textField: {},
 	linkBtn: {

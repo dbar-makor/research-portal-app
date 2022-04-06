@@ -5,14 +5,12 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import InsertDriveFileIcon from '@material-ui/icons/InsertDriveFile';
 import { Switch, useHistory, useRouteMatch } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { useState, useCallback } from 'react';
 import { ReactComponent as BlueShape } from '../../assets/icons/blueBorder.svg';
 import { useStyles } from '../../styles/AccountSettingsStyles';
 import EditProfile from '../ui/reusables/EditProfile/EditProfile';
 import Settings from '../ui/reusables/Settings/Settings';
 import PrivateRoute from '../layout/PrivateRoute/PrivateRoute';
 import * as actionAuth from '../../redux/auth/action';
-import ChangePassword from '../ui/reusables/ChangePassword/ChangePassword';
 import ContractAndTrails from './ContractsAndTrails';
 
 const AccountSettings = () => {
@@ -22,25 +20,14 @@ const AccountSettings = () => {
 	const history = useHistory();
 	const classes = useStyles(chosenRouteName === 'contract_trails' ? 'on' : 'off');
 	const { path, url } = useRouteMatch('/settings');
-	const [chosenModal, setChosenModal] = useState(false);
 
 	const handleRoute = (type) => {
-		if (type === 'modal') {
-			setChosenModal(true);
-
-			return;
-		}
-
 		history.push(`${url}/${type}`);
 	};
 
 	const handleLogout = () => {
 		dispatch(actionAuth.logout());
 	};
-
-	const handleCloseModal = useCallback(() => {
-		setChosenModal(false);
-	});
 
 	return (
 		<>
@@ -68,24 +55,27 @@ const AccountSettings = () => {
 				style={{
 					position: 'relative',
 					margin: '60px 0px 59px 450px',
-					width: '60%',
 					height: 'calc(100vh - 220px)',
 					border: '1px solid #A5AFC233',
 					borderRadius: '8px',
 				}}
 			>
-				<Grid
-					item
-					xs={3}
-					style={{
-						backgroundColor: '#F6F9FC',
-						borderTop: '2px solid #A5AFC233',
-						borderRight: '1px solid #A5AFC233',
-						borderBottom: '2px solid #A5AFC233',
-						borderRadius: '8px',
-					}}
-				>
-					<Grid container direction="row" justifyContent="space-between" style={{ height: '100%' }}>
+				<Grid style={{ flexBasis: '0%' }} item xs={3}>
+					<Grid
+						container
+						direction="row"
+						justifyContent="space-between"
+						style={{
+							height: '100%',
+							maxWidth: '265px',
+							minWidth: '205px',
+							borderRadius: '8px',
+							borderTop: '2px solid #A5AFC233',
+							borderRight: '1px solid #A5AFC233',
+							borderBottom: '2px solid #A5AFC233',
+							backgroundColor: '#F6F9FC',
+						}}
+					>
 						<Grid item xs={12}>
 							<Grid container style={{ paddingTop: 20 }}>
 								<Grid item>
@@ -151,7 +141,9 @@ const AccountSettings = () => {
 													/>
 												</Grid>
 												<Grid item>
-													<Typography style={{ fontSize: 14 }}>Settings</Typography>
+													<Typography style={{ fontSize: 14 }}>
+														Setdtings
+													</Typography>
 												</Grid>
 											</Grid>
 										</Grid>
@@ -178,20 +170,6 @@ const AccountSettings = () => {
 												<Grid item>
 													<Typography style={{ fontSize: 14 }}>
 														Contracts & Trials
-													</Typography>
-												</Grid>
-											</Grid>
-										</Grid>
-										<Grid
-											item
-											xs={12}
-											className={chosenModal ? classes.chosenRoute : classes.notChosen}
-											onClick={() => handleRoute('modal')}
-										>
-											<Grid container alignItems="center">
-												<Grid item>
-													<Typography style={{ fontSize: 14 }}>
-														Change Password
 													</Typography>
 												</Grid>
 											</Grid>
@@ -227,7 +205,7 @@ const AccountSettings = () => {
 						</Grid>
 					</Grid>
 				</Grid>
-				<Grid item xs={9}>
+				<Grid item xs={6}>
 					<Switch>
 						<PrivateRoute path={`${path}/settings`} component={Settings} />
 						<PrivateRoute path={`${path}/edit`} component={EditProfile} />
@@ -235,7 +213,6 @@ const AccountSettings = () => {
 					</Switch>
 				</Grid>
 			</Grid>
-			<ChangePassword chosenModal={chosenModal} handleCloseModal={handleCloseModal} />
 		</>
 	);
 };

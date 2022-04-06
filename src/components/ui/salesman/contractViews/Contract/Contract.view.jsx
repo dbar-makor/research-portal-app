@@ -98,7 +98,7 @@ const ContractView = (props) => {
 											className={classes.textFieldStyle}
 											name="amount"
 											label="Amount"
-											value={props.contract.amount || ''}
+											value={props.contract.amount || 0}
 											error={props.errors.amount}
 											InputProps={{
 												inputComponent: NumberFormatCustom,
@@ -107,7 +107,10 @@ const ContractView = (props) => {
 													minValue: 0,
 												},
 											}}
-											onChange={(e) => props.handleContract(e.target.value, 'amount')}
+											//onChange={props.setContract}
+											onChange={(e) =>
+												props.handleContract(e.target.value, 'amount', e.reason)
+											}
 										/>
 									</Grid>
 									<Grid item xs={1}>
@@ -215,19 +218,20 @@ const ContractView = (props) => {
 											inputProps: {
 												autoComplete: 'off',
 												decimalNo: 0,
-												minValue: props.chosenCompany.members
+												minValue: props.chosenCompany?.members
 													? props.chosenCompany.members.length
 													: 0,
 											},
 										}}
-										onChange={(e) => props.handleContract(e.target.value, 'members')}
+										onChange={(e) =>
+											props.handleContract(e.target.value, 'members', e.reason)
+										}
 									/>
 								</Grid>
 								{props.chosenCompany && props.chosenCompany.members && (
 									<Grid item xs={12}>
 										<Typography className={classes.note}>
-											* Minimal No. is
-											{' '}
+											* Minimal No. is &nbsp;
 											{props.chosenCompany.members.length}
 										</Typography>
 									</Grid>

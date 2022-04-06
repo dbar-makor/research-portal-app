@@ -99,7 +99,6 @@ export const useStyles = makeStyles((theme) => ({
 	},
 	memberFooter: {
 		position: 'relative',
-		//width: "100%"
 		[theme.breakpoints.only('xs')]: {
 			height: '550px',
 		},
@@ -230,7 +229,6 @@ export const StyledTextField = withStyles({
 				opacity: 1,
 			},
 		},
-
 		'& .MuiInputLabel-outlined': {
 			transform: 'translate(12px, 12px) scale(1)',
 		},
