@@ -59,6 +59,8 @@ const Contract = (props) => {
 		start_at: new Date(),
 		sales: loggedinSalesPerson.id,
 		vat: false,
+		members: '',
+		amount: '',
 	};
 
 	const [contract, setContract] = useState(initStateContract);
@@ -80,7 +82,7 @@ const Contract = (props) => {
 			if (reason === 'event') {
 				setContract((prev) => ({
 					...prev,
-					[name]: value,
+					[name]: value || '',
 				}));
 			}
 		} else {
@@ -124,7 +126,7 @@ const Contract = (props) => {
 
 			if (res.status === 200 || res.status === 201) {
 				props.setContractCopy({ ...contract, contract_id: res.data.id });
-				setContract({});
+				setContract(initStateContract);
 				//sessionStorage.clear();
 				dispatch(actionSnackBar.setSnackBar('success', 'Contract successfully created', 2000));
 				props.setStep(2);

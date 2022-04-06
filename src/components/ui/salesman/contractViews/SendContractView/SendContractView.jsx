@@ -13,7 +13,8 @@ const SendContractView = (props) => {
 	const history = useHistory();
 	const chosenCompany = useSelector(selectChosenCompany);
 
-	const [validationResult, setValidationResult] = useState({ step1: false, step2: false });
+	const [validationResult, setValidationResult] = useState(false);
+	//const [validationResult, setValidationResult] = useState({ step1: false, step2: false });
 	const [contractSigner, setContractSigner] = useState('');
 	const [signerInputValue, setSignerInputValue] = useState('');
 
@@ -21,14 +22,14 @@ const SendContractView = (props) => {
 		setContractSigner(e ? e.id : '');
 
 		if (e) {
-			setValidationResult((prev) => ({ ...prev, step1: true }));
+			setValidationResult(true);
 		} else {
-			setValidationResult((prev) => ({ ...prev, step1: false }));
+			setValidationResult(false);
 		}
 	};
 
 	const sendEmail = async () => {
-		setValidationResult((prev) => ({ ...prev, step2: true }));
+		//setValidationResult((prev) => ({ ...prev, step2: true }));
 		const localCopy = { ...props.contractCopy, signer_user: contractSigner };
 
 		delete localCopy.contract_id;
@@ -54,6 +55,8 @@ const SendContractView = (props) => {
 	};
 
 	const handleExit = () => {
+		sendEmail();
+
 		if (contractSigner) {
 			props.setContractCopy((prev) => ({ ...prev, signer_user: contractSigner }));
 			history.push('/companies');

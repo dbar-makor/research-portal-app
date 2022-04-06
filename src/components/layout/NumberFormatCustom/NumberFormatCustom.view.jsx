@@ -2,6 +2,9 @@ import React, { forwardRef } from 'react';
 import NumberFormat from 'react-number-format';
 
 const NumberFormatCustomView = forwardRef((props, ref) => {
+	console.log('props.other', props.other);
+	console.log('props', props);
+
 	return (
 		<NumberFormat
 			{...props.other}
@@ -14,7 +17,7 @@ const NumberFormatCustomView = forwardRef((props, ref) => {
 			allowNegative={false}
 			defaultValue={props.value}
 			decimalScale={props.decimalNo}
-			getInputRef={ref}
+			ref={ref}
 			thousandSeparator
 			//isNumericString
 			onValueChange={(values, secondArg) => {
@@ -28,15 +31,6 @@ const NumberFormatCustomView = forwardRef((props, ref) => {
 		/>
 	);
 });
-
-//[props.name] : values.floatValue
-
-// props.onChange({
-// 	target: {
-// 		value: values.floatValue,
-// 		name: props.name,
-// 	},
-// });
 
 NumberFormatCustomView.displayName = 'NumberFormatCustomView';
 NumberFormatCustomView.defaultProps = {};
