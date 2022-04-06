@@ -41,6 +41,7 @@ export const useStyles = makeStyles((theme) => ({
 		},
 	},
 	autoCompleteStyle: {
+		'flex': 1,
 		'& .MuiAutocomplete-inputRoot[class*="MuiOutlinedInput-root"]': {
 			padding: '1.3px',
 		},
