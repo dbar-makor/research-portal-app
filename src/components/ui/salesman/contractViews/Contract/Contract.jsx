@@ -6,6 +6,7 @@ import { BASE_URL, END_POINT } from '../../../../../utils/constants';
 import * as actionSnackBar from '../../../../../redux/SnackBar/action';
 import { changeChosenCompany, selectChosenCompany } from '../../../../../redux/companies/chosenCompanySlice';
 import { validateContract, validateEditedContract } from '../../../../../utils/helpers/validationFunctions';
+import useSessionStorageRedux from '../../../../../customHooks/useSessionStorageRedux';
 import ContractView from './Contract.view';
 
 const chargePeriods = [
@@ -48,26 +49,10 @@ const Contract = (props) => {
 	const salesmenArr = useSelector((state) => state.utils.utils.sales);
 	const chosenCompany = useSelector(selectChosenCompany);
 
-	//saving chosen company & sales/currencies arrays in session storage so it will be kept when refreshing the contract page
-	useEffect(() => {
-		const savedCompany = sessionStorage.getItem('company');
-		const savedCurrencies = sessionStorage.getItem('currencies');
-		const savedSalesmen = sessionStorage.getItem('salesmen');
-
-		//console.log('Object.keys(JSON.parse(savedCompany)).length', Object.keys(JSON.parse(savedCompany)).length);
-
-		if (!savedCompany) {
-			sessionStorage.setItem('company', JSON.stringify(chosenCompany));
-		}
-
-		if (!savedCurrencies) {
-			sessionStorage.setItem('currencies', JSON.stringify(currenciesArr));
-		}
-
-		if (!savedSalesmen) {
-			sessionStorage.setItem('salesmen', JSON.stringify(salesmenArr));
-		}
-	}, []);
+	// Saving chosen company & sales/currencies arrays in session storage so it will be kept when refreshing the contract page
+	//useSessionStorageRedux('company', chosenCompany);
+	useSessionStorageRedux('currencies', currenciesArr);
+	useSessionStorageRedux('salesmen', salesmenArr);
 
 	const initStateContract = {
 		id: chosenCompany?.id ? chosenCompany.id : JSON.parse(sessionStorage.getItem('company')).id,
@@ -102,7 +87,6 @@ const Contract = (props) => {
 			setContract((prev) => ({
 				...prev,
 				[name]: value,
-				//[name]: name === 'members' || name === 'amount' ? Number(value) : value,
 			}));
 		}
 
@@ -141,7 +125,7 @@ const Contract = (props) => {
 			if (res.status === 200 || res.status === 201) {
 				props.setContractCopy({ ...contract, contract_id: res.data.id });
 				setContract({});
-				sessionStorage.clear();
+				//sessionStorage.clear();
 				dispatch(actionSnackBar.setSnackBar('success', 'Contract successfully created', 2000));
 				props.setStep(2);
 			}
@@ -175,8 +159,6 @@ const Contract = (props) => {
 		const sales = contract.sales?.id;
 
 		contractCopy.sales = sales;
-		// const signer_user = contract.signer_user?.id;
-		// contractCopy.signer_user = signer_user;
 
 		try {
 			const res = await axios.put(`${BASE_URL}${END_POINT.CONTRACT}/${contract_id}`, contractCopy);

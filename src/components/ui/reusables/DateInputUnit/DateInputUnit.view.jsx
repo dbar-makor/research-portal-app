@@ -21,19 +21,16 @@ const DateInputUnitView = (props) => {
 					autoOk
 					placeholder={props.label}
 					disableToolbar
-					className={props.datePickerClass}
+					className={`${props.datePickerClass} ${classes.input}`}
 					// placdeholder={label}
 					keyboardIcon={(
-						<IconCalendar
-							style={{ width: props.iconFontSize }}
-							className={classes.calendarIcon}
-						/>
+      <IconCalendar
+	style={{ width: props.iconFontSize }}
+	className={classes.calendarIcon}
+      />
     )}
 					onChange={props.onChange}
 				/>
-				{/* <Typography variant="caption">
-          {label}
-        </Typography> */}
 			</Grid>
 		</Grid>
 	);
