@@ -22,6 +22,7 @@ const TextInputUnit = (props) => {
 			id={id}
 			inputProps={inputProps}
 			InputProps={InputProps}
+			readOnly={props.readOnly ? true : false}
 			type={type}
 			onChange={props.onChange}
 			onKeyDown={onKeyDown}

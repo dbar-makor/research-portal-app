@@ -28,12 +28,13 @@ const ContractView = (props) => {
 									<Grid item xs={6} className={classes.paddingRight10px}>
 										<TextInputUnit
 											className={classes.textFieldStyle}
-											name="id"
+											name="name"
 											label={props.chosenCompany ? props.chosenCompany.name : ''}
 											value={props.chosenCompany ? props.chosenCompany.name : ''}
-											formObject={props.contract}
-											handler={(e) => props.handleContract(e.target.value, 'id')}
-											error={props.errors.id}
+											readOnly
+											//formObject={props.contract}
+											//handler={(e) => props.handleContract(e.target.value, 'id')}
+											//error={props.errors.id}
 										/>
 									</Grid>
 									<Grid item xs={6} className={classes.PaddingLeft10px}>
@@ -98,7 +99,7 @@ const ContractView = (props) => {
 											className={classes.textFieldStyle}
 											name="amount"
 											label="Amount"
-											value={props.contract.amount || 0}
+											value={props.contract.amount || ''}
 											error={props.errors.amount}
 											InputProps={{
 												inputComponent: NumberFormatCustom,
