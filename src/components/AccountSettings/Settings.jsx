@@ -60,7 +60,6 @@ const Settings = () => {
 
 	useEffect(() => {
 		sendAfterChange();
-		console.log(userSettings);
 	}, [userSettings]);
 
 	useEffect(() => {

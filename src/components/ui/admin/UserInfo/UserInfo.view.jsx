@@ -115,7 +115,12 @@ const UserInfoView = (props) => {
 										</Grid>
 									</Grid>
 									<Grid item xs={2}>
-										<Grid container alignItems="center" justifyContent="flex-end" style={{ minWidth:'90px'}} >
+										<Grid
+											container
+											alignItems="center"
+											justifyContent="flex-end"
+											style={{ minWidth: '90px' }}
+										>
 											<Grid
 												item
 												style={{
@@ -182,7 +187,7 @@ const UserInfoView = (props) => {
 									/>
 								) : (
 									<Grid container alignItems="center">
-										<Grid item style={{ marginRight: '5px'}}>
+										<Grid item style={{ marginRight: '5px' }}>
 											<LocationIcon />
 										</Grid>
 										<Grid item>
