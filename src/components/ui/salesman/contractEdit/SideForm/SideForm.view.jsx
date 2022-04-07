@@ -83,11 +83,13 @@ const SideFormView = (props) => {
 												<Typography
 													className={classes.send}
 													style={
-														props.activeSidebar && props.signerInputValue
+														props.activeSidebar &&
+														props.signerInputValue &&
+														!props.emailSent
 															? { color: '#1C67FF' }
 															: {}
 													}
-													onClick={props.sendEmail}
+													onClick={!props.emailSent ? props.sendEmail : () => {}}
 												>
 													Send
 												</Typography>

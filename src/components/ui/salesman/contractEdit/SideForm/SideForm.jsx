@@ -11,6 +11,7 @@ const SideForm = (props) => {
 	const [contractSigner, setContractSigner] = useState(props.chosenContract?.signer_user);
 	const [signerInputValue, setSignerInputValue] = useState(props.chosenContract?.signer_user.name);
 	const [loadingPDF, setLoadingPDF] = useState(false);
+	const [emailSent, setEmailSent] = useState(false);
 	const [validationResult, setValidationResult] = useState({ step1: false, step2: false });
 	const dispatch = useDispatch();
 	const chosenCompany = useSelector(selectChosenCompany);
@@ -33,6 +34,7 @@ const SideForm = (props) => {
 			try {
 				const contractSignerID = contractSigner.id ? contractSigner.id : contractSigner;
 
+				setEmailSent(true);
 				const res = await axios.put(
 					`${BASE_URL}${END_POINT.CONTRACT}/${props.chosenContract.contract_id}`,
 					{
@@ -111,6 +113,7 @@ const SideForm = (props) => {
 			signerInputValue={signerInputValue}
 			setSignerInputValue={setSignerInputValue}
 			sendEmail={sendEmail}
+			emailSent={emailSent}
 			validationResult={validationResult}
 			handleDone={handleDone}
 			loadingPDF={loadingPDF}
