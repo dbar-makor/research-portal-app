@@ -18,7 +18,7 @@ const TopBar = () => {
 
 	// eslint-disable-next-line no-unused-vars
 	const options = [
-		{value: 'allRegions', name: 'All Regions'},
+		{ value: 'allRegions', name: 'All Regions' },
 		{ value: 'asiaPacific', name: 'Asia-Pacific' },
 		{ value: 'europe', name: 'Europe' },
 		{ value: 'unitedStates', name: 'United States' },
