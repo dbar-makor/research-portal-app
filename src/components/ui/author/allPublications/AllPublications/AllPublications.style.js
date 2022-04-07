@@ -14,7 +14,7 @@ const useStyles = makeStyles({
 		height: 700,
 		border: '1px solid #ECEEF2',
 		borderRadius: 8,
-		minWidth: '25vh',
+		minWidth: '28vh',
 	},
 	publicationsColumn: {
 		marginTop: '2vh',

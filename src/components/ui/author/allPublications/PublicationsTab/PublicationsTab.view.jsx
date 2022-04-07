@@ -64,7 +64,9 @@ const PublicationsTabView = (props) => {
 						<Typography variant="h5" className={classes.pubTitle}>
 							{props.publication.title}
 						</Typography>
-						<Typography>{props.truncateString(props.publication.description, 10)}</Typography>
+						<Typography className={classes.pubDescription}>
+							{props.publication.description.substring(0, 75)}
+						</Typography>
 					</Grid>
 				</Grid>
 			</Grid>
