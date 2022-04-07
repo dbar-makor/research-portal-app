@@ -136,23 +136,27 @@ const ContractView = (props) => {
 								</Grid>
 							</Grid>
 						</Grid>
-						<Divider className={classes.divider} />
+						{/* <Divider className={classes.divider} /> */}
 					</Grid>
 
 					<Grid container>
 						<Grid item xs={12} className={`${classes.padding3000px} ${classes.vatGroupWrapper}`}>
 							<Divider className={classes.divider} />
-							<Grid item xs={6} className={classes.vatGroup}>
-								<Typography className={`${classes.indiLabel} ${classes.vatLabel1}`}>
-									Include
-								</Typography>
+							<Grid
+								item
+								container
+								justifyContent="center"
+								alignItems="center"
+								xs={6}
+								className={classes.vatGroup}
+							>
 								<StatusSwitch
 									name="vat"
 									checked={props.contract.vat}
 									className={classes.switch}
 									onChange={(e) => props.handleContract(e.target.checked, 'vat')}
 								/>
-								<Typography className={classes.vatLabel2}>VAT</Typography>
+								<Typography className={classes.vatLabel}>VAT included</Typography>
 							</Grid>
 
 							<Divider className={classes.divider} />
