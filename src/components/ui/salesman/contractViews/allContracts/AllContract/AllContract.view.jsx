@@ -16,13 +16,13 @@ const AllContractView = (props) => {
 		<>
 			<Grid
 				container
-				style={{ position: 'absolute', width: '111px', top: 94, left: 140 }}
+				style={{ position: 'absolute', width: '111px', top: 130, left: 140 }}
 				flexDirection="column"
 			>
 				<Grid item xs={12}>
 					<BlueShape />
 				</Grid>
-				<Grid item style={{ paddingTop: 10 }}>
+				<Grid item style={{ paddingTop: 5 }}>
 					<Typography style={{ fontSize: 24, color: '#868DA2' }}>Contracts</Typography>
 				</Grid>
 			</Grid>

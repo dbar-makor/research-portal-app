@@ -64,7 +64,7 @@ const SendContractViewView = (props) => {
 
 			<Grid container>
 				<ButtonRow
-					validationResult={props.validationResult.step2}
+					validationResult={props.validationResult}
 					handlerRight={props.handleDone}
 					handlerLeft={props.handleExit}
 					textButtonRight="Send Link"

@@ -10,6 +10,7 @@ const NumberInputUnitView = (props) => {
 					name={props.name}
 					value={props.value}
 					style={{ width: '100%' }}
+					fullWidth
 					variant="outlined"
 					placeholder={props.label}
 					InputProps={props.InputProps}

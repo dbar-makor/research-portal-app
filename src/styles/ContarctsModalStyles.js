@@ -5,8 +5,9 @@ import { withStyles } from '@material-ui/styles';
 export const useStyles = makeStyles({
 	contractModalPaper: {
 		minWidth: 'calc(100vw - 966px)',
-		minHeight: 'calc(100vh - 200px)',
-		overflow: 'hidden',
+		maxWidth: 950,
+		minHeight: 'calc(100vh - 100px)',
+		//overflow: 'hidden',
 	},
 	modalBackDrop: {
 		backdropFilter: 'blur(2px)',
