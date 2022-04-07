@@ -18,7 +18,7 @@ import { ReactComponent as DeleteIcon } from '../../../../assets/icons/IconTrash
 import { ReactComponent as LocationIcon } from '../../../../assets/icons/iconLocation.svg';
 import { ReactComponent as EditIcon } from '../../../../assets/icons/IconEdit.svg';
 import { ReactComponent as WhiteCheckIcon } from '../../../../assets/icons/IconWhiteCheck.svg';
-import { ReactComponent as EmptyProfilePic } from '../../../../assets/icons/EmptyProfilePic.svg';
+import { ReactComponent as DefaultProfilePic } from '../../../../assets/icons/DefaultProfilePic.svg';
 
 import DeleteAlert from '../../reusables/DeleteAlert/DeleteAlert';
 
@@ -30,7 +30,7 @@ const UserInfoView = (props) => {
 			<Grid item xs={12}>
 				<Grid container alignItems="center">
 					<Grid item xs={2}>
-						<EmptyProfilePic style={{ witdh: '70px', height: '70px' }} />
+						<DefaultProfilePic style={{ witdh: '70px', height: '70px' }} />
 					</Grid>
 					<Grid item xs={10}>
 						<Grid container alignItems="center">
