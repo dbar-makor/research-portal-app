@@ -30,7 +30,7 @@ const UserInfoView = (props) => {
 			<Grid item xs={12}>
 				<Grid container alignItems="center">
 					<Grid item xs={2}>
-						<EmptyProfilePic style={{ witdh: '70px', height: '70px' }} />
+						<EmptyProfilePic />
 					</Grid>
 					<Grid item xs={10}>
 						<Grid container alignItems="center">
