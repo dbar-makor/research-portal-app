@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actionAuth from '../../../../redux/auth/action';
-
+import { changeSettingsTab } from '../../../../redux/tabs/tabsSlice';
 import UserIconView from './UserIcon.view';
 
 const UserIcon = forwardRef((props, ref) => {
@@ -13,6 +13,10 @@ const UserIcon = forwardRef((props, ref) => {
 		dispatch(actionAuth.logout());
 	};
 
+	const handleChange = (tab) => {
+		dispatch(changeSettingsTab(tab));
+	};
+
 	return (
 		<UserIconView
 			handleToggle={handleToggle}
@@ -22,6 +26,7 @@ const UserIcon = forwardRef((props, ref) => {
 			open={open}
 			user={user}
 			handleLogout={handleLogout}
+			handleChange={handleChange}
 			ref={ref}
 		/>
 	);
