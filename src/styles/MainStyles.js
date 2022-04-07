@@ -59,13 +59,8 @@ export const useStyles = makeStyles((theme) => ({
 	// },
 	logoBox: {
 		padding: '100px 75px',
-		//border: '3px solid #000',
 		borderRadius: '50%',
 		overflow: 'hidden',
-		//transition: 'fill 3s',
-		//animation: '$border 3s ease infinite forwards',
-		//animation: '$border 3s ease infinite forwards',
-		//boxShadow: '60px -60px 0 2px #fff, -60px -60px 0 2px #fff, -60px 60px 0 2px #fff, 60px 60px 0 2px #fff, 0 0 0 2px #fff',
 	},
 	prompt: {
 		marginTop: 30,
