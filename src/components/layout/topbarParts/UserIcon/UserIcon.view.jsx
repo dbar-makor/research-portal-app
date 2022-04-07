@@ -59,11 +59,7 @@ const UserIconView = forwardRef((props, ref) => {
 						>
 							<Paper>
 								<ClickAwayListener onClickAway={(e) => props.handleClose(e, 'user')}>
-									<MenuList
-										autoFocusItem={open}
-										id="composition-menu"
-										aria-labelledby="composition-button"
-									>
+									<MenuList id="composition-menu" aria-labelledby="composition-button">
 										<MenuItem>
 											<Link
 												to="/home"
@@ -78,18 +74,24 @@ const UserIconView = forwardRef((props, ref) => {
 										</MenuItem>
 										<MenuItem>
 											<Link
-												to="/settings/edit"
+												to="/settings"
 												style={{ textDecoration: 'none', color: '#000' }}
-												onClick={() => props.setOpen(false)}
+												onClick={() => {
+													props.handleChange(0);
+													props.setOpen(false);
+												}}
 											>
 												Edit Profile
 											</Link>
 										</MenuItem>
 										<MenuItem>
 											<Link
-												to="/settings/settings"
+												to="/settings"
 												style={{ textDecoration: 'none', color: '#000' }}
-												onClick={() => props.setOpen(false)}
+												onClick={() => {
+													props.handleChange(1);
+													props.setOpen(false);
+												}}
 											>
 												Settings
 											</Link>
@@ -97,9 +99,12 @@ const UserIconView = forwardRef((props, ref) => {
 										{props.userType === 'client' || props.userType === 'prospect' ? (
 											<MenuItem>
 												<Link
-													to="/settings/contract_trails"
+													to="/settings"
 													style={{ textDecoration: 'none', color: '#000' }}
-													onClick={() => props.setOpen(false)}
+													onClick={() => {
+														props.handleChange(2);
+														props.setOpen(false);
+													}}
 												>
 													Contracts & Trails
 												</Link>

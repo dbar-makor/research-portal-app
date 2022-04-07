@@ -11,24 +11,28 @@ import {
 	EditDoneButton,
 	useStyles,
 } from '../../../../styles/MainStyles';
+
 import UserInfoBlock from '../UserInfoBlock/UserInfoBlock';
+
 import { ReactComponent as DeleteIcon } from '../../../../assets/icons/IconTrash.svg';
 import { ReactComponent as LocationIcon } from '../../../../assets/icons/iconLocation.svg';
 import { ReactComponent as EditIcon } from '../../../../assets/icons/IconEdit.svg';
 import { ReactComponent as WhiteCheckIcon } from '../../../../assets/icons/IconWhiteCheck.svg';
+import { ReactComponent as DefaultProfilePic } from '../../../../assets/icons/DefaultProfilePic.svg';
+
 import DeleteAlert from '../../reusables/DeleteAlert/DeleteAlert';
 
 const UserInfoView = (props) => {
 	const classes = useStyles();
 
 	return props.chosenUser ? (
-		<Grid container className={classes.infoContainer}>
+		<Grid container style={{ minWidth: '550px' }}>
 			<Grid item xs={12}>
 				<Grid container alignItems="center">
-					<Grid item xs={1}>
-						IMG
+					<Grid item xs={2}>
+						<DefaultProfilePic style={{ witdh: '70px', height: '70px' }} />
 					</Grid>
-					<Grid item xs={11}>
+					<Grid item xs={10}>
 						<Grid container alignItems="center">
 							<Grid item xs={12}>
 								<Grid container justifyContent="space-between" alignItems="center">
@@ -115,7 +119,12 @@ const UserInfoView = (props) => {
 										</Grid>
 									</Grid>
 									<Grid item xs={2}>
-										<Grid container alignItems="center" justifyContent="flex-end" style={{ minWidth:'90px'}} >
+										<Grid
+											container
+											alignItems="center"
+											justifyContent="flex-end"
+											style={{ minWidth: '90px' }}
+										>
 											<Grid
 												item
 												style={{
@@ -182,7 +191,7 @@ const UserInfoView = (props) => {
 									/>
 								) : (
 									<Grid container alignItems="center">
-										<Grid item style={{ marginRight: '5px'}}>
+										<Grid item style={{ marginRight: '5px' }}>
 											<LocationIcon />
 										</Grid>
 										<Grid item>

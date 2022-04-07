@@ -3,26 +3,23 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import PersonIcon from '@material-ui/icons/Person';
 import SettingsIcon from '@material-ui/icons/Settings';
 import InsertDriveFileIcon from '@material-ui/icons/InsertDriveFile';
-import { Switch, useHistory, useRouteMatch } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReactComponent as BlueShape } from '../../assets/icons/blueBorder.svg';
 import { useStyles } from '../../styles/AccountSettingsStyles';
 import EditProfile from '../ui/reusables/EditProfile/EditProfile';
 import Settings from '../ui/reusables/Settings/Settings';
-import PrivateRoute from '../layout/PrivateRoute/PrivateRoute';
 import * as actionAuth from '../../redux/auth/action';
+import { changeSettingsTab } from '../../redux/tabs/tabsSlice';
 import ContractAndTrails from './ContractsAndTrails';
 
 const AccountSettings = () => {
 	const userContent = useSelector((state) => state.auth.userContent);
+	const settingsTab = useSelector((state) => state.tabs.settingsTab);
 	const dispatch = useDispatch();
-	const chosenRouteName = window.location.pathname.replace('/settings/', '');
-	const history = useHistory();
-	const classes = useStyles(chosenRouteName === 'contract_trails' ? 'on' : 'off');
-	const { path, url } = useRouteMatch('/settings');
+	const classes = useStyles();
 
-	const handleRoute = (type) => {
-		history.push(`${url}/${type}`);
+	const handleChange = (tab) => {
+		dispatch(changeSettingsTab(tab));
 	};
 
 	const handleLogout = () => {
@@ -51,17 +48,13 @@ const AccountSettings = () => {
 								<Grid
 									item
 									xs={12}
-									className={
-										chosenRouteName === 'edit' ? classes.chosenRoute : classes.notChosen
-									}
-									onClick={() => handleRoute('edit')}
+									className={settingsTab === 0 ? classes.chosenRoute : classes.notChosen}
+									onClick={() => handleChange(0)}
 								>
 									<Grid container alignItems="center">
 										<Grid item>
 											<PersonIcon
-												className={
-													chosenRouteName === 'edit' ? classes.iconOn : classes.icon
-												}
+												className={settingsTab === 0 ? classes.iconOn : classes.icon}
 											/>
 										</Grid>
 										<Grid item>
@@ -72,46 +65,30 @@ const AccountSettings = () => {
 								<Grid
 									item
 									xs={12}
-									className={
-										chosenRouteName === 'settings'
-											? classes.chosenRoute
-											: classes.notChosen
-									}
-									onClick={() => handleRoute('settings')}
+									className={settingsTab === 1 ? classes.chosenRoute : classes.notChosen}
+									onClick={() => handleChange(1)}
 								>
 									<Grid container alignItems="center">
 										<Grid item>
 											<SettingsIcon
-												className={
-													chosenRouteName === 'settings'
-														? classes.iconOn
-														: classes.icon
-												}
+												className={settingsTab === 1 ? classes.iconOn : classes.icon}
 											/>
 										</Grid>
 										<Grid item>
-											<Typography style={{ fontSize: 14 }}>Setdtings</Typography>
+											<Typography style={{ fontSize: 14 }}>Settings</Typography>
 										</Grid>
 									</Grid>
 								</Grid>
 								<Grid
 									item
 									xs={12}
-									className={
-										chosenRouteName === 'contract_trails'
-											? classes.chosenRoute
-											: classes.notChosen
-									}
-									onClick={() => handleRoute('contract_trails')}
+									className={settingsTab === 2 ? classes.chosenRoute : classes.notChosen}
+									onClick={() => handleChange(2)}
 								>
 									<Grid container alignItems="center">
 										<Grid item>
 											<InsertDriveFileIcon
-												className={
-													chosenRouteName === 'contract_trails'
-														? classes.iconOn
-														: classes.icon
-												}
+												className={settingsTab === 2 ? classes.iconOn : classes.icon}
 											/>
 										</Grid>
 										<Grid item>
@@ -142,11 +119,9 @@ const AccountSettings = () => {
 					</Grid>
 				</Grid>
 				<Grid item xs={9} className={classes.container}>
-					<Switch>
-						<PrivateRoute path={`${path}/settings`} component={Settings} />
-						<PrivateRoute path={`${path}/edit`} component={EditProfile} />
-						<PrivateRoute path={`${path}/contract_trails`} component={ContractAndTrails} />
-					</Switch>
+					{settingsTab === 0 && <EditProfile />}
+					{settingsTab === 1 && <Settings />}
+					{settingsTab === 2 && <ContractAndTrails />}
 				</Grid>
 			</Grid>
 		</Grid>
