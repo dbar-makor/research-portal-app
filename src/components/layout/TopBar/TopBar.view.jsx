@@ -65,7 +65,7 @@ const TopBarView = forwardRef((props, ref) => {
 
 	return (
 		<Grid container direction="column" className={`${classes.headerContainer} header`}>
-			<Grid item style={{ backgroundColor: '#000', width: '70vw', margin: '0 auto' }}>
+			<Grid item xs={12} style={{ backgroundColor: '#000', width: '70vw', margin: '0 auto' }}>
 				<TradingHours
 					handleToggle={props.handleToggle}
 					notifications={props.notifications}
@@ -80,28 +80,30 @@ const TopBarView = forwardRef((props, ref) => {
 				/>
 			</Grid>
 			<Divider className={classes.divider} />
-			<Grid item style={{ backgroundColor: '#000', width: '70vw', margin: '0 auto' }}>
-				<AppBar position="sticky" className={classes.header}>
-					<Toolbar style={{ width: 'inherit', padding: 0, justifyContent: 'space-between' }}>
-						<Grid item xs={4}>
-							<MakorLogo classes={classes} userType={props.userType} />
-						</Grid>
-						{props.isAuthenticated ? (
-							<>{handleBarOptions(props.userType)}</>
-						) : (
-							<Grid item style={{ paddingRight: 80 }}>
-								<Grid container justifyContent="space-between">
-									<Grid item style={{ paddingRight: 20 }}>
-										<StyledButton>Become a Costumer</StyledButton>
-									</Grid>
-									<Grid item>
-										<LoginButton>Login</LoginButton>
+			<Grid container item justifyContent="center" className={classes.barWrapper}>
+				<Grid item xs={9}>
+					<AppBar position="sticky" className={classes.header}>
+						<Toolbar>
+							<Grid item xs={4} style={{ marginLeft: '27px' }}>
+								<MakorLogo classes={classes} userType={props.userType} />
+							</Grid>
+							{props.isAuthenticated ? (
+								<>{handleBarOptions(props.userType)}</>
+							) : (
+								<Grid item style={{ paddingRight: 80 }}>
+									<Grid container justifyContent="space-between">
+										<Grid item style={{ paddingRight: 20 }}>
+											<StyledButton>Become a Costumer</StyledButton>
+										</Grid>
+										<Grid item>
+											<LoginButton>Login</LoginButton>
+										</Grid>
 									</Grid>
 								</Grid>
-							</Grid>
-						)}
-					</Toolbar>
-				</AppBar>
+							)}
+						</Toolbar>
+					</AppBar>
+				</Grid>
 			</Grid>
 		</Grid>
 	);

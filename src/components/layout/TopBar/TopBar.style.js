@@ -1,6 +1,10 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
+	'barWrapper': {
+		backgroundColor: '#FEFEFE',
+		height: '6vh',
+	},
 	'headerContainer': {
 		position: 'sticky',
 		top: 0,
@@ -8,9 +12,10 @@ const useStyles = makeStyles((theme) => ({
 		zIndex: 1200,
 	},
 	'header': {
-		backgroundColor: '#000000',
+		backgroundColor: '#FEFEFE',
 		width: 'inherit',
 		flexDirection: 'row',
+		boxShadow: 'none',
 	},
 	'divider': {
 		backgroundColor: '#353535',
@@ -23,8 +28,11 @@ const useStyles = makeStyles((theme) => ({
 		fontSize: 16,
 	},
 	'link': {
-		textDecoration: 'none',
-		color: '#fff',
+		'textDecoration': 'none',
+		'color': '#fff',
+		'& svg': {
+			fill: '#0F0F0F !important',
+		},
 	},
 	'subTitle': {
 		color: '#000000',
@@ -33,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
 	'styledLinks': {
 		fontSize: 16,
 		textDecoration: 'none',
-		color: '#ffff',
+		color: '#0F0F0F',
 	},
 	'label': {
 		top: -10,
