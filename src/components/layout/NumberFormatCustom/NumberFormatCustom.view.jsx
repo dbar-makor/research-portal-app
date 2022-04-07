@@ -2,9 +2,15 @@ import React, { forwardRef } from 'react';
 import NumberFormat from 'react-number-format';
 
 const NumberFormatCustomView = forwardRef((props, ref) => {
+	const filteredOtherProps = Object.assign({}, props.other);
+
+	delete filteredOtherProps.minValue;
+	delete filteredOtherProps.decimalNo;
+	delete filteredOtherProps.inputRef;
+
 	return (
 		<NumberFormat
-			{...props.other}
+			{...filteredOtherProps}
 			isAllowed={(values) => {
 				const { formattedValue, floatValue } = values;
 
