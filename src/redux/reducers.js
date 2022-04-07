@@ -10,6 +10,7 @@ import usersReducer from './users/usersSlice';
 import contractReducer from './subscribers/contractSlice';
 import chosenResearchReducer from './researches/chosenResearchSlice';
 import chosenUserReducer from './users/chosenUserSlice';
+import tabsReducer from './tabs/tabsSlice';
 
 const createRootReducer = () =>
 	combineReducers({
@@ -25,6 +26,7 @@ const createRootReducer = () =>
 		contract: contractReducer,
 		chosenUser: chosenUserReducer,
 		//charts: chartReducer,
+		tabs: tabsReducer,
 	});
 
 export default createRootReducer;

@@ -9,7 +9,8 @@ const useStyles = makeStyles(() => ({
 	},
 	autoComplete: {},
 	autoCompleteField: {
-		width: '100%',
+		width: '111%',
+		minWidth: '111%',
 	},
 	editWrapper: {
 		paddingTop: '30px',
@@ -49,6 +50,7 @@ const useStyles = makeStyles(() => ({
 	},
 	textField: {
 		'width': '11vw',
+		'minWidth': '11vw',
 		'& .MuiInputLabel-outlined': {
 			transform: 'translate(14px, -6px) scale(0.75) !important',
 			backgroundColor: '#fff',

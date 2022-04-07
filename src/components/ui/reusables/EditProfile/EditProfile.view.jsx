@@ -33,7 +33,7 @@ const EditProfileView = (props) => {
 				</Grid>
 			</Grid>
 			<Grid container item className={classes.fieldsWrapper} spacing={1}>
-				<Grid item xs={4}>
+				<Grid item xs={12} sm={12} md={12} lg={6} xl={4}>
 					<StyledTextField
 						className={classes.textField}
 						value={props.userInformation.name}
@@ -47,7 +47,7 @@ const EditProfileView = (props) => {
 						}}
 					/>
 				</Grid>
-				<Grid item xs={4}>
+				<Grid item xs={12} sm={12} md={12} lg={6} xl={4}>
 					<StyledTextField
 						className={classes.textField}
 						value={props.userInformation.email}
@@ -61,7 +61,7 @@ const EditProfileView = (props) => {
 						}}
 					/>
 				</Grid>
-				<Grid item xs={4}>
+				<Grid item xs={12} sm={12} md={12} lg={6} xl={4}>
 					<PhoneInput
 						errors={props.errors}
 						setErrors={props.setErrors}
@@ -76,7 +76,7 @@ const EditProfileView = (props) => {
 						setAdornment={props.setAdornment}
 					/>
 				</Grid>
-				<Grid item xs={4}>
+				<Grid item xs={12} sm={12} md={12} lg={6} xl={4}>
 					<StyledTextField
 						className={classes.textField}
 						value={props.userInformation.position}
@@ -90,7 +90,7 @@ const EditProfileView = (props) => {
 						}}
 					/>
 				</Grid>
-				<Grid item xs={4}>
+				<Grid item xs={12} sm={12} md={12} lg={6} xl={4}>
 					<StyledTextField
 						className={classes.textField}
 						value={props.userInformation.username}
@@ -104,7 +104,7 @@ const EditProfileView = (props) => {
 						}}
 					/>
 				</Grid>
-				<Grid item xs={4}>
+				<Grid item xs={12} sm={12} md={12} lg={6} xl={4}>
 					<KeyboardDatePicker
 						className={classes.birthdayPicker}
 						autoOk
