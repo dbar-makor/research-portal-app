@@ -11,12 +11,15 @@ import {
 	EditDoneButton,
 	useStyles,
 } from '../../../../styles/MainStyles';
+
 import UserInfoBlock from '../UserInfoBlock/UserInfoBlock';
+
 import { ReactComponent as DeleteIcon } from '../../../../assets/icons/IconTrash.svg';
 import { ReactComponent as LocationIcon } from '../../../../assets/icons/iconLocation.svg';
 import { ReactComponent as EditIcon } from '../../../../assets/icons/IconEdit.svg';
 import { ReactComponent as WhiteCheckIcon } from '../../../../assets/icons/IconWhiteCheck.svg';
 import { ReactComponent as EmptyProfilePic } from '../../../../assets/icons/EmptyProfilePic.svg';
+
 import DeleteAlert from '../../reusables/DeleteAlert/DeleteAlert';
 
 const UserInfoView = (props) => {
