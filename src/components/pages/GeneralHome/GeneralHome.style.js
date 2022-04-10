@@ -14,7 +14,7 @@ const useStyles = makeStyles({
 		flexDirection: 'column',
 		justifyContent: 'center',
 		alignItems: 'center',
-		backgroundColor: '#F8F8F8',
+		backgroundColor: '#FEFEFE',
 	},
 	horizontalScrollWrapper: {
 		display: 'flex',

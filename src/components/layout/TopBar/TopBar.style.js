@@ -1,6 +1,11 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
+	'barWrapper': {
+		backgroundColor: '#FEFEFE',
+		minHeight: '6vh',
+		height: '6vh',
+	},
 	'headerContainer': {
 		position: 'sticky',
 		top: 0,
@@ -8,9 +13,11 @@ const useStyles = makeStyles((theme) => ({
 		zIndex: 1200,
 	},
 	'header': {
-		backgroundColor: '#000000',
-		width: 'inherit',
+		backgroundColor: '#FEFEFE',
 		flexDirection: 'row',
+		boxShadow: 'none',
+		minHeight: '6vh',
+		height: '6vh',
 	},
 	'divider': {
 		backgroundColor: '#353535',
@@ -23,8 +30,11 @@ const useStyles = makeStyles((theme) => ({
 		fontSize: 16,
 	},
 	'link': {
-		textDecoration: 'none',
-		color: '#fff',
+		'textDecoration': 'none',
+		'color': '#fff',
+		'& svg': {
+			fill: '#0F0F0F !important',
+		},
 	},
 	'subTitle': {
 		color: '#000000',
@@ -33,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
 	'styledLinks': {
 		fontSize: 16,
 		textDecoration: 'none',
-		color: '#ffff',
+		color: '#0F0F0F',
 	},
 	'label': {
 		top: -10,
@@ -86,15 +96,17 @@ const useStyles = makeStyles((theme) => ({
 		},
 	},
 	'search': {
-		'width': '250px',
+		'width': '349px',
 		'& .MuiFilledInput-root': {
-			backgroundColor: '#3e3e3e',
+			backgroundColor: '#EDF2FB',
 			borderRadius: '5px',
-			caretColor: '#edf2fb',
 		},
 		'& .MuiFilledInput-input': {
 			paddingTop: '5px',
 			paddingBottom: '5px',
+		},
+		'& .MuiFilledInput-underline:before': {
+			border: 'none',
 		},
 		'& .MuiFilledInput-underline:after': {
 			border: 'none',
@@ -104,7 +116,8 @@ const useStyles = makeStyles((theme) => ({
 		},
 		'& .MuiInputBase-input': {
 			'&::placeholder': {
-				color: '#fff',
+				color: '#868DA2',
+				opacity: '100%',
 			},
 		},
 	},
