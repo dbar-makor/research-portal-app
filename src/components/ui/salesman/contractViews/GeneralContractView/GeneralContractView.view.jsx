@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Typography } from '@material-ui/core';
+import { Grid, Typography, Container } from '@material-ui/core';
 import { ReactComponent as BlueBorder } from '../../../../../assets/icons/blueBorder.svg';
 import Contract from '../Contract/Contract';
 import SendContractView from '../SendContractView/SendContractView';
@@ -10,15 +10,17 @@ const GeneralContractViewView = (props) => {
 	const classes = useStyles();
 
 	return (
-		<Grid container justifyContent="center" className={classes.modalContainer}>
+		<Container className={classes.modalContainer}>
 			<Grid item xs={10} className={classes.modalBox}>
 				<Grid container justifyContent="center">
 					<BlueBorder />
 					<Grid item xs={12}>
 						<Grid container justifyContent="center">
 							<Typography className={classes.modalTitle}>
-								{props.chosenCompany?.name}
-								&apos; s Contract
+								{props.chosenCompany
+									? props.chosenCompany?.name
+									: JSON.parse(sessionStorage.getItem('company')).name}
+								&apos;s Contract
 							</Typography>
 						</Grid>
 					</Grid>
@@ -35,7 +37,7 @@ const GeneralContractViewView = (props) => {
 					/>
 				)}
 			</Grid>
-		</Grid>
+		</Container>
 	);
 };
 

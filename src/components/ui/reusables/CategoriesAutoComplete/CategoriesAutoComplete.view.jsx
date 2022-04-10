@@ -58,7 +58,7 @@ const CategoriesAutoCompleteView = (props) => {
 											<Chip
 												variant={props.chipVariant}
 												label={el.name}
-												deleteIcon={<ClearIcon />}
+												deleteIcon={<ClearIcon style={{ height: '15px' }} />}
 												className={classes.chip}
 												onDelete={() => props.deleteItem(index)}
 											/>

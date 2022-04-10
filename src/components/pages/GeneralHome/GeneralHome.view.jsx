@@ -3,7 +3,7 @@ import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import TabsUnstyled from '@mui/base/TabsUnstyled';
 import Grid from '@mui/material/Grid';
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet';
 import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 import Carousel from 'react-material-ui-carousel';
@@ -1040,8 +1040,20 @@ const GeneralHomeView = (props) => {
 									<Helmet>
 										<style>
 											{`
+												.DayPicker {
+													font-family: Inter;
+												}
+												.DayPicker-Caption {
+													color: #1C67FF;
+												}
+												.DayPicker-NavButton--next {
+													background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAPCAYAAAA2yOUNAAAABHNCSVQICAgIfAhkiAAAAJ1JREFUKFNj3HX0lsG/v//i2f+yNzo6Kn5gwAIYdxy+MQEong/EF9j/sDtiU8i4f/99gZ8sPw8AFenjUsgIMp2QQrAiQgrhivApRFGESyGGIpDC7YevOzAyMO4HsRn/MwZiKAKH279/IAUC//8zLvS0U09AUYRNAdg0mO9wKYArwqcArIiQArAiWNzBHIk1gsFRwvozwcNGAxTRWAEA+rt/IR87yyoAAAAASUVORK5CYII=)
+												}
+												.DayPicker-NavButton--prev {
+													background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAPCAYAAAA2yOUNAAAABHNCSVQICAgIfAhkiAAAAKVJREFUKFNjZMABth+6nsDEwPTB3U59AyM2NdsP3VzAyPg/Hij30cNWQwBDEZIChv///yd62mkuQFGETQHIJrgiXArgivApACvacfjGBCCdD+LA3IDuGZCiD0BBfiA+APSJIzbfMoLCg5GRcT5YkpFxgYeNeiKGSSABQgqRfIfbRLRwwq4QS4gjKWRgmAj0TAGOuIMrxB53MJ9tP3zdAcT2tNU8AAAtT14Qfdt8HwAAAABJRU5ErkJggg==)
+												}
 												.DayPicker-Day {
-													padding: 0.4em;
+													padding: 0.2em;
 													height: 2.5vw;
 													width: 3vw;
 													table-layout: fixed;
@@ -1072,7 +1084,7 @@ const GeneralHomeView = (props) => {
 													table-layout: fixed;
 												}
 												.DayPicker-NavButton {
-													margin-top: 8px;
+													margin-top: 6px;
 												}
 												.DayPicker-Weekday {
 													font-size: 1em;

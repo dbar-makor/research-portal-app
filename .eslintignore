@@ -1,4 +1,3 @@
-changelog.config.js
 .eslintrc.js
 .prettierrc.js
 stylelint.config.js
@@ -6,5 +5,3 @@ release.config.js
 dist
 build
 _templates
-coverage
-test

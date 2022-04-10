@@ -8,7 +8,7 @@ import AdminTopbar from '../topbarParts/AdminTopbar/AdminTopbar';
 import MakorLogo from '../topbarParts/MakorLogo/MakorLogo';
 import useStyles from './TopBar.style';
 
-export const StyledButton = withStyles(() => ({
+const StyledButton = withStyles(() => ({
 	root: {
 		'width': '185px',
 		'height': '30px',
@@ -23,7 +23,7 @@ export const StyledButton = withStyles(() => ({
 	},
 }))(Button);
 
-export const LoginButton = withStyles(() => ({
+const LoginButton = withStyles(() => ({
 	root: {
 		'width': '122px',
 		'height': '30px',

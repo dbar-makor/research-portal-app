@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
+//import { ContentBlock } from 'draft-js';
 
 const useStyles = makeStyles(() => ({
 	page: {
@@ -58,17 +59,6 @@ const useStyles = makeStyles(() => ({
 			padding: 0,
 		},
 	},
-	vatGroupWrapper: {
-		display: 'flex',
-		justifyContent: 'center',
-		alignItems: 'center',
-		paddingBottom: 25,
-	},
-	vatGroup: {
-		display: 'flex',
-		alignItems: 'center',
-		justifyContent: 'center',
-	},
 	indiLabel: {
 		fontSize: '16px',
 		fontFamily: 'inter',
@@ -76,12 +66,19 @@ const useStyles = makeStyles(() => ({
 		color: '#868DA2',
 		paddingTop: '15px',
 	},
-	vatLabel1: {
-		paddingTop: 0,
-		marginRight: 20,
+	// vatLabel1: {
+	// 	paddingTop: 0,
+	// 	marginRight: 20,
+	// },
+	vatGroup: {
+		paddingTop: 8,
+		paddingBottom: 8,
+		margin: '0 auto',
 	},
-	vatLabel2: {
+	vatLabel: {
 		marginLeft: 20,
+		width: 'fit-content',
+		display: 'inline',
 	},
 	switch: {
 		'width': 22,

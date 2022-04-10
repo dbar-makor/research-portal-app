@@ -1,21 +1,23 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 
 import NumberFormatCustomView from './NumberFormatCustom.view';
 
-const NumberFormatCustom = (props) => {
-	const other = { ...props };
-
+const NumberFormatCustom = forwardRef((props, ref) => {
 	return (
 		<NumberFormatCustomView
 			inputRef={props.inputRef}
 			decimalNo={props.decimalNo}
 			minValue={props.minValue}
-			other={other}
+			thousandSeparator={props.thousandSeparator}
+			valueType={props.valueType}
+			value={props.value}
+			ref={ref}
+			other={{ ...props }}
 			onChange={props.onChange}
 		/>
 	);
-};
+});
 
 NumberFormatCustom.displayName = 'NumberFormatCustom';
 NumberFormatCustom.defaultProps = {};

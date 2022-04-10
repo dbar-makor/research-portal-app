@@ -1,7 +1,6 @@
 import React from 'react';
 import { Grid, Typography, Switch, withStyles } from '@material-ui/core';
 import SettingsSection from '../SettingsSection/SettingsSection';
-//import useStyles from './Settings.style';
 
 const SettingsView = (props) => {
 	return (
@@ -33,7 +32,7 @@ const SettingsView = (props) => {
 							</Grid>
 						</Grid>
 					</Grid>
-					<Grid item xs={5} style={{ paddingTop: '27px' }}>
+					<Grid item xs={5} style={{ minWidth: '390px', paddingTop: '27px' }}>
 						<Grid container>
 							{Object.keys(props.userSettings.settings).map((section) => {
 								return (

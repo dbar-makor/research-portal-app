@@ -71,9 +71,7 @@ const MainSalesScreen = () => {
 			companiesData={companiesData}
 			lastItemRef={lastItemRef}
 			chosenCompany={chosenCompany}
-		>
-			{' '}
-		</MainSalesScreenView>
+		/>
 	);
 };
 

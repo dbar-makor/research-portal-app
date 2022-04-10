@@ -28,12 +28,13 @@ const ContractView = (props) => {
 									<Grid item xs={6} className={classes.paddingRight10px}>
 										<TextInputUnit
 											className={classes.textFieldStyle}
-											name="id"
+											name="name"
 											label={props.chosenCompany ? props.chosenCompany.name : ''}
 											value={props.chosenCompany ? props.chosenCompany.name : ''}
-											formObject={props.contract}
-											handler={(e) => props.handleContract(e.target.value, 'id')}
-											error={props.errors.id}
+											readOnly
+											//formObject={props.contract}
+											//handler={(e) => props.handleContract(e.target.value, 'id')}
+											//error={props.errors.id}
 										/>
 									</Grid>
 									<Grid item xs={6} className={classes.PaddingLeft10px}>
@@ -107,7 +108,10 @@ const ContractView = (props) => {
 													minValue: 0,
 												},
 											}}
-											onChange={(e) => props.handleContract(e.target.value, 'amount')}
+											//onChange={props.setContract}
+											onChange={(e) =>
+												props.handleContract(e.target.value, 'amount', e.reason)
+											}
 										/>
 									</Grid>
 									<Grid item xs={1}>
@@ -132,23 +136,27 @@ const ContractView = (props) => {
 								</Grid>
 							</Grid>
 						</Grid>
-						<Divider className={classes.divider} />
+						{/* <Divider className={classes.divider} /> */}
 					</Grid>
 
 					<Grid container>
 						<Grid item xs={12} className={`${classes.padding3000px} ${classes.vatGroupWrapper}`}>
 							<Divider className={classes.divider} />
-							<Grid item xs={6} className={classes.vatGroup}>
-								<Typography className={`${classes.indiLabel} ${classes.vatLabel1}`}>
-									Include
-								</Typography>
+							<Grid
+								item
+								container
+								justifyContent="center"
+								alignItems="center"
+								xs={6}
+								className={classes.vatGroup}
+							>
 								<StatusSwitch
 									name="vat"
 									checked={props.contract.vat}
 									className={classes.switch}
 									onChange={(e) => props.handleContract(e.target.checked, 'vat')}
 								/>
-								<Typography className={classes.vatLabel2}>VAT</Typography>
+								<Typography className={classes.vatLabel}>VAT included</Typography>
 							</Grid>
 
 							<Divider className={classes.divider} />
@@ -215,19 +223,20 @@ const ContractView = (props) => {
 											inputProps: {
 												autoComplete: 'off',
 												decimalNo: 0,
-												minValue: props.chosenCompany.members
+												minValue: props.chosenCompany?.members
 													? props.chosenCompany.members.length
 													: 0,
 											},
 										}}
-										onChange={(e) => props.handleContract(e.target.value, 'members')}
+										onChange={(e) =>
+											props.handleContract(e.target.value, 'members', e.reason)
+										}
 									/>
 								</Grid>
 								{props.chosenCompany && props.chosenCompany.members && (
 									<Grid item xs={12}>
 										<Typography className={classes.note}>
-											* Minimal No. is
-											{' '}
+											* Minimal No. is &nbsp;
 											{props.chosenCompany.members.length}
 										</Typography>
 									</Grid>

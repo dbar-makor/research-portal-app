@@ -43,4 +43,6 @@ const PublicationsGrid = (props) => {
 	);
 };
 
+PublicationsGrid.displayName = 'PublicationsGrid';
+
 export default PublicationsGrid;

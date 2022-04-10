@@ -10,20 +10,6 @@ import {
 import * as actionSnackBar from '../../../../../redux/SnackBar/action';
 import PublicationsTabView from './PublicationsTab.view';
 
-//after changes, this component shows a single publication card
-
-function truncateString(string, wordsNo) {
-	const descrptionArr = string.split(' ');
-	const descriptionLength = descrptionArr.length;
-
-	descrptionArr.splice(wordsNo);
-	const newDescription = descrptionArr.join(' ');
-
-	if (descriptionLength > wordsNo) return `${newDescription}...`;
-
-	return newDescription;
-}
-
 const PublicationsTab = (props) => {
 	const [openAlert, setOpenAlert] = useState(false);
 	const [redirectMarker, setRedirectMarker] = useState(false);
@@ -100,7 +86,6 @@ const PublicationsTab = (props) => {
 			publication={props.publication}
 			handleDeleteBtn={handleDeleteBtn}
 			handleEdit={handleEdit}
-			truncateString={truncateString}
 			openAlert={openAlert}
 			handleCloseAlert={handleCloseAlert}
 			deletePublication={deletePublication}

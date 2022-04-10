@@ -1,0 +1,4 @@
+{
+	"ignores": ["sharp", "lint-staged", "cz-format-extension", "commitizen", "@commitlint/cli"],
+	"skipMissing": true
+}

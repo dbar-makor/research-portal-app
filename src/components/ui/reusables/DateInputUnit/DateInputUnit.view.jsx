@@ -21,7 +21,8 @@ const DateInputUnitView = (props) => {
 					autoOk
 					placeholder={props.label}
 					disableToolbar
-					className={props.datePickerClass}
+					//className={props.datePickerClass}
+					className={`${props.datePickerClass} ${classes.input}`}
 					keyboardIcon={
 						<IconCalendar
 							style={{ width: props.iconFontSize }}

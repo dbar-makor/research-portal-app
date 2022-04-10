@@ -79,6 +79,9 @@ const useStyles = makeStyles({
 		marginBottom: 16,
 		fontWeight: '600',
 	},
+	pubDescription: {
+		fontSize: '.9rem',
+	},
 	backdrop: {
 		'zIndex': '2',
 		'width': 'inherit',

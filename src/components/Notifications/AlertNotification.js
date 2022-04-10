@@ -102,4 +102,6 @@ const AlertNotification = (props) => {
 	);
 };
 
+AlertNotification.displayName = 'AlertNotification';
+
 export default AlertNotification;

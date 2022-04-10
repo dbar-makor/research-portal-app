@@ -614,6 +614,7 @@ const DeadArticle = () => {
 			validateEvent={validateEvent}
 			validateEditedDeadPublication={validateEditedDeadPublication}
 			validationResult={validationResult}
+			validationResultEvent={validationResultEvent}
 			ref={tableRowsRefs}
 			onPDFUpload={onPDFUpload}
 			onDropCover={onDropCover}

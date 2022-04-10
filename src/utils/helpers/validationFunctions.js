@@ -69,6 +69,66 @@ export const validateCompany = (fieldValues, errors, setErrors, setValidationRes
 	setValidationResult(result);
 };
 
+export const validateUserInformation = (fieldValues, errors, setErrors, setValidationResult) => {
+	const temp = { ...errors };
+
+	if ('name' in fieldValues) {
+		temp.name = fieldValues.name ? '' : 'This field is required';
+	}
+
+	if ('dialing_code' in fieldValues) {
+		temp.dialing_code = fieldValues.dialing_code ? '' : 'This field is required';
+	}
+
+	if ('number' in fieldValues) {
+		temp.number = fieldValues.number ? '' : 'This field is required';
+	}
+
+	if ('email' in fieldValues) {
+		const pattern =
+			/^(([^<>()\]\\.,;:\s@"]+(\.[^<>()\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+		if (fieldValues.email) {
+			temp.email = '';
+		} else {
+			temp.email = 'This field is required';
+		}
+
+		if (fieldValues.email && pattern.test(fieldValues.email.toLowerCase())) {
+			temp.email = '';
+		} else {
+			temp.email = 'Email is invalid';
+		}
+	}
+
+	if ('position' in fieldValues) {
+		temp.position = fieldValues.position ? '' : 'This field is required';
+	}
+
+	if ('username' in fieldValues) {
+		temp.username = fieldValues.username ? '' : 'This field is required';
+	}
+
+	if ('birthday' in fieldValues) {
+		temp.birthday = fieldValues.birthday ? '' : 'This field is required';
+
+		if (isValid(new Date(fieldValues.birthday))) {
+			temp.birthday = '';
+
+			if (!fieldValues.birthday) {
+				temp.birthday = 'This field is required';
+			}
+		} else {
+			temp.birthday = 'Date is invalid';
+		}
+	}
+
+	setErrors({ ...temp });
+	const result = Object.values(temp).every((x) => x === '');
+
+	setValidationResult(result);
+};
+
 export const validateChangedPassword = (
 	fieldValues,
 	errors,

@@ -1,5 +1,6 @@
 {
 	"name": "research-portal-app",
+	"description": "React.js project - Research Portal",
 	"version": "0.1.0",
 	"private": true,
 	"dependencies": {
@@ -62,26 +63,34 @@
 	},
 	"devDependencies": {
 		"@commitlint/cli": "^16.1.0",
-		"@commitlint/config-conventional": "^16.0.0",
+		"@ls-lint/ls-lint": "1.11.0",
 		"clsx": "^1.1.1",
 		"commitizen": "^4.2.4",
-		"cz-conventional-changelog": "^3.3.0",
+		"cz-format-extension": "1.5.0",
+		"depcheck": "1.4.3",
 		"eslint": "^8.10.0",
+		"eslint-config-prettier": "8.5.0",
 		"eslint-plugin-import": "^2.25.4",
 		"eslint-plugin-unused-imports": "^2.0.0",
-		"git-cz": "^4.8.0",
 		"husky": "^7.0.4",
 		"hygen": "^6.1.0",
 		"lint-staged": "^12.3.7",
+		"npm-run-all": "4.1.5",
 		"prettier": "^2.5.1"
 	},
 	"scripts": {
+		"preinstall": "npx only-allow yarn",
+		"husky:install": "husky install",
+		"git:config": "git config --local include.path ../.gitconfig",
+		"prepare": "run-p husky:install git:config && husky install",
 		"start": "react-scripts start",
-		"lint": "eslint \"src/**/*.{js,jsx}\" --fix",
+		"build": "react-scripts build",
+		"lint": "eslint \"src/**/*.{js,jsx}\"",
+		"lint:fix": "eslint \"src/**/*.{js,jsx}\" --fix",
 		"format": "prettier --write \"src/**/*.{js,jsx}\"",
+		"lslint": "ls-lint",
 		"template:page": "hygen component new-page",
-		"template:ui": "hygen component new-ui",
-		"prepare": "husky install"
+		"template:ui": "hygen component new-ui"
 	},
 	"browserslist": {
 		"production": [
@@ -94,9 +103,5 @@
 			"last 1 firefox version",
 			"last 1 safari version"
 		]
-	},
-	"lint-staged": {
-		"src/**/*.{js,jsx}": "eslint --fix",
-		"*.{js,jsx,json}": "prettier --write"
 	}
 }

@@ -9,7 +9,7 @@ const SettingsSectionView = (props) => {
 			<Grid container direction="column">
 				<Grid item>
 					<Typography style={{ marginLeft: 10, color: '#868DA2', fontSize: 14 }}>
-						{props.section}
+						{props.section.replace('_', ' ')}
 					</Typography>
 				</Grid>
 				{props.userSettings &&
@@ -41,8 +41,6 @@ const SettingsSectionView = (props) => {
 SettingsSectionView.displayName = 'SettingsSectionView';
 SettingsSectionView.defaultProps = {};
 
-export default React.memo(SettingsSectionView);
-
 const GreenSwitch = withStyles(() => ({
 	switchBase: {
 		'color': '#FFFFFF',
@@ -61,3 +59,5 @@ const GreenSwitch = withStyles(() => ({
 	checked: {},
 	track: {},
 }))(Switch);
+
+export default React.memo(SettingsSectionView);

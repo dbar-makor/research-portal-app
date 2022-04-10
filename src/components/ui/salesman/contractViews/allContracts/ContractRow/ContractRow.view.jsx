@@ -21,13 +21,15 @@ const ContractRowView = (props) => {
 			<TableCell style={{ color: props.contract.signed === true ? '#00CA80' : '#FF3939' }}>
 				{props.contract.signed === true ? 'Signed' : 'Unsigned'}
 			</TableCell>
-			<TableCell style={{ width: 215 }}>
+			<TableCell style={{ width: 215, minWidth: 200 }}>
 				{`${format(new Date(props.contract.start_at), 'dd MMM , yyyy')} - ${format(
 					new Date(props.contract.end_at),
 					'dd MMM, yyyy',
 				)}`}
 			</TableCell>
-			<TableCell style={{ textTransform: 'capitalize' }}>{props.contract.company_name}</TableCell>
+			<TableCell style={{ textTransform: 'capitalize', minWidth: 210 }}>
+				{props.contract.company_name}
+			</TableCell>
 			<TableCell
 				style={{ width: 100, textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }}
 			>
@@ -112,8 +114,6 @@ const ContractRowView = (props) => {
 ContractRowView.displayName = 'ContractRowView';
 ContractRowView.defaultProps = {};
 
-export default React.memo(ContractRowView);
-
 const StyledPop = withStyles({
 	root: {
 		'& .MuiPopover-paper': {
@@ -122,3 +122,5 @@ const StyledPop = withStyles({
 		},
 	},
 })(Popover);
+
+export default React.memo(ContractRowView);

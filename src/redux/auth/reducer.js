@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 import {
 	TOW_FA_STEP_ONE_SIX_DIGIT,
 	SET_LOADING_INDICATOR_2FA,

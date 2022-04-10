@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 import { SET_SNACKBAR, DISABLE_SNACKBAR } from './constants';
 
 const initialState = {
@@ -7,7 +8,7 @@ const initialState = {
 	type: 'success',
 };
 
-export default (state = initialState, action) => {
+const snackBarReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case SET_SNACKBAR:
 			return {
@@ -26,3 +27,5 @@ export default (state = initialState, action) => {
 			return state;
 	}
 };
+
+export default snackBarReducer;

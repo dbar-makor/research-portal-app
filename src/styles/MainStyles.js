@@ -3,13 +3,15 @@ import { makeStyles, TextField, withStyles, Button, IconButton, Switch } from '@
 
 export const useStyles = makeStyles((theme) => ({
 	mainContainer: {
-		marginTop: '4.3vh',
+		margin: '4.3vh auto',
+		width: '70%',
 	},
 	blueShape: {
 		backgroundColor: '#1C67FF',
 		borderRadius: '8px',
 		height: '12px',
 		marginBottom: '10px',
+		minWidth: '45px',
 	},
 	blueShapeModal: {
 		backgroundColor: '#1C67FF',
@@ -28,6 +30,42 @@ export const useStyles = makeStyles((theme) => ({
 	progressBar: {
 		color: '#1C67FF',
 	},
+	rightHalf: {
+		backgroundColor: '#F9FAFB',
+		//width: '90%',
+		height: 'inherit',
+		display: 'flex',
+		justifyContent: 'center',
+		alignItems: 'center',
+		borderRadius: 8,
+		//marginLeft: 10,
+	},
+	// '@keyframes fill':{
+	// 	'0%' :{
+	// 		'box-shadow': '60px -60px 0 3px #fff, -60px -60px 0 3px #fff, -60px 60px 0 3px #fff, 60px 60px 0 3px #fff, 0 0 0 3px #fff'
+	// 	  },
+	// 	  '25%': {
+	// 		'box-shadow': '0 -125px 0 3px #fff, -60px -60px 0 3px #fff, -60px 60px 0 3px #fff, 60px 60px 0 3px #fff, 0 0 0 3px #000'
+	// 	  },
+	// 	  '50%': {
+	// 		'box-shadow': '0 -125px 0 3px #fff, -125px 0px 0 3px #fff, -60px 60px 0 3px #fff, 60px 60px 0 3px #fff, 0 0 0 3px #000'
+	// 	  },
+	// 	  '75%': {
+	// 		'box-shadow': '0 -125px 0 3px #fff, -125px 0px 0 3px #fff, 0px 125px 0 3px #fff, 60px 60px 0 3px #fff, 0 0 0 3px #000'
+	// 	  },
+	// 	  '100%': {
+	// 		'box-shadow': '0 -125px 0 3px #fff, -125px 0px 0 3px #fff, 0px 125px 0 3px #fff, 120px 40px 0 3px #fff, 0 0 0 3px #000'
+	// 	  },
+	// },
+	logoBox: {
+		padding: '100px 75px',
+		borderRadius: '50%',
+		overflow: 'hidden',
+	},
+	prompt: {
+		marginTop: 30,
+		textAlign: 'center',
+	},
 	marginBottom32: {
 		marginBottom: '32px',
 	},
@@ -40,6 +78,7 @@ export const useStyles = makeStyles((theme) => ({
 		},
 	},
 	autoCompleteStyle: {
+		'flex': 1,
 		'& .MuiAutocomplete-inputRoot[class*="MuiOutlinedInput-root"]': {
 			padding: '1.3px',
 		},
@@ -63,6 +102,7 @@ export const useStyles = makeStyles((theme) => ({
 	},
 	scrollableTableContainer: {
 		'maxHeight': '605px',
+		'minWidth': 690,
 		'overflowY': 'auto',
 		'&::-webkit-scrollbar': {
 			width: '3px',
@@ -97,7 +137,6 @@ export const useStyles = makeStyles((theme) => ({
 	},
 	memberFooter: {
 		position: 'relative',
-		//width: "100%"
 		[theme.breakpoints.only('xs')]: {
 			height: '550px',
 		},
@@ -228,7 +267,6 @@ export const StyledTextField = withStyles({
 				opacity: 1,
 			},
 		},
-
 		'& .MuiInputLabel-outlined': {
 			transform: 'translate(12px, 12px) scale(1)',
 		},

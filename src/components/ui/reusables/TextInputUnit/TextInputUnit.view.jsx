@@ -13,7 +13,7 @@ const TextInputUnitView = (props) => {
 					className={classes.field}
 					name={props.name}
 					value={props.value}
-					inputProps={{ autoComplete: 'off' }}
+					inputProps={{ autoComplete: 'off', readOnly: props.readOnly ? true : false }}
 					placeholder={props.label}
 					style={{ width: '100%' }}
 					variant="outlined"

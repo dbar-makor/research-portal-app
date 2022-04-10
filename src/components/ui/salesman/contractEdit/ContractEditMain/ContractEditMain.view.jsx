@@ -2,6 +2,7 @@ import React from 'react';
 import { Dialog, DialogTitle, Grid, IconButton, Typography } from '@material-ui/core';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import { format } from 'date-fns';
+import CloseIcon from '@material-ui/icons/Close';
 import { useStyles } from '../../../../../styles/ContarctsModalStyles';
 import SubHeaderModal from '../../../reusables/SubHeaderModal/SubHeaderModal';
 import Contract from '../../contractViews/Contract/Contract';
@@ -23,7 +24,7 @@ const ContractEditMainView = (props) => {
 		>
 			<Grid item xs={12} align="right" style={{ margin: '10px 10px 0px 0px' }}>
 				<IconButton size="small" onClick={() => props.openModal()}>
-					<c style={{ color: '#000' }} />
+					<CloseIcon fontSize="small" style={{ color: '#000' }} />
 				</IconButton>
 			</Grid>
 			<DialogTitle>
