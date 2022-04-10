@@ -64,7 +64,7 @@ const InitialCompanyStateBlockView = (props) => {
 										autoComplete="off"
 										{...(props.errors.sales_agent && {
 											error: true,
-											helperText: props.errors.sales_agent,
+											helpertext: props.errors.sales_agent,
 										})}
 									/>
 								)}

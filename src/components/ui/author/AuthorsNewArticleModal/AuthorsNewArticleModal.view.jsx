@@ -1,12 +1,18 @@
+import React from 'react';
+import { useDispatch } from 'react-redux';
+
 import { Button, Grid, Typography } from '@material-ui/core';
 import Dialog from '@material-ui/core/Dialog';
-import React from 'react';
+
+import { getChosenResearchAsync } from '../../../../redux/researches/chosenResearchSlice';
+
 import { ReactComponent as ArticleIcon } from '../../../../assets/icons/articleIcon.svg';
 import { ReactComponent as UploadIcon } from '../../../../assets/icons/uploadIcon.svg';
 import { ReactComponent as CloseIcon } from '../../../../assets/icons/closeIcon.svg';
 import useStyles from './AuthorsNewArticleModal.style';
 
 const AuthorsNewArticleModalView = (props) => {
+	const dispatch = useDispatch();
 	const classes = useStyles();
 
 	return (
@@ -40,16 +46,17 @@ const AuthorsNewArticleModalView = (props) => {
 									<Grid item xs={5}>
 										<Button
 											className={classes.buttonStyle}
-											onClick={() => props.history.push('/new-article')}
+											onClick={() => {
+												props.removeArticleId();
+												dispatch(getChosenResearchAsync(''));
+												props.history.push('/new-article');
+											}}
 										>
 											<Grid container>
 												<Grid item xs={12}>
 													<Grid container>
 														<Grid item xs={12}>
-															<ArticleIcon
-																//   style={{ color: "red" }}
-																className={classes.marginTop14px}
-															/>
+															<ArticleIcon className={classes.marginTop14px} />
 														</Grid>
 													</Grid>
 													<Grid container>
@@ -67,7 +74,11 @@ const AuthorsNewArticleModalView = (props) => {
 									<Grid item xs={5}>
 										<Button
 											className={classes.button2Style}
-											onClick={() => props.history.push('/upload-article')}
+											onClick={() => {
+												props.removeDeadArticleId();
+												dispatch(getChosenResearchAsync(''));
+												props.history.push('/upload-article');
+											}}
 										>
 											<Grid container>
 												<Grid item xs={12}>

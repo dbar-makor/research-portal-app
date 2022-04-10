@@ -3,7 +3,6 @@ import React from 'react';
 import SelectFormControlView from './SelectFormControl.view';
 
 const SelectFormControl = (props) => {
-
 	return (
 		<SelectFormControlView
 			value={props.value || ''}

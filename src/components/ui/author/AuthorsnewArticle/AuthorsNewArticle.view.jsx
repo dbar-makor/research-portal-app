@@ -49,7 +49,7 @@ const AuthorsNewArticleView = (props) => {
 													style={{ width: '100%' }}
 													placeholder="Article Title*"
 													error={!!props.errors.title}
-													helperText={props.errors.title}
+													helpertext={props.errors.title}
 													inputProps={{
 														style: { fontSize: '32px', fontWeight: 600 },
 														maxLength: 50,
@@ -72,31 +72,22 @@ const AuthorsNewArticleView = (props) => {
 													? `${classes.muiEditor} ${classes.editorError}`
 													: `${classes.muiEditor}`
 											}
-											// style={showEditorError ? {border: "2px solid red"} : {}}
 											inlineToolbar
-											label="Enter article body*..."
+											label="Enter article body..."
 											onChange={props.handleEditorChange}
 											onFocus={props.handleEditorOnFocus}
-											//shows error if field was ever focused, something was already typed and there is no content
-											// error={contentNotOK.focus &&  contentNotOK.everTyped && !contentNotOK.isText }
-											{...(props.chosenResearch &&
-												Object.keys(props.chosenResearch.content).length && {
-													defaultValue:
-														typeof props.chosenResearch.content !== 'string'
-															? JSON.stringify(props.chosenResearch.content)
-															: props.chosenResearch.content,
-												})}
-											{...(props.location.state?.from === 'prearticle' &&
-												Object.keys(props.location.state?.publication.content)
-													.length && {
-													defaultValue:
-														typeof props.location.state?.publication.content !==
-														'string'
-															? JSON.stringify(
-																	props.location.state?.publication.content,
-															  )
-															: props.location.state.publication.content,
-												})}
+											{...(props.chosenResearch
+												? {
+														defaultValue:
+															typeof props.chosenResearch.content !== 'string'
+																? JSON.stringify(props.chosenResearch.content)
+																: props.chosenResearch.content,
+												  }
+												: props.localForm.content?.blocks?.some((block) => {
+														return block.text !== '';
+												  }) && {
+														defaultValue: JSON.stringify(props.localForm.content),
+												  })}
 											controls={[
 												'bold',
 												'italic',
@@ -107,7 +98,6 @@ const AuthorsNewArticleView = (props) => {
 												'numberList',
 												'bulletList',
 												'quote',
-												// "upload-image"
 											]}
 											customControls={[
 												{
@@ -149,7 +139,6 @@ const AuthorsNewArticleView = (props) => {
 												fileOK={props.coverImageOK}
 												setFileOK={props.setCoverImageOK}
 												onDrop={props.onDropCover}
-												//  error={errors.coverImage}
 											/>
 											{!props.coverImageOK.initial && (
 												<Typography variant="caption" className={classes.customError}>
@@ -172,7 +161,6 @@ const AuthorsNewArticleView = (props) => {
 													formObject={props.localTags}
 													setFormObject={props.setLocalTags}
 													handler={props.handleTagsValue}
-													// chipClassName={classes.chip}
 												/>
 											</Grid>
 										</Grid>

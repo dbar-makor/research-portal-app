@@ -35,7 +35,7 @@ const MemberTopbarView = (props) => {
 				</Grid>
 				<Grid item xs={6}>
 					<Grid container direction="row" justifyContent="flex-end" alignItems="center">
-						<Grid item xs={5} className={props.classes.selectBox} >
+						<Grid item xs={5} className={props.classes.selectBox}>
 							<SelectFormControl
 								value={props.region}
 								valueField="value"

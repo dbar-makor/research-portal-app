@@ -13,8 +13,8 @@ const iconComponent = (props) => {
 const SelectFormControlView = (props) => {
 	const classes = useStyles(props);
 
-  const menuProps = {
-    //controlling popper position
+	const menuProps = {
+		//controlling popper position
 		anchorOrigin: {
 			vertical: 'bottom',
 			horizontal: 'left',

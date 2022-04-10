@@ -4,7 +4,11 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { isValid } from 'date-fns';
 import { useHistory, useLocation } from 'react-router';
-import { selectChosenResearch, changeChosenResearch } from '../../../../redux/researches/chosenResearchSlice';
+import {
+	getChosenResearchAsync,
+	selectChosenResearch,
+	changeChosenResearch,
+} from '../../../../redux/researches/chosenResearchSlice';
 import { END_POINT, BASE_URL } from '../../../../utils/constants';
 import * as actionSnackBar from '../../../../redux/SnackBar/action';
 import {
@@ -17,11 +21,14 @@ import AuthorsNewArticleView from './AuthorsNewArticle.view';
 const AuthorsNewArticle = () => {
 	const chosenResearch = useSelector(selectChosenResearch);
 
+	// Check if edit mode
+	if (chosenResearch) sessionStorage.setItem('articleId', chosenResearch.id);
+
+	const articleId = sessionStorage.getItem('articleId');
+
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const location = useLocation();
-	const [coverImage, setCoverImage] = useState('');
-	const [localCats, setLocalCats] = useState([]);
 	const [description, setDescription] = useState('');
 
 	const [currentEvent, setCurrentEvent] = useState({
@@ -29,7 +36,7 @@ const AuthorsNewArticle = () => {
 		title: '',
 	});
 
-	const initState = {
+	const formInitState = {
 		title: '',
 		content: '',
 		categories: [],
@@ -39,19 +46,78 @@ const AuthorsNewArticle = () => {
 		type: 'live',
 	};
 
-	const [localForm, setLocalForm] = useState(initState);
-	const [localTags, setLocalTags] = useState([]);
+	const [localForm, setLocalForm] = useState(() => {
+		// Check for article ID exsistence in sessionStorage
+		if (articleId) dispatch(getChosenResearchAsync(articleId));
+
+		// Get article from localStorage
+		const localStorageArticle = localStorage.getItem('article');
+
+		// Check for article in localStorage or article is in edit mode
+		if (!localStorageArticle || localStorageArticle === 'undefined' || chosenResearch) {
+			return formInitState;
+		}
+
+		const article = JSON.parse(localStorageArticle);
+
+		return article;
+	});
+
+	const [coverImage, setCoverImage] = useState(() => {
+		// Get cover image from localStorage
+		const localStorageCoverImage = localStorage.getItem('coverImage');
+
+		// Check for cover image in localStorage or article is in edit mode
+		if (!localStorageCoverImage || localStorageCoverImage === 'undefined' || chosenResearch) return '';
+
+		const coverImage = JSON.parse(localStorageCoverImage);
+
+		return coverImage;
+	});
+
+	const [localCats, setLocalCats] = useState(() => {
+		// Get cover image from localStorage
+		const localStorageCategories = localStorage.getItem('categories');
+
+		// Check for categories in localStorage or article is in edit mode
+		if (!localStorageCategories || localStorageCategories === 'undefined' || chosenResearch) return [];
+
+		const categories = JSON.parse(localStorageCategories);
+
+		return categories;
+	});
+
+	const [localTags, setLocalTags] = useState(() => {
+		// Get tags from localStorage
+		const localStorageTags = localStorage.getItem('tags');
+
+		// Check for tags in localStorage or article is in edit mode
+		if (!localStorageTags || localStorageTags === 'undefined' || chosenResearch) return [];
+
+		const tags = JSON.parse(localStorageTags);
+
+		return tags;
+	});
+
 	const [scrollLocation, setScrollLocation] = useState('bottom');
 	const tableRowsRefs = useRef([]);
+
 	const [errors, setErrors] = useState({});
 	const [validationResult, setValidationResult] = useState(false);
 	const [errorsEvent, setErrorsEvent] = useState({});
-	//true as default because not mandatory
 	/* eslint no-unused-vars: 0 */
 	const [validationResultEvent, setValidationResultEvent] = useState(true);
+
 	const [coverImageOK, setCoverImageOK] = useState({ initial: true, final: false });
 	const [contentNotOK, setContentNotOK] = useState({ focus: false, isText: false, everTyped: false });
 	const showEditorError = contentNotOK.focus && contentNotOK.everTyped && !contentNotOK.isText;
+
+	// Save article in localStorage
+	const setLocalStorageArticle = (data) => {
+		if (chosenResearch || articleId) return;
+
+		localStorage.setItem('article', JSON.stringify(data));
+	};
 
 	const executeScroll = () => {
 		if (localForm.events.length) {
@@ -62,13 +128,6 @@ const AuthorsNewArticle = () => {
 			}
 		}
 	};
-
-	useEffect(() => {
-		if (localForm) {
-			tableRowsRefs.current = tableRowsRefs.current.slice(0, localForm.events.length);
-			executeScroll();
-		}
-	}, [localForm.events]);
 
 	useEffect(() => {
 		if (chosenResearch) {
@@ -86,7 +145,7 @@ const AuthorsNewArticle = () => {
 			delete editedLocalForm.name;
 			delete editedLocalForm.updated_at;
 
-			setCoverImage(coverImg ? coverImg : '');
+			setCoverImage(coverImg);
 			setLocalCats(chosenResearch.categories);
 			setLocalForm(editedLocalForm);
 			setLocalTags(chosenResearch.tags);
@@ -104,48 +163,9 @@ const AuthorsNewArticle = () => {
 				if (!chosenResearch.categories.length || !chosenResearch.title) {
 					setValidationResult(false);
 				}
-				// if (JSON.parse(chosenResearch.content)) {
-				// }
 			}
 		}
 	}, [chosenResearch]);
-
-	//if coming back from preview (chosenResearch is now null even if it is saved in server)
-	useEffect(() => {
-		if (location.state?.from === 'prearticle') {
-			const publication = location.state?.publication;
-
-			const coverImg = publication.attachments?.find(
-				(attachment) => attachment.file_type === 'main_bg',
-			);
-
-			const otherFiles = publication.attachments?.filter(
-				(attachment) => attachment.file_type !== 'main_bg',
-			);
-
-			// let categoriesIDs = publication.categories?.map(category => category.id)
-			const editedLocalForm = { ...publication, attachments: otherFiles };
-
-			// let editedLocalForm = {...publication, attachments: otherFiles, content: JSON.stringify(publication.content)};
-			delete editedLocalForm.created_at;
-			delete editedLocalForm.name;
-			delete editedLocalForm.updated_at;
-
-			setCoverImage(coverImg ? coverImg : '');
-			setLocalCats(publication.categories);
-			setLocalForm(editedLocalForm);
-			setLocalTags(publication.tags);
-
-			//validations
-			if (coverImg) {
-				setCoverImageOK((prev) => ({ ...prev, final: true }));
-			}
-
-			if (publication.categories.length && publication.title) {
-				setValidationResult(true);
-			}
-		}
-	}, [location.state]);
 
 	const sendPublication = async (buttonMarker) => {
 		const attachmentsCopy = [...localForm.attachments];
@@ -197,6 +217,7 @@ const AuthorsNewArticle = () => {
 				description: description,
 				created_at: new Date(),
 			};
+
 			history.push({
 				pathname: '/prearticle',
 				state: { publication: formToSend, from: 'new-publication' },
@@ -211,7 +232,6 @@ const AuthorsNewArticle = () => {
 			if (formToSend.id) {
 				res = await axios.put(`${BASE_URL}${END_POINT.PUBLICATION}/${formToSend.id}`, formToSend);
 				history.push('/researches');
-				dispatch(changeChosenResearch(null));
 
 				if (res.status === 201) {
 					dispatch(actionSnackBar.setSnackBar('success', 'Successfully updated', 2000));
@@ -224,20 +244,18 @@ const AuthorsNewArticle = () => {
 					dispatch(actionSnackBar.setSnackBar('success', 'Successfully published', 2000));
 				}
 			}
+
+			localStorage.removeItem('article');
 		} catch (error) {
 			dispatch(actionSnackBar.setSnackBar('error', 'Publish failed', 2000));
 		}
 	};
 
-	//when user navigates outside the component- chosen research is cleared
-	useEffect(() => {
-		return () => {
-			dispatch(changeChosenResearch(null));
-		};
-	}, []);
-
 	const handleChange = (value, key) => {
-		setLocalForm({ ...localForm, [key]: value });
+		const data = { ...localForm, [key]: value };
+
+		setLocalForm(data);
+		setLocalStorageArticle(data);
 
 		if (chosenResearch) {
 			validateEditedLivePublication({ [key]: value }, errors, setErrors, setValidationResult);
@@ -255,6 +273,12 @@ const AuthorsNewArticle = () => {
 
 		setLocalCats(values);
 
+		// Check if not in edit mode
+		if (!articleId) {
+			// Update categories in localStorage
+			localStorage.setItem('categories', JSON.stringify(values));
+		}
+
 		if (chosenResearch) {
 			validateEditedLivePublication({ categories: newCats }, errors, setErrors, setValidationResult);
 		} else {
@@ -266,10 +290,15 @@ const AuthorsNewArticle = () => {
 		const execEvents = [...localForm.events];
 
 		execEvents.push(currentEvent);
-		setLocalForm({
+
+		const data = {
 			...localForm,
 			events: execEvents,
-		});
+		};
+
+		setLocalForm(data);
+		setLocalStorageArticle(data);
+
 		setCurrentEvent({
 			date: null,
 			title: '',
@@ -285,11 +314,16 @@ const AuthorsNewArticle = () => {
 
 			catsCopy.splice(index, 1);
 			formCats.splice(index, 1);
+
 			setLocalCats(catsCopy);
-			setLocalForm({
+
+			const data = {
 				...localForm,
 				categories: formCats,
-			});
+			};
+
+			setLocalForm(data);
+			setLocalStorageArticle(data);
 
 			if (chosenResearch) {
 				validateEditedLivePublication(
@@ -305,10 +339,14 @@ const AuthorsNewArticle = () => {
 			const categoryCopy = [...localForm[category]];
 
 			categoryCopy.splice(index, 1);
-			setLocalForm({
+
+			const data = {
 				...localForm,
 				[category]: categoryCopy,
-			});
+			};
+
+			setLocalForm(data);
+			setLocalStorageArticle(data);
 		}
 	};
 
@@ -316,10 +354,13 @@ const AuthorsNewArticle = () => {
 		const categoryCopy = [...localForm[category]];
 
 		categoryCopy[rowIndex][key] = value;
-		setLocalForm({
+		const data = {
 			...localForm,
 			[category]: categoryCopy,
-		});
+		};
+
+		setLocalForm(data);
+		setLocalStorageArticle(data);
 
 		if (category === 'events') {
 			setScrollLocation('event');
@@ -345,7 +386,6 @@ const AuthorsNewArticle = () => {
 		const attachmentsCopy = [...localForm.attachments];
 
 		for (const file of acceptedFiles) {
-			// eslint-disable-next-line no-undef
 			const formData = new FormData();
 
 			formData.append('file', file);
@@ -361,7 +401,11 @@ const AuthorsNewArticle = () => {
 					};
 
 					attachmentsCopy.push(newAttachment);
-					setLocalForm({ ...localForm, attachments: attachmentsCopy });
+
+					const data = { ...localForm, attachments: attachmentsCopy };
+
+					setLocalForm(data);
+					setLocalStorageArticle(data);
 				}
 			} catch (error) {
 				dispatch(actionSnackBar.setSnackBar('error', 'File upload failed', 2000));
@@ -371,7 +415,6 @@ const AuthorsNewArticle = () => {
 
 	const onDropCover = async (acceptedFiles) => {
 		const coverImage = acceptedFiles[0];
-		// eslint-disable-next-line no-undef
 		const formData = new FormData();
 
 		formData.append('file', coverImage);
@@ -387,6 +430,13 @@ const AuthorsNewArticle = () => {
 				};
 
 				setCoverImage(newCover);
+
+				// Check if not in edit mode
+				if (!articleId) {
+					// Update cover image in localStorage
+					localStorage.setItem('coverImage', JSON.stringify(newCover));
+				}
+
 				setCoverImageOK((prev) => ({ ...prev, final: true }));
 			}
 		} catch (error) {
@@ -412,7 +462,14 @@ const AuthorsNewArticle = () => {
 				tempTags.push(value);
 			}
 		});
+
 		setLocalTags(tempTags);
+
+		// Check if not in edit mode
+		if (!articleId) {
+			// Update tags in localStorage
+			localStorage.setItem('tags', JSON.stringify(tempTags));
+		}
 
 		//if tag exists in server- send tag's id; if new- send tag's name, server will include it in tag list
 	};
@@ -427,8 +484,10 @@ const AuthorsNewArticle = () => {
 		}
 
 		const content = convertToRaw(event.getCurrentContent());
+		const data = { ...localForm, content: content };
 
-		setLocalForm({ ...localForm, content: content });
+		setLocalForm(data);
+		setLocalStorageArticle(data);
 
 		//if ever typed- lst change will not be null
 		if (event.getLastChangeType()) {
@@ -441,8 +500,6 @@ const AuthorsNewArticle = () => {
 			setContentNotOK((prevState) => ({ ...prevState, isText: false }));
 		}
 	};
-
-	//checking if user ever entered the rich editor field
 
 	const handleEditorOnFocus = () => {
 		setContentNotOK((prevState) => ({ ...prevState, focus: true }));

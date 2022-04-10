@@ -20,7 +20,7 @@ export const { changeChosenResearch } = chosenResearchSlice.actions;
 
 export const getChosenResearchAsync = (id) => async (dispatch) => {
 	if (id === '') {
-		dispatch(changeChosenResearch(null));
+		return dispatch(changeChosenResearch(null));
 	}
 
 	try {

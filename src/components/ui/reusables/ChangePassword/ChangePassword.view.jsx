@@ -38,7 +38,7 @@ const ChangePasswordView = (props) => {
 							label="Old Password"
 							className={classes.textField}
 							error={!!props.errors.old_password}
-							helperText={props.errors.old_password}
+							helpertext={props.errors.old_password}
 							onChange={(e) => props.handleFormChange(e.target.value, 'old_password', 'old')}
 						/>
 						<StyledTextField
@@ -48,7 +48,7 @@ const ChangePasswordView = (props) => {
 							label="New Password"
 							className={classes.textField}
 							error={!!props.errors.new_password}
-							helperText={props.errors.new_password}
+							helpertext={props.errors.new_password}
 							onChange={(e) => props.handleFormChange(e.target.value, 'new_password', 'new')}
 						/>
 						<StyledTextField
@@ -58,7 +58,7 @@ const ChangePasswordView = (props) => {
 							label="Confirm Password"
 							className={classes.textField}
 							error={!!props.errors.new_password_confirm}
-							helperText={props.errors.new_password_confirm}
+							helpertext={props.errors.new_password_confirm}
 							onChange={(e) =>
 								props.handleFormChange(e.target.value, 'new_password_confirm', 'confirm')
 							}

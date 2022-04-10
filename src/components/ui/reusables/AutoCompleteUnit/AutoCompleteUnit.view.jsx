@@ -41,7 +41,7 @@ const AutoCompleteUnitView = (props) => {
 							variant="outlined"
 							autoComplete="off"
 							placeholder={props.label}
-							{...(props.error && { error: true, helperText: props.error })}
+							{...(props.error && { error: true, helpertext: props.error })}
 						/>
 					)}
 					onChange={(e, newvalue) => props.handler(newvalue, props.name)}

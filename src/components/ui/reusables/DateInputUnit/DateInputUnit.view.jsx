@@ -11,7 +11,7 @@ const DateInputUnitView = (props) => {
 		<Grid container className={props.className}>
 			<Grid item xs={12}>
 				<KeyboardDatePicker
-					{...(props.error && { error: true, helperText: props.error })}
+					{...(props.error && { error: true, helpertext: props.error })}
 					inputVariant={props.inputVariant}
 					invalidDateMessage=""
 					variant="inline"
@@ -21,14 +21,14 @@ const DateInputUnitView = (props) => {
 					autoOk
 					placeholder={props.label}
 					disableToolbar
+					//className={props.datePickerClass}
 					className={`${props.datePickerClass} ${classes.input}`}
-					// placdeholder={label}
-					keyboardIcon={(
-      <IconCalendar
-	style={{ width: props.iconFontSize }}
-	className={classes.calendarIcon}
-      />
-    )}
+					keyboardIcon={
+						<IconCalendar
+							style={{ width: props.iconFontSize }}
+							className={classes.calendarIcon}
+						/>
+					}
 					onChange={props.onChange}
 				/>
 			</Grid>
