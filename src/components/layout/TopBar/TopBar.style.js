@@ -96,15 +96,17 @@ const useStyles = makeStyles((theme) => ({
 		},
 	},
 	'search': {
-		'width': '250px',
+		'width': '349px',
 		'& .MuiFilledInput-root': {
-			backgroundColor: '#3e3e3e',
+			backgroundColor: '#EDF2FB',
 			borderRadius: '5px',
-			caretColor: '#edf2fb',
 		},
 		'& .MuiFilledInput-input': {
 			paddingTop: '5px',
 			paddingBottom: '5px',
+		},
+		'& .MuiFilledInput-underline:before': {
+			border: 'none',
 		},
 		'& .MuiFilledInput-underline:after': {
 			border: 'none',
@@ -114,7 +116,8 @@ const useStyles = makeStyles((theme) => ({
 		},
 		'& .MuiInputBase-input': {
 			'&::placeholder': {
-				color: '#fff',
+				color: '#868DA2',
+				opacity: '100%',
 			},
 		},
 	},
