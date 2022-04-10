@@ -74,7 +74,7 @@ const DeadArticleView = forwardRef((props, ref) => {
 							value={props.localForm.title}
 							placeholder="Article Title*"
 							error={!!props.errors.title}
-							helperText={props.errors.title}
+							helpertext={props.errors.title}
 							inputProps={{
 								style: { fontSize: '16px', fontWeight: 500, color: '#868DA2' },
 							}}
@@ -93,20 +93,18 @@ const DeadArticleView = forwardRef((props, ref) => {
 							value={props.localForm.description}
 							placeholder="Description*"
 							error={!!props.errors.description}
-							helperText={props.errors.description}
+							helpertext={props.errors.description}
 							inputProps={{
 								style: {
 									fontSize: '16px',
 									fontWeight: 500,
 									color: '#868DA2',
-									//   height: "92px",
 									lineHeight: 1.5,
 									overflow: 'auto',
 									cursor: 'text',
 									padding: 0,
 								},
 								maxLength: 500,
-								// maxHeight: "92px",
 							}}
 							onChange={(e) => props.handleChange(e.target.value, 'description')}
 						/>
@@ -206,7 +204,7 @@ const DeadArticleView = forwardRef((props, ref) => {
 									<StyledTextField
 										value={props.currentEvent.title}
 										error={!!props.errorsEvent.title}
-										helperText={props.errorsEvent.title}
+										helpertext={props.errorsEvent.title}
 										variant="outlined"
 										placeholder="Title"
 										className={classes.textField}
@@ -237,7 +235,7 @@ const DeadArticleView = forwardRef((props, ref) => {
 										format="dd/MM/yyyy"
 										placeholder="Date"
 										error={!!props.errorsEvent.date}
-										helperText={props.errorsEvent.date}
+										helpertext={props.errorsEvent.date}
 										value={props.currentEvent.date}
 										className={classes.eventDatePicker}
 										InputAdornmentProps={{ position: 'end' }}
@@ -368,9 +366,6 @@ const DeadArticleView = forwardRef((props, ref) => {
 												? classes.radioStyle
 												: classes.disabledRadio
 										}
-										// style={{
-										//   color: selectedValue === "a" ? "#1C67FF" : "#868DA2",
-										// }}
 										name="radio-button-demo"
 										inputProps={{ 'aria-label': 'pdf' }}
 										onChange={props.handleChangeRadio}
@@ -383,7 +378,7 @@ const DeadArticleView = forwardRef((props, ref) => {
 										placeholder="Title"
 										disabled={props.selectedValue === 'video'}
 										error={!!props.errors.title_pdf}
-										helperText={props.errors.title_pdf}
+										helpertext={props.errors.title_pdf}
 										inputProps={{
 											helpertextcolor: props.selectedValue === 'video' ? 'grey' : 'red',
 											style: {
@@ -392,7 +387,6 @@ const DeadArticleView = forwardRef((props, ref) => {
 												color: '#0F0F0F',
 											},
 										}}
-										// className={selectedValue === "video" ? "notselected" : ""}
 										onChange={(e) => props.handleChange(e.target.value, 'title_pdf')}
 									/>
 									<input
@@ -402,7 +396,7 @@ const DeadArticleView = forwardRef((props, ref) => {
 										disabled={props.selectedValue === 'video'}
 										placeholder="Upload PDF"
 										id="raised-button-file"
-										onChange={props.onPDFUpload}
+										onChange={(e) => props.onPDFUpload(e)}
 									/>
 									<label htmlFor="raised-button-file">
 										<Button
@@ -421,6 +415,23 @@ const DeadArticleView = forwardRef((props, ref) => {
 																title_pdf: '',
 																file_pdf: '',
 															}));
+
+															if (!props.deadArticleId) {
+																const localStorageDeadArticle =
+																	localStorage.getItem('deadArticle');
+
+																const deadArticle =
+																	JSON.parse(localStorageDeadArticle);
+
+																// Removing PDF file & PDF title from localStorage
+																delete deadArticle.file_pdf;
+																delete deadArticle.title_pdf;
+
+																localStorage.setItem(
+																	'deadArticle',
+																	JSON.stringify(deadArticle),
+																);
+															}
 
 															if (chosenResearch) {
 																props.validateEditedDeadPublication(
@@ -506,7 +517,7 @@ const DeadArticleView = forwardRef((props, ref) => {
 										}}
 										value={props.localForm.title_video}
 										error={!!props.errors.title_video}
-										helperText={props.errors.title_video}
+										helpertext={props.errors.title_video}
 										placeholder="Title"
 										inputProps={{
 											style: {
@@ -523,7 +534,7 @@ const DeadArticleView = forwardRef((props, ref) => {
 										style={{ marginBottom: '76px' }}
 										value={props.localForm.link_video}
 										error={!!props.errors.link_video}
-										helperText={props.errors.link_video}
+										helpertext={props.errors.link_video}
 										placeholder="Insert Link"
 										InputProps={{
 											startAdornment: (

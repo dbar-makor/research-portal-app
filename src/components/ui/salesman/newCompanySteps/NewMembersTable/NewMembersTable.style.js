@@ -3,9 +3,11 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles({
 	tableWrapper: {
 		marginLeft: 10,
+		justifyContent: 'center',
 	},
 	tableSkin: {
 		'height': 290,
+		'minWidth': '450px',
 		'overflowY': 'auto',
 		'overflowX': 'hidden',
 		'boxShadow': 'none',
@@ -24,7 +26,6 @@ const useStyles = makeStyles({
 		},
 	},
 	table: {
-		//overflowX: "hidden",
 		position: 'relative',
 	},
 	tableHead: {
@@ -46,11 +47,6 @@ const useStyles = makeStyles({
 		maxHeight: 80,
 		overflowY: 'scroll',
 	},
-	dataRow: {
-		//border: "none"
-		//outlineColor: "transparent"
-		//borderBottom: "none"
-	},
 	dotsIcon: {
 		'color': '#B8C3D8',
 		'padding': '1px',
@@ -60,9 +56,6 @@ const useStyles = makeStyles({
 			backgroundColor: '#fff',
 			transition: '.3s',
 		},
-		// '&:disabled': {
-		//   color: '#868DA2'
-		// }
 	},
 	tableCell: {
 		fontSize: 14,
@@ -70,7 +63,6 @@ const useStyles = makeStyles({
 		padding: '10px 16px 10px 16px',
 		border: 'none',
 	},
-	menu: {},
 	option: {
 		'&:hover': {
 			color: 'red',

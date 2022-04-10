@@ -50,8 +50,7 @@ const TagsAutoCompleteView = (props) => {
 							freeSolo
 							value={props.formObject || ''}
 							onChange={(e, values) => props.handler(e, values)}
-							{...(props.error && { error: true, helperText: props.error })}
-							// getOptionLabel={(option) => option.name || ""}
+							{...(props.error && { error: true, helpertext: props.error })}
 							getOptionLabel={(option) => {
 								// Value selected with enter, right from the input
 								if (typeof option === 'string') {
@@ -77,7 +76,7 @@ const TagsAutoCompleteView = (props) => {
 										variant="outlined"
 										width="100%"
 										placeholder="# Tags"
-										{...(props.error && { error: true, helperText: props.error })}
+										{...(props.error && { error: true, helpertext: props.error })}
 									/>
 								);
 							}}

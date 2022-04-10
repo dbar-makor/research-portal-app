@@ -142,7 +142,6 @@ module.exports = {
 				arrow: 'parens-new-line',
 				condition: 'parens-new-line',
 				logical: 'parens-new-line',
-				prop: 'parens-new-line',
 			},
 		],
 		'react/jsx-tag-spacing': ['error', { beforeSelfClosing: 'always' }],

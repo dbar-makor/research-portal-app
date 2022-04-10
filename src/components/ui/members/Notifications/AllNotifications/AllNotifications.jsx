@@ -59,6 +59,7 @@ const AllNotifications = () => {
 
 	return (
 		<AllNotificationsView
+			notifications={notifications}
 			filteredNotifications={filteredNotifications}
 			setSearchTerm={setSearchTerm}
 			makeAllRead={makeAllRead}

@@ -8,10 +8,26 @@ const TagsAutoComplete = (props) => {
 	const error = props.error ? props.error : null;
 	const chipVariant = props.chipVariant ? props.chipVariant : 'outlined';
 
-	const deleteItem = (index) => {
+	const articleId = sessionStorage.getItem('articleId');
+	const deadArticleId = sessionStorage.getItem('deadArticleId');
+
+	const deleteItem = async (index) => {
 		const tagsCopy = [...props.formObject];
 
-		tagsCopy.splice(index, 1);
+		await tagsCopy.splice(index, 1);
+
+		// Check if not in edit mode
+		if (!articleId) {
+			// Update categories in localStorage
+			localStorage.setItem('tags', JSON.stringify(tagsCopy));
+		}
+
+		// Check if not in dead article edit mode
+		if (!deadArticleId) {
+			// Update dead article categories in localStorage
+			localStorage.setItem('deadArticleTags', JSON.stringify(tagsCopy));
+		}
+
 		props.setFormObject(tagsCopy);
 	};
 

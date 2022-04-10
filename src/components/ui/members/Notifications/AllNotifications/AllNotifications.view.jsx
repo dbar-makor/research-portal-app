@@ -1,5 +1,6 @@
 import React from 'react';
 import { Grid, Typography } from '@material-ui/core';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import { useStyles } from '../../../../../styles/AllNotificationStyle';
 import ControlBar from '../ControlBar/ControlBar';
 import NotificationBox from '../NotificationBox/NotificationBox';
@@ -27,20 +28,31 @@ const AllNotificationsView = (props) => {
 						<ControlBar setSearchTerm={props.setSearchTerm} makeAllRead={props.makeAllRead} />
 					</Grid>
 
-					<Grid item xs={12}>
-						<Grid container className={classes.notListContainer}>
-							{props.filteredNotifications.length &&
-								props.filteredNotifications.map((item) => {
-									const content = JSON.parse(item.content);
+					<Grid style={{ border: '3px solid blue' }} item xs={12}>
+						<Grid
+							style={{ border: '3px solid red' }}
+							container
+							className={classes.notListContainer}
+						>
+							<InfiniteScroll
+								dataLength={props.notifications.length}
+								// next={props.getNotifications}
+								hasMore
+								loader={<h4>Loading...</h4>}
+							>
+								{props.filteredNotifications.length &&
+									props.filteredNotifications.map((item) => {
+										const content = JSON.parse(item.content);
 
-									return (
-										<NotificationBox
-											key={item.id}
-											content={content}
-											isRead={item.is_read}
-										/>
-									);
-								})}
+										return (
+											<NotificationBox
+												key={item.id}
+												content={content}
+												isRead={item.is_read}
+											/>
+										);
+									})}
+							</InfiniteScroll>
 						</Grid>
 					</Grid>
 				</Grid>

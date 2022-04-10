@@ -31,21 +31,8 @@ const MemberTopbarView = (props) => {
 						</Link>
 					</Grid>
 				</Grid>
-				<Grid
-					item
-					container
-					spacing={2}
-					xs={8}
-					direction="row"
-					justifyContent="space-around"
-					style={{ borde: '10px solid #f7007c' }}
-				>
-					<Grid
-						item
-						xs={5}
-						className={props.classes.selectBox}
-						style={{ border: '2px solid #f75d14' }}
-					>
+				<Grid item container spacing={2} xs={8} direction="row" justifyContent="space-around">
+					<Grid item xs={5} className={props.classes.selectBox}>
 						<SelectFormControl
 							value={props.region}
 							valueField="value"

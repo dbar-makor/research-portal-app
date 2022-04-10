@@ -48,6 +48,21 @@ const DropZoneView = (props) => {
 						<DeleteButton
 							disableRipple
 							onClick={() => {
+								const articleId = sessionStorage.getItem('articleId');
+								const deadArticleId = sessionStorage.getItem('deadArticleId');
+
+								// Check if not in edit mode
+								if (!articleId) {
+									// Remove cover image from localStorage
+									localStorage.removeItem('coverImage');
+								}
+
+								// Check if not in dead article edit mode
+								if (!deadArticleId) {
+									// Remove cover image from localStorage
+									localStorage.removeItem('deadArticleCoverImage');
+								}
+
 								props.setUploadedImage(typeof uploadedImage === 'string' ? '' : null);
 								props.setFileOK && props.setFileOK({ initial: false, final: false });
 							}}
@@ -63,7 +78,10 @@ const DropZoneView = (props) => {
 							<Typography className={classes.uploadLink}>Upload</Typography>
 						</Grid>
 						<Grid item>
-							<Typography className={classes.uploadText}>{props.purpose}</Typography>
+							<Typography className={classes.uploadText}>
+								&nbsp;
+								{props.purpose}
+							</Typography>
 						</Grid>
 						<Grid item xs={12}>
 							<Typography className={classes.onlyPng}>.jpg, .png, .svg .jfif .webp</Typography>

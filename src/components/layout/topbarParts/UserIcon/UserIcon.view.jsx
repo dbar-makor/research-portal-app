@@ -59,11 +59,7 @@ const UserIconView = forwardRef((props, ref) => {
 						>
 							<Paper>
 								<ClickAwayListener onClickAway={(e) => props.handleClose(e, 'user')}>
-									<MenuList
-										autoFocusItem={open}
-										id="composition-menu"
-										aria-labelledby="composition-button"
-									>
+									<MenuList id="composition-menu" aria-labelledby="composition-button">
 										<MenuItem>
 											<Link
 												to="/home"
