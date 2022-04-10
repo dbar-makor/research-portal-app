@@ -5,7 +5,6 @@ const useStyles = makeStyles((theme) => ({
 		minWidth: 670,
 	},
 	dialogContainer: {
-		alignContent: 'space-between',
 		paddingTop: 30,
 	},
 	container: {
@@ -14,7 +13,6 @@ const useStyles = makeStyles((theme) => ({
 	contractModalPaper: {
 		minWidth: 'calc(100vw - 1100px)',
 		minHeight: 'calc(100vh - 500px)',
-		height: '85vh',
 	},
 	modalBackDrop: {
 		backdropFilter: 'blur(2px)',
@@ -26,10 +24,10 @@ const useStyles = makeStyles((theme) => ({
 		justifyContent: 'space-between',
 	},
 	btnRow: {
+		marginLeft: '10px',
+		marginBottom: '20px',
 		justifyContent: 'space-between',
-		position: 'absolute',
-		bottom: '5vh',
-		width: '75%',
+		width: '100%',
 	},
 	buttonBack: {
 		padding: '7px 40px',

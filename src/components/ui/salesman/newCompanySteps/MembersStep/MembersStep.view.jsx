@@ -34,6 +34,7 @@ const MembersStepView = (props) => {
 						onChange={props.updateMemberField}
 					/>
 				</Grid>
+
 				<Grid item xs={5} className={classes.fieldWrapper}>
 					<TextInputUnit
 						className={classes.textFieldStyle}
@@ -46,7 +47,7 @@ const MembersStepView = (props) => {
 					/>
 				</Grid>
 
-				<Grid item xs={5} className={classes.fieldWrapper}>
+				<Grid item xs={5} className={classes.fieldWrapper} style={{ display: 'flex' }}>
 					<TextInputUnit
 						className={classes.textFieldStyle}
 						name="position"
@@ -55,25 +56,25 @@ const MembersStepView = (props) => {
 						error={props.errors.position}
 						onChange={props.updateMemberField}
 					/>
-				</Grid>
 
-				{props.editedMemberIndex >= 0 ? (
-					<Grid item xs={1} className={classes.checkIconWrapper}>
-						<CheckButton
-							disabled={!props.validationResult}
-							className={classes.checkIcon}
-							onClick={props.addEditedMember}
-						>
-							<CheckIcon />
-						</CheckButton>
-					</Grid>
-				) : (
-					<Grid item xs={1} className={classes.addIconWrapper}>
-						<AddButton disabled={!props.validationResult} onClick={props.addMember}>
-							<AddIcon className={classes.addIcon} />
-						</AddButton>
-					</Grid>
-				)}
+					{props.editedMemberIndex >= 0 ? (
+						<Grid item className={classes.addIconWrapper}>
+							<CheckButton
+								disabled={!props.validationResult}
+								className={classes.checkIcon}
+								onClick={props.addEditedMember}
+							>
+								<CheckIcon />
+							</CheckButton>
+						</Grid>
+					) : (
+						<Grid item className={classes.addIconWrapper}>
+							<AddButton disabled={!props.validationResult} onClick={props.addMember}>
+								<AddIcon className={classes.addIcon} />
+							</AddButton>
+						</Grid>
+					)}
+				</Grid>
 
 				<Grid item className={classes.fieldWrapper} style={{ width: 'calc(83.33% + 10px)' }}>
 					<CategoriesAutoComplete

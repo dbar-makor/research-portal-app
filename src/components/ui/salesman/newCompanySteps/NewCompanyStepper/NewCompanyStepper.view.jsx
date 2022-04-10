@@ -74,7 +74,7 @@ const NewCompanyStepperView = (props) => {
 			<Grid container justifyContent="center" className={classes.dialogContainer}>
 				<Grid item xs={10}>
 					<Grid container>
-						<Grid item xs={12}>
+						<Grid style={{ marginRight: '10px' }} item xs={12}>
 							<Grid container justifyContent="flex-end">
 								<CloseIcon className={classes.closeIcon} onClick={props.handleClose} />
 							</Grid>
@@ -110,7 +110,6 @@ const NewCompanyStepperView = (props) => {
 											</StepLabel>
 										</Step>
 									</Stepper>
-
 									<Grid container className={classes.instructions}>
 										{getStepContent(props.activeStep)}
 									</Grid>
@@ -122,9 +121,7 @@ const NewCompanyStepperView = (props) => {
 												className={classes.buttonBack}
 												onClick={props.handleBack}
 											>
-												{' '}
 												Back
-												{' '}
 											</OutlinedButton>
 										)}
 										{props.activeStep === 0 ? (
@@ -133,9 +130,7 @@ const NewCompanyStepperView = (props) => {
 												disabled={!props.validationResult1}
 												onClick={props.handleNext}
 											>
-												{' '}
 												Next
-												{' '}
 											</FilledButton>
 										) : (
 											<FilledButton
@@ -146,9 +141,7 @@ const NewCompanyStepperView = (props) => {
 												}
 												onClick={props.handleSubmit}
 											>
-												{' '}
 												Create
-												{' '}
 											</FilledButton>
 										)}
 									</Grid>
