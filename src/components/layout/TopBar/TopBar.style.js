@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => ({
 	'barWrapper': {
 		backgroundColor: '#FEFEFE',
+		minHeight: '6vh',
 		height: '6vh',
 	},
 	'headerContainer': {
@@ -13,9 +14,10 @@ const useStyles = makeStyles((theme) => ({
 	},
 	'header': {
 		backgroundColor: '#FEFEFE',
-		width: 'inherit',
 		flexDirection: 'row',
 		boxShadow: 'none',
+		minHeight: '6vh',
+		height: '6vh',
 	},
 	'divider': {
 		backgroundColor: '#353535',

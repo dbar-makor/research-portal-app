@@ -12,40 +12,49 @@ const MemberTopbarView = (props) => {
 	//const dispatch = useDispatch();
 
 	return (
-		<Grid item xs={8}>
-			<Grid container justifyContent="space-between">
-				<Grid item xs={6}>
-					<Grid container style={{ marginTop: '10px' }}>
-						<Grid item xs={4}>
-							<Link to="/home" className={props.classes.link}>
-								<Typography className={props.classes.title}>Home</Typography>
-							</Link>
-						</Grid>
-						<Grid item xs={4}>
-							<Link to="/" className={props.classes.styledLinks}>
-								Ideas
-							</Link>
-						</Grid>
-						<Grid item xs={4}>
-							<Link to="/" className={props.classes.styledLinks}>
-								Mkt Calendar
-							</Link>
-						</Grid>
+		<Grid item xs={12}>
+			<Grid container direction="row">
+				<Grid item container xs={4} justifyContent="flex-end" alignItems="center">
+					<Grid item xs={4}>
+						<Link to="/home" className={props.classes.styledLinks}>
+							<Typography className={props.classes.title}>Home</Typography>
+						</Link>
+					</Grid>
+					<Grid item xs={4}>
+						<Link to="/" className={props.classes.styledLinks}>
+							Ideas
+						</Link>
+					</Grid>
+					<Grid item xs={4}>
+						<Link to="/" className={props.classes.styledLinks}>
+							Mkt Calendar
+						</Link>
 					</Grid>
 				</Grid>
-				<Grid item xs={6}>
-					<Grid container direction="row" justifyContent="flex-end" alignItems="center">
-						<Grid item xs={5} className={props.classes.selectBox} >
-							<SelectFormControl
-								value={props.region}
-								valueField="value"
-								placeholder="All Regions"
-								optionsArray={props.options}
-								labelField="name"
-								svgRight={17}
-								onChange={(e) => props.setRegion(e.target.value)}
-							/>
-						</Grid>
+				<Grid
+					item
+					container
+					spacing={2}
+					xs={8}
+					direction="row"
+					justifyContent="space-around"
+					style={{ borde: '10px solid #f7007c' }}
+				>
+					<Grid
+						item
+						xs={5}
+						className={props.classes.selectBox}
+						style={{ border: '2px solid #f75d14' }}
+					>
+						<SelectFormControl
+							value={props.region}
+							valueField="value"
+							placeholder="All Regions"
+							optionsArray={props.options}
+							labelField="name"
+							svgRight={17}
+							onChange={(e) => props.setRegion(e.target.value)}
+						/>
 						<Grid item xs={6}>
 							<StyledTextField
 								id="searchField"
