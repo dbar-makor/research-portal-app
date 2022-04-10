@@ -63,7 +63,10 @@ const DropZoneView = (props) => {
 							<Typography className={classes.uploadLink}>Upload</Typography>
 						</Grid>
 						<Grid item>
-							<Typography className={classes.uploadText}>{props.purpose}</Typography>
+							<Typography className={classes.uploadText}>
+								&nbsp;
+								{props.purpose}
+							</Typography>
 						</Grid>
 						<Grid item xs={12}>
 							<Typography className={classes.onlyPng}>.jpg, .png, .svg .jfif .webp</Typography>
