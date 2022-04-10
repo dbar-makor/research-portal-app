@@ -9,7 +9,7 @@ const SalesView = (props) => {
 	const classes = useStyles();
 
 	return (
-		<Grid container justifyContent="center" className={classes.mainContainer}>
+		<Grid container justifyContent="space-between" className={classes.mainContainer}>
 			<Grid item xs={10}>
 				<Grid container>
 					<Grid item xs={12} className={classes.marginBottom20}>
