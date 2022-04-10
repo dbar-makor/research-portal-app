@@ -32,9 +32,6 @@ const ContractView = (props) => {
 											label={props.chosenCompany ? props.chosenCompany.name : ''}
 											value={props.chosenCompany ? props.chosenCompany.name : ''}
 											readOnly
-											//formObject={props.contract}
-											//handler={(e) => props.handleContract(e.target.value, 'id')}
-											//error={props.errors.id}
 										/>
 									</Grid>
 									<Grid item xs={6} className={classes.PaddingLeft10px}>

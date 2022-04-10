@@ -9,6 +9,7 @@ const useStyles = makeStyles({
 		},
 	},
 	addIconWrapper: {
+		margin: 'auto',
 		marginLeft: 14,
 	},
 	addIcon: {
@@ -16,9 +17,6 @@ const useStyles = makeStyles({
 		fontSize: '18px',
 		height: 28,
 		width: 28,
-	},
-	checkIconWrapper: {
-		marginLeft: 14,
 	},
 	checkIcon: {
 		// fontSize: '25px',
@@ -28,7 +26,7 @@ const useStyles = makeStyles({
 			fill: '#fff',
 		},
 	},
-	paddingBottom20px: { paddingBottom: '20px' },
+	paddingBottom20px: { paddingBottom: '20px', justifyContent: 'center' },
 	textFieldStyle: {
 		'borderColor': '#A5AFC233',
 		'& .MuiOutlinedInput-input': {
