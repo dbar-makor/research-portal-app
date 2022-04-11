@@ -6,7 +6,7 @@ const useStyles = makeStyles(() => ({
 	},
 	textStyle: {
 		fontSize: 16,
-		color: '#fffff',
+		color: '#FEFEFE',
 		cursor: 'pointer',
 		fontWeight: 300,
 	},
