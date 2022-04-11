@@ -1,4 +1,5 @@
 import React, { forwardRef } from 'react';
+import { useSelector } from 'react-redux';
 import tradingHoursData from '../dummy.json';
 
 import TradingHoursView from './TradingHours.view';
@@ -15,6 +16,8 @@ const TradingHours = forwardRef((props, ref) => {
 		setOpen,
 		open,
 	} = props;
+
+	const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
 	const data = tradingHoursData.data;
 
@@ -36,6 +39,7 @@ const TradingHours = forwardRef((props, ref) => {
 			open={open}
 			data={data}
 			formattedData={formattedData}
+			isAuthenticated={isAuthenticated}
 		/>
 	);
 });

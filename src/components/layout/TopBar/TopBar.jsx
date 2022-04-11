@@ -45,38 +45,40 @@ const TopBar = () => {
 	}
 
 	useEffect(() => {
-		webSocket.current = webSocketService.connectWS(token);
-		webSocket.current.onopen = () => {
-			let message = {
-				type: 'get-notifications',
+		if (token) {
+			webSocket.current = webSocketService.connectWS(token);
+			webSocket.current.onopen = () => {
+				let message = {
+					type: 'get-notifications',
+				};
+
+				message = JSON.stringify(message);
+				webSocket.current.send(message);
 			};
+			webSocket.current.onmessage = (message) => {
+				message = JSON.parse(message.data);
+				let send = {};
 
-			message = JSON.stringify(message);
-			webSocket.current.send(message);
-		};
-		webSocket.current.onmessage = (message) => {
-			message = JSON.parse(message.data);
-			let send = {};
+				switch (message.type) {
+					case 'alert':
+						setNotifications([...message.notifications]);
 
-			switch (message.type) {
-				case 'alert':
-					setNotifications([...message.notifications]);
+						break;
+					case 'succeed':
+						break;
+					default:
+						send = {
+							type: 'get-notifications',
+							is_new: true,
+							id: message.id,
+						};
+						send = JSON.stringify(send);
+						webSocket.current.send(send);
 
-					break;
-				case 'succeed':
-					break;
-				default:
-					send = {
-						type: 'get-notifications',
-						is_new: true,
-						id: message.id,
-					};
-					send = JSON.stringify(send);
-					webSocket.current.send(send);
-
-					break;
-			}
-		};
+						break;
+				}
+			};
+		}
 
 		return () => webSocket.current.close();
 	}, []);

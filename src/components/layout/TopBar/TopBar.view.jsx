@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react';
-import { AppBar, Button, Grid, Toolbar, withStyles, Divider } from '@material-ui/core';
+import { AppBar, Grid, Toolbar, Divider } from '@material-ui/core';
 import TradingHours from '../TradingHours/TradingHours';
 import MemberTopbar from '../topbarParts/MemberTopbar/MemberTopbar';
 import SalesTopbar from '../topbarParts/SalesTopbar/SalesTopbar';
@@ -7,36 +7,6 @@ import AuthorTopbar from '../topbarParts/AuthorTopbar/AuthorTopbar';
 import AdminTopbar from '../topbarParts/AdminTopbar/AdminTopbar';
 import MakorLogo from '../topbarParts/MakorLogo/MakorLogo';
 import useStyles from './TopBar.style';
-
-const StyledButton = withStyles(() => ({
-	root: {
-		'width': '185px',
-		'height': '30px',
-		'textTransform': 'none',
-		'fontWeight': 400,
-		'backgroundColor': '#1C67FF',
-		'borderRadius': 21,
-		'color': '#F2F2F2',
-		'&:hover': {
-			backgroundColor: '#1c67ffb3',
-		},
-	},
-}))(Button);
-
-const LoginButton = withStyles(() => ({
-	root: {
-		'width': '122px',
-		'height': '30px',
-		'textTransform': 'none',
-		'fontWeight': 400,
-		'backgroundColor': '#ffffff',
-		'borderRadius': 21,
-		'color': '#000000',
-		'&:hover': {
-			backgroundColor: '#ffff',
-		},
-	},
-}))(Button);
 
 const TopBarView = forwardRef((props, ref) => {
 	const classes = useStyles();
@@ -87,20 +57,9 @@ const TopBarView = forwardRef((props, ref) => {
 							<Grid item xs={4} style={{ marginLeft: '27px' }}>
 								<MakorLogo classes={classes} userType={props.userType} />
 							</Grid>
-							{props.isAuthenticated ? (
+							{props.isAuthenticated && (
 								<Grid item xs={8}>
 									{handleBarOptions(props.userType)}
-								</Grid>
-							) : (
-								<Grid item style={{ paddingRight: 80 }}>
-									<Grid container justifyContent="space-between">
-										<Grid item style={{ paddingRight: 20 }}>
-											<StyledButton>Become a Costumer</StyledButton>
-										</Grid>
-										<Grid item>
-											<LoginButton>Login</LoginButton>
-										</Grid>
-									</Grid>
 								</Grid>
 							)}
 						</Toolbar>
