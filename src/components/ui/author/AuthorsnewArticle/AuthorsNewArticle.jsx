@@ -18,18 +18,63 @@ import {
 } from '../../../../utils/helpers/validationFunctions';
 import AuthorsNewArticleView from './AuthorsNewArticle.view';
 
+const getArticleId = () => {
+	const id = sessionStorage.getItem('articleId');
+
+	if (!id || id === 'undefined') return '';
+
+	return id;
+};
+
+const clearStorage = () => {
+	localStorage.removeItem('article');
+	localStorage.removeItem('coverImage');
+	localStorage.removeItem('categories');
+	localStorage.removeItem('tags');
+	sessionStorage.removeItem('articleId');
+};
+
+const processContent = (content) => {
+	let editedContent;
+
+	if (typeof content === 'string') {
+		editedContent = JSON.parse(content);
+		//if there is no real content - send empty object;
+
+		if (Object.values(editedContent)[0].some((block) => block.text !== '')) {
+			return editedContent;
+		} else {
+			return {};
+		}
+	}
+
+	if (Object.values(content)[0].some((block) => block.text !== '')) {
+		return content;
+	} else {
+		return {};
+	}
+};
+
 const AuthorsNewArticle = () => {
 	const chosenResearch = useSelector(selectChosenResearch);
 
 	// Check if edit mode
-	if (chosenResearch) sessionStorage.setItem('articleId', chosenResearch.id);
-
-	const articleId = sessionStorage.getItem('articleId');
+	const [articleId, setArticleId] = useState(getArticleId());
 
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const location = useLocation();
 	const [description, setDescription] = useState('');
+	const [openAlert, setOpenAlert] = useState(false);
+	const [navigationAllowed, setNavigationAllowed] = useState(false);
+
+	const handleCloseAlert = () => {
+		setOpenAlert(false);
+	};
+
+	const handleOpenAlert = () => {
+		setOpenAlert(true);
+	};
 
 	const [currentEvent, setCurrentEvent] = useState({
 		date: null,
@@ -62,6 +107,8 @@ const AuthorsNewArticle = () => {
 
 		return article;
 	});
+
+	const [storageDefaultContent, setStorageDefaultContent] = useState({});
 
 	const [coverImage, setCoverImage] = useState(() => {
 		// Get cover image from localStorage
@@ -104,6 +151,7 @@ const AuthorsNewArticle = () => {
 
 	const [errors, setErrors] = useState({});
 	const [validationResult, setValidationResult] = useState(false);
+
 	const [errorsEvent, setErrorsEvent] = useState({});
 	/* eslint no-unused-vars: 0 */
 	const [validationResultEvent, setValidationResultEvent] = useState(true);
@@ -129,8 +177,12 @@ const AuthorsNewArticle = () => {
 		}
 	};
 
+	// Editing Mode
 	useEffect(() => {
 		if (chosenResearch) {
+			//save article's ID in sessionStorage
+			sessionStorage.setItem('articleId', chosenResearch.id);
+			setArticleId(chosenResearch.id);
 			const coverImg = chosenResearch.attachments.find(
 				(attachment) => attachment.file_type === 'main_bg',
 			);
@@ -165,7 +217,43 @@ const AuthorsNewArticle = () => {
 				}
 			}
 		}
+		// Remove id when component unmounts
+
+		return () => {
+			sessionStorage.removeItem('articleId');
+		};
 	}, [chosenResearch]);
+
+	//keeping track of rte content to display if component unmounts
+	//(updates only when component mounts: otherwise the default value for rte keeps changing and disrupts adding new content properly)
+
+	useEffect(() => {
+		if (localStorage.getItem('article')) {
+			setStorageDefaultContent(JSON.parse(localStorage.getItem('article')).content);
+		}
+	}, []);
+
+	useEffect(() => {
+		const unblock = history.block((location, action) => {
+			if (
+				location.pathname !== 'new-article' &&
+				(localStorage.getItem('article') ||
+					localStorage.getItem('tags') ||
+					localStorage.getItem('categories') ||
+					localStorage.getItem('coverImage'))
+			) {
+				setOpenAlert(true);
+
+				return navigationAllowed;
+			}
+
+			return true;
+		});
+
+		return () => {
+			unblock();
+		};
+	}, [navigationAllowed]);
 
 	const sendPublication = async (buttonMarker) => {
 		const attachmentsCopy = [...localForm.attachments];
@@ -190,10 +278,7 @@ const AuthorsNewArticle = () => {
 				tags: tagsForServer,
 				description: description,
 				status: 'published',
-				content:
-					typeof formToSend.content === 'string'
-						? JSON.parse(formToSend.content)
-						: formToSend.content,
+				content: processContent(formToSend.content),
 			};
 		} else if (buttonMarker === 'save-draft') {
 			formToSend = {
@@ -203,10 +288,7 @@ const AuthorsNewArticle = () => {
 				tags: tagsForServer,
 				description: description,
 				status: 'draft',
-				content:
-					typeof formToSend.content === 'string'
-						? JSON.parse(formToSend.content)
-						: formToSend.content,
+				content: processContent(formToSend.content),
 			};
 		} else if (buttonMarker === 'preview') {
 			formToSend = {
@@ -245,7 +327,7 @@ const AuthorsNewArticle = () => {
 				}
 			}
 
-			localStorage.removeItem('article');
+			clearStorage();
 		} catch (error) {
 			dispatch(actionSnackBar.setSnackBar('error', 'Publish failed', 2000));
 		}
@@ -286,6 +368,11 @@ const AuthorsNewArticle = () => {
 		}
 	};
 
+	const handleEvent = (value, key) => {
+		setCurrentEvent((prev) => ({ ...prev, [key]: value }));
+		validateEvent({ [key]: value }, errorsEvent, setErrorsEvent, setValidationResultEvent);
+	};
+
 	const addEvent = () => {
 		const execEvents = [...localForm.events];
 
@@ -308,46 +395,17 @@ const AuthorsNewArticle = () => {
 	};
 
 	const deleteItem = (index, category) => {
-		if (category === 'localCats') {
-			const catsCopy = [...localCats];
-			const formCats = [...localForm.categories];
+		const categoryCopy = [...localForm[category]];
 
-			catsCopy.splice(index, 1);
-			formCats.splice(index, 1);
+		categoryCopy.splice(index, 1);
 
-			setLocalCats(catsCopy);
+		const data = {
+			...localForm,
+			[category]: categoryCopy,
+		};
 
-			const data = {
-				...localForm,
-				categories: formCats,
-			};
-
-			setLocalForm(data);
-			setLocalStorageArticle(data);
-
-			if (chosenResearch) {
-				validateEditedLivePublication(
-					{ categories: formCats },
-					errors,
-					setErrors,
-					setValidationResult,
-				);
-			} else {
-				validateLivePublication({ categories: formCats }, errors, setErrors, setValidationResult);
-			}
-		} else {
-			const categoryCopy = [...localForm[category]];
-
-			categoryCopy.splice(index, 1);
-
-			const data = {
-				...localForm,
-				[category]: categoryCopy,
-			};
-
-			setLocalForm(data);
-			setLocalStorageArticle(data);
-		}
+		setLocalForm(data);
+		setLocalStorageArticle(data);
 	};
 
 	const updatePropertyField = (rowIndex, value, key, category) => {
@@ -382,7 +440,6 @@ const AuthorsNewArticle = () => {
 	const ifCurrentEventFilled = checkIfCurrentEventFilled();
 
 	const onDrop = async (acceptedFiles) => {
-		// Do something with the files
 		const attachmentsCopy = [...localForm.attachments];
 
 		for (const file of acceptedFiles) {
@@ -450,6 +507,7 @@ const AuthorsNewArticle = () => {
 
 		values.forEach((value) => {
 			//new user value with enter key
+
 			if (typeof value === 'string' && !tagNamesCopy.includes(value)) {
 				tempTags.push({ name: value });
 				//disallows duplicates
@@ -462,7 +520,6 @@ const AuthorsNewArticle = () => {
 				tempTags.push(value);
 			}
 		});
-
 		setLocalTags(tempTags);
 
 		// Check if not in edit mode
@@ -486,12 +543,13 @@ const AuthorsNewArticle = () => {
 		const content = convertToRaw(event.getCurrentContent());
 		const data = { ...localForm, content: content };
 
-		setLocalForm(data);
-		setLocalStorageArticle(data);
-
-		//if ever typed- lst change will not be null
 		if (event.getLastChangeType()) {
+			//if ever typed- last change will not be null
+
 			setContentNotOK((prevState) => ({ ...prevState, everTyped: true }));
+			//local storage is updated only if a true change was made, otherwise it gets empty when component mounts, as handleEditorChange is being called when mounting
+			setLocalForm(data);
+			setLocalStorageArticle(data);
 		}
 
 		if (event.getCurrentContent().hasText()) {
@@ -514,6 +572,7 @@ const AuthorsNewArticle = () => {
 			showEditorError={showEditorError}
 			handleEditorChange={handleEditorChange}
 			handleEditorOnFocus={handleEditorOnFocus}
+			storageDefaultContent={storageDefaultContent}
 			chosenResearch={chosenResearch}
 			location={location}
 			contentNotOK={contentNotOK}
@@ -521,6 +580,8 @@ const AuthorsNewArticle = () => {
 			setCoverImage={setCoverImage}
 			coverImageOK={coverImageOK}
 			setCoverImageOK={setCoverImageOK}
+			openAlert={openAlert}
+			setNavigationAllowed={setNavigationAllowed}
 			localCats={localCats}
 			setLocalCats={setLocalCats}
 			handleCatsChange={handleCatsChange}
@@ -531,6 +592,7 @@ const AuthorsNewArticle = () => {
 			handleTagsValue={handleTagsValue}
 			currentEvent={currentEvent}
 			setCurrentEvent={setCurrentEvent}
+			handleEvent={handleEvent}
 			validateEvent={validateEvent}
 			errorsEvent={errorsEvent}
 			setErrorsEvent={setErrorsEvent}
@@ -542,8 +604,10 @@ const AuthorsNewArticle = () => {
 			updatePropertyField={updatePropertyField}
 			deleteItem={deleteItem}
 			sendPublication={sendPublication}
-			onDropCover={onDropCover}
+			handleCloseAlert={handleCloseAlert}
+			alertHandler={clearStorage}
 			onDrop={onDrop}
+			onDropCover={onDropCover}
 		/>
 	);
 };

@@ -157,6 +157,7 @@ const DeadArticleView = forwardRef((props, ref) => {
 									setErrors={props.setErrors}
 									validationResult={props.validationResult}
 									setValidationResult={props.setValidationResult}
+									type="dead_publication"
 								/>
 							</Grid>
 

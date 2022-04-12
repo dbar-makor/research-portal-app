@@ -32,19 +32,22 @@ const CategoriesAutoComplete = (props) => {
 
 		props.setFormObject(formObjectCopy);
 
-		const articleId = sessionStorage.getItem('articleId');
-		const deadArticleId = sessionStorage.getItem('deadArticleId');
+		//For live/dead publication only (saving to storage)
+		if (props.type === 'live_publication' || props.type === 'dead_publication') {
+			const articleId = sessionStorage.getItem('articleId');
+			const deadArticleId = sessionStorage.getItem('deadArticleId');
+			// Check if not in edit mode
 
-		// Check if not in edit mode
-		if (!articleId) {
-			// Update categories in localStorage
-			localStorage.setItem('categories', JSON.stringify(categoryCopy));
-		}
+			if (!articleId && props.type === 'live_publication') {
+				// Update categories in localStorage
+				localStorage.setItem('categories', JSON.stringify(categoryCopy));
+			}
 
-		// Check if not in dead article edit mode
-		if (!deadArticleId) {
-			// Update dead article categories in localStorage
-			localStorage.setItem('deadArticleCategories', JSON.stringify(categoryCopy));
+			// Check if not in dead article edit mode
+			if (!deadArticleId && props.type === 'dead_publication') {
+				// Update dead article categories in localStorage
+				localStorage.setItem('deadArticleCategories', JSON.stringify(categoryCopy));
+			}
 		}
 
 		if (parentArr?.length) {

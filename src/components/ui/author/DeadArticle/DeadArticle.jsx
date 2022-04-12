@@ -18,13 +18,30 @@ import {
 
 import DeadArticleView from './DeadArticle.view';
 
+const getDeadArticleId = () => {
+	const id = sessionStorage.getItem('deadArticleId');
+
+	if (!id || id === 'undefined') return '';
+
+	return id;
+};
+
+const clearStorage = () => {
+	localStorage.removeItem('deadArticle');
+	localStorage.removeItem('deadArticleCoverImage');
+	localStorage.removeItem('deadArticleCategories');
+	localStorage.removeItem('deadArticleTags');
+	sessionStorage.removeItem('deadArticleId');
+};
+
 const DeadArticle = () => {
 	const chosenResearch = useSelector(selectChosenResearch);
 
 	// Check if edit mode
-	if (chosenResearch) sessionStorage.setItem('deadArticleId', chosenResearch.id);
+	//if (chosenResearch) sessionStorage.setItem('deadArticleId', chosenResearch.id);
+	const [deadArticleId, setDeadArticleId] = useState(getDeadArticleId());
 
-	const deadArticleId = sessionStorage.getItem('deadArticleId');
+	//const deadArticleId = sessionStorage.getItem('deadArticleId');
 
 	const dispatch = useDispatch();
 	const history = useHistory();
@@ -143,6 +160,9 @@ const DeadArticle = () => {
 	//For editing
 	useEffect(() => {
 		if (chosenResearch) {
+			//save article's ID in sessionStorage
+			sessionStorage.setItem('deadArticleId', chosenResearch.id);
+			setDeadArticleId(chosenResearch.id);
 			const coverImg = chosenResearch.attachments.find(
 				(attachment) => attachment.file_type === 'main_bg',
 			);
@@ -174,6 +194,12 @@ const DeadArticle = () => {
 				}
 			}
 		}
+
+		// Remove id when component unmounts
+
+		return () => {
+			sessionStorage.removeItem('deadArticleId');
+		};
 	}, [chosenResearch]);
 
 	//if coming back from preview (chosenResearch is now null even if it is saved in server)
@@ -355,52 +381,17 @@ const DeadArticle = () => {
 	};
 
 	const deleteItem = (index, category) => {
-		if (category === 'localCats') {
-			const catsCopy = [...localCats];
-			const formCats = [...localForm.categories];
+		const categoryCopy = [...localForm[category]];
 
-			catsCopy.splice(index, 1);
-			formCats.splice(index, 1);
-			setLocalCats(catsCopy);
+		categoryCopy.splice(index, 1);
 
-			const data = {
-				...localForm,
-				categories: formCats,
-			};
+		const data = {
+			...localForm,
+			[category]: categoryCopy,
+		};
 
-			setLocalForm(data);
-			setLocalStorageDeadArticle(data);
-
-			if (chosenResearch) {
-				validateEditedDeadPublication(
-					{ categories: formCats },
-					errors,
-					setErrors,
-					setValidationResult,
-					selectedValue,
-				);
-			} else {
-				validateDeadPublication(
-					{ categories: formCats },
-					errors,
-					setErrors,
-					setValidationResult,
-					selectedValue,
-				);
-			}
-		} else {
-			const categoryCopy = [...localForm[category]];
-
-			categoryCopy.splice(index, 1);
-
-			const data = {
-				...localForm,
-				[category]: categoryCopy,
-			};
-
-			setLocalForm(data);
-			setLocalStorageDeadArticle(data);
-		}
+		setLocalForm(data);
+		setLocalStorageDeadArticle(data);
 	};
 
 	const onPDFUpload = async (e) => {
@@ -550,7 +541,7 @@ const DeadArticle = () => {
 				}
 			}
 
-			localStorage.removeItem('article');
+			clearStorage();
 		} catch (error) {
 			dispatch(actionSnackBar.setSnackBar('error', 'Publish failed', 2000));
 		}

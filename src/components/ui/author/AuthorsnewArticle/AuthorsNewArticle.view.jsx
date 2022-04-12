@@ -20,6 +20,7 @@ import DropZoneMulti from '../../reusables/DropZoneMulti/DropZoneMulti';
 import CategoriesAutoComplete from '../../reusables/CategoriesAutoComplete/CategoriesAutoComplete';
 import TagsAutoComplete from '../../reusables/TagsAutoComplete/TagsAutoComplete';
 import { ReactComponent as CalendarIcon } from '../../../../assets/icons/iconCalendar.svg';
+import ExitPublicationAlert from '../../reusables/ExitPublicationAlert/ExitPublicationAlert';
 
 const AuthorsNewArticleView = (props) => {
 	const classes = useStyles();
@@ -66,6 +67,7 @@ const AuthorsNewArticleView = (props) => {
 							<Grid item xs={12}>
 								<Grid container>
 									<Grid item xs={12}>
+										{}
 										<MUIRichTextEditor
 											className={
 												props.showEditorError
@@ -83,10 +85,13 @@ const AuthorsNewArticleView = (props) => {
 																? JSON.stringify(props.chosenResearch.content)
 																: props.chosenResearch.content,
 												  }
-												: props.localForm.content?.blocks?.some((block) => {
+												: props.storageDefaultContent?.blocks?.some((block) => {
 														return block.text !== '';
 												  }) && {
-														defaultValue: JSON.stringify(props.localForm.content),
+														defaultValue:
+															typeof props.storageDefaultContent !== 'string'
+																? JSON.stringify(props.storageDefaultContent)
+																: props.storageDefaultContent,
 												  })}
 											controls={[
 												'bold',
@@ -155,6 +160,7 @@ const AuthorsNewArticleView = (props) => {
 													setErrors={props.setErrors}
 													validationResult={props.validationResult}
 													setValidationResult={props.setValidationResult}
+													type="live_publication"
 												/>
 												<TagsAutoComplete
 													className={classes.tagsInputContainer}
@@ -192,18 +198,9 @@ const AuthorsNewArticleView = (props) => {
 														inputProps={{
 															maxLength: 50,
 														}}
-														onChange={(e) => {
-															props.setCurrentEvent({
-																...props.currentEvent,
-																title: e.target.value,
-															});
-															props.validateEvent(
-																{ title: e.target.value },
-																props.errorsEvent,
-																props.setErrorsEvent,
-																props.setValidationResultEvent,
-															);
-														}}
+														onChange={(e) =>
+															props.handleEvent(e.target.value, 'title')
+														}
 													/>
 												</Grid>
 												<Grid item xs={5}>
@@ -224,18 +221,7 @@ const AuthorsNewArticleView = (props) => {
 														PopoverProps={{
 															classes: { paper: classes.calendarPaper },
 														}}
-														onChange={(date) => {
-															props.setCurrentEvent({
-																...props.currentEvent,
-																date: date,
-															});
-															props.validateEvent(
-																{ date: date },
-																props.errorsEvent,
-																props.setErrorsEvent,
-																props.setValidationResultEvent,
-															);
-														}}
+														onChange={(date) => props.handleEvent(date, 'date')}
 													/>
 												</Grid>
 
@@ -382,8 +368,14 @@ const AuthorsNewArticleView = (props) => {
 										}
 										onClick={() => props.sendPublication('done')}
 									>
-										Done
+										Publish
 									</FilledButton>
+									<ExitPublicationAlert
+										open={props.openAlert}
+										setNavigationAllowed={props.setNavigationAllowed}
+										handleClose={props.handleCloseAlert}
+										alertHandler={props.alertHandler}
+									/>
 								</Grid>
 							</Grid>
 						</Grid>
