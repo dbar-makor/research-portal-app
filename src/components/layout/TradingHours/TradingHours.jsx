@@ -31,14 +31,10 @@ const TradingHours = forwardRef((props, ref) => {
 	});
 
 	useEffect(() => {
-		console.log('render');
-
 		if (location.pathname === '/login') {
 			setIsLogin(true);
-			console.log('here1');
 		} else {
 			setIsLogin(false);
-			console.log('here2');
 		}
 	}, [location]);
 
