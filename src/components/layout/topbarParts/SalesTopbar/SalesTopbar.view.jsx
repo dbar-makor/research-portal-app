@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 
 const SalesTopbarView = (props) => {
 	return (
-		<Grid item xs={3} style={{ marginRight: 113 }}>
-			<Grid container justifyContent="space-between">
+		<Grid item xs={12}>
+			<Grid container justifyContent="space-around" style={{ marginLeft: '35px' }}>
 				<Grid item>
 					<Link to="/companies" className={props.classes.styledLinks}>
 						Companies

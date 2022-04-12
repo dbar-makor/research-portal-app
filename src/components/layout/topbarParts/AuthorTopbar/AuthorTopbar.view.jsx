@@ -4,21 +4,11 @@ import { Link } from 'react-router-dom';
 
 const AuthorTopbarView = (props) => {
 	return (
-		<Grid item xs={3} style={{ marginRight: 113 }}>
-			<Grid container justifyContent="space-between">
-				<Grid item>
-					<Link to="/companies" className={props.classes.styledLinks}>
-						Companies
-					</Link>
-				</Grid>
-				<Grid>
-					<Link to="/contracts" className={props.classes.styledLinks}>
-						Contracts
-					</Link>
-				</Grid>
-				<Grid>
-					<Link to="/invoices" className={props.classes.styledLinks}>
-						Invoices
+		<Grid item xs={12}>
+			<Grid container justifyContent="flex-end">
+				<Grid item style={{ paddingRight: '20px' }}>
+					<Link to="/research" className={props.classes.styledLinks}>
+						My Articles
 					</Link>
 				</Grid>
 			</Grid>

@@ -1,24 +1,25 @@
 import React, { forwardRef } from 'react';
+import { Link } from 'react-router-dom';
 import { Button, Grid, withStyles } from '@material-ui/core';
 import { useStyles } from '../../../styles/MainStyles';
 import BellNotifications from '../topbarParts/BellNotifications/BellNotifications';
 import UserIcon from '../topbarParts/UserIcon/UserIcon';
 import TradingHourUnit from '../topbarParts/TradingHourUnit/TradingHourUnit';
 
-const StyledButton = withStyles(() => ({
-	root: {
-		'width': '185px',
-		'height': '30px',
-		'textTransform': 'none',
-		'fontWeight': 400,
-		'backgroundColor': '#1C67FF',
-		'borderRadius': 21,
-		'color': '#F2F2F2',
-		'&:hover': {
-			backgroundColor: '#1c67ffb3',
-		},
-	},
-}))(Button);
+// const StyledButton = withStyles(() => ({
+// 	root: {
+// 		'width': '185px',
+// 		'height': '30px',
+// 		'textTransform': 'none',
+// 		'fontWeight': 400,
+// 		'backgroundColor': '#1C67FF',
+// 		'borderRadius': 21,
+// 		'color': '#F2F2F2',
+// 		'&:hover': {
+// 			backgroundColor: '#1c67ffb3',
+// 		},
+// 	},
+// }))(Button);
 
 const LoginButton = withStyles(() => ({
 	root: {
@@ -79,11 +80,13 @@ const TradingHoursView = forwardRef((props, ref) => {
 				) : (
 					<Grid item style={{ paddingRight: 80 }}>
 						<Grid container justifyContent="space-between">
-							<Grid item style={{ paddingRight: 20 }}>
+							{/* <Grid item style={{ paddingRight: 20 }}>
 								<StyledButton>Become a Costumer</StyledButton>
-							</Grid>
+							</Grid> */}
 							<Grid item>
-								<LoginButton>Login</LoginButton>
+								<Link to="/login" style={{ textDecoration: 'none' }}>
+									<LoginButton>Login</LoginButton>
+								</Link>
 							</Grid>
 						</Grid>
 					</Grid>

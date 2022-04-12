@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(() => ({
 	page: {
-		height: '100vh',
+		height: '80vh',
 	},
 	modalContainer: {
 		backgroundColor: '#fff',
@@ -50,19 +50,19 @@ const useStyles = makeStyles(() => ({
 		},
 		'& input:-webkit-autofill:focus': {
 			transition: 'background-color 5000s ease-in-out 0s',
-			backgroundColor: '#fff !important'
+			backgroundColor: '#fff !important',
 		},
 		'& select:-webkit-autofill': {
 			transition: 'background-color 5000s ease-in-out 0s',
-			backgroundColor: '#fff !important'
+			backgroundColor: '#fff !important',
 		},
 		'& select:-webkit-autofill:focus': {
 			transition: 'background-color 5000s ease-in-out 0s',
-			backgroundColor: '#fff !important'
+			backgroundColor: '#fff !important',
 		},
 		'& textarea:-webkit-autofill': {
 			transition: 'background-color 5000s ease-in-out 0s',
-			backgroundColor: '#fff !important'
+			backgroundColor: '#fff !important',
 		},
 
 		// '& fieldset': {

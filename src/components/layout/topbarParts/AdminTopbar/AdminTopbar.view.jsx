@@ -18,7 +18,7 @@ const AdminTopbarView = (props) => {
 	const classes = useStyles();
 
 	return (
-		<Grid item xs={3} style={{ marginRight: 113 }}>
+		<Grid item xs={12}>
 			<Grid container justifyContent="flex-end">
 				<Grid item className={classes.menueWrapper}>
 					<Grid container alignItems="center">

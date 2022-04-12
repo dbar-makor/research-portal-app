@@ -6,6 +6,8 @@ import SalesTopbar from '../topbarParts/SalesTopbar/SalesTopbar';
 import AuthorTopbar from '../topbarParts/AuthorTopbar/AuthorTopbar';
 import AdminTopbar from '../topbarParts/AdminTopbar/AdminTopbar';
 import MakorLogo from '../topbarParts/MakorLogo/MakorLogo';
+import { ReactComponent as SearchIcon } from '../../../assets/icons/IconSearch.svg';
+import { StyledTextField } from '../../../styles/MainStyles';
 import useStyles from './TopBar.style';
 
 const TopBarView = forwardRef((props, ref) => {
@@ -50,15 +52,39 @@ const TopBarView = forwardRef((props, ref) => {
 				/>
 			</Grid>
 			<Divider className={classes.divider} />
-			<Grid container item justifyContent="center" className={classes.barWrapper}>
+			<Grid container item justifyContent="center" alignItems="center" className={classes.barWrapper}>
 				<Grid item xs={9}>
 					<AppBar position="sticky" className={classes.header}>
-						<Toolbar style={{ height: '6vh', width: '100%' }}>
-							<Grid item xs={4} style={{ marginLeft: '27px' }}>
+						<Toolbar style={{ minHeight: '8vh', height: '8vh', width: '100%' }}>
+							<Grid item xs={3} style={{ marginLeft: '27px' }}>
 								<MakorLogo classes={classes} userType={props.userType} />
 							</Grid>
+							<Grid item container xs={4} justifyContent="flex-end">
+								<StyledTextField
+									id="searchField"
+									className={classes.search}
+									value={props.searchTerm}
+									variant="filled"
+									fullWidth
+									placeholder="Search"
+									InputProps={{
+										endAdornment: (
+											<SearchIcon
+												className={classes.searchIcon}
+												style={{ cursor: 'pointer', stroke: 'none' }}
+											/>
+										),
+									}}
+									// onKeyDown={(e) =>
+									// 	e.key === 'Enter'
+									// 		? dispatch(setProperty({ key: 'search', value: props.searchTerm }))
+									// 		: null
+									// }
+									onChange={(e) => props.setSearchTerm(e.target.value)}
+								/>
+							</Grid>
 							{props.isAuthenticated && (
-								<Grid item xs={8}>
+								<Grid item xs={5}>
 									{handleBarOptions(props.userType)}
 								</Grid>
 							)}
