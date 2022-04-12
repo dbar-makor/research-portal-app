@@ -4,7 +4,6 @@ import MemberTopbarView from './MemberTopbar.view';
 
 const MemberTopbar = (props) => {
 	const [region, setRegion] = useState(props.options[0].value);
-	const [searchTerm, setSearchTerm] = useState('');
 
 	return (
 		<MemberTopbarView
@@ -12,8 +11,6 @@ const MemberTopbar = (props) => {
 			options={props.options}
 			region={region}
 			setRegion={setRegion}
-			searchTerm={searchTerm}
-			setSearchTerm={setSearchTerm}
 		/>
 	);
 };

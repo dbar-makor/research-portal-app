@@ -6,12 +6,12 @@ const useStyles = makeStyles(() => ({
 	},
 	textStyle: {
 		fontSize: 16,
-		color: '#fffff',
+		color: '#0F0F0F',
 		cursor: 'pointer',
-		fontWeight: 300,
+		fontWeight: 500,
 	},
 	expandLessIcon: {
-		color: '#fff',
+		color: '#0F0F0F',
 	},
 }));
 
