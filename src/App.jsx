@@ -181,7 +181,7 @@ const App = () => {
 		<ThemeProvider theme={mainTheme}>
 			<MuiPickersUtilsProvider utils={DateFnsUtils}>
 				<div>
-					{isAuthenticated && <TopBar />}
+					<TopBar />
 					<Snackbar />
 					<Switch>
 						<Route exact path="/login" component={LoginPage} />

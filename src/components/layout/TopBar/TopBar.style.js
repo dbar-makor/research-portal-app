@@ -13,11 +13,12 @@ const useStyles = makeStyles((theme) => ({
 		zIndex: 1200,
 	},
 	'header': {
+		marginTop: 5,
 		backgroundColor: '#FEFEFE',
 		flexDirection: 'row',
 		boxShadow: 'none',
-		minHeight: '6vh',
-		height: '6vh',
+		minHeight: '8vh',
+		height: '8vh',
 	},
 	'divider': {
 		backgroundColor: '#353535',
@@ -44,6 +45,7 @@ const useStyles = makeStyles((theme) => ({
 		fontSize: 16,
 		textDecoration: 'none',
 		color: '#0F0F0F',
+		fontWeight: 500,
 	},
 	'label': {
 		top: -10,

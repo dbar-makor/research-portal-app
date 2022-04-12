@@ -93,7 +93,7 @@ const DeadArticleView = forwardRef((props, ref) => {
 							value={props.localForm.description}
 							placeholder="Description*"
 							error={!!props.errors.description}
-							helpertext={props.errors.description}
+							helperText={props.errors.description}
 							inputProps={{
 								style: {
 									fontSize: '16px',
@@ -236,7 +236,7 @@ const DeadArticleView = forwardRef((props, ref) => {
 										format="dd/MM/yyyy"
 										placeholder="Date"
 										error={!!props.errorsEvent.date}
-										helpertext={props.errorsEvent.date}
+										helperText={props.errorsEvent.date}
 										value={props.currentEvent.date}
 										className={classes.eventDatePicker}
 										InputAdornmentProps={{ position: 'end' }}
@@ -379,9 +379,9 @@ const DeadArticleView = forwardRef((props, ref) => {
 										placeholder="Title"
 										disabled={props.selectedValue === 'video'}
 										error={!!props.errors.title_pdf}
-										helpertext={props.errors.title_pdf}
+										helperText={props.errors.title_pdf}
 										inputProps={{
-											helpertextcolor: props.selectedValue === 'video' ? 'grey' : 'red',
+											helperTextcolor: props.selectedValue === 'video' ? 'grey' : 'red',
 											style: {
 												fontSize: '16px',
 												fontWeight: 500,
@@ -518,7 +518,7 @@ const DeadArticleView = forwardRef((props, ref) => {
 										}}
 										value={props.localForm.title_video}
 										error={!!props.errors.title_video}
-										helpertext={props.errors.title_video}
+										helperText={props.errors.title_video}
 										placeholder="Title"
 										inputProps={{
 											style: {
@@ -535,7 +535,7 @@ const DeadArticleView = forwardRef((props, ref) => {
 										style={{ marginBottom: '76px' }}
 										value={props.localForm.link_video}
 										error={!!props.errors.link_video}
-										helpertext={props.errors.link_video}
+										helperText={props.errors.link_video}
 										placeholder="Insert Link"
 										InputProps={{
 											startAdornment: (
