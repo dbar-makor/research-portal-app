@@ -49,7 +49,7 @@ const AuthorsNewArticleView = (props) => {
 													style={{ width: '100%' }}
 													placeholder="Article Title*"
 													error={!!props.errors.title}
-													helpertext={props.errors.title}
+													helperText={props.errors.title}
 													inputProps={{
 														style: { fontSize: '32px', fontWeight: 600 },
 														maxLength: 50,
