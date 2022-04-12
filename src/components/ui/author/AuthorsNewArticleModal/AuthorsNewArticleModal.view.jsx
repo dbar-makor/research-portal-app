@@ -47,7 +47,7 @@ const AuthorsNewArticleModalView = (props) => {
 										<Button
 											className={classes.buttonStyle}
 											onClick={() => {
-												props.removeArticleId();
+												// props.removeArticleId();
 												dispatch(getChosenResearchAsync(''));
 												props.history.push('/new-article');
 											}}
@@ -75,7 +75,7 @@ const AuthorsNewArticleModalView = (props) => {
 										<Button
 											className={classes.button2Style}
 											onClick={() => {
-												props.removeDeadArticleId();
+												// props.removeDeadArticleId();
 												dispatch(getChosenResearchAsync(''));
 												props.history.push('/upload-article');
 											}}

@@ -85,11 +85,26 @@ const EditProfile = () => {
 
 	const handleFormSubmit = async () => {
 		const tempCategories = userInformation.categories.map((c) => c.id);
+		const tempUserInformation = { ...userInformation };
 
-		userInformation.categories = tempCategories;
+		tempUserInformation.categories = tempCategories;
+		delete tempUserInformation.country;
+		delete tempUserInformation.type;
+		delete tempUserInformation.last_publication;
+		delete tempUserInformation.most_read;
+		delete tempUserInformation.created_at;
+		delete tempUserInformation.last_connected_at;
+		delete tempUserInformation.total_views;
+		delete tempUserInformation.total_published;
+		delete tempUserInformation.id;
+		//userInformation.categories = tempCategories;
 
 		try {
-			const res = await axios.put(`${BASE_URL}${END_POINT.USER}/${userContent.id}`, userInformation);
+			console.log('userInformation', tempUserInformation);
+			const res = await axios.put(
+				`${BASE_URL}${END_POINT.USER}/${userContent.id}`,
+				tempUserInformation,
+			);
 
 			if (res.status === 200) {
 				fetchUserInformation();
@@ -121,7 +136,8 @@ const EditProfile = () => {
 			return;
 		}
 
-		setUserInformation((prev) => ({ ...prev, [key]: value }));
+		// Phone number calls this function twice, so the condtion avoids creating another property when reason is undefined
+		if (key !== 'number') setUserInformation((prev) => ({ ...prev, [key]: value }));
 	};
 
 	useEffect(() => {

@@ -5,13 +5,13 @@ import AuthorsNewArticleModalView from './AuthorsNewArticleModal.view';
 const AuthorsNewArticleModal = (props) => {
 	const history = useHistory();
 
-	const removeArticleId = () => sessionStorage.removeItem('articleId');
-	const removeDeadArticleId = () => sessionStorage.removeItem('deadArticleId');
+	// const removeArticleId = () => sessionStorage.removeItem('articleId');
+	// const removeDeadArticleId = () => sessionStorage.removeItem('deadArticleId');
 
 	return (
 		<AuthorsNewArticleModalView
-			removeArticleId={removeArticleId}
-			removeDeadArticleId={removeDeadArticleId}
+			// removeArticleId={removeArticleId}
+			// removeDeadArticleId={removeDeadArticleId}
 			history={history}
 			handleClose={props.handleClose}
 			open={props.open}
