@@ -34,7 +34,7 @@ const CategoriesAutoCompleteView = (props) => {
 									: props.formObject || ''
 							}
 							onChange={(e, values) => props.handler(values)}
-							{...(props.error && { error: true, helpertext: props.error })}
+							{...(props.error && { error: true, helperText: props.error })}
 							getOptionLabel={(option) => option.name || ''}
 							getOptionSelected={(option, value) => option.name === value.name}
 							renderInput={(params) => {
@@ -45,7 +45,7 @@ const CategoriesAutoCompleteView = (props) => {
 										variant="outlined"
 										width="100%"
 										placeholder="Categories"
-										{...(props.error && { error: true, helpertext: props.error })}
+										{...(props.error && { error: true, helperText: props.error })}
 									/>
 								);
 							}}

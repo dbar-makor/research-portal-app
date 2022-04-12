@@ -18,7 +18,7 @@ const TextInputUnitView = (props) => {
 					style={{ width: '100%' }}
 					variant="outlined"
 					onChange={props.onChange}
-					{...(props.error && { error: true, helpertext: props.error })}
+					{...(props.error && { error: true, helperText: props.error })}
 					{...(props.id && { id: props.id })}
 					{...(props.type && { type: props.type })}
 					{...(props.InputProps && { InputProps: props.InputProps })}

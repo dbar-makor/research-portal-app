@@ -28,6 +28,7 @@ const InfoStepView = (props) => {
 		<Grid item xs={6} className={classes.stepFormContanier}>
 			<Grid container>
 				<Grid item xs={12} className={classes.fieldWrapper}>
+					{console.log('errors', props.errors)}
 					<TextInputUnit
 						className={classes.textFieldStyle}
 						name="name"

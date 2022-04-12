@@ -11,7 +11,7 @@ const DateInputUnitView = (props) => {
 		<Grid container className={props.className}>
 			<Grid item xs={12}>
 				<KeyboardDatePicker
-					{...(props.error && { error: true, helpertext: props.error })}
+					{...(props.error && { error: true, helperText: props.error })}
 					inputVariant={props.inputVariant}
 					invalidDateMessage=""
 					variant="inline"
