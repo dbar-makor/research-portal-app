@@ -52,10 +52,18 @@ const processContent = (content) => {
 		}
 	}
 
-	if (Object.values(content)[0].some((block) => block.text !== '')) {
-		return content;
-	} else {
-		return {};
+	if (typeof content === 'object') {
+		//if object is empty
+
+		if (Object.values(content).length < 1) return {};
+
+		//if object isn't empty but does not have real content
+
+		if (Object.values(content)[0].some((block) => block.text !== '')) {
+			return content;
+		} else {
+			return {};
+		}
 	}
 };
 
@@ -183,6 +191,7 @@ const AuthorsNewArticle = () => {
 	// Editing Mode
 	useEffect(() => {
 		if (chosenResearch) {
+			console.log('chosenResearch', chosenResearch);
 			//save article's ID in sessionStorage
 			sessionStorage.setItem('articleId', chosenResearch.id);
 			setArticleId(chosenResearch.id);
@@ -275,10 +284,13 @@ const AuthorsNewArticle = () => {
 
 		delete formToSend.author;
 		delete formToSend.comments;
-		delete formToSend.published_at;
 
 		if (buttonMarker === 'done') {
 			//allow navigation (remove block from useEffect)
+
+			delete formToSend.published_at;
+			delete formToSend.created_at;
+			delete formToSend.updated_at;
 
 			setNavigationAllowed(true);
 
@@ -295,6 +307,8 @@ const AuthorsNewArticle = () => {
 			//allow navigation (remove block from useEffect)
 
 			setNavigationAllowed(true);
+			delete formToSend.created_at;
+			delete formToSend.updated_at;
 
 			formToSend = {
 				...formToSend,
@@ -306,7 +320,7 @@ const AuthorsNewArticle = () => {
 				content: processContent(localForm.content),
 			};
 		} else if (buttonMarker === 'preview') {
-			//opens in a new tab
+			//opens in a new tab!
 			formToSend = {
 				...formToSend,
 				attachments: attachmentsCopy,

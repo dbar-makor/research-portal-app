@@ -79,7 +79,8 @@ const AuthorsNewArticleView = (props) => {
 											label="Enter article body..."
 											onChange={props.handleEditorChange}
 											onFocus={props.handleEditorOnFocus}
-											{...(props.chosenResearch
+											{...(props.chosenResearch &&
+											Object.values(props.chosenResearch.content).length > 0
 												? {
 														defaultValue:
 															typeof props.chosenResearch.content !== 'string'
