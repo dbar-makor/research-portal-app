@@ -535,6 +535,11 @@ const DeadArticle = () => {
 		if (buttonMarker === 'done') {
 			//allow navigation (remove block from useEffect)
 			setNavigationAllowed(true);
+
+			delete formToSend.published_at;
+			delete formToSend.created_at;
+			delete formToSend.updated_at;
+
 			formToSend = {
 				...formToSend,
 				categories: categoriesForServer,
@@ -544,6 +549,9 @@ const DeadArticle = () => {
 		} else if (buttonMarker === 'save-draft') {
 			//allow navigation (remove block from useEffect)
 			setNavigationAllowed(true);
+			delete formToSend.created_at;
+			delete formToSend.updated_at;
+
 			formToSend = {
 				...formToSend,
 				categories: categoriesForServer,
