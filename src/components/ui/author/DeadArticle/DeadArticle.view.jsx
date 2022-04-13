@@ -22,6 +22,7 @@ import DropZone from '../../reusables/DropZone/DropZone';
 import CategoriesAutoComplete from '../../reusables/CategoriesAutoComplete/CategoriesAutoComplete';
 import TagsAutoComplete from '../../reusables/TagsAutoComplete/TagsAutoComplete';
 import { selectChosenResearch } from '../../../../redux/researches/chosenResearchSlice';
+import ExitPublicationAlert from '../../reusables/ExitPublicationAlert/ExitPublicationAlert';
 
 //import useStyles from './DeadArticle.style';
 
@@ -602,6 +603,14 @@ const DeadArticleView = forwardRef((props, ref) => {
 									Publish
 								</FilledButton>
 							</Grid>
+							<ExitPublicationAlert
+								open={props.openAlert}
+								setNavigationAllowed={props.setNavigationAllowed}
+								handleClose={props.handleCloseAlert}
+								alertDeleteHandler={props.alertDeleteHandler}
+								sendPublication={props.sendPublication}
+								requestedLocation={props.requestedLocation}
+							/>
 						</Grid>
 					</Grid>
 				</Grid>
