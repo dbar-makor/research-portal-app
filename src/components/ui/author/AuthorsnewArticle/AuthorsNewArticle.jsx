@@ -197,7 +197,6 @@ const AuthorsNewArticle = () => {
 	// Editing Mode
 	useEffect(() => {
 		if (chosenResearch) {
-			console.log('chosenResearch', chosenResearch);
 			//save article's ID in sessionStorage
 			sessionStorage.setItem('articleId', chosenResearch.id);
 			setArticleId(chosenResearch.id);
@@ -341,8 +340,6 @@ const AuthorsNewArticle = () => {
 			let res;
 
 			if (formToSend.id) {
-				console.log('formToSend update', formToSend);
-
 				res = await axios.put(`${BASE_URL}${END_POINT.PUBLICATION}/${formToSend.id}`, formToSend);
 
 				if (res.status === 201) {
@@ -350,8 +347,6 @@ const AuthorsNewArticle = () => {
 					history.push('/researches');
 				}
 			} else {
-				console.log('formToSend create', formToSend);
-
 				res = await axios.post(`${BASE_URL}${END_POINT.PUBLICATION}`, formToSend);
 
 				if (res.status === 201) {
@@ -595,11 +590,6 @@ const AuthorsNewArticle = () => {
 	const handleEditorOnFocus = () => {
 		setContentNotOK((prevState) => ({ ...prevState, focus: true }));
 	};
-
-	console.log('validationResult', validationResult);
-	console.log('validationResultEvent', validationResultEvent);
-	console.log('coverImageOK.final', coverImageOK.final);
-	console.log('contentNotOK.isText', contentNotOK.isText);
 
 	return (
 		<AuthorsNewArticleView
