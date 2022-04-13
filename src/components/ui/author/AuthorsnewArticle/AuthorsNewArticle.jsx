@@ -299,7 +299,6 @@ const AuthorsNewArticle = () => {
 				description: description,
 				created_at: new Date(),
 			};
-
 			history.push({
 				pathname: '/prearticle',
 				state: { publication: formToSend, from: 'new-publication' },
@@ -312,6 +311,8 @@ const AuthorsNewArticle = () => {
 			let res;
 
 			if (formToSend.id) {
+				console.log('formToSend update', formToSend);
+
 				res = await axios.put(`${BASE_URL}${END_POINT.PUBLICATION}/${formToSend.id}`, formToSend);
 				history.push('/researches');
 
@@ -319,6 +320,8 @@ const AuthorsNewArticle = () => {
 					dispatch(actionSnackBar.setSnackBar('success', 'Successfully updated', 2000));
 				}
 			} else {
+				console.log('formToSend create', formToSend);
+
 				res = await axios.post(`${BASE_URL}${END_POINT.PUBLICATION}`, formToSend);
 				history.push('/researches');
 
