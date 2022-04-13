@@ -76,7 +76,7 @@ const DeadArticleView = forwardRef((props, ref) => {
 							value={props.localForm.title}
 							placeholder="Article Title*"
 							error={!!props.errors.title}
-							helpertext={props.errors.title}
+							helperText={props.errors.title}
 							inputProps={{
 								style: { fontSize: '16px', fontWeight: 500, color: '#868DA2' },
 							}}
@@ -207,7 +207,7 @@ const DeadArticleView = forwardRef((props, ref) => {
 									<StyledTextField
 										value={props.currentEvent.title}
 										error={!!props.errorsEvent.title}
-										helpertext={props.errorsEvent.title}
+										helperText={props.errorsEvent.title}
 										variant="outlined"
 										placeholder="Title"
 										className={classes.textField}
