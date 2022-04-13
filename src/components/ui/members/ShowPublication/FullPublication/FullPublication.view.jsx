@@ -2,7 +2,7 @@ import React from 'react';
 
 import { CircularProgress, Grid, IconButton } from '@material-ui/core';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
-import { FilledButton } from '../../../../../styles/MainStyles';
+//import { FilledButton } from '../../../../../styles/MainStyles';
 
 import AuthorInfo from '../AuthorInfo/AuthorInfo';
 import Title from '../Title/Title';
@@ -29,7 +29,7 @@ const FullPublicationView = (props) => {
 			)}
 			{props.chosenPublication && !props.loadingPub && (
 				<>
-					{location.state && location.state.from === 'new-publication' && (
+					{/* {location.state && location.state.from === 'new-publication' && (
 						<Grid
 							item
 							xs={11}
@@ -37,7 +37,7 @@ const FullPublicationView = (props) => {
 						>
 							<FilledButton onClick={props.backToEditing}> Back to Editing </FilledButton>
 						</Grid>
-					)}
+					)} */}
 					<Grid item xs={5}>
 						<Grid container>
 							<Title

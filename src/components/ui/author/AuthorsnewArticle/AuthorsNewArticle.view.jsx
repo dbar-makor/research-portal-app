@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Grid, Typography, Divider } from '@material-ui/core';
 import MUIRichTextEditor from 'mui-rte';
 import AddIcon from '@material-ui/icons/Add';
@@ -356,9 +357,11 @@ const AuthorsNewArticleView = (props) => {
 											Save Draft
 										</OutlinedButton>
 									)}
-									<OutlinedButton onClick={() => props.sendPublication('preview')}>
-										Preview
-									</OutlinedButton>
+									<Link to="/prearticle" target="_blank">
+										<OutlinedButton onClick={() => props.sendPublication('preview')}>
+											Preview
+										</OutlinedButton>
+									</Link>
 									<FilledButton
 										disabled={
 											!props.validationResult ||

@@ -2,10 +2,9 @@ import React, { useEffect, useState } from 'react';
 
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useLocation, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { BASE_URL, END_POINT } from '../../../../../utils/constants';
 import * as actionSnackBar from '../../../../../redux/SnackBar/action';
-
 import FullPublicationView from './FullPublication.view';
 
 const FullPublication = () => {
@@ -13,14 +12,21 @@ const FullPublication = () => {
 	const { pubId } = useParams();
 	const [chosenPublication, setChosenPublication] = useState();
 	const [loadingPub, setLoadingPub] = useState(null);
-	const location = useLocation();
-	const history = useHistory();
+	// const location = useLocation();
+	// const history = useHistory();
 	const userType = useSelector((state) => state.auth.userContent?.type);
 
 	useEffect(() => {
 		if (userType === 'author') {
-			setChosenPublication(location.state?.publication);
+			setChosenPublication(JSON.parse(localStorage.getItem('presentation-article')));
 		}
+	}, []);
+
+	// When component unmouts, localStorage gets cleared
+	useEffect(() => {
+		return () => {
+			localStorage.removeItem('presentation-article');
+		};
 	}, []);
 
 	//in case user is member- pub is taken from the params
@@ -57,18 +63,18 @@ const FullPublication = () => {
 		}
 	}, []);
 
-	const backToEditing = () => {
-		history.push({
-			pathname: chosenPublication.type === 'live' ? '/new-article' : '/upload-article',
-			state: { publication: location.state?.publication, from: 'prearticle' },
-		});
-	};
+	// const backToEditing = () => {
+	// 	history.push({
+	// 		pathname: chosenPublication.type === 'live' ? '/new-article' : '/upload-article',
+	// 		state: { publication: location.state?.publication, from: 'prearticle' },
+	// 	});
+	// };
 
 	return (
 		<FullPublicationView
 			loadingPub={loadingPub}
 			transformVideoLink={transformVideoLink}
-			backToEditing={backToEditing}
+			//backToEditing={backToEditing}
 			chosenPublication={chosenPublication}
 			userType={userType}
 		/>

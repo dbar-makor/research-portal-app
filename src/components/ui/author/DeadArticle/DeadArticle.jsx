@@ -31,6 +31,7 @@ const clearStorage = () => {
 	localStorage.removeItem('deadArticleCoverImage');
 	localStorage.removeItem('deadArticleCategories');
 	localStorage.removeItem('deadArticleTags');
+	localStorage.removeItem('presentation-article');
 	sessionStorage.removeItem('deadArticleId');
 };
 
@@ -179,9 +180,9 @@ const DeadArticle = () => {
 			//  let categoriesIDs = chosenResearch.categories.map(category => category.id);
 			const editedLocalForm = { ...chosenResearch };
 
-			delete editedLocalForm.created_at;
+			//delete editedLocalForm.created_at;
 			delete editedLocalForm.name;
-			delete editedLocalForm.updated_at;
+			//delete editedLocalForm.updated_at;
 
 			setCoverImage(coverImg ? coverImg : '');
 			setLocalCats(chosenResearch.categories);
@@ -508,9 +509,6 @@ const DeadArticle = () => {
 	};
 
 	const sendPublication = async (buttonMarker) => {
-		//allow navigation (remove block from useEffect)
-		setNavigationAllowed(true);
-
 		const attachmentsCopy = [];
 
 		if (coverImage?.file_name) {
@@ -535,6 +533,8 @@ const DeadArticle = () => {
 		delete formToSend.comments;
 
 		if (buttonMarker === 'done') {
+			//allow navigation (remove block from useEffect)
+			setNavigationAllowed(true);
 			formToSend = {
 				...formToSend,
 				categories: categoriesForServer,
@@ -542,6 +542,8 @@ const DeadArticle = () => {
 				status: 'published',
 			};
 		} else if (buttonMarker === 'save-draft') {
+			//allow navigation (remove block from useEffect)
+			setNavigationAllowed(true);
 			formToSend = {
 				...formToSend,
 				categories: categoriesForServer,
@@ -549,12 +551,9 @@ const DeadArticle = () => {
 				status: 'draft',
 			};
 		} else if (buttonMarker === 'preview') {
+			//opens in a new tab
 			formToSend = { ...localForm, categories: localCats, tags: localTags };
-
-			history.push({
-				pathname: '/prearticle',
-				state: { publication: formToSend, from: 'new-publication' },
-			});
+			localStorage.setItem('presentation-article', JSON.stringify(formToSend));
 
 			return;
 		}
@@ -581,7 +580,7 @@ const DeadArticle = () => {
 
 			clearStorage();
 		} catch (error) {
-			dispatch(actionSnackBar.setSnackBar('error', 'Publish failed', 2000));
+			dispatch(actionSnackBar.setSnackBar('error', 'Saving failed', 2000));
 		}
 	};
 
