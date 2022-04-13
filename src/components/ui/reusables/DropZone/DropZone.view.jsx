@@ -51,6 +51,8 @@ const DropZoneView = (props) => {
 								const articleId = sessionStorage.getItem('articleId');
 								const deadArticleId = sessionStorage.getItem('deadArticleId');
 
+								// Storage nteraction should be re-written in a reusable manner (only suitable to new publication)
+
 								// Check if not in edit mode
 								if (!articleId) {
 									// Remove cover image from localStorage
