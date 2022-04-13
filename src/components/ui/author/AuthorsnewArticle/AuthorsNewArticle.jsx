@@ -347,8 +347,6 @@ const AuthorsNewArticle = () => {
 					history.push('/researches');
 				}
 			} else {
-				console.log('formToSend create', formToSend);
-
 				res = await axios.post(`${BASE_URL}${END_POINT.PUBLICATION}`, formToSend);
 
 				if (res.status === 201) {
