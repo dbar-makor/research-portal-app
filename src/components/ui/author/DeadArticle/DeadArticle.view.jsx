@@ -1,4 +1,5 @@
 import React, { forwardRef } from 'react';
+import { Link } from 'react-router-dom';
 import { Grid, Typography, Button, Divider } from '@material-ui/core';
 import ClearIcon from '@material-ui/icons/Clear';
 import Radio from '@material-ui/core/Radio';
@@ -583,12 +584,14 @@ const DeadArticleView = forwardRef((props, ref) => {
 								)}
 							</Grid>
 							<Grid item xs={3}>
-								<OutlinedButton
-									className={classes.saveDraft}
-									onClick={() => props.sendPublication('preview')}
-								>
-									Preview
-								</OutlinedButton>
+								<Link to="/prearticle" target="_blank">
+									<OutlinedButton
+										className={classes.saveDraft}
+										onClick={() => props.sendPublication('preview')}
+									>
+										Preview
+									</OutlinedButton>
+								</Link>
 							</Grid>
 							<Grid item xs={3}>
 								<FilledButton

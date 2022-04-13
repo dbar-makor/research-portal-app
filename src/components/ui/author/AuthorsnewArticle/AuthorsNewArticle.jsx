@@ -31,6 +31,7 @@ const clearStorage = () => {
 	localStorage.removeItem('coverImage');
 	localStorage.removeItem('categories');
 	localStorage.removeItem('tags');
+	localStorage.removeItem('presentation-article');
 	sessionStorage.removeItem('articleId');
 };
 
@@ -195,9 +196,9 @@ const AuthorsNewArticle = () => {
 
 			const editedLocalForm = { ...chosenResearch, attachments: otherFiles };
 
-			delete editedLocalForm.created_at;
+			//delete editedLocalForm.created_at;
 			delete editedLocalForm.name;
-			delete editedLocalForm.updated_at;
+			//delete editedLocalForm.updated_at;
 
 			setCoverImage(coverImg);
 			setLocalCats(chosenResearch.categories);
@@ -262,10 +263,6 @@ const AuthorsNewArticle = () => {
 	}, [navigationAllowed]);
 
 	const sendPublication = async (buttonMarker) => {
-		//allow navigation (remove block from useEffect)
-
-		setNavigationAllowed(true);
-
 		const attachmentsCopy = [...localForm.attachments];
 
 		if (coverImage?.file_name) {
@@ -281,6 +278,10 @@ const AuthorsNewArticle = () => {
 		delete formToSend.published_at;
 
 		if (buttonMarker === 'done') {
+			//allow navigation (remove block from useEffect)
+
+			setNavigationAllowed(true);
+
 			formToSend = {
 				...formToSend,
 				attachments: attachmentsCopy,
@@ -288,9 +289,13 @@ const AuthorsNewArticle = () => {
 				tags: tagsForServer,
 				description: description,
 				status: 'published',
-				content: processContent(formToSend.content),
+				content: processContent(localForm.content),
 			};
 		} else if (buttonMarker === 'save-draft') {
+			//allow navigation (remove block from useEffect)
+
+			setNavigationAllowed(true);
+
 			formToSend = {
 				...formToSend,
 				attachments: attachmentsCopy,
@@ -298,9 +303,10 @@ const AuthorsNewArticle = () => {
 				tags: tagsForServer,
 				description: description,
 				status: 'draft',
-				content: processContent(formToSend.content),
+				content: processContent(localForm.content),
 			};
 		} else if (buttonMarker === 'preview') {
+			//opens in a new tab
 			formToSend = {
 				...formToSend,
 				attachments: attachmentsCopy,
@@ -309,10 +315,7 @@ const AuthorsNewArticle = () => {
 				description: description,
 				created_at: new Date(),
 			};
-			history.push({
-				pathname: '/prearticle',
-				state: { publication: formToSend, from: 'new-publication' },
-			});
+			localStorage.setItem('presentation-article', JSON.stringify(formToSend));
 
 			return;
 		}
@@ -338,7 +341,7 @@ const AuthorsNewArticle = () => {
 
 			clearStorage();
 		} catch (error) {
-			dispatch(actionSnackBar.setSnackBar('error', 'Publish failed', 2000));
+			dispatch(actionSnackBar.setSnackBar('error', 'Saving failed', 2000));
 		}
 	};
 
