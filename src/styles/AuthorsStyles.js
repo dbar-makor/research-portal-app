@@ -1,9 +1,11 @@
 import { makeStyles, withStyles, TextField } from '@material-ui/core';
 
-export const useStyles = makeStyles(() => ({
+export const useStyles = makeStyles((theme) => ({
 	newArticleContainer: {
 		marginTop: '4.3vh',
-		height: 'fit-content',
+		[theme.breakpoints.up('md')]: {
+			height: 'fit-content',
+		},
 	},
 	newArticleWrapper: {
 		height: 'content-fit',
@@ -171,7 +173,12 @@ export const useStyles = makeStyles(() => ({
 	newArticleRightContainer: {
 		'position': 'relative',
 		'alignContent': 'space-between',
-		'marginLeft': '16px',
+		[theme.breakpoints.up('md')]: {
+			marginLeft: '16px',
+		},
+		[theme.breakpoints.down('sm')]: {
+			marginTop: '20px',
+		},
 		'height': '100%',
 		'width': 'inherit',
 		'border': '1px solid #EDEFF3',
@@ -205,6 +212,9 @@ export const useStyles = makeStyles(() => ({
 	subHeaderRight: {
 		color: '#868DA2',
 		fontSize: '16px',
+		[theme.breakpoints.down('lg')]: {
+			marginBottom: 16,
+		},
 	},
 	autoCompletesContainer: {
 		marginBottom: '16px',
@@ -305,6 +315,21 @@ export const useStyles = makeStyles(() => ({
 		maxHeight: '75px',
 		borderTop: 'none',
 		borderRadius: '0px 0px 8px 8px',
+	},
+	draftLink: {
+		//'fontFamily': 'Roboto',
+		'color': '#1C67FF',
+		'fontSize': 16,
+		'textDecoration': 'underline',
+		'fontWeight': 'bold',
+		'&:hover': {
+			cursor: 'pointer',
+		},
+	},
+	previewLink: {
+		textDecorationLine: 'none !important',
+		// '& span': {
+		// },
 	},
 	attachmentLine: {
 		marginTop: '15px',
