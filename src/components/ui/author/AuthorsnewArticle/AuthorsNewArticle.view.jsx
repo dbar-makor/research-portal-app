@@ -28,10 +28,10 @@ const AuthorsNewArticleView = (props) => {
 
 	return (
 		<Grid container justifyContent="center" style={{ paddingTop: 20 }}>
-			<Grid item xs={10}>
-				<Grid container className={classes.newArticleContainer}>
+			<Grid item xs={11} lg={10}>
+				<Grid item container className={classes.newArticleContainer}>
 					<SubHeader title="Write New Article" />
-					<Grid item xs={6}>
+					<Grid item xs={12} md={6}>
 						<Grid container className={classes.newArticleLeftContainer}>
 							<Grid item xs={12}>
 								<Grid container justifyContent="space-between" alignItems="flex-end" />
@@ -126,17 +126,17 @@ const AuthorsNewArticleView = (props) => {
 							</Grid>
 						</Grid>
 					</Grid>
-					<Grid item xs={4}>
+					<Grid item xs={12} md={4}>
 						<Grid container className={classes.newArticleRightContainer}>
 							<Grid item xs={12} container className={classes.rightForm}>
 								<Grid item xs={12}>
 									<Grid container>
-										<Grid item xs={3}>
+										<Grid item xs={12} xl={3}>
 											<Typography className={classes.subHeaderRight}>
 												Information
 											</Typography>
 										</Grid>
-										<Grid item xs={9}>
+										<Grid item xs={12} xl={9}>
 											<DropZone
 												className={classes.dropZone}
 												fileTypes=".png, .jpg, .svg, .jfif, .webp"
@@ -181,10 +181,10 @@ const AuthorsNewArticleView = (props) => {
 										container
 										className={`${classes.marginTop15} ${classes.eventsScrolledContainer}`}
 									>
-										<Grid item xs={3}>
+										<Grid item xs={12} xl={3}>
 											<Typography className={classes.subHeaderRight}>Events</Typography>
 										</Grid>
-										<Grid item xs={9}>
+										<Grid item xs={12} xl={9}>
 											<Grid
 												container
 												className={classes.eventContainer}
@@ -328,12 +328,12 @@ const AuthorsNewArticleView = (props) => {
 
 								<Grid item xs={12}>
 									<Grid container className={classes.marginTop15}>
-										<Grid item xs={3}>
+										<Grid item xs={12} xl={3}>
 											<Typography className={classes.subHeaderRight}>
 												Attachments
 											</Typography>
 										</Grid>
-										<Grid item xs={9}>
+										<Grid item xs={12} xl={9}>
 											<DropZoneMulti
 												className={classes.uploadAttachment}
 												fileTypes=".jpg, .png, .svg, .doc, .docx, .pdf"
@@ -350,30 +350,49 @@ const AuthorsNewArticleView = (props) => {
 								<Grid
 									container
 									justifyContent="space-between"
+									alignItems="center"
 									className={classes.buttonsContainer}
 								>
-									{((props.chosenResearch && props.chosenResearch.status === 'draft') ||
-										!props.chosenResearch) && (
-										<OutlinedButton onClick={() => props.sendPublication('save-draft')}>
-											Save Draft
-										</OutlinedButton>
-									)}
-									<Link to="/prearticle" target="_blank">
-										<OutlinedButton onClick={() => props.sendPublication('preview')}>
-											Preview
-										</OutlinedButton>
-									</Link>
-									<FilledButton
-										disabled={
-											!props.validationResult ||
-											!props.validationResultEvent ||
-											!props.coverImageOK.final ||
-											!props.contentNotOK.isText
-										}
-										onClick={() => props.sendPublication('done')}
-									>
-										Publish
-									</FilledButton>
+									<Grid item xs={12} xl={3}>
+										{((props.chosenResearch && props.chosenResearch.status === 'draft') ||
+											!props.chosenResearch) && (
+											<Typography
+												variant="caption"
+												className={classes.draftLink}
+												onClick={() => props.sendPublication('save-draft')}
+											>
+												Save Draft
+											</Typography>
+										)}
+									</Grid>
+									<Grid item container xs={12} xl={7} justifyContent="space-between">
+										<Grid item>
+											<Link
+												to="/prearticle"
+												target="_blank"
+												className={classes.previewLink}
+											>
+												<OutlinedButton
+													onClick={() => props.sendPublication('preview')}
+												>
+													Preview
+												</OutlinedButton>
+											</Link>
+										</Grid>
+										<Grid item>
+											<FilledButton
+												disabled={
+													!props.validationResult ||
+													!props.validationResultEvent ||
+													!props.coverImageOK.final ||
+													!props.contentNotOK.isText
+												}
+												onClick={() => props.sendPublication('done')}
+											>
+												Publish
+											</FilledButton>
+										</Grid>
+									</Grid>
 									<ExitPublicationAlert
 										open={props.openAlert}
 										setNavigationAllowed={props.setNavigationAllowed}

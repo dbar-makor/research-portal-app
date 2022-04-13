@@ -16,7 +16,7 @@ const SubHeaderView = (props) => {
 					</Grid>
 				</Grid>
 			</Grid>
-			<Grid item xs={2}>
+			<Grid item xs={6} md={2}>
 				<Grid container>
 					<Grid item xs={12}>
 						<Typography className={classes.title}>{props.title}</Typography>

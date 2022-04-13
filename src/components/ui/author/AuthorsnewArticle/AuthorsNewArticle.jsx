@@ -85,6 +85,10 @@ const AuthorsNewArticle = () => {
 	const [errors, setErrors] = useState({});
 	const [validationResult, setValidationResult] = useState(false);
 
+	const handleCloseAlert = () => {
+		setOpenAlert(false);
+	};
+
 	const [errorsEvent, setErrorsEvent] = useState({});
 	/* eslint no-unused-vars: 0 */
 	const [validationResultEvent, setValidationResultEvent] = useState(true);
@@ -92,10 +96,6 @@ const AuthorsNewArticle = () => {
 	const [coverImageOK, setCoverImageOK] = useState({ initial: true, final: false });
 	const [contentNotOK, setContentNotOK] = useState({ focus: false, isText: false, everTyped: false });
 	const showEditorError = contentNotOK.focus && contentNotOK.everTyped && !contentNotOK.isText;
-
-	const handleCloseAlert = () => {
-		setOpenAlert(false);
-	};
 
 	const [currentEvent, setCurrentEvent] = useState({
 		date: null,
@@ -143,7 +143,7 @@ const AuthorsNewArticle = () => {
 
 		const coverImage = JSON.parse(localStorageCoverImage);
 
-		setCoverImageOK((prev) => ({ ...prev, final: true }));
+		setCoverImageOK((prev) => ({ initial: true, final: true }));
 
 		return coverImage;
 	});
@@ -522,7 +522,7 @@ const AuthorsNewArticle = () => {
 					localStorage.setItem('coverImage', JSON.stringify(newCover));
 				}
 
-				setCoverImageOK((prev) => ({ initial: true, final: true }));
+				setCoverImageOK({ initial: true, final: true });
 			}
 		} catch (error) {
 			dispatch(actionSnackBar.setSnackBar('error', 'File upload failed', 2000));

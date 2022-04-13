@@ -62,6 +62,8 @@ const DeadArticle = () => {
 		setOpenAlert(false);
 	};
 
+	const [selectedValue, setSelectedValue] = useState('pdf');
+
 	const [currentEvent, setCurrentEvent] = useState({
 		date: null,
 		title: '',
@@ -94,6 +96,32 @@ const DeadArticle = () => {
 		}
 
 		const deadArticle = JSON.parse(localStorageDeadArticle);
+		//validating fields from localStorage
+
+		const checkSet =
+			selectedValue === 'video'
+				? [
+						['title', deadArticle.title],
+						['description', deadArticle.description],
+						['title_video', deadArticle.title_pdf],
+						['link_video', deadArticle.file_pdf],
+				  ]
+				: [
+						['title', deadArticle.title],
+						['description', deadArticle.description],
+						['title_pdf', deadArticle.title_pdf],
+						['file_pdf', deadArticle.file_pdf],
+				  ];
+
+		checkSet.forEach(([key, value]) => {
+			validateEditedDeadPublication(
+				{ [key]: value },
+				errors,
+				setErrors,
+				setValidationResult,
+				selectedValue,
+			);
+		});
 
 		return deadArticle;
 	});
@@ -106,6 +134,8 @@ const DeadArticle = () => {
 		if (!localStorageCoverImage || localStorageCoverImage === 'undefined' || chosenResearch) return '';
 
 		const coverImage = JSON.parse(localStorageCoverImage);
+
+		setCoverImageOK({ initial: true, final: true });
 
 		return coverImage;
 	});
@@ -136,7 +166,6 @@ const DeadArticle = () => {
 
 	const [scrollLocation, setScrollLocation] = useState('bottom');
 	const tableRowsRefs = useRef([]);
-	const [selectedValue, setSelectedValue] = useState('pdf');
 	const location = useLocation();
 
 	const handleChangeRadio = (event) => {
@@ -193,13 +222,19 @@ const DeadArticle = () => {
 			//checking validation for published case vs. draft case
 			if (chosenResearch.status === 'published') {
 				setValidationResult(true);
-				setCoverImageOK((prev) => ({ ...prev, final: true }));
+				setCoverImageOK({ initial: true, final: true });
 			} else if (chosenResearch.status === 'draft') {
-				if (!coverImg) {
-					setCoverImageOK((prev) => ({ ...prev, final: false }));
-				}
+				if (coverImg) setCoverImageOK({ initial: true, final: true });
 
-				if (!chosenResearch.categories.lengt || !chosenResearch.title) {
+				if (
+					chosenResearch.categories.length &&
+					chosenResearch.title &&
+					chosenResearch.description &&
+					((chosenResearch.title_pdf && chosenResearch.file_pdf) ||
+						(chosenResearch.title_video && chosenResearch.link_video))
+				) {
+					setValidationResult(true);
+				} else {
 					setValidationResult(false);
 				}
 			}
@@ -503,7 +538,7 @@ const DeadArticle = () => {
 					localStorage.setItem('deadArticleCoverImage', JSON.stringify(newCover));
 				}
 
-				setCoverImageOK((prev) => ({ ...prev, final: true }));
+				setCoverImageOK({ initial: true, final: true });
 			}
 		} catch (error) {}
 	};
