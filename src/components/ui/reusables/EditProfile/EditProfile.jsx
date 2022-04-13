@@ -145,7 +145,6 @@ const EditProfile = () => {
 		fetchUserInformation();
 
 		return () => {
-			console.log('return');
 			setUserInformation({});
 		};
 	}, []);

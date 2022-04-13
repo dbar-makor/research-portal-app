@@ -374,7 +374,9 @@ const AuthorsNewArticleView = (props) => {
 										open={props.openAlert}
 										setNavigationAllowed={props.setNavigationAllowed}
 										handleClose={props.handleCloseAlert}
-										alertHandler={props.alertHandler}
+										alertDeleteHandler={props.alertDeleteHandler}
+										sendPublication={props.sendPublication}
+										requestedLocation={props.requestedLocation}
 									/>
 								</Grid>
 							</Grid>

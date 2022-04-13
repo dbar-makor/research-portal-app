@@ -27,7 +27,7 @@ const UserInfo = () => {
 	const userLimit = useSelector(selectUsersLimit);
 	const userSearch = useSelector(selectUsersSearch);
 	const userStatus = useSelector(selectUsersStatus);
-  const [inputValue, setInputValue] = useState('');
+	const [inputValue, setInputValue] = useState('');
 
 	useEffect(() => {
 		if (currentUser) {
@@ -50,7 +50,6 @@ const UserInfo = () => {
 			const res = await axios.delete(`${BASE_URL}${END_POINT.USER}/${id}`);
 
 			if (res.status === 200) {
-				console.log(res);
 				handleCloseAlert();
 				dispatch(changeChosenUser(null));
 				dispatch(getUsersByTypeAsync(userOffset, userLimit, userSearch, chosenUser.type, userStatus));

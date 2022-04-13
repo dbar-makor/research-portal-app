@@ -25,33 +25,23 @@ const ExitPublicationAlertView = (props) => {
 					</Grid>
 				</Grid>
 				<Grid item xs={12}>
-					<Typography className={classes.deleteTitle}>
-						{`Deleting ${props.itemCategory}`}
-					</Typography>
+					<Typography className={classes.deleteTitle}>Unsaved Publication</Typography>
 				</Grid>
 				<Grid item xs={12}>
 					<Typography className={classes.deleteText}>
-						{`Are you sure you want to delete ${props.itemName}?`}
+						You are about to leave the page without saving your publication.
+						<br />
+						Are you sure you want to discard your changes?
 					</Typography>
 				</Grid>
 				<Grid item xs={12}>
-					<Grid container justifyContent="center">
-						<RedFilledButton
-							onClick={() => {
-								props.setNavigationAllowed(true);
-								props.handleClose();
-							}}
-						>
-							Delete
-						</RedFilledButton>
-						<RedFilledButton
-							onClick={() => {
-								props.setNavigationAllowed(false);
-								props.handleClose();
-							}}
-						>
-							Keep
-						</RedFilledButton>
+					<Grid container justifyContent="space-between">
+						<Grid item xs={5}>
+							<RedFilledButton onClick={props.handleDiscard}>Discard</RedFilledButton>
+						</Grid>
+						<Grid item xs={5}>
+							<RedFilledButton onClick={props.handleSave}>Save As Draft</RedFilledButton>
+						</Grid>
 					</Grid>
 				</Grid>
 			</Grid>

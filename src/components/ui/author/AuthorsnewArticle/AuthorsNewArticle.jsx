@@ -38,6 +38,9 @@ const processContent = (content) => {
 	let editedContent;
 
 	if (typeof content === 'string') {
+		//if there is no real content - send empty object;
+		if (!content) return {};
+
 		editedContent = JSON.parse(content);
 		//if there is no real content - send empty object;
 
@@ -66,14 +69,13 @@ const AuthorsNewArticle = () => {
 	const location = useLocation();
 	const [description, setDescription] = useState('');
 	const [openAlert, setOpenAlert] = useState(false);
+	//navigation outside page with unsaved changes is blocked in useEffect
 	const [navigationAllowed, setNavigationAllowed] = useState(false);
+	//state keeps the location the user wanted to navigate to without saving changes
+	const [requestedLocation, setRequestedLocation] = useState('');
 
 	const handleCloseAlert = () => {
 		setOpenAlert(false);
-	};
-
-	const handleOpenAlert = () => {
-		setOpenAlert(true);
 	};
 
 	const [currentEvent, setCurrentEvent] = useState({
@@ -233,16 +235,20 @@ const AuthorsNewArticle = () => {
 		}
 	}, []);
 
+	// This useEffect sets a listener for attempts to leave the page, and tracks cases in which this is done with unsaved changes
+
 	useEffect(() => {
-		const unblock = history.block((location, action) => {
+		const unblock = history.block((location) => {
 			if (
 				location.pathname !== 'new-article' &&
+				!navigationAllowed &&
 				(localStorage.getItem('article') ||
 					localStorage.getItem('tags') ||
 					localStorage.getItem('categories') ||
 					localStorage.getItem('coverImage'))
 			) {
 				setOpenAlert(true);
+				setRequestedLocation(location.pathname);
 
 				return navigationAllowed;
 			}
@@ -256,6 +262,10 @@ const AuthorsNewArticle = () => {
 	}, [navigationAllowed]);
 
 	const sendPublication = async (buttonMarker) => {
+		//allow navigation (remove block from useEffect)
+
+		setNavigationAllowed(true);
+
 		const attachmentsCopy = [...localForm.attachments];
 
 		if (coverImage?.file_name) {
@@ -314,19 +324,19 @@ const AuthorsNewArticle = () => {
 				console.log('formToSend update', formToSend);
 
 				res = await axios.put(`${BASE_URL}${END_POINT.PUBLICATION}/${formToSend.id}`, formToSend);
-				history.push('/researches');
 
 				if (res.status === 201) {
 					dispatch(actionSnackBar.setSnackBar('success', 'Successfully updated', 2000));
+					history.push('/researches');
 				}
 			} else {
 				console.log('formToSend create', formToSend);
 
 				res = await axios.post(`${BASE_URL}${END_POINT.PUBLICATION}`, formToSend);
-				history.push('/researches');
 
 				if (res.status === 201) {
 					dispatch(actionSnackBar.setSnackBar('success', 'Successfully published', 2000));
+					history.push('/researches');
 				}
 			}
 
@@ -585,6 +595,7 @@ const AuthorsNewArticle = () => {
 			setCoverImageOK={setCoverImageOK}
 			openAlert={openAlert}
 			setNavigationAllowed={setNavigationAllowed}
+			requestedLocation={requestedLocation}
 			localCats={localCats}
 			setLocalCats={setLocalCats}
 			handleCatsChange={handleCatsChange}
@@ -608,7 +619,7 @@ const AuthorsNewArticle = () => {
 			deleteItem={deleteItem}
 			sendPublication={sendPublication}
 			handleCloseAlert={handleCloseAlert}
-			alertHandler={clearStorage}
+			alertDeleteHandler={clearStorage}
 			onDrop={onDrop}
 			onDropCover={onDropCover}
 		/>

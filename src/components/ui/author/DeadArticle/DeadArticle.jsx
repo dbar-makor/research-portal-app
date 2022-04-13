@@ -45,12 +45,21 @@ const DeadArticle = () => {
 
 	const dispatch = useDispatch();
 	const history = useHistory();
+	const [openAlert, setOpenAlert] = useState(false);
+	//navigation outside page with unsaved changes is blocked in useEffect
+	const [navigationAllowed, setNavigationAllowed] = useState(false);
+	//state keeps the location the user wanted to navigate to without saving changes
+	const [requestedLocation, setRequestedLocation] = useState('');
 	const [coverImageOK, setCoverImageOK] = useState({ initial: true, final: false });
 	const [errors, setErrors] = useState({});
 	const [validationResult, setValidationResult] = useState(false);
 	const [errorsEvent, setErrorsEvent] = useState({});
 	// eslint-disable-next-line no-unused-vars
 	const [validationResultEvent, setValidationResultEvent] = useState(true);
+
+	const handleCloseAlert = () => {
+		setOpenAlert(false);
+	};
 
 	const [currentEvent, setCurrentEvent] = useState({
 		date: null,
@@ -201,6 +210,32 @@ const DeadArticle = () => {
 			sessionStorage.removeItem('deadArticleId');
 		};
 	}, [chosenResearch]);
+
+	// This useEffect sets a listener for attempts to leave the page, and tracks cases in which this is done with unsaved changes
+
+	useEffect(() => {
+		const unblock = history.block((location) => {
+			if (
+				location.pathname !== 'upload-article' &&
+				!navigationAllowed &&
+				(localStorage.getItem('deadArticle') ||
+					localStorage.getItem('deadArticleTags') ||
+					localStorage.getItem('deadArticleCategories') ||
+					localStorage.getItem('deadArticleCoverImage'))
+			) {
+				setOpenAlert(true);
+				setRequestedLocation(location.pathname);
+
+				return navigationAllowed;
+			}
+
+			return true;
+		});
+
+		return () => {
+			unblock();
+		};
+	}, [navigationAllowed]);
 
 	//if coming back from preview (chosenResearch is now null even if it is saved in server)
 	useEffect(() => {
@@ -473,6 +508,9 @@ const DeadArticle = () => {
 	};
 
 	const sendPublication = async (buttonMarker) => {
+		//allow navigation (remove block from useEffect)
+		setNavigationAllowed(true);
+
 		const attachmentsCopy = [];
 
 		if (coverImage?.file_name) {
@@ -589,6 +627,11 @@ const DeadArticle = () => {
 			localTags={localTags}
 			selectedValue={selectedValue}
 			sendPublication={sendPublication}
+			openAlert={openAlert}
+			setNavigationAllowed={setNavigationAllowed}
+			requestedLocation={requestedLocation}
+			handleCloseAlert={handleCloseAlert}
+			alertDeleteHandler={clearStorage}
 			setErrors={setErrors}
 			setErrorsEvent={setErrorsEvent}
 			setCoverImage={setCoverImage}
