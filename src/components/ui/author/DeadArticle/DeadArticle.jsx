@@ -57,8 +57,6 @@ const DeadArticle = () => {
 	// eslint-disable-next-line no-unused-vars
 	const [validationResultEvent, setValidationResultEvent] = useState(true);
 
-	console.log('navigationAllowed', navigationAllowed);
-
 	const handleCloseAlert = () => {
 		setOpenAlert(false);
 	};
@@ -227,7 +225,6 @@ const DeadArticle = () => {
 			) {
 				setOpenAlert(true);
 				setRequestedLocation(location.pathname);
-				console.log('location', location);
 
 				return navigationAllowed;
 			}

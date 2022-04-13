@@ -249,7 +249,6 @@ const AuthorsNewArticle = () => {
 			) {
 				setOpenAlert(true);
 				setRequestedLocation(location.pathname);
-				console.log('location', location);
 
 				return navigationAllowed;
 			}
@@ -572,9 +571,6 @@ const AuthorsNewArticle = () => {
 	const handleEditorOnFocus = () => {
 		setContentNotOK((prevState) => ({ ...prevState, focus: true }));
 	};
-
-	console.log('local form', localForm);
-	console.log('navigationAllowed', navigationAllowed);
 
 	return (
 		<AuthorsNewArticleView
