@@ -82,6 +82,16 @@ const AuthorsNewArticle = () => {
 	const [navigationAllowed, setNavigationAllowed] = useState(false);
 	//state keeps the location the user wanted to navigate to without saving changes
 	const [requestedLocation, setRequestedLocation] = useState('');
+	const [errors, setErrors] = useState({});
+	const [validationResult, setValidationResult] = useState(false);
+
+	const [errorsEvent, setErrorsEvent] = useState({});
+	/* eslint no-unused-vars: 0 */
+	const [validationResultEvent, setValidationResultEvent] = useState(true);
+
+	const [coverImageOK, setCoverImageOK] = useState({ initial: true, final: false });
+	const [contentNotOK, setContentNotOK] = useState({ focus: false, isText: false, everTyped: false });
+	const showEditorError = contentNotOK.focus && contentNotOK.everTyped && !contentNotOK.isText;
 
 	const handleCloseAlert = () => {
 		setOpenAlert(false);
@@ -115,6 +125,9 @@ const AuthorsNewArticle = () => {
 		}
 
 		const article = JSON.parse(localStorageArticle);
+		//validating title from localStorage
+
+		validateEditedLivePublication({ title: article.title }, errors, setErrors, setValidationResult);
 
 		return article;
 	});
@@ -130,6 +143,8 @@ const AuthorsNewArticle = () => {
 
 		const coverImage = JSON.parse(localStorageCoverImage);
 
+		setCoverImageOK((prev) => ({ ...prev, final: true }));
+
 		return coverImage;
 	});
 
@@ -141,6 +156,8 @@ const AuthorsNewArticle = () => {
 		if (!localStorageCategories || localStorageCategories === 'undefined' || chosenResearch) return [];
 
 		const categories = JSON.parse(localStorageCategories);
+
+		validateEditedLivePublication({ categories: categories }, errors, setErrors, setValidationResult);
 
 		return categories;
 	});
@@ -159,17 +176,6 @@ const AuthorsNewArticle = () => {
 
 	const [scrollLocation, setScrollLocation] = useState('bottom');
 	const tableRowsRefs = useRef([]);
-
-	const [errors, setErrors] = useState({});
-	const [validationResult, setValidationResult] = useState(false);
-
-	const [errorsEvent, setErrorsEvent] = useState({});
-	/* eslint no-unused-vars: 0 */
-	const [validationResultEvent, setValidationResultEvent] = useState(true);
-
-	const [coverImageOK, setCoverImageOK] = useState({ initial: true, final: false });
-	const [contentNotOK, setContentNotOK] = useState({ focus: false, isText: false, everTyped: false });
-	const showEditorError = contentNotOK.focus && contentNotOK.everTyped && !contentNotOK.isText;
 
 	// Save article in localStorage
 	const setLocalStorageArticle = (data) => {
@@ -195,7 +201,7 @@ const AuthorsNewArticle = () => {
 			//save article's ID in sessionStorage
 			sessionStorage.setItem('articleId', chosenResearch.id);
 			setArticleId(chosenResearch.id);
-			const coverImg = chosenResearch.attachments.find(
+			const coverImgLocal = chosenResearch.attachments.find(
 				(attachment) => attachment.file_type === 'main_bg',
 			);
 
@@ -209,7 +215,7 @@ const AuthorsNewArticle = () => {
 			delete editedLocalForm.name;
 			//delete editedLocalForm.updated_at;
 
-			setCoverImage(coverImg);
+			setCoverImage(coverImgLocal);
 			setLocalCats(chosenResearch.categories);
 			setLocalForm(editedLocalForm);
 			setLocalTags(chosenResearch.tags);
@@ -218,15 +224,12 @@ const AuthorsNewArticle = () => {
 			if (chosenResearch.status === 'published') {
 				setContentNotOK({ focus: true, isText: true, everTyped: true });
 				setValidationResult(true);
-				setCoverImageOK((prev) => ({ ...prev, final: true }));
+				setCoverImageOK({ initial: true, final: true });
 			} else {
-				if (!coverImg) {
-					setCoverImageOK((prev) => ({ ...prev, final: false }));
-				}
+				if (coverImgLocal) setCoverImageOK({ initial: true, final: true });
 
-				if (!chosenResearch.categories.length || !chosenResearch.title) {
-					setValidationResult(false);
-				}
+				if (chosenResearch.categories.length && chosenResearch.title.length)
+					setValidationResult(true);
 			}
 		}
 		// Remove id when component unmounts
@@ -520,7 +523,7 @@ const AuthorsNewArticle = () => {
 					localStorage.setItem('coverImage', JSON.stringify(newCover));
 				}
 
-				setCoverImageOK((prev) => ({ ...prev, final: true }));
+				setCoverImageOK((prev) => ({ initial: true, final: true }));
 			}
 		} catch (error) {
 			dispatch(actionSnackBar.setSnackBar('error', 'File upload failed', 2000));
@@ -588,6 +591,11 @@ const AuthorsNewArticle = () => {
 	const handleEditorOnFocus = () => {
 		setContentNotOK((prevState) => ({ ...prevState, focus: true }));
 	};
+
+	console.log('validationResult', validationResult);
+	console.log('validationResultEvent', validationResultEvent);
+	console.log('coverImageOK.final', coverImageOK.final);
+	console.log('contentNotOK.isText', contentNotOK.isText);
 
 	return (
 		<AuthorsNewArticleView
