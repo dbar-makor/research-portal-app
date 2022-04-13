@@ -320,7 +320,7 @@ const AuthorsNewArticle = () => {
 				content: processContent(localForm.content),
 			};
 		} else if (buttonMarker === 'preview') {
-			//opens in a new tab
+			//opens in a new tab!
 			formToSend = {
 				...formToSend,
 				attachments: attachmentsCopy,
