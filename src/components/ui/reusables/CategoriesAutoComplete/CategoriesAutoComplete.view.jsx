@@ -44,7 +44,7 @@ const CategoriesAutoCompleteView = (props) => {
 										autoComplete="off"
 										variant="outlined"
 										width="100%"
-										placeholder="Categories"
+										placeholder="Categories*"
 										{...(props.error && { error: true, helperText: props.error })}
 									/>
 								);

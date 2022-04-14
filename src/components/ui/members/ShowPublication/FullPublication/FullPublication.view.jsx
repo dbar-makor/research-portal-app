@@ -29,15 +29,6 @@ const FullPublicationView = (props) => {
 			)}
 			{props.chosenPublication && !props.loadingPub && (
 				<>
-					{/* {location.state && location.state.from === 'new-publication' && (
-						<Grid
-							item
-							xs={11}
-							style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 20 }}
-						>
-							<FilledButton onClick={props.backToEditing}> Back to Editing </FilledButton>
-						</Grid>
-					)} */}
 					<Grid item xs={5}>
 						<Grid container>
 							<Title
@@ -69,7 +60,7 @@ const FullPublicationView = (props) => {
 							) : (
 								<VideoFrame
 									video={{
-										title_video: props.chosenPublication.title_vide,
+										title_video: props.chosenPublication.title_video,
 										link_video: props.transformVideoLink(
 											props.chosenPublication.link_video,
 										),

@@ -1,4 +1,5 @@
 import { makeStyles, withStyles, TextField } from '@material-ui/core';
+//import { CenterFocusStrong } from '@material-ui/icons';
 
 export const useStyles = makeStyles((theme) => ({
 	newArticleContainer: {
@@ -199,15 +200,41 @@ export const useStyles = makeStyles((theme) => ({
 			borderRadius: '10px',
 		},
 	},
+	articleTitleLive: {
+		width: '100%',
+		minHeight: 83,
+	},
+	deadArticlePage: {
+		paddingTop: 20,
+	},
+	subheaderContainer: {
+		marginBottom: 16,
+	},
 	rightForm: {
 		height: 'contentFit',
+	},
+	deadFormHolder: {
+		borderRadius: '8px',
+		border: '1px solid #EDEFF3',
+		flexWrap: 'nowrap',
+		padding: '40px',
+		maxWidth: 850,
+		marginLeft: '10%',
+		[theme.breakpoints.down('md')]: {
+			margin: 0,
+		},
+	},
+	deadImageHolder: {
+		[theme.breakpoints.down('lg')]: {
+			justifyContent: 'center',
+		},
 	},
 	uploadImage: {
 		borderRadius: '8px',
 		border: '1px solid #EDEFF3',
 		padding: '10px',
 		minHeight: '122px',
-		marginBottom: '16px',
+		marginBottom: '8px',
 	},
 	subHeaderRight: {
 		color: '#868DA2',
@@ -273,6 +300,7 @@ export const useStyles = makeStyles((theme) => ({
 		MUIRichTextEditor: {
 			root: {
 				'width': '100%',
+				//minHeight: '70vh',
 				'&.MuiIconButton-root': {
 					color: 'red',
 				},
@@ -312,9 +340,15 @@ export const useStyles = makeStyles((theme) => ({
 		marginLeft: '16px',
 		padding: '17px',
 		minHeight: '75px',
-		maxHeight: '75px',
+		maxHeight: '120px',
 		borderTop: 'none',
 		borderRadius: '0px 0px 8px 8px',
+	},
+	duoButtons: {
+		alignContent: 'space-between',
+		[theme.breakpoints.down('lg')]: {
+			height: 100,
+		},
 	},
 	draftLink: {
 		//'fontFamily': 'Roboto',
@@ -325,6 +359,23 @@ export const useStyles = makeStyles((theme) => ({
 		'&:hover': {
 			cursor: 'pointer',
 		},
+		[theme.breakpoints.down('lg')]: {
+			marginBottom: 16,
+		},
+	},
+	imgWrapper: {
+		marginBottom: 16,
+		minHeight: 230,
+	},
+	imageSpace: {
+		width: '100%',
+		height: 130,
+		cursor: 'pointer',
+	},
+	coverImg: {
+		backgroundRepeat: 'no-repeat',
+		backgroundSize: 'cover',
+		backgroundPosition: 'center',
 	},
 	previewLink: {
 		textDecorationLine: 'none !important',
@@ -478,8 +529,10 @@ export const useStyles = makeStyles((theme) => ({
 	},
 	customError: {
 		color: 'red',
-		marginLeft: 10,
-		marginBottom: 10,
+		//marginLeft: 10,
+		//position: 'absolute',
+		//lineHeight: 4
+		//marginBottom: 20,
 	},
 }));
 
