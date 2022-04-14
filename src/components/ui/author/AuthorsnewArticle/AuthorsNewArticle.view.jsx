@@ -48,7 +48,7 @@ const AuthorsNewArticleView = (props) => {
 												<AtricleTitleTextField
 													variant="outlined"
 													value={props.localForm.title}
-													style={{ width: '100%' }}
+													className={classes.articleTitleLive}
 													placeholder="Article Title*"
 													error={!!props.errors.title}
 													helperText={props.errors.title}
@@ -68,7 +68,6 @@ const AuthorsNewArticleView = (props) => {
 							<Grid item xs={12}>
 								<Grid container>
 									<Grid item xs={12}>
-										{}
 										<MUIRichTextEditor
 											className={
 												props.showEditorError
@@ -76,7 +75,7 @@ const AuthorsNewArticleView = (props) => {
 													: `${classes.muiEditor}`
 											}
 											inlineToolbar
-											label="Enter article body..."
+											label="Enter article body...*"
 											onChange={props.handleEditorChange}
 											onFocus={props.handleEditorOnFocus}
 											{...(props.chosenResearch &&
@@ -137,21 +136,31 @@ const AuthorsNewArticleView = (props) => {
 											</Typography>
 										</Grid>
 										<Grid item xs={12} xl={9}>
-											<DropZone
-												className={classes.dropZone}
-												fileTypes=".png, .jpg, .svg, .jfif, .webp"
-												uploadedImage={props.coverImage}
-												setUploadedImage={props.setCoverImage}
-												purpose="cover image*"
-												fileOK={props.coverImageOK}
-												setFileOK={props.setCoverImageOK}
-												onDrop={props.onDropCover}
-											/>
-											{!props.coverImageOK.initial && (
-												<Typography variant="caption" className={classes.customError}>
-													This field is required
-												</Typography>
-											)}
+											<Grid
+												container
+												className={classes.imgWrapper}
+												direction="column"
+												justifyContent="center"
+											>
+												<DropZone
+													className={classes.dropZone}
+													fileTypes=".png, .jpg, .svg, .jfif, .webp"
+													uploadedImage={props.coverImage}
+													setUploadedImage={props.setCoverImage}
+													purpose="cover image*"
+													fileOK={props.coverImageOK}
+													setFileOK={props.setCoverImageOK}
+													onDrop={props.onDropCover}
+												/>
+												{!props.coverImageOK.initial && (
+													<Typography
+														variant="caption"
+														className={classes.customError}
+													>
+														This field is required
+													</Typography>
+												)}
+											</Grid>
 											<Grid container className={classes.autoCompletesContainer}>
 												<CategoriesAutoComplete
 													formObject={props.localCats}
@@ -346,62 +355,68 @@ const AuthorsNewArticleView = (props) => {
 									</Grid>
 								</Grid>
 							</Grid>
-							<Grid item xs={12}>
-								<Grid
-									container
-									justifyContent="space-between"
-									alignItems="center"
-									className={classes.buttonsContainer}
-								>
-									<Grid item xs={12} xl={3}>
-										{((props.chosenResearch && props.chosenResearch.status === 'draft') ||
-											!props.chosenResearch) && (
-											<Typography
-												variant="caption"
-												className={classes.draftLink}
-												onClick={() => props.sendPublication('save-draft')}
-											>
-												Save Draft
-											</Typography>
-										)}
-									</Grid>
-									<Grid item container xs={12} xl={7} justifyContent="space-between">
-										<Grid item>
-											<Link
-												to="/prearticle"
-												target="_blank"
-												className={classes.previewLink}
-											>
-												<OutlinedButton
-													onClick={() => props.sendPublication('preview')}
-												>
-													Preview
-												</OutlinedButton>
-											</Link>
-										</Grid>
-										<Grid item>
-											<FilledButton
-												disabled={
-													!props.validationResult ||
-													!props.validationResultEvent ||
-													!props.coverImageOK.final ||
-													!props.contentNotOK.isText
-												}
-												onClick={() => props.sendPublication('done')}
-											>
-												Publish
-											</FilledButton>
-										</Grid>
-									</Grid>
-									<ExitPublicationAlert
-										open={props.openAlert}
-										setNavigationAllowed={props.setNavigationAllowed}
-										handleClose={props.handleCloseAlert}
-										alertDeleteHandler={props.alertDeleteHandler}
-										sendPublication={props.sendPublication}
-										requestedLocation={props.requestedLocation}
-									/>
+							<Grid
+								item
+								xs={12}
+								container
+								justifyContent="space-between"
+								alignItems="center"
+								className={classes.buttonsContainer}
+							>
+								<Grid item container md={3} lg={12} xl={3} justifyContent="center">
+									{((props.chosenResearch && props.chosenResearch.status === 'draft') ||
+										!props.chosenResearch) && (
+										<Typography
+											variant="caption"
+											className={classes.draftLink}
+											onClick={() => props.sendPublication('save-draft')}
+										>
+											Save Draft
+										</Typography>
+									)}
 								</Grid>
+								<Grid
+									item
+									container
+									md={7}
+									lg={12}
+									xl={7}
+									justifyContent="space-between"
+									className={classes.duoButtons}
+								>
+									<Grid item>
+										<Link
+											to="/prearticle"
+											target="_blank"
+											className={classes.previewLink}
+										>
+											<OutlinedButton onClick={() => props.sendPublication('preview')}>
+												Preview
+											</OutlinedButton>
+										</Link>
+									</Grid>
+									<Grid item>
+										<FilledButton
+											disabled={
+												!props.validationResult ||
+												!props.validationResultEvent ||
+												!props.coverImageOK.final ||
+												!props.contentNotOK.isText
+											}
+											onClick={() => props.sendPublication('done')}
+										>
+											Publish
+										</FilledButton>
+									</Grid>
+								</Grid>
+								<ExitPublicationAlert
+									open={props.openAlert}
+									setNavigationAllowed={props.setNavigationAllowed}
+									handleClose={props.handleCloseAlert}
+									alertDeleteHandler={props.alertDeleteHandler}
+									sendPublication={props.sendPublication}
+									requestedLocation={props.requestedLocation}
+								/>
 							</Grid>
 						</Grid>
 					</Grid>

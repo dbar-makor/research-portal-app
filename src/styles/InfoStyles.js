@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-export const useStyles = makeStyles({
+export const useStyles = makeStyles((theme) => ({
 	infoContainer: {
 		border: '1px solid #A5AFC233',
 		borderRadius: '8px',
@@ -110,6 +110,28 @@ export const useStyles = makeStyles({
 	logsButton: {
 		'&:hover': {
 			backgroundColor: 'transparent',
+		},
+	},
+	discardButton: {
+		'backgroundColor': '#FFDFDF',
+		'color': '#FF3939',
+		'minWidth': 185,
+		'marginRight': 10,
+		'&:hover': {
+			color: '#fff',
+		},
+		[theme.breakpoints.down('lg')]: {
+			marginBottom: 10,
+		},
+	},
+	draftButton: {
+		minWidth: 185,
+	},
+	alertButtonsWrapper: {
+		alignContent: 'space-between',
+		minHeight: 100,
+		[theme.breakpoints.down('lg')]: {
+			justifyContent: 'center',
 		},
 	},
 	currentContractBlock: {
@@ -351,4 +373,4 @@ export const useStyles = makeStyles({
 	memberRowSelected: {
 		backgroundColor: '#EDEFF3',
 	},
-});
+}));

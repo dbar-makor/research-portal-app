@@ -5,6 +5,7 @@ import { useDropzone } from 'react-dropzone';
 import { useStyles } from '../../../../styles/AuthorsStyles';
 import { DeleteButton } from '../../../../styles/MainStyles';
 import { ReactComponent as ImageIcon } from '../../../../assets/icons/iconImage.svg';
+import { BASE_URL, END_POINT } from '../../../../utils/constants';
 
 const DropZoneView = (props) => {
 	const classes = useStyles();
@@ -23,11 +24,22 @@ const DropZoneView = (props) => {
 						container
 						justifyContent="center"
 						alignItems="center"
-						style={{
-							cursor: 'pointer',
-						}}
+						className={
+							props.uploadedImage
+								? `${classes.coverImg} ${classes.imageSpace}`
+								: `${classes.noCoverImg} ${classes.imageSpace}`
+						}
+						style={
+							props.uploadedImage
+								? {
+										backgroundImage: `url(${BASE_URL}${
+											END_POINT.ASSETS
+										}/${encodeURIComponent(props.uploadedImage.file_name_system)})`,
+								  }
+								: {}
+						}
 					>
-						<ImageIcon style={{ width: '26px' }} />
+						{props.uploadedImage ? null : <ImageIcon style={{ width: '50px' }} />}
 					</Grid>
 				</label>
 			</Grid>
@@ -35,9 +47,12 @@ const DropZoneView = (props) => {
 				<Typography>Drop the file here ...</Typography>
 			) : props.uploadedImage ? (
 				<Grid item xs={12}>
-					<Grid container justifyContent="center" alignItems="center">
-						<Typography className={classes.uploadText} style={{ marginRight: '10px' }}>
-							{typeof uploadedImage === 'string'
+					<Grid container justifyContent="center" alignItems="center" style={{ marginTop: 10 }}>
+						<Typography
+							className={classes.uploadText}
+							style={props.uploadedImage ? { marginRight: '10px' } : null}
+						>
+							{typeof props.uploadedImage === 'string'
 								? props.uploadedImage.length > 20
 									? `${props.uploadedImage.slice(0, 20)}...`
 									: props.uploadedImage

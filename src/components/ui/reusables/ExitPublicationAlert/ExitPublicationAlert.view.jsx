@@ -2,7 +2,7 @@ import React from 'react';
 import { Dialog, Grid, Typography } from '@material-ui/core';
 import { useStyles } from '../../../../styles/InfoStyles';
 import { ReactComponent as CloseIcon } from '../../../../assets/icons/closeIcon.svg';
-import { RedFilledButton } from '../../../../styles/MainStyles';
+import { RedFilledButton, FilledButton } from '../../../../styles/MainStyles';
 
 const ExitPublicationAlertView = (props) => {
 	const classes = useStyles();
@@ -35,12 +35,16 @@ const ExitPublicationAlertView = (props) => {
 					</Typography>
 				</Grid>
 				<Grid item xs={12}>
-					<Grid container justifyContent="space-between">
-						<Grid item xs={5}>
-							<RedFilledButton onClick={props.handleDiscard}>Discard</RedFilledButton>
+					<Grid container className={classes.alertButtonsWrapper} justifyContent="space-between">
+						<Grid item>
+							<RedFilledButton className={classes.discardButton} onClick={props.handleDiscard}>
+								Discard
+							</RedFilledButton>
 						</Grid>
-						<Grid item xs={5}>
-							<RedFilledButton onClick={props.handleSave}>Save As Draft</RedFilledButton>
+						<Grid item>
+							<FilledButton className={classes.draftButton} onClick={props.handleSave}>
+								Save As Draft
+							</FilledButton>
 						</Grid>
 					</Grid>
 				</Grid>
