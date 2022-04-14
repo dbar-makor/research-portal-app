@@ -41,7 +41,7 @@ const AllPublicationsTabsView = (props) => {
 								<Tab label="Drafts" {...a11yProps(1)} className={classes.tab} />
 							</Tabs>
 						</Grid>
-						<Grid item xs={3}>
+						<Grid item xs={3} className={classes.categoryWrapper}>
 							<CategoriesAutoComplete
 								notMultiple
 								handler={props.handler}

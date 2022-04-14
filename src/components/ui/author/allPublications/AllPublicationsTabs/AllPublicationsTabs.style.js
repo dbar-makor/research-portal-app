@@ -1,8 +1,12 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
+	categoryWrapper: {
+		marginLeft: 150,
+	},
 	barWrapper: {
 		justifyContent: 'space-between',
+		padding: '10px',
 	},
 	newBtn: {
 		'borderRadius': 4,
@@ -24,7 +28,9 @@ const useStyles = makeStyles((theme) => ({
 		},
 	},
 	tab: {
+		left: '8px',
 		fontWeight: '600',
+		textTransform: 'capitalize',
 	},
 	tabPanel: {
 		display: 'flex',

@@ -28,8 +28,8 @@ const PublicationsTabView = (props) => {
 						}}
 					>
 						{props.publication.status === 'published' ? (
-							<Grid className={classes.viewsBox}>
-								<VisibilityIcon />
+							<Grid containe className={classes.viewsBox}>
+								<VisibilityIcon className={classes.visibleIcon} />
 								{props.publication.views}
 							</Grid>
 						) : null}
@@ -76,7 +76,7 @@ const PublicationsTabView = (props) => {
 								{props.publication.description.substring(0, 75)}
 							</Typography>
 						</Grid>
-						{props.publication.categories.length && (
+						{props.publication.categories.length ? (
 							<Grid item>
 								<Grid container className={classes.chipContainer}>
 									{props.publication.categories.slice(0, 2).map((el, index) => (
@@ -99,7 +99,7 @@ const PublicationsTabView = (props) => {
 									)}
 								</Grid>
 							</Grid>
-						)}
+						) : null}
 					</Grid>
 				</Grid>
 			</Grid>
