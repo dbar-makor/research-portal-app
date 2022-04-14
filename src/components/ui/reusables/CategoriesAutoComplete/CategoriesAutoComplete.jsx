@@ -25,6 +25,12 @@ const CategoriesAutoComplete = (props) => {
 	const adjustedFormObject = props.formObject.categories ? props.formObject.categories : props.formObject;
 
 	const deleteItem = (index) => {
+		if (props.search) {
+			props.setFormObject([]);
+
+			return;
+		}
+
 		const categoryCopy = [...adjustedFormObject];
 
 		categoryCopy.splice(index, 1);
@@ -68,6 +74,7 @@ const CategoriesAutoComplete = (props) => {
 
 	return (
 		<CategoriesAutoCompleteView
+			notMultiple={props.notMultiple}
 			label={label}
 			className={className}
 			handler={props.handler}
@@ -76,6 +83,8 @@ const CategoriesAutoComplete = (props) => {
 			adjustedFormObject={adjustedFormObject}
 			chipVariant={chipVariant}
 			deleteItem={deleteItem}
+			noChips={props.noChips}
+			search={props.search}
 		/>
 	);
 };

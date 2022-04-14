@@ -9,6 +9,7 @@ import PublicationsTab from '../PublicationsTab/PublicationsTab';
 import TabPanel from '../TabPanel/TabPanel';
 import { AddButton } from '../../../../../styles/MainStyles';
 import AuthorsNewArticleModal from '../../AuthorsNewArticleModal/AuthorsNewArticleModal';
+import CategoriesAutoComplete from '../../../reusables/CategoriesAutoComplete/CategoriesAutoComplete';
 
 import useStyles from './AllPublicationsTabs.style';
 
@@ -39,6 +40,16 @@ const AllPublicationsTabsView = (props) => {
 								<Tab label="Published" {...a11yProps(0)} className={classes.tab} />
 								<Tab label="Drafts" {...a11yProps(1)} className={classes.tab} />
 							</Tabs>
+						</Grid>
+						<Grid item xs={3}>
+							<CategoriesAutoComplete
+								notMultiple
+								handler={props.handler}
+								formObject={props.formObject}
+								setFormObject={props.setFormObject}
+								noChips
+								search
+							/>
 						</Grid>
 						<Grid item xs={1}>
 							<AddButton

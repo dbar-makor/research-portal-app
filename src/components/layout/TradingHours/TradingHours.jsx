@@ -1,4 +1,5 @@
 import React, { forwardRef, useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import tradingHoursData from '../dummy.json';
 
@@ -22,6 +23,8 @@ const TradingHours = forwardRef((props, ref) => {
 
 	const data = tradingHoursData.data;
 
+	const history = useHistory();
+
 	const handleLogin = () => {
 		setIsLogin(true);
 	};
@@ -31,12 +34,16 @@ const TradingHours = forwardRef((props, ref) => {
 	});
 
 	useEffect(() => {
-		if (location.pathname === '/login') {
-			setIsLogin(true);
-		} else {
-			setIsLogin(false);
-		}
-	}, [location]);
+		const unlisten = history.listen((location) => {
+			if (location.pathname === '/login') {
+				setIsLogin(true);
+			} else {
+				setIsLogin(false);
+			}
+		});
+
+		return unlisten;
+	}, []);
 
 	return (
 		<TradingHoursView

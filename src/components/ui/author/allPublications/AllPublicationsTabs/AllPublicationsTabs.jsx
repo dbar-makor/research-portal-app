@@ -7,11 +7,22 @@ import AllPublicationsTabsView from './AllPublicationsTabs.view';
 const AllPublicationsTabs = (props) => {
 	const [value, setValue] = useState(0);
 	const [publications, setPublications] = useState([]);
-
+	const [filteredPublications, setFilteredPublications] = useState([]);
+	const [categoriesSelect, setCategoriesSelect] = useState([]);
 	const [openNewPublication, setOpenNewPublication] = useState(false);
 
 	const handleCloseNewPublication = useCallback(() => {
 		setOpenNewPublication(false);
+	});
+
+	const handleCategoriesSelect = useCallback((category) => {
+		if (!category) {
+			setCategoriesSelect([]);
+
+			return;
+		}
+
+		setCategoriesSelect([category]);
 	});
 
 	const handleOpenNewPublication = useCallback(() => {
@@ -35,13 +46,24 @@ const AllPublicationsTabs = (props) => {
 		fetchPublications();
 	}, []);
 
+	useEffect(() => {
+		if (categoriesSelect.length) {
+			setFilteredPublications(() =>
+				publications.filter((p) =>
+					p.categories.some((c) => {
+						return c.name === categoriesSelect[0].name;
+					}),
+				),
+			);
+		}
+	}, [categoriesSelect]);
 	const handleChange = useCallback((event, newValue) => {
 		setValue(newValue);
 	});
 
 	return (
 		<AllPublicationsTabsView
-			publications={publications}
+			publications={categoriesSelect.length ? filteredPublications : publications}
 			value={value}
 			handleChange={handleChange}
 			handleOpenNewPublication={handleOpenNewPublication}
@@ -49,6 +71,9 @@ const AllPublicationsTabs = (props) => {
 			fetchPublications={fetchPublications}
 			fetchStatistics={props.fetchStatistics}
 			openNewPublication={openNewPublication}
+			handler={handleCategoriesSelect}
+			formObject={categoriesSelect}
+			setFormObject={setCategoriesSelect}
 		/>
 	);
 };

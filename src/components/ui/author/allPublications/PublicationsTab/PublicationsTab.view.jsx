@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Typography } from '@material-ui/core';
+import { Grid, Typography, Chip } from '@material-ui/core';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import EditIcon from '@material-ui/icons/Edit';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
@@ -60,13 +60,46 @@ const PublicationsTabView = (props) => {
 							<EditIcon />
 						</EditButton>
 					</Grid>
-					<Grid item xs={12} className={classes.lowerHalf}>
-						<Typography variant="h5" className={classes.pubTitle}>
-							{props.publication.title}
-						</Typography>
-						<Typography className={classes.pubDescription}>
-							{props.publication.description.substring(0, 75)}
-						</Typography>
+					<Grid
+						item
+						container
+						xs={12}
+						direction="column"
+						justifyContent="space-between"
+						className={classes.lowerHalf}
+					>
+						<Grid item>
+							<Typography variant="h5" className={classes.pubTitle}>
+								{props.publication.title}
+							</Typography>
+							<Typography className={classes.pubDescription}>
+								{props.publication.description.substring(0, 75)}
+							</Typography>
+						</Grid>
+						{props.publication.categories.length && (
+							<Grid item>
+								<Grid container className={classes.chipContainer}>
+									{props.publication.categories.slice(0, 2).map((el, index) => (
+										<Grid item key={index} className={classes.chipItem}>
+											<Chip
+												variant="outlined"
+												label={el.name}
+												className={classes.chip}
+											/>
+										</Grid>
+									))}
+									{props.publication.categories.length - 2 > 0 && (
+										<Grid>
+											<Chip
+												variant="outlined"
+												label={`+${props.publication.categories.length - 2}`}
+												className={classes.roundedChip}
+											/>
+										</Grid>
+									)}
+								</Grid>
+							</Grid>
+						)}
 					</Grid>
 				</Grid>
 			</Grid>
