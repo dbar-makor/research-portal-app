@@ -31,7 +31,7 @@ const useStyles = makeStyles({
 		minWidth: 250,
 		maxWidth: 350,
 		marginRight: 16,
-		marginBottom: 16,
+		marginBottom: 30,
 	},
 	card: {
 		// flexDirection: "column",
@@ -99,11 +99,12 @@ const useStyles = makeStyles({
 		borderRight: '2px solid #ECEEF2',
 		borderBottom: '2px solid #ECEEF2',
 		borderRadius: '0 0 8px 8px',
-		overflowY: 'hidden',
+		overflow: 'hidden',
 	},
 	pubTitle: {
 		marginBottom: 16,
 		fontWeight: '600',
+		fontSize: 18,
 	},
 	pubDescription: {
 		fontSize: '.9rem',
