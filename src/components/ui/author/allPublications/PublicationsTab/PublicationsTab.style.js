@@ -49,12 +49,16 @@ const useStyles = makeStyles({
 		borderRadius: '8px 8px 0 0',
 		position: 'relative',
 	},
+	visibleIcon: {
+		marginTop: 3,
+		marginRight: 4,
+	},
 	viewsBox: {
 		'backgroundColor': '#fff',
 		'display': 'flex',
 		'alignItems': 'center',
 		'justifyContent': 'space-evenly',
-		'padding': '3px 14px 3px 14px',
+		'padding': '3px 14px 4px 14px',
 		'height': 26,
 		'marginTop': 20,
 		'marginRight': 20,
@@ -105,9 +109,11 @@ const useStyles = makeStyles({
 		marginBottom: 16,
 		fontWeight: '600',
 		fontSize: 18,
+		color: '#3E3E3E',
 	},
 	pubDescription: {
 		fontSize: '.9rem',
+		color: '#3E3E3E',
 	},
 	backdrop: {
 		'zIndex': '2',

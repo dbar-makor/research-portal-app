@@ -17,8 +17,7 @@ const useStyles = makeStyles({
 		minWidth: '28vh',
 	},
 	publicationsColumn: {
-		marginTop: '2vh',
-		marginLeft: '1vw',
+		marginTop: '1vh',
 	},
 });
 
