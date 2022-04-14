@@ -8,11 +8,27 @@ import StyledEditor from './Content.style';
 const ContentView = (props) => {
 	const classes = useStyles();
 
+	console.log('props.contentBlocks', props.contentBlocks);
+
+	const hasContent = () => {
+		if (typeof props.contentBlocks === 'string') {
+			if (props.contentBlocks === '{}') return false;
+
+			return true;
+		}
+
+		if (typeof props.contentBlocks === 'object') {
+			if (Object.keys(props.contentBlocks).length === 0) return false;
+
+			return true;
+		}
+	};
+
 	return (
 		<Grid item xs={12}>
 			<Divider className={classes.divider} style={{ marginTop: 10 }} />
 			<Grid container>
-				{props.contentBlock !== '{}' ? (
+				{hasContent() ? (
 					<StyledEditor
 						defaultValue={
 							typeof props.contentBlocks === 'object'

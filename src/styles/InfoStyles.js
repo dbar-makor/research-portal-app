@@ -129,9 +129,9 @@ export const useStyles = makeStyles((theme) => ({
 	},
 	alertButtonsWrapper: {
 		alignContent: 'space-between',
-		minHeight: 100,
 		[theme.breakpoints.down('lg')]: {
 			justifyContent: 'center',
+			minHeight: 100,
 		},
 	},
 	currentContractBlock: {
@@ -201,6 +201,9 @@ export const useStyles = makeStyles((theme) => ({
 		width: '24vw',
 		minHeight: '23vh',
 		padding: '16px',
+	},
+	modalInnerContainer: {
+		paddingTop: 20,
 	},
 
 	addMemberModalPaper: {

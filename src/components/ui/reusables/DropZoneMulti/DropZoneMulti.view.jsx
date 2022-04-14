@@ -50,12 +50,17 @@ const DropZoneMultiView = (props) => {
 									className={classes.attachmentLine}
 									key={index}
 								>
-									<Grid item xs={8}>
-										<Typography>
-											{file.file_name.length > 20
-												? `${file.file_name.slice(0, 20)}...`
-												: file.file_name}
-										</Typography>
+									<Grid container item xs={8} alignItems="center">
+										<Grid item className={classes.fileType}>
+											<Typography>{file.file_type.slice(1)}</Typography>
+										</Grid>
+										<Grid item>
+											<Typography>
+												{file.file_name.length > 20
+													? `${file.file_name.slice(0, 20)}...`
+													: file.file_name}
+											</Typography>
+										</Grid>
 									</Grid>
 									<Grid item xs={1}>
 										<DeleteButton
