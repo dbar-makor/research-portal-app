@@ -5,13 +5,13 @@ import TopBarView from './TopBar.view';
 
 const TopBar = () => {
 	const token = useSelector((state) => state.auth.token);
+	const searchTerm = useSelector((state) => state.search.searchTerm);
 	const anchorRef = useRef(null);
 	const [open, setOpen] = useState(false);
 	const [openNotification, setOpenNotification] = useState(false);
 	const [openUserMgmt, setOpenUserMgmt] = useState(false);
 	const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 	const userType = useSelector((state) => state.auth.userContent?.type);
-	const [searchTerm, setSearchTerm] = useState('');
 
 	// eslint-disable-next-line no-unused-vars
 	const [notifications, setNotifications] = useState([]);
@@ -129,7 +129,6 @@ const TopBar = () => {
 			isAuthenticated={isAuthenticated}
 			options={options}
 			searchterm={searchTerm}
-			setSearchTerm={setSearchTerm}
 		/>
 	);
 };

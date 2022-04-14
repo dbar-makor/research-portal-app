@@ -1,6 +1,32 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
+	chipContainer: {
+		marginTop: '10px',
+	},
+	chipItem: {
+		marginBottom: '5px',
+		marginRight: '3px',
+	},
+	chip: {
+		backgroundColor: '#EDEFF3',
+		border: 'none',
+		width: '6vw',
+		height: '3vh',
+		fontWeight: 500,
+	},
+	roundedChip: {
+		'borderRadius': '50%',
+		'border': 'none',
+		'backgroundColor': '#EDEFF3',
+		'width': '30px',
+		'height': '30px',
+		'fontWeight': 500,
+		'& .MuiChip-label': {
+			textOverflow: 'unset',
+			paddingLeft: '5px',
+		},
+	},
 	cardWrapper: {
 		minWidth: 250,
 		maxWidth: 350,
@@ -67,8 +93,8 @@ const useStyles = makeStyles({
 		display: 'flex',
 		backgroundColor: '#fff',
 		flexDirection: 'column',
-		height: 170,
-		padding: '12px 25px 24px 16px ',
+		height: 180,
+		padding: '12px 25px 8px 16px ',
 		borderLeft: '2px solid #ECEEF2',
 		borderRight: '2px solid #ECEEF2',
 		borderBottom: '2px solid #ECEEF2',

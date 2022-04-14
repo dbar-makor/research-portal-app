@@ -191,7 +191,6 @@ const AuthorsNewArticle = () => {
 	// Editing Mode
 	useEffect(() => {
 		if (chosenResearch) {
-			console.log('chosenResearch', chosenResearch);
 			//save article's ID in sessionStorage
 			sessionStorage.setItem('articleId', chosenResearch.id);
 			setArticleId(chosenResearch.id);
@@ -338,8 +337,6 @@ const AuthorsNewArticle = () => {
 			let res;
 
 			if (formToSend.id) {
-				console.log('formToSend update', formToSend);
-
 				res = await axios.put(`${BASE_URL}${END_POINT.PUBLICATION}/${formToSend.id}`, formToSend);
 
 				if (res.status === 201) {

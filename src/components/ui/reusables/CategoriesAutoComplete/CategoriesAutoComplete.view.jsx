@@ -23,7 +23,7 @@ const CategoriesAutoCompleteView = (props) => {
 							className={classes.arrowIcon}
 							id="categories"
 							name="categories"
-							multiple
+							multiple={props.notMultiple ? false : true}
 							filterSelectedOptions
 							options={categoriesArr}
 							renderTags={() => <></>}
@@ -31,6 +31,8 @@ const CategoriesAutoCompleteView = (props) => {
 							value={
 								props.formObject.categories
 									? props.formObject.categories
+									: props.search
+									? props.formObject[0]
 									: props.formObject || ''
 							}
 							onChange={(e, values) => props.handler(values)}
@@ -50,7 +52,7 @@ const CategoriesAutoCompleteView = (props) => {
 								);
 							}}
 						/>
-						{props.adjustedFormObject.length ? (
+						{props.adjustedFormObject.length && !props.noChips ? (
 							<Grid item xs={12}>
 								<Grid container className={classes.chipContainer}>
 									{props.adjustedFormObject.map((el, index) => (
