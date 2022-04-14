@@ -60,28 +60,30 @@ const TopBarView = forwardRef((props, ref) => {
 								<MakorLogo classes={classes} userType={props.userType} />
 							</Grid>
 							<Grid item container xs={4} justifyContent="flex-end">
-								<StyledTextField
-									id="searchField"
-									className={classes.search}
-									value={props.searchTerm}
-									variant="filled"
-									fullWidth
-									placeholder="Search"
-									InputProps={{
-										endAdornment: (
-											<SearchIcon
-												className={classes.searchIcon}
-												style={{ cursor: 'pointer', stroke: 'none' }}
-											/>
-										),
-									}}
-									// onKeyDown={(e) =>
-									// 	e.key === 'Enter'
-									// 		? dispatch(setProperty({ key: 'search', value: props.searchTerm }))
-									// 		: null
-									// }
-									onChange={(e) => props.setSearchTerm(e.target.value)}
-								/>
+								{0 && (
+									<StyledTextField
+										id="searchField"
+										className={classes.search}
+										value={props.searchTerm}
+										variant="filled"
+										fullWidth
+										placeholder="Search"
+										InputProps={{
+											endAdornment: (
+												<SearchIcon
+													className={classes.searchIcon}
+													style={{ cursor: 'pointer', stroke: 'none' }}
+												/>
+											),
+										}}
+										// onKeyDown={(e) =>
+										// 	e.key === 'Enter'
+										// 		? dispatch(setProperty({ key: 'search', value: props.searchTerm }))
+										// 		: null
+										// }
+										onChange={(e) => props.setSearchTerm(e.target.value)}
+									/>
+								)}
 							</Grid>
 							{props.isAuthenticated && (
 								<Grid item xs={5}>

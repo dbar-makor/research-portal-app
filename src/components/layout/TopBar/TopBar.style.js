@@ -104,8 +104,8 @@ const useStyles = makeStyles((theme) => ({
 			borderRadius: '5px',
 		},
 		'& .MuiFilledInput-input': {
-			paddingTop: '5px',
-			paddingBottom: '5px',
+			paddingTop: '8px',
+			paddingBottom: '8px',
 		},
 		'& .MuiFilledInput-underline:before': {
 			border: 'none',
