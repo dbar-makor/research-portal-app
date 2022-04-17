@@ -3,7 +3,7 @@ import { Grid, Typography, Chip } from '@material-ui/core';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import EditIcon from '@material-ui/icons/Edit';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import { BinButton, EditButton } from '../../../../../styles/MainStyles';
+import { BinButton, EditButton, FilledButton } from '../../../../../styles/MainStyles';
 import { ReactComponent as DeleteIcon } from '../../../../../assets/icons/IconTrash.svg';
 import DeleteAlert from '../../../reusables/DeleteAlert/DeleteAlert';
 import { ReactComponent as EmptyFile } from '../../../../../assets/icons/fileEmpty.svg';
@@ -28,9 +28,19 @@ const PublicationsTabView = (props) => {
 						}}
 					>
 						{props.publication.status === 'published' ? (
-							<Grid containe className={classes.viewsBox}>
+							<Grid item xs={3} className={classes.viewsBox}>
 								<VisibilityIcon className={classes.visibleIcon} />
 								{props.publication.views}
+							</Grid>
+						) : null}
+						{props.publication.status === 'draft' && props.publication.is_publishable ? (
+							<Grid item xs={4}>
+								<FilledButton
+									className={classes.publishStyle}
+									onClick={() => props.sendPublication('done')}
+								>
+									Publish
+								</FilledButton>
 							</Grid>
 						) : null}
 

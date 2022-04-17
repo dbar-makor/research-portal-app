@@ -1,6 +1,27 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
+	publishStyle: {
+		'backgroundColor': '#1C67FF',
+		'color': '#FFF',
+		'borderRadius': '21px',
+		'textTransform': 'capitalize',
+		'width': '95px',
+		'minWidth': '95px',
+		'height': '32px',
+		'fontSize': '16px',
+		'marginTop': 10,
+		'marginRight': 4,
+		'&:hover': {
+			backgroundColor: '#0044CD',
+			boxShadow: '0px 6px 10px #00185829',
+			transition: '.3s',
+		},
+		'&.Mui-disabled': {
+			backgroundColor: '#ACB1BF',
+			color: '#868DA2',
+		},
+	},
 	chipContainer: {
 		marginTop: '10px',
 	},
