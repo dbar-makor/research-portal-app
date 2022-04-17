@@ -57,6 +57,7 @@ const DeadArticle = () => {
 	const [errorsEvent, setErrorsEvent] = useState({});
 	// eslint-disable-next-line no-unused-vars
 	const [validationResultEvent, setValidationResultEvent] = useState(true);
+	const [isPublishable, setIsPublishable] = useState(false);
 
 	const handleCloseAlert = () => {
 		setOpenAlert(false);
@@ -195,6 +196,14 @@ const DeadArticle = () => {
 			executeScroll();
 		}
 	}, [localForm.events]);
+
+	//is_publishable
+	useEffect(() => {
+		if (validationResult && validationResultEvent && coverImageOK.final) setIsPublishable(true);
+		else {
+			setIsPublishable(false);
+		}
+	}, [validationResult, validationResultEvent, coverImageOK]);
 
 	//For editing
 	useEffect(() => {
@@ -551,6 +560,9 @@ const DeadArticle = () => {
 		}
 
 		let formToSend = { ...localForm, attachments: attachmentsCopy };
+
+		formToSend.is_publishable = isPublishable;
+
 		const categoriesForServer = localCats.map((cat) => cat.id);
 		const tagsForServer = localTags.map((tag) => (tag.id ? { id: tag.id } : { name: tag.name }));
 
@@ -692,6 +704,7 @@ const DeadArticle = () => {
 			validationResult={validationResult}
 			validationResultEvent={validationResultEvent}
 			ref={tableRowsRefs}
+			isPublishable={isPublishable}
 			onPDFUpload={onPDFUpload}
 			onDropCover={onDropCover}
 		/>

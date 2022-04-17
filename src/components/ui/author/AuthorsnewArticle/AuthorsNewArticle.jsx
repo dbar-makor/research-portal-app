@@ -84,6 +84,7 @@ const AuthorsNewArticle = () => {
 	const [requestedLocation, setRequestedLocation] = useState('');
 	const [errors, setErrors] = useState({});
 	const [validationResult, setValidationResult] = useState(false);
+	const [isPublishable, setIsPublishable] = useState(false);
 
 	const handleCloseAlert = () => {
 		setOpenAlert(false);
@@ -194,6 +195,15 @@ const AuthorsNewArticle = () => {
 		}
 	};
 
+	//is_publishable
+	useEffect(() => {
+		if (validationResult && validationResultEvent && coverImageOK.final && contentNotOK.isText)
+			setIsPublishable(true);
+		else {
+			setIsPublishable(false);
+		}
+	}, [validationResult, validationResultEvent, coverImageOK, contentNotOK]);
+
 	// Editing Mode
 	useEffect(() => {
 		if (chosenResearch) {
@@ -281,6 +291,9 @@ const AuthorsNewArticle = () => {
 		}
 
 		let formToSend = { ...localForm };
+
+		formToSend.is_publishable = isPublishable;
+
 		const categoriesForServer = localCats.map((cat) => cat.id);
 		const tagsForServer = localTags.map((tag) => (tag.id ? { id: tag.id } : { name: tag.name }));
 
@@ -635,6 +648,7 @@ const AuthorsNewArticle = () => {
 			sendPublication={sendPublication}
 			handleCloseAlert={handleCloseAlert}
 			alertDeleteHandler={clearStorage}
+			isPublishable={isPublishable}
 			onDrop={onDrop}
 			onDropCover={onDropCover}
 		/>

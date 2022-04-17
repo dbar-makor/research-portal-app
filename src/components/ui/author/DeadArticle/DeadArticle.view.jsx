@@ -619,11 +619,7 @@ const DeadArticleView = forwardRef((props, ref) => {
 									</Grid>
 									<Grid item xs={3}>
 										<FilledButton
-											disabled={
-												!props.validationResult ||
-												!props.validationResultEvent ||
-												!props.coverImageOK.final
-											}
+											disabled={!props.isPublishable}
 											className={`${classes.publishStyle} ${classes.publishBtn}`}
 											onClick={() => props.sendPublication('done')}
 										>

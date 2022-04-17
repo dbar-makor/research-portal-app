@@ -83,7 +83,7 @@ const TradingHoursView = forwardRef((props, ref) => {
 							{/* <Grid item style={{ paddingRight: 20 }}>
 								<StyledButton>Become a Costumer</StyledButton>
 							</Grid> */}
-							{props.isLogin === false && (
+							{!props.isLogin && (
 								<Grid item>
 									<Link to="/login" style={{ textDecoration: 'none' }}>
 										<LoginButton onClick={props.handleLogin}>Login</LoginButton>

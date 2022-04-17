@@ -34,6 +34,12 @@ const TradingHours = forwardRef((props, ref) => {
 	});
 
 	useEffect(() => {
+		if (location.pathname === '/login') {
+			setIsLogin(true);
+		} else {
+			setIsLogin(false);
+		}
+
 		const unlisten = history.listen((location) => {
 			if (location.pathname === '/login') {
 				setIsLogin(true);

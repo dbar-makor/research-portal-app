@@ -400,13 +400,8 @@ const AuthorsNewArticleView = (props) => {
 									</Grid>
 									<Grid item>
 										<FilledButton
+											disabled={!props.isPublishable}
 											className={classes.publishBtn}
-											disabled={
-												!props.validationResult ||
-												!props.validationResultEvent ||
-												!props.coverImageOK.final ||
-												!props.contentNotOK.isText
-											}
 											onClick={() => props.sendPublication('done')}
 										>
 											Publish
