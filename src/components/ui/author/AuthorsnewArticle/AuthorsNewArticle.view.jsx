@@ -390,13 +390,17 @@ const AuthorsNewArticleView = (props) => {
 											target="_blank"
 											className={classes.previewLink}
 										>
-											<OutlinedButton onClick={() => props.sendPublication('preview')}>
+											<OutlinedButton
+												className={classes.previewBtn}
+												onClick={() => props.sendPublication('preview')}
+											>
 												Preview
 											</OutlinedButton>
 										</Link>
 									</Grid>
 									<Grid item>
 										<FilledButton
+											className={classes.publishBtn}
 											disabled={
 												!props.validationResult ||
 												!props.validationResultEvent ||

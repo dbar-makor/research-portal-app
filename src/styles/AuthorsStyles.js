@@ -53,6 +53,12 @@ export const useStyles = makeStyles((theme) => ({
 		textAlign: 'center',
 		fontSize: '14px',
 	},
+	fileType: {
+		backgroundColor: '#edeff3',
+		marginRight: 10,
+		borderRadius: '50%',
+		padding: '12px 12px',
+	},
 	plusIcon: {
 		'paddingLeft': 0,
 		'&:hover': {
@@ -201,8 +207,14 @@ export const useStyles = makeStyles((theme) => ({
 		},
 	},
 	articleTitleLive: {
-		width: '100%',
-		minHeight: 83,
+		'width': '100%',
+		'minHeight': 83,
+		'& input': {
+			fontWeight: 'normal !important',
+			paddingLeft: '15px !important',
+			paddingTop: '15px !important',
+			paddingBottom: '15px !important',
+		},
 	},
 	deadArticlePage: {
 		paddingTop: 20,
@@ -364,7 +376,7 @@ export const useStyles = makeStyles((theme) => ({
 		},
 	},
 	imgWrapper: {
-		marginBottom: 16,
+		marginBottom: 5,
 		minHeight: 230,
 	},
 	imageSpace: {
@@ -381,6 +393,14 @@ export const useStyles = makeStyles((theme) => ({
 		textDecorationLine: 'none !important',
 		// '& span': {
 		// },
+	},
+	publishBtn: {
+		width: 135,
+	},
+	previewBtn: {
+		background: '#F3F7FF',
+		border: 'none',
+		width: 135,
 	},
 	attachmentLine: {
 		marginTop: '15px',

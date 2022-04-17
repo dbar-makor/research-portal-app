@@ -12,8 +12,6 @@ const FullPublication = () => {
 	const { pubId } = useParams();
 	const [chosenPublication, setChosenPublication] = useState();
 	const [loadingPub, setLoadingPub] = useState(null);
-	// const location = useLocation();
-	// const history = useHistory();
 	const userType = useSelector((state) => state.auth.userContent?.type);
 
 	useEffect(() => {
@@ -25,6 +23,13 @@ const FullPublication = () => {
 	// When component unmouts, localStorage gets cleared
 	useEffect(() => {
 		return () => {
+			localStorage.removeItem('presentation-article');
+		};
+	}, []);
+
+	// When tab is closed, localStorage gets cleared
+	useEffect(() => {
+		window.onbeforeunload = () => {
 			localStorage.removeItem('presentation-article');
 		};
 	}, []);
@@ -49,9 +54,9 @@ const FullPublication = () => {
 
 	const transformVideoLink = (link) => {
 		if (link !== null) {
-			const embadLink = link.replace('watch?v=', 'embed/');
+			const embedLink = link.replace('watch?v=', 'embed/');
 
-			return embadLink;
+			return embedLink;
 		} else {
 			return null;
 		}

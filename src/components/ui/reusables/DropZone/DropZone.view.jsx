@@ -89,7 +89,7 @@ const DropZoneView = (props) => {
 					</Grid>
 				</Grid>
 			) : (
-				<Grid item xs={12}>
+				<Grid item xs={12} style={{ marginTop: -20 }}>
 					<Grid container justifyContent="center">
 						<Grid item>
 							<Typography className={classes.uploadLink}>Upload</Typography>
