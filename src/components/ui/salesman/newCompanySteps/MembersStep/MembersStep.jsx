@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { validateMember } from '../../../../../utils/helpers/validationFunctions';
-
 import MembersStepView from './MembersStep.view';
 
 const MembersStep = (props) => {

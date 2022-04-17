@@ -6,6 +6,7 @@ import CategoriesAutoComplete from '../../../reusables/CategoriesAutoComplete/Ca
 import NewMembersTable from '../NewMembersTable/NewMembersTable';
 import { AddButton, CheckButton } from '../../../../../styles/MainStyles';
 import { ReactComponent as CheckIcon } from '../../../../../assets/icons/IconGreenCheck.svg';
+import { validateMember } from '../../../../../utils/helpers/validationFunctions';
 import useStyles from './MembersStep.style';
 
 const MembersStepView = (props) => {
@@ -88,6 +89,7 @@ const MembersStepView = (props) => {
 						setErrors={props.setErrors}
 						validationResult={props.validationResult}
 						setValidationResult={props.setValidationResult}
+						validationFunction={validateMember}
 					/>
 				</Grid>
 

@@ -24,13 +24,13 @@ import CategoriesAutoComplete from '../../reusables/CategoriesAutoComplete/Categ
 import TagsAutoComplete from '../../reusables/TagsAutoComplete/TagsAutoComplete';
 import { selectChosenResearch } from '../../../../redux/researches/chosenResearchSlice';
 import ExitPublicationAlert from '../../reusables/ExitPublicationAlert/ExitPublicationAlert';
-
+import { validateDeadPublication } from '../../../../utils/helpers/validationFunctions';
 //import useStyles from './DeadArticle.style';
 
 const DeadArticleView = forwardRef((props, ref) => {
 	const chosenResearch = useSelector(selectChosenResearch);
 
-	const classes = useStyles();
+	const classes = useStyles(props);
 
 	return (
 		<Grid container justifyContent="center" className={classes.deadArticlePage}>
@@ -142,6 +142,7 @@ const DeadArticleView = forwardRef((props, ref) => {
 											setErrors={props.setErrors}
 											validationResult={props.validationResult}
 											setValidationResult={props.setValidationResult}
+											validationFunction={validateDeadPublication}
 											type="dead_publication"
 										/>
 									</Grid>
@@ -381,9 +382,9 @@ const DeadArticleView = forwardRef((props, ref) => {
 												disabled={props.selectedValue === 'video'}
 												error={!!props.errors.title_pdf}
 												helperText={props.errors.title_pdf}
+												className={classes.deadArticleUpload}
+												selectedValue={props.selectedValue}
 												inputProps={{
-													helperTextcolor:
-														props.selectedValue === 'video' ? 'grey' : 'red',
 													style: {
 														fontSize: '16px',
 														fontWeight: 500,
@@ -446,29 +447,16 @@ const DeadArticleView = forwardRef((props, ref) => {
 																		);
 																	}
 
-																	if (chosenResearch) {
-																		props.validateEditedDeadPublication(
-																			{
-																				file_pdf:
-																					props.localForm.title_pdf,
-																			},
-																			props.errors,
-																			props.setErrors,
-																			props.setValidationResult,
-																			props.selectedValue,
-																		);
-																	} else {
-																		props.validateDeadPublication(
-																			{
-																				file_pdf:
-																					props.localForm.title_pdf,
-																			},
-																			props.errors,
-																			props.setErrors,
-																			props.setValidationResult,
-																			props.selectedValue,
-																		);
-																	}
+																	props.validateDeadPublication(
+																		{
+																			file_pdf:
+																				props.localForm.title_pdf,
+																		},
+																		props.errors,
+																		props.setErrors,
+																		props.setValidationResult,
+																		props.selectedValue,
+																	);
 																}}
 															>
 																<ClearIcon className={classes.clearIcon} />
@@ -491,11 +479,7 @@ const DeadArticleView = forwardRef((props, ref) => {
 													<Typography
 														variant="caption"
 														className={classes.customError}
-														style={
-															props.selectedValue === 'video'
-																? { color: '#868DA2' }
-																: {}
-														}
+														style={{ marginLeft: '14px' }}
 													>
 														{props.errors.file_pdf}
 													</Typography>
@@ -534,7 +518,7 @@ const DeadArticleView = forwardRef((props, ref) => {
 													marginTop: 5,
 													minHeight: 70,
 												}}
-												value={props.localForm.title_video}
+												value={props.localForm.title_video || ''}
 												error={!!props.errors.title_video}
 												helperText={props.errors.title_video}
 												placeholder="Title"
@@ -553,7 +537,7 @@ const DeadArticleView = forwardRef((props, ref) => {
 												variant="outlined"
 												disabled={props.selectedValue === 'pdf'}
 												style={{ marginBottom: '76px', minHeight: 70 }}
-												value={props.localForm.link_video}
+												value={props.localForm.link_video || ''}
 												error={!!props.errors.link_video}
 												helperText={props.errors.link_video}
 												placeholder="Insert Link"
