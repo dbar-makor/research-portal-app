@@ -1,36 +1,10 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles({
-	chipContainer: {
-		marginTop: '10px',
-	},
-	chipItem: {
-		marginBottom: '5px',
-		marginRight: '3px',
-	},
-	chip: {
-		backgroundColor: '#EDEFF3',
-		border: 'none',
-		width: '6vw',
-		height: '3vh',
-		fontWeight: 500,
-	},
-	roundedChip: {
-		'borderRadius': '50%',
-		'border': 'none',
-		'backgroundColor': '#EDEFF3',
-		'width': '30px',
-		'height': '30px',
-		'fontWeight': 500,
-		'& .MuiChip-label': {
-			textOverflow: 'unset',
-			paddingLeft: '5px',
-		},
-	},
+const useStyles = makeStyles((theme) => ({
 	cardWrapper: {
 		minWidth: 250,
 		maxWidth: 350,
-		marginRight: 16,
+		marginRight: 10,
 		marginBottom: 30,
 	},
 	card: {
@@ -105,15 +79,48 @@ const useStyles = makeStyles({
 		borderRadius: '0 0 8px 8px',
 		overflow: 'hidden',
 	},
+	contentContainer: {
+		maxHeight: 108,
+		overflowY: 'hidden',
+	},
 	pubTitle: {
 		marginBottom: 16,
 		fontWeight: '600',
 		fontSize: 18,
 		color: '#3E3E3E',
+		[theme.breakpoints.down('lg')]: {
+			fontSize: 16,
+		},
 	},
 	pubDescription: {
 		fontSize: '.9rem',
 		color: '#3E3E3E',
+	},
+	chipContainer: {
+		marginTop: '10px',
+	},
+	chipItem: {
+		marginBottom: '5px',
+		marginRight: '3px',
+	},
+	chip: {
+		backgroundColor: '#EDEFF3',
+		border: 'none',
+		width: '6vw',
+		height: '3vh',
+		fontWeight: 500,
+	},
+	roundedChip: {
+		'borderRadius': '50%',
+		'border': 'none',
+		'backgroundColor': '#EDEFF3',
+		'width': '30px',
+		'height': '30px',
+		'fontWeight': 500,
+		'& .MuiChip-label': {
+			textOverflow: 'unset',
+			paddingLeft: '5px',
+		},
 	},
 	backdrop: {
 		'zIndex': '2',
@@ -162,6 +169,6 @@ const useStyles = makeStyles({
 			},
 		},
 	},
-});
+}));
 
 export default useStyles;

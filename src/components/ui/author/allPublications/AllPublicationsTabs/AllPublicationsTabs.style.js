@@ -1,24 +1,34 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
-	categoryWrapper: {
-		marginLeft: 150,
-	},
 	barWrapper: {
-		justifyContent: 'space-between',
 		padding: '10px',
+		[theme.breakpoints.down('lg')]: {
+			minHeight: 140,
+			alignContent: 'space-between',
+		},
+	},
+	rightBarWrapper: {
+		[theme.breakpoints.down('md')]: {
+			justifyContent: 'flex-start',
+		},
+	},
+	categoriesWrapper: {
+		[theme.breakpoints.only('lg')]: {
+			marginRight: 20,
+		},
 	},
 	newBtn: {
 		'borderRadius': 4,
-		'padding': '10px 15px 10px 15px',
-		'width': 100,
+		'padding': '8px 15px',
+		'minWidth': 100,
 		'display': 'inline-block',
-		'marginLeft': -100,
 		'color': '#fff',
-		'fontSize': 18,
+		'fontSize': 17,
+		'height': 41,
 		'& span': {
 			display: 'flex',
-			justifyContent: 'space-between',
+			justifyContent: 'space-evenly',
 		},
 	},
 	tabs: {
@@ -35,6 +45,7 @@ const useStyles = makeStyles((theme) => ({
 	tabPanel: {
 		display: 'flex',
 		flexWrap: 'wrap',
+		width: 'inherit',
 	},
 	root: {
 		flexGrow: 1,

@@ -29,8 +29,14 @@ const AllPublicationsTabsView = (props) => {
 		<div className={classes.root}>
 			<TabContext value={props.value.toString()}>
 				<Grid item xs={12}>
-					<Grid container className={classes.barWrapper}>
-						<Grid item xs={4}>
+					<Grid
+						item
+						container
+						xs={12}
+						justifyContent="space-between"
+						className={classes.barWrapper}
+					>
+						<Grid item xs={12} lg={4}>
 							<Tabs
 								value={props.value}
 								className={classes.tabs}
@@ -41,28 +47,37 @@ const AllPublicationsTabsView = (props) => {
 								<Tab label="Drafts" {...a11yProps(1)} className={classes.tab} />
 							</Tabs>
 						</Grid>
-						<Grid item xs={3} className={classes.categoryWrapper}>
-							<CategoriesAutoComplete
-								notMultiple
-								handler={props.handler}
-								formObject={props.formObject}
-								setFormObject={props.setFormObject}
-								noChips
-								search
-							/>
-						</Grid>
-						<Grid item xs={1}>
-							<AddButton
-								className={classes.newBtn}
-								onClick={() => props.handleOpenNewPublication()}
-							>
-								<AddIcon />
-								New
-							</AddButton>
+						<Grid
+							container
+							item
+							xs={12}
+							lg={4}
+							justifyContent="space-between"
+							className={classes.rightBarWrapper}
+						>
+							<Grid item xs={5} lg={7} className={classes.categoriesWrapper}>
+								<CategoriesAutoComplete
+									notMultiple
+									handler={props.handler}
+									formObject={props.formObject}
+									setFormObject={props.setFormObject}
+									noChips
+									search
+								/>
+							</Grid>
+							<Grid container item xs={4} justifyContent="flex-end">
+								<AddButton
+									className={classes.newBtn}
+									onClick={() => props.handleOpenNewPublication()}
+								>
+									<AddIcon fonSize="small" />
+									New
+								</AddButton>
+							</Grid>
 						</Grid>
 					</Grid>
 					{props.publications.length ? (
-						<Grid container>
+						<Grid item container xs={12}>
 							<TabPanel value={props.value} index={0} className={classes.tabPanel}>
 								{publishedResearches.length ? (
 									publishedResearches.map((pub, idx) => {
