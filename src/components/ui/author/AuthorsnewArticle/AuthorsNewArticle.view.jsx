@@ -22,6 +22,7 @@ import CategoriesAutoComplete from '../../reusables/CategoriesAutoComplete/Categ
 import TagsAutoComplete from '../../reusables/TagsAutoComplete/TagsAutoComplete';
 import { ReactComponent as CalendarIcon } from '../../../../assets/icons/iconCalendar.svg';
 import ExitPublicationAlert from '../../reusables/ExitPublicationAlert/ExitPublicationAlert';
+import { validateLivePublication } from '../../../../utils/helpers/validationFunctions';
 
 const AuthorsNewArticleView = (props) => {
 	const classes = useStyles();
@@ -171,6 +172,7 @@ const AuthorsNewArticleView = (props) => {
 													setErrors={props.setErrors}
 													validationResult={props.validationResult}
 													setValidationResult={props.setValidationResult}
+													validationFunction={validateLivePublication}
 													type="live_publication"
 												/>
 												<TagsAutoComplete

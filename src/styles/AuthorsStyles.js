@@ -549,7 +549,7 @@ export const useStyles = makeStyles((theme) => ({
 	},
 	customError: {
 		color: 'red',
-		//marginLeft: 10,
+		marginLeft: 14,
 		//position: 'absolute',
 		//lineHeight: 4
 		//marginBottom: 20,
@@ -574,9 +574,6 @@ export const AtricleTitleTextField = withStyles({
 			'&.MuiOutlinedInput-root.Mui-disabled .MuiOutlinedInput-notchedOutline': {
 				borderColor: '#EDEFF3',
 			},
-		},
-		'& .MuiFormHelperText-root': {
-			color: (props) => props.inputProps.helpertextcolor,
 		},
 
 		'& .MuiOutlinedInput-input': {

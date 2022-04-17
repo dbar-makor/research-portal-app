@@ -11,11 +11,7 @@ import {
 } from '../../../../redux/researches/chosenResearchSlice';
 import { END_POINT, BASE_URL } from '../../../../utils/constants';
 import * as actionSnackBar from '../../../../redux/SnackBar/action';
-import {
-	validateLivePublication,
-	validateEvent,
-	validateEditedLivePublication,
-} from '../../../../utils/helpers/validationFunctions';
+import { validateLivePublication, validateEvent } from '../../../../utils/helpers/validationFunctions';
 import AuthorsNewArticleView from './AuthorsNewArticle.view';
 
 const getArticleId = () => {
@@ -83,7 +79,7 @@ const AuthorsNewArticle = () => {
 	//state keeps the location the user wanted to navigate to without saving changes
 	const [requestedLocation, setRequestedLocation] = useState('');
 	const [errors, setErrors] = useState({});
-	const [validationResult, setValidationResult] = useState(false);
+	const [validationResult, setValidationResult] = useState({ title: false, categories: false });
 	const [isPublishable, setIsPublishable] = useState(false);
 
 	const handleCloseAlert = () => {
@@ -128,7 +124,7 @@ const AuthorsNewArticle = () => {
 		const article = JSON.parse(localStorageArticle);
 		//validating title from localStorage
 
-		validateEditedLivePublication({ title: article.title }, errors, setErrors, setValidationResult);
+		validateLivePublication({ title: article.title }, errors, setErrors, setValidationResult);
 
 		return article;
 	});
@@ -158,7 +154,7 @@ const AuthorsNewArticle = () => {
 
 		const categories = JSON.parse(localStorageCategories);
 
-		validateEditedLivePublication({ categories: categories }, errors, setErrors, setValidationResult);
+		validateLivePublication({ categories: categories }, errors, setErrors, setValidationResult);
 
 		return categories;
 	});
@@ -197,7 +193,12 @@ const AuthorsNewArticle = () => {
 
 	//is_publishable
 	useEffect(() => {
-		if (validationResult && validationResultEvent && coverImageOK.final && contentNotOK.isText)
+		if (
+			Object.values(validationResult).every((x) => x) &&
+			validationResultEvent &&
+			coverImageOK.final &&
+			contentNotOK.isText
+		)
 			setIsPublishable(true);
 		else {
 			setIsPublishable(false);
@@ -380,11 +381,7 @@ const AuthorsNewArticle = () => {
 		setLocalForm(data);
 		setLocalStorageArticle(data);
 
-		if (chosenResearch) {
-			validateEditedLivePublication({ [key]: value }, errors, setErrors, setValidationResult);
-		} else {
-			validateLivePublication({ [key]: value }, errors, setErrors, setValidationResult);
-		}
+		validateLivePublication({ [key]: value }, errors, setErrors, setValidationResult);
 	};
 
 	const handleCatsChange = (values) => {
@@ -402,11 +399,7 @@ const AuthorsNewArticle = () => {
 			localStorage.setItem('categories', JSON.stringify(values));
 		}
 
-		if (chosenResearch) {
-			validateEditedLivePublication({ categories: newCats }, errors, setErrors, setValidationResult);
-		} else {
-			validateLivePublication({ categories: newCats }, errors, setErrors, setValidationResult);
-		}
+		validateLivePublication({ categories: newCats }, errors, setErrors, setValidationResult);
 	};
 
 	const handleEvent = (value, key) => {

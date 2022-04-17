@@ -70,7 +70,7 @@ const AllPublicationsTabsView = (props) => {
 									className={classes.newBtn}
 									onClick={() => props.handleOpenNewPublication()}
 								>
-									<AddIcon fonSize="small" />
+									<AddIcon fontSize="small" />
 									New
 								</AddButton>
 							</Grid>

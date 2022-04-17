@@ -35,8 +35,7 @@ const CategoriesAutoCompleteView = (props) => {
 									? props.formObject[0]
 									: props.formObject || ''
 							}
-							onChange={(e, values) => props.handler(values)}
-							{...(props.error && { error: true, helperText: props.error })}
+							//{...(props.error && { error: true, helperText: props.error })}
 							getOptionLabel={(option) => option.name || ''}
 							getOptionSelected={(option, value) => option.name === value.name}
 							renderInput={(params) => {
@@ -51,6 +50,7 @@ const CategoriesAutoCompleteView = (props) => {
 									/>
 								);
 							}}
+							onChange={(e, values) => props.handler(values)}
 						/>
 						{props.adjustedFormObject.length && !props.noChips ? (
 							<Grid item xs={12}>
