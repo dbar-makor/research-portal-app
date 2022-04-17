@@ -390,7 +390,10 @@ const AuthorsNewArticleView = (props) => {
 											target="_blank"
 											className={classes.previewLink}
 										>
-											<OutlinedButton onClick={() => props.sendPublication('preview')}>
+											<OutlinedButton
+												className={classes.previewBtn}
+												onClick={() => props.sendPublication('preview')}
+											>
 												Preview
 											</OutlinedButton>
 										</Link>
@@ -398,6 +401,7 @@ const AuthorsNewArticleView = (props) => {
 									<Grid item>
 										<FilledButton
 											disabled={!props.isPublishable}
+											className={classes.publishBtn}
 											onClick={() => props.sendPublication('done')}
 										>
 											Publish

@@ -18,7 +18,7 @@ const ExitPublicationAlertView = (props) => {
 			}}
 			onClose={props.handleClose}
 		>
-			<Grid container>
+			<Grid container className={classes.modalInnerContainer}>
 				<Grid item xs={12}>
 					<Grid container justifyContent="flex-end">
 						<CloseIcon className={classes.closeIcon} onClick={props.handleClose} />

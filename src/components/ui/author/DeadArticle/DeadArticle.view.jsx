@@ -610,7 +610,7 @@ const DeadArticleView = forwardRef((props, ref) => {
 											className={classes.previewLink}
 										>
 											<OutlinedButton
-												className={classes.saveDraft}
+												className={` ${classes.previewBtn}`}
 												onClick={() => props.sendPublication('preview')}
 											>
 												Preview
@@ -620,7 +620,7 @@ const DeadArticleView = forwardRef((props, ref) => {
 									<Grid item xs={3}>
 										<FilledButton
 											disabled={!props.isPublishable}
-											className={classes.publishStyle}
+											className={`${classes.publishStyle} ${classes.publishBtn}`}
 											onClick={() => props.sendPublication('done')}
 										>
 											Publish

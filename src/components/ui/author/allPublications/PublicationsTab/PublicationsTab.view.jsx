@@ -78,7 +78,7 @@ const PublicationsTabView = (props) => {
 						justifyContent="space-between"
 						className={classes.lowerHalf}
 					>
-						<Grid item>
+						<Grid item className={classes.contentContainer}>
 							<Typography variant="h5" className={classes.pubTitle}>
 								{props.publication.title}
 							</Typography>
