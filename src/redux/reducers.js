@@ -12,6 +12,7 @@ import chosenResearchReducer from './researches/chosenResearchSlice';
 import chosenUserReducer from './users/chosenUserSlice';
 import tabsReducer from './tabs/tabsSlice';
 import searchReducer from './search/searchSlice';
+import categoriesReducer from './categories/categoriesSlice';
 
 const createRootReducer = () =>
 	combineReducers({
@@ -29,6 +30,7 @@ const createRootReducer = () =>
 		//charts: chartReducer,
 		tabs: tabsReducer,
 		search: searchReducer,
+		category: categoriesReducer,
 	});
 
 export default createRootReducer;
