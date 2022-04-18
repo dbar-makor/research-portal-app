@@ -9,7 +9,6 @@ import clsx from 'clsx';
 import { useSelector } from 'react-redux';
 import SubHeader from '../../reusables/SubHeader/SubHeader';
 import { useStyles, AtricleTitleTextField } from '../../../../styles/AuthorsStyles';
-import { ReactComponent as FileUpload } from '../../../../assets/icons/fileUpload.svg';
 import { ReactComponent as InsertLink } from '../../../../assets/icons/insertLink.svg';
 import {
 	DeleteButton,
@@ -24,13 +23,14 @@ import CategoriesAutoComplete from '../../reusables/CategoriesAutoComplete/Categ
 import TagsAutoComplete from '../../reusables/TagsAutoComplete/TagsAutoComplete';
 import { selectChosenResearch } from '../../../../redux/researches/chosenResearchSlice';
 import ExitPublicationAlert from '../../reusables/ExitPublicationAlert/ExitPublicationAlert';
-
+import { validateDeadPublication } from '../../../../utils/helpers/validationFunctions';
+import UploadFileButtonInput from '../../reusables/UploadFileButtonInput/UploadFileButtonInput';
 //import useStyles from './DeadArticle.style';
 
 const DeadArticleView = forwardRef((props, ref) => {
 	const chosenResearch = useSelector(selectChosenResearch);
 
-	const classes = useStyles();
+	const classes = useStyles(props);
 
 	return (
 		<Grid container justifyContent="center" className={classes.deadArticlePage}>
@@ -67,7 +67,7 @@ const DeadArticleView = forwardRef((props, ref) => {
 							</Grid>
 						</Grid>
 						<Grid container>
-							<Grid item xs={12} style={{ marginBottom: '22px' }}>
+							<Grid item xs={12} style={{ marginBottom: '8px' }}>
 								<AtricleTitleTextField
 									multiline
 									style={{ minHeight: 118 }}
@@ -142,6 +142,7 @@ const DeadArticleView = forwardRef((props, ref) => {
 											setErrors={props.setErrors}
 											validationResult={props.validationResult}
 											setValidationResult={props.setValidationResult}
+											validationFunction={validateDeadPublication}
 											type="dead_publication"
 										/>
 									</Grid>
@@ -185,7 +186,7 @@ const DeadArticleView = forwardRef((props, ref) => {
 								<Grid item xs={12}>
 									<Grid
 										container
-										className={classes.eventContainer}
+										//className={classes.eventContainer}
 										alignItems="center"
 										justifyContent="space-between"
 									>
@@ -197,6 +198,7 @@ const DeadArticleView = forwardRef((props, ref) => {
 												variant="outlined"
 												placeholder="Title"
 												className={classes.textField}
+												style={{ minHeight: 70 }}
 												inputProps={{
 													maxLength: 50,
 												}}
@@ -227,6 +229,7 @@ const DeadArticleView = forwardRef((props, ref) => {
 												helperText={props.errorsEvent.date}
 												value={props.currentEvent.date}
 												className={classes.eventDatePicker}
+												style={{ minHeight: 70 }}
 												InputAdornmentProps={{ position: 'end' }}
 												keyboardIcon={
 													<CalendarIcon className={classes.calendarIcon} />
@@ -281,6 +284,7 @@ const DeadArticleView = forwardRef((props, ref) => {
 														variant="outlined"
 														placeholder="Title"
 														className={classes.textField}
+														style={{}}
 														inputProps={{
 															maxLength: 50,
 														}}
@@ -381,9 +385,9 @@ const DeadArticleView = forwardRef((props, ref) => {
 												disabled={props.selectedValue === 'video'}
 												error={!!props.errors.title_pdf}
 												helperText={props.errors.title_pdf}
+												className={classes.deadArticleUpload}
+												//selectedValue={props.selectedValue}
 												inputProps={{
-													helperTextcolor:
-														props.selectedValue === 'video' ? 'grey' : 'red',
 													style: {
 														fontSize: '16px',
 														fontWeight: 500,
@@ -394,113 +398,17 @@ const DeadArticleView = forwardRef((props, ref) => {
 													props.handleChange(e.target.value, 'title_pdf')
 												}
 											/>
-											<input
-												type="file"
-												accept=".pdf"
-												style={{
-													marginBottom: '48px',
-													display: 'none',
-													minHeight: 70,
-												}}
-												disabled={props.selectedValue === 'video'}
+											<UploadFileButtonInput
+												handleUpload={props.onPDFUpload}
+												handleDelete={props.handleDelete}
+												formObject={props.localForm}
+												propertyName="file_pdf"
+												defaultValue="pdf"
+												nonDefaultValue="video"
+												acceptedFileTypes=".pdf"
 												placeholder="Upload PDF"
-												id="raised-button-file"
-												onChange={(e) => props.onPDFUpload(e)}
+												errors={props.errors}
 											/>
-											<label htmlFor="raised-button-file">
-												<Button
-													variant="outlined"
-													component="span"
-													className={classes.pdfbtn}
-												>
-													{props.localForm.file_pdf ? (
-														<>
-															{props.shortify(props.localForm.file_pdf)}
-															<DeleteButton
-																disableRipple
-																onClick={() => {
-																	props.setLocalForm(() => ({
-																		...props.localForm,
-																		title_pdf: '',
-																		file_pdf: '',
-																	}));
-
-																	if (!props.deadArticleId) {
-																		const localStorageDeadArticle =
-																			localStorage.getItem(
-																				'deadArticle',
-																			);
-
-																		const deadArticle =
-																			JSON.parse(
-																				localStorageDeadArticle,
-																			);
-
-																		// Removing PDF file & PDF title from localStorage
-																		delete deadArticle.file_pdf;
-																		delete deadArticle.title_pdf;
-
-																		localStorage.setItem(
-																			'deadArticle',
-																			JSON.stringify(deadArticle),
-																		);
-																	}
-
-																	if (chosenResearch) {
-																		props.validateEditedDeadPublication(
-																			{
-																				file_pdf:
-																					props.localForm.title_pdf,
-																			},
-																			props.errors,
-																			props.setErrors,
-																			props.setValidationResult,
-																			props.selectedValue,
-																		);
-																	} else {
-																		props.validateDeadPublication(
-																			{
-																				file_pdf:
-																					props.localForm.title_pdf,
-																			},
-																			props.errors,
-																			props.setErrors,
-																			props.setValidationResult,
-																			props.selectedValue,
-																		);
-																	}
-																}}
-															>
-																<ClearIcon className={classes.clearIcon} />
-															</DeleteButton>
-														</>
-													) : (
-														<>
-															Upload PDF
-															<FileUpload
-																className={
-																	props.selectedValue === 'pdf'
-																		? classes.arrow2Style
-																		: classes.arrowStyle
-																}
-															/>
-														</>
-													)}
-												</Button>
-												{!!props.errors.file_pdf && (
-													<Typography
-														variant="caption"
-														className={classes.customError}
-														style={
-															props.selectedValue === 'video'
-																? { color: '#868DA2' }
-																: {}
-														}
-													>
-														{props.errors.file_pdf}
-													</Typography>
-												)}
-											</label>
 										</Grid>
 
 										<Grid
@@ -534,7 +442,7 @@ const DeadArticleView = forwardRef((props, ref) => {
 													marginTop: 5,
 													minHeight: 70,
 												}}
-												value={props.localForm.title_video}
+												value={props.localForm.title_video || ''}
 												error={!!props.errors.title_video}
 												helperText={props.errors.title_video}
 												placeholder="Title"
@@ -553,7 +461,7 @@ const DeadArticleView = forwardRef((props, ref) => {
 												variant="outlined"
 												disabled={props.selectedValue === 'pdf'}
 												style={{ marginBottom: '76px', minHeight: 70 }}
-												value={props.localForm.link_video}
+												value={props.localForm.link_video || ''}
 												error={!!props.errors.link_video}
 												helperText={props.errors.link_video}
 												placeholder="Insert Link"

@@ -8,7 +8,7 @@ import { FilledButton, StyledTextField } from '../../../../styles/MainStyles';
 import ChangePassword from '../ChangePassword/ChangePassword';
 import PhoneInput from '../PhoneInput/PhoneInput';
 import CategoriesAutoComplete from '../CategoriesAutoComplete/CategoriesAutoComplete';
-
+import { validateUserInformation } from '../../../../utils/helpers/validationFunctions';
 //import AvatarEditor from 'react-avatar-editor';
 import useStyles from './EditProfile.style';
 
@@ -136,6 +136,7 @@ const EditProfileView = (props) => {
 						setErrors={props.setErrors}
 						validationResult={props.validationResult}
 						setValidationResult={props.setValidationResult}
+						validationFunction={validateUserInformation}
 					/>
 				</Grid>
 				<Grid item xs={12}>

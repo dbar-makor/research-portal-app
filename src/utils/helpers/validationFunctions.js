@@ -452,10 +452,18 @@ export const validateDeadPublication = (
 	const temp = { ...errors };
 	const someFields = ['title', 'description'];
 
-	const allFields =
-		selectedValue === 'pdf'
-			? ['title', 'description', 'categories', 'title_pdf', 'file_pdf']
-			: ['title', 'description', 'categories', 'title_video', 'link_video'];
+	if (selectedValue === 'video') {
+		delete temp.title_pdf;
+		delete temp.file_pdf;
+	} else if (selectedValue === 'pdf') {
+		delete temp.title_video;
+		delete temp.link_video;
+	}
+
+	// const allFields =
+	// 	selectedValue === 'pdf'
+	// 		? ['title', 'description', 'categories', 'title_pdf', 'file_pdf']
+	// 		: ['title', 'description', 'categories', 'title_video', 'link_video'];
 
 	//coverImage is validated independently, not here
 	//event date is validated independently, not here
@@ -463,127 +471,151 @@ export const validateDeadPublication = (
 	someFields.forEach((field) => {
 		if (field in fieldValues) {
 			temp[field] = fieldValues[field] ? '' : 'This field is required';
+
+			if (temp[field] === '') {
+				setValidationResult((prev) => ({ ...prev, [field]: true }));
+			} else {
+				setValidationResult((prev) => ({ ...prev, [field]: false }));
+			}
 		}
 	});
 
 	if ('categories' in fieldValues) {
 		temp.categories = fieldValues.categories.length >= 1 ? '' : 'This field is required';
+
+		if (temp.categories === '') {
+			setValidationResult((prev) => ({ ...prev, categories: true }));
+		} else {
+			setValidationResult((prev) => ({ ...prev, categories: false }));
+		}
 	}
 
 	if (selectedValue === 'pdf') {
 		if ('title_pdf' in fieldValues) {
 			temp.title_pdf = fieldValues.title_pdf ? '' : 'This field is required';
+
+			if (temp.title_pdf === '') {
+				setValidationResult((prev) => ({ ...prev, title_pdf: true }));
+			} else {
+				setValidationResult((prev) => ({ ...prev, title_pdf: false }));
+			}
 		}
 
 		if ('file_pdf' in fieldValues) {
 			temp.file_pdf = fieldValues.file_pdf ? '' : 'This field is required';
+
+			if (temp.file_pdf === '') {
+				setValidationResult((prev) => ({ ...prev, file_pdf: true }));
+			} else {
+				setValidationResult((prev) => ({ ...prev, file_pdf: false }));
+			}
 		}
 	}
 
 	if (selectedValue === 'video') {
 		if ('title_video' in fieldValues) {
 			temp.title_video = fieldValues.title_video ? '' : 'This field is required';
+
+			if (temp.title_video === '') {
+				setValidationResult((prev) => ({ ...prev, title_video: true }));
+			} else {
+				setValidationResult((prev) => ({ ...prev, title_video: false }));
+			}
 		}
 
 		if ('link_video' in fieldValues) {
 			temp.link_video = fieldValues.link_video ? '' : 'This field is required';
+
+			if (temp.link_video === '') {
+				setValidationResult((prev) => ({ ...prev, link_video: true }));
+			} else {
+				setValidationResult((prev) => ({ ...prev, link_video: false }));
+			}
 		}
 	}
 
 	setErrors({ ...temp });
-	const tempResult1 = allFields.every((field) => Object.keys(temp).includes(field));
-	const tempResult2 = Object.values(temp).every((x) => x === '');
+	// const tempResult1 = allFields.every((field) => Object.keys(temp).includes(field));
+	// const tempResult2 = Object.values(temp).every((x) => x === '');
 
-	const result = tempResult1 && tempResult2;
+	// const result = tempResult1 && tempResult2;
 
-	setValidationResult(result);
+	// setValidationResult(result);
 };
 
-export const validateEditedDeadPublication = (
-	fieldValues,
-	errors,
-	setErrors,
-	setValidationResult,
-	selectedValue,
-) => {
-	const temp = { ...errors };
-	const someFields = ['title', 'description'];
+// export const validateEditedDeadPublication = (
+// 	fieldValues,
+// 	errors,
+// 	setErrors,
+// 	setValidationResult,
+// 	selectedValue,
+// ) => {
+// 	const temp = { ...errors };
+// 	const someFields = ['title', 'description'];
 
-	someFields.forEach((field) => {
-		if (field in fieldValues) {
-			temp[field] = fieldValues[field] ? '' : 'This field is required';
-		}
-	});
+// 	someFields.forEach((field) => {
+// 		if (field in fieldValues) {
+// 			temp[field] = fieldValues[field] ? '' : 'This field is required';
+// 		}
+// 	});
 
-	if ('categories' in fieldValues) {
-		temp.categories = fieldValues.categories.length >= 1 ? '' : 'This field is required';
-	}
+// 	if ('categories' in fieldValues) {
+// 		temp.categories = fieldValues.categories.length >= 1 ? '' : 'This field is required';
+// 	}
 
-	if (selectedValue === 'pdf') {
-		if ('title_pdf' in fieldValues) {
-			temp.title_pdf = fieldValues.title_pdf ? '' : 'This field is required';
-		}
+// 	if (selectedValue === 'pdf') {
+// 		if ('title_pdf' in fieldValues) {
+// 			temp.title_pdf = fieldValues.title_pdf ? '' : 'This field is required';
+// 		}
 
-		if ('file_pdf' in fieldValues) {
-			temp.file_pdf = fieldValues.file_pdf ? '' : 'This field is required';
-		}
-	}
+// 		if ('file_pdf' in fieldValues) {
+// 			temp.file_pdf = fieldValues.file_pdf ? '' : 'This field is required';
+// 		}
+// 	}
 
-	if (selectedValue === 'video') {
-		if ('title_video' in fieldValues) {
-			temp.title_video = fieldValues.title_video ? '' : 'This field is required';
-		}
+// 	if (selectedValue === 'video') {
+// 		if ('title_video' in fieldValues) {
+// 			temp.title_video = fieldValues.title_video ? '' : 'This field is required';
+// 		}
 
-		if ('link_video' in fieldValues) {
-			temp.link_video = fieldValues.link_video ? '' : 'This field is required';
-		}
-	}
+// 		if ('link_video' in fieldValues) {
+// 			temp.link_video = fieldValues.link_video ? '' : 'This field is required';
+// 		}
+// 	}
 
-	setErrors({ ...temp });
-	const result = Object.values(temp).every((x) => x === '');
+// 	setErrors({ ...temp });
+// 	const result = Object.values(temp).every((x) => x === '');
 
-	setValidationResult(result);
-};
+// 	setValidationResult(result);
+// };
 
 export const validateLivePublication = (fieldValues, errors, setErrors, setValidationResult) => {
 	const temp = { ...errors };
-	const allFields = ['title', 'categories'];
+	//const allFields = ['title', 'categories'];
 
 	//coverImage, event date, content are validated independently, not here
 
 	if ('title' in fieldValues) {
-		temp['title'] = fieldValues['title'] ? '' : 'This field is required';
+		temp.title = fieldValues['title'] ? '' : 'This field is required';
+
+		if (temp.title === '') {
+			setValidationResult((prev) => ({ ...prev, title: true }));
+		} else {
+			setValidationResult((prev) => ({ ...prev, title: false }));
+		}
 	}
 
 	if ('categories' in fieldValues) {
 		temp.categories = fieldValues.categories.length >= 1 ? '' : 'This field is required';
+
+		if (temp.categories === '') {
+			setValidationResult((prev) => ({ ...prev, categories: true }));
+		} else {
+			setValidationResult((prev) => ({ ...prev, categories: false }));
+		}
 	}
 
 	setErrors({ ...temp });
-	const tempResult1 = allFields.every((field) => Object.keys(temp).includes(field));
-	const tempResult2 = Object.values(temp).every((x) => x === '');
-
-	const result = tempResult1 && tempResult2;
-
-	setValidationResult(result);
-};
-
-export const validateEditedLivePublication = (fieldValues, errors, setErrors, setValidationResult) => {
-	const temp = { ...errors };
-
-	if ('title' in fieldValues) {
-		temp['title'] = fieldValues['title'] ? '' : 'This field is required';
-	}
-
-	if ('categories' in fieldValues) {
-		temp.categories = fieldValues.categories.length >= 1 ? '' : 'This field is required';
-	}
-
-	setErrors({ ...temp });
-
-	const result = Object.values(temp).every((x) => x === '');
-
-	setValidationResult(result);
 };
 
 export const validateEvent = (fieldValues, errors, setErrors, setValidationResult) => {

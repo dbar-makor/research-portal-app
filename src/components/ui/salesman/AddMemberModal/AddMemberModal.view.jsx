@@ -5,6 +5,7 @@ import { ReactComponent as CloseIcon } from '../../../../assets/icons/closeIcon.
 import { FilledButton } from '../../../../styles/MainStyles';
 import TextInputUnit from '../../reusables/TextInputUnit/TextInputUnit';
 import CategoriesAutoComplete from '../../reusables/CategoriesAutoComplete/CategoriesAutoComplete';
+import { validateMember } from '../../../../utils/helpers/validationFunctions';
 
 //import useStyles from './AddMemberModal.style';
 
@@ -95,6 +96,7 @@ const AddMemberModalView = (props) => {
 						setErrors={props.setErrors}
 						validationResult={props.validationResult}
 						setValidationResult={props.setValidationResult}
+						validationFunction={validateMember}
 					/>
 				</Grid>
 				<Grid item xs={12}>

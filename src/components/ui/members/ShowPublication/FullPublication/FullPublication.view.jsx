@@ -57,7 +57,7 @@ const FullPublicationView = (props) => {
 										file_pdf: props.chosenPublication.file_pdf,
 									}}
 								/>
-							) : (
+							) : props.chosenPublication.link_video ? (
 								<VideoFrame
 									video={{
 										title_video: props.chosenPublication.title_video,
@@ -66,7 +66,7 @@ const FullPublicationView = (props) => {
 										),
 									}}
 								/>
-							)}
+							) : null}
 							{(props.chosenPublication.commments !== null ||
 								props.chosenPublication.commments !== undefined) &&
 							props.userType !== 'author' ? (

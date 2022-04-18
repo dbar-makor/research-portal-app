@@ -10,13 +10,29 @@ import {
 	changeChosenResearch,
 } from '../../../../redux/researches/chosenResearchSlice';
 import * as actionSnackBar from '../../../../redux/SnackBar/action';
-import {
-	validateDeadPublication,
-	validateEvent,
-	validateEditedDeadPublication,
-} from '../../../../utils/helpers/validationFunctions';
+import { validateDeadPublication, validateEvent } from '../../../../utils/helpers/validationFunctions';
 
 import DeadArticleView from './DeadArticle.view';
+
+const checkSet = (formObject, type) => {
+	if (type === 'video') {
+		return [
+			['title', formObject?.title],
+			['description', formObject?.description],
+			['categories', formObject?.categories],
+			['title_video', formObject?.title_pdf],
+			['link_video', formObject?.file_pdf],
+		];
+	} else if (type === 'pdf') {
+		return [
+			['title', formObject?.title],
+			['description', formObject?.description],
+			['categories', formObject?.categories],
+			['title_pdf', formObject?.title_pdf],
+			['file_pdf', formObject?.file_pdf],
+		];
+	}
+};
 
 const getDeadArticleId = () => {
 	const id = sessionStorage.getItem('deadArticleId');
@@ -39,10 +55,7 @@ const DeadArticle = () => {
 	const chosenResearch = useSelector(selectChosenResearch);
 
 	// Check if edit mode
-	//if (chosenResearch) sessionStorage.setItem('deadArticleId', chosenResearch.id);
 	const [deadArticleId, setDeadArticleId] = useState(getDeadArticleId());
-
-	//const deadArticleId = sessionStorage.getItem('deadArticleId');
 
 	const dispatch = useDispatch();
 	const history = useHistory();
@@ -52,8 +65,20 @@ const DeadArticle = () => {
 	//state keeps the location the user wanted to navigate to without saving changes
 	const [requestedLocation, setRequestedLocation] = useState('');
 	const [coverImageOK, setCoverImageOK] = useState({ initial: true, final: false });
+	const [selectedValue, setSelectedValue] = useState('pdf');
+
+	const initStateValidationPdf = {
+		title: false,
+		description: false,
+		categories: false,
+		title_pdf: false,
+		file_pdf: false,
+	};
+
 	const [errors, setErrors] = useState({});
-	const [validationResult, setValidationResult] = useState(false);
+
+	const [validationResult, setValidationResult] = useState(initStateValidationPdf);
+
 	const [errorsEvent, setErrorsEvent] = useState({});
 	// eslint-disable-next-line no-unused-vars
 	const [validationResultEvent, setValidationResultEvent] = useState(true);
@@ -63,10 +88,8 @@ const DeadArticle = () => {
 		setOpenAlert(false);
 	};
 
-	const [selectedValue, setSelectedValue] = useState('pdf');
-
 	const [currentEvent, setCurrentEvent] = useState({
-		date: null,
+		date: '',
 		title: '',
 	});
 
@@ -77,8 +100,6 @@ const DeadArticle = () => {
 		tags: [],
 		categories: [],
 		attachments: [],
-		title_video: '',
-		link_video: '',
 		title_pdf: '',
 		file_pdf: '',
 		type: 'dead',
@@ -99,29 +120,10 @@ const DeadArticle = () => {
 		const deadArticle = JSON.parse(localStorageDeadArticle);
 		//validating fields from localStorage
 
-		const checkSet =
-			selectedValue === 'video'
-				? [
-						['title', deadArticle.title],
-						['description', deadArticle.description],
-						['title_video', deadArticle.title_pdf],
-						['link_video', deadArticle.file_pdf],
-				  ]
-				: [
-						['title', deadArticle.title],
-						['description', deadArticle.description],
-						['title_pdf', deadArticle.title_pdf],
-						['file_pdf', deadArticle.file_pdf],
-				  ];
+		const fields = checkSet(deadArticle, selectedValue);
 
-		checkSet.forEach(([key, value]) => {
-			validateEditedDeadPublication(
-				{ [key]: value },
-				errors,
-				setErrors,
-				setValidationResult,
-				selectedValue,
-			);
+		fields.forEach(([key, value]) => {
+			validateDeadPublication({ [key]: value }, errors, setErrors, setValidationResult, selectedValue);
 		});
 
 		return deadArticle;
@@ -171,6 +173,90 @@ const DeadArticle = () => {
 
 	const handleChangeRadio = (event) => {
 		setSelectedValue(event.target.value);
+
+		if (event.target.value === 'video') {
+			// Clearing pdf validation
+			setValidationResult((prev) => {
+				const validationCopy = { ...prev };
+
+				delete validationCopy.title_pdf;
+				delete validationCopy.file_pdf;
+				validationCopy.title_video = false;
+				validationCopy.link_video = false;
+
+				return validationCopy;
+			});
+			setErrors((prev) => {
+				const errorsCopy = { ...prev };
+
+				delete errorsCopy.title_pdf;
+				delete errorsCopy.file_pdf;
+
+				return errorsCopy;
+			});
+			// Clearing pdf states from localForm and storage
+			setLocalForm((prev) => {
+				const localFormCopy = { ...prev };
+
+				delete localFormCopy.title_pdf;
+				delete localFormCopy.file_pdf;
+
+				return localFormCopy;
+			});
+
+			if (!deadArticleId) {
+				const localStorageDeadArticle = localStorage.getItem('deadArticle');
+
+				const deadArticle = JSON.parse(localStorageDeadArticle);
+
+				delete deadArticle.title_pdf;
+				delete deadArticle.file_pdf;
+
+				localStorage.setItem('deadArticle', JSON.stringify(deadArticle));
+			}
+		} else if (event.target.value === 'pdf') {
+			// Clearing video validation
+			setValidationResult((prev) => {
+				const validationCopy = { ...prev };
+
+				delete validationCopy.title_video;
+				delete validationCopy.link_video;
+				validationCopy.title_pdf = false;
+				validationCopy.file_pdf = false;
+
+				return validationCopy;
+			});
+
+			setErrors((prev) => {
+				const errorsCopy = { ...prev };
+
+				delete errorsCopy.title_video;
+				delete errorsCopy.link_video;
+
+				return errorsCopy;
+			});
+
+			// Clearing video states from local state and storage
+			setLocalForm((prev) => {
+				const localFormCopy = { ...prev };
+
+				delete localFormCopy.title_video;
+				delete localFormCopy.link_video;
+
+				return localFormCopy;
+			});
+
+			if (!deadArticleId) {
+				const localStorageDeadArticle = localStorage.getItem('deadArticle');
+
+				const deadArticle = JSON.parse(localStorageDeadArticle);
+
+				delete deadArticle.title_video;
+				delete deadArticle.link_video;
+
+				localStorage.setItem('deadArticle', JSON.stringify(deadArticle));
+			}
+		}
 	};
 
 	const executeScroll = () => {
@@ -199,7 +285,8 @@ const DeadArticle = () => {
 
 	//is_publishable
 	useEffect(() => {
-		if (validationResult && validationResultEvent && coverImageOK.final) setIsPublishable(true);
+		if (Object.values(validationResult).every((x) => x) && validationResultEvent && coverImageOK.final)
+			setIsPublishable(true);
 		else {
 			setIsPublishable(false);
 		}
@@ -207,6 +294,8 @@ const DeadArticle = () => {
 
 	//For editing
 	useEffect(() => {
+		console.log('chosenResearch', chosenResearch);
+
 		if (chosenResearch) {
 			//save article's ID in sessionStorage
 			sessionStorage.setItem('deadArticleId', chosenResearch.id);
@@ -226,34 +315,49 @@ const DeadArticle = () => {
 			setLocalCats(chosenResearch.categories);
 			setLocalForm(editedLocalForm);
 			setLocalTags(chosenResearch.tags);
-			setSelectedValue(chosenResearch.file_video ? 'video' : 'pdf');
+			setSelectedValue(chosenResearch.link_video ? 'video' : 'pdf');
 
 			//checking validation for published case vs. draft case
 			if (chosenResearch.status === 'published') {
-				setValidationResult(true);
+				setValidationResult(
+					chosenResearch.link_video
+						? {
+								title: true,
+								categories: true,
+								description: true,
+								link_video: true,
+								title_video: true,
+						  }
+						: {
+								title: true,
+								categories: true,
+								description: true,
+								file_pdf: true,
+								title_pdf: true,
+						  },
+				);
 				setCoverImageOK({ initial: true, final: true });
 			} else if (chosenResearch.status === 'draft') {
 				if (coverImg) setCoverImageOK({ initial: true, final: true });
 
-				if (
-					chosenResearch.categories.length &&
-					chosenResearch.title &&
-					chosenResearch.description &&
-					((chosenResearch.title_pdf && chosenResearch.file_pdf) ||
-						(chosenResearch.title_video && chosenResearch.link_video))
-				) {
-					setValidationResult(true);
-				} else {
-					setValidationResult(false);
-				}
+				const fields = checkSet(chosenResearch, selectedValue);
+
+				fields.forEach(([key, value]) => {
+					validateDeadPublication(
+						{ [key]: value },
+						errors,
+						setErrors,
+						setValidationResult,
+						chosenResearch.link_video ? 'video' : 'pdf',
+					);
+				});
 			}
+			// Remove id when component unmounts
+
+			return () => {
+				sessionStorage.removeItem('deadArticleId');
+			};
 		}
-
-		// Remove id when component unmounts
-
-		return () => {
-			sessionStorage.removeItem('deadArticleId');
-		};
 	}, [chosenResearch]);
 
 	// This useEffect sets a listener for attempts to leave the page, and tracks cases in which this is done with unsaved changes
@@ -392,23 +496,13 @@ const DeadArticle = () => {
 			localStorage.setItem('deadArticleCategories', JSON.stringify(values));
 		}
 
-		if (chosenResearch) {
-			validateEditedDeadPublication(
-				{ categories: newCats },
-				errors,
-				setErrors,
-				setValidationResult,
-				selectedValue,
-			);
-		} else {
-			validateDeadPublication(
-				{ categories: newCats },
-				errors,
-				setErrors,
-				setValidationResult,
-				selectedValue,
-			);
-		}
+		validateDeadPublication(
+			{ categories: newCats },
+			errors,
+			setErrors,
+			setValidationResult,
+			selectedValue,
+		);
 	};
 
 	const handleTagsValue = (e, values) => {
@@ -447,17 +541,7 @@ const DeadArticle = () => {
 		setLocalForm(data);
 		setLocalStorageDeadArticle(data);
 
-		if (chosenResearch) {
-			validateEditedDeadPublication(
-				{ [key]: value },
-				errors,
-				setErrors,
-				setValidationResult,
-				selectedValue,
-			);
-		} else {
-			validateDeadPublication({ [key]: value }, errors, setErrors, setValidationResult, selectedValue);
-		}
+		validateDeadPublication({ [key]: value }, errors, setErrors, setValidationResult, selectedValue);
 	};
 
 	const deleteItem = (index, category) => {
@@ -485,7 +569,13 @@ const DeadArticle = () => {
 
 			if (res.status === 200 && res.data.file) {
 				setLocalForm((prev) => ({ ...prev, file_pdf: res.data.file }));
-
+				validateDeadPublication(
+					{ file_pdf: res.data.file },
+					errors,
+					setErrors,
+					setValidationResult,
+					selectedValue,
+				);
 				const localStorageDeadArticle = localStorage.getItem('deadArticle');
 
 				if (localStorageDeadArticle || localStorageDeadArticle !== 'undefined') {
@@ -499,28 +589,34 @@ const DeadArticle = () => {
 
 					localStorage.setItem('deadArticle', JSON.stringify(deadArticle));
 				}
-
-				if (chosenResearch) {
-					validateEditedDeadPublication(
-						{ file_pdf: res.data.file },
-						errors,
-						setErrors,
-						setValidationResult,
-						selectedValue,
-					);
-				} else {
-					validateDeadPublication(
-						{ file_pdf: res.data.file },
-						errors,
-						setErrors,
-						setValidationResult,
-						selectedValue,
-					);
-				}
 			}
 		} catch (error) {
 			return error;
 		}
+	};
+
+	const deletePDF = () => {
+		setLocalForm((prev) => ({ ...prev, file_pdf: '' }));
+
+		if (!deadArticleId) {
+			const localStorageDeadArticle = localStorage.getItem('deadArticle');
+
+			const deadArticle = JSON.parse(localStorageDeadArticle);
+
+			deadArticle.file_pdf = '';
+
+			localStorage.setItem('deadArticle', JSON.stringify(deadArticle));
+		}
+
+		validateDeadPublication(
+			{
+				file_pdf: '',
+			},
+			errors,
+			setErrors,
+			setValidationResult,
+			selectedValue,
+		);
 	};
 
 	const onDropCover = async (acceptedFiles) => {
@@ -651,13 +747,8 @@ const DeadArticle = () => {
 		};
 	}, []);
 
-	const shortify = (name = '') => {
-		if (name.length > 20) {
-			return `${name.slice(0, 19)} ...`;
-		} else {
-			return name;
-		}
-	};
+	console.log('localForm', localForm);
+	console.log('validationResult', validationResult);
 
 	return (
 		<DeadArticleView
@@ -696,15 +787,14 @@ const DeadArticle = () => {
 			setLocalTags={setLocalTags}
 			setValidationResult={setValidationResult}
 			setValidationResultEvent={setValidationResultEvent}
-			shortify={shortify}
 			updatePropertyField={updatePropertyField}
 			validateDeadPublication={validateDeadPublication}
 			validateEvent={validateEvent}
-			validateEditedDeadPublication={validateEditedDeadPublication}
 			validationResult={validationResult}
 			validationResultEvent={validationResultEvent}
 			ref={tableRowsRefs}
 			isPublishable={isPublishable}
+			handleDelete={deletePDF}
 			onPDFUpload={onPDFUpload}
 			onDropCover={onDropCover}
 		/>

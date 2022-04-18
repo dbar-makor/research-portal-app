@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { validateMember } from '../../../../utils/helpers/validationFunctions';
+//import { validateMember } from '../../../../utils/helpers/validationFunctions';
 import * as utilsAction from '../../../../redux/utils/utilsSlice';
 
 import CategoriesAutoCompleteView from './CategoriesAutoComplete.view';
@@ -31,12 +31,17 @@ const CategoriesAutoComplete = (props) => {
 			return;
 		}
 
-		const categoryCopy = [...adjustedFormObject];
+		const categoriesCopy = [...adjustedFormObject];
 
-		categoryCopy.splice(index, 1);
-		const formObjectCopy = { ...props.formObject, categories: categoryCopy };
+		categoriesCopy.splice(index, 1);
 
-		props.setFormObject(formObjectCopy);
+		let formObjectCopy;
+
+		if (!Array.isArray(props.formObject)) {
+			props.setFormObject({ ...props.formObject, categories: categoriesCopy });
+		} else {
+			props.setFormObject(categoriesCopy);
+		}
 
 		//For live/dead publication only (saving to storage)
 		if (props.type === 'live_publication' || props.type === 'dead_publication') {
@@ -46,13 +51,13 @@ const CategoriesAutoComplete = (props) => {
 
 			if (!articleId && props.type === 'live_publication') {
 				// Update categories in localStorage
-				localStorage.setItem('categories', JSON.stringify(categoryCopy));
+				localStorage.setItem('categories', JSON.stringify(categoriesCopy));
 			}
 
 			// Check if not in dead article edit mode
 			if (!deadArticleId && props.type === 'dead_publication') {
 				// Update dead article categories in localStorage
-				localStorage.setItem('deadArticleCategories', JSON.stringify(categoryCopy));
+				localStorage.setItem('deadArticleCategories', JSON.stringify(categoriesCopy));
 			}
 		}
 
@@ -63,7 +68,8 @@ const CategoriesAutoComplete = (props) => {
 			setParentArr(parentArrCopy);
 		}
 
-		errors && validateMember({ categories: categoryCopy }, errors, setErrors, setValidationResult);
+		props.validationFunction &&
+			props.validationFunction({ categories: categoriesCopy }, errors, setErrors, setValidationResult);
 	};
 
 	useEffect(() => {
