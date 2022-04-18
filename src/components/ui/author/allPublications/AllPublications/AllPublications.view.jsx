@@ -3,7 +3,7 @@ import { Grid } from '@material-ui/core';
 import SubHeader from '../../../reusables/SubHeader/SubHeader';
 import AllPublicationsStatColumn from '../AllPublicationsStatColumn/AllPublicationsStatColumn';
 import AllPublicationsTabs from '../AllPublicationsTabs/AllPublicationsTabs';
-
+import Pagination from '../../../reusables/Pagination/Pagination';
 import useStyles from './AllPublications.style';
 
 const publishedFieldLabels = [
@@ -55,6 +55,9 @@ const AllPublicationsView = (props) => {
 						<AllPublicationsTabs fetchStatistics={props.fetchStatistics} />
 					</Grid>
 				</Grid>
+			</Grid>
+			<Grid item>
+				<Pagination allPages={12} page={1} />
 			</Grid>
 		</Grid>
 	) : (

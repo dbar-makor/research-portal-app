@@ -1,5 +1,4 @@
 import { combineReducers } from '@reduxjs/toolkit';
-import searchReducer from './search/searchSlice';
 import authReducer from './auth/reducer';
 import researchesReducer from './researches/researchesSlice';
 import subscribersReducer from './subscribers/subscribersSlice';
@@ -12,6 +11,8 @@ import contractReducer from './subscribers/contractSlice';
 import chosenResearchReducer from './researches/chosenResearchSlice';
 import chosenUserReducer from './users/chosenUserSlice';
 import tabsReducer from './tabs/tabsSlice';
+import searchReducer from './search/searchSlice';
+import categoriesReducer from './categories/categoriesSlice';
 
 const createRootReducer = () =>
 	combineReducers({
@@ -29,6 +30,7 @@ const createRootReducer = () =>
 		//charts: chartReducer,
 		tabs: tabsReducer,
 		search: searchReducer,
+		category: categoriesReducer,
 	});
 
 export default createRootReducer;

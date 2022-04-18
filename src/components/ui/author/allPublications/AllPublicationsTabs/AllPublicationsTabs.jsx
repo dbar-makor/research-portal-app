@@ -10,6 +10,8 @@ const AllPublicationsTabs = (props) => {
 	const [filteredPublications, setFilteredPublications] = useState([]);
 	const [categoriesSelect, setCategoriesSelect] = useState([]);
 	const [openNewPublication, setOpenNewPublication] = useState(false);
+	const [limit, setLimit] = useState(30);
+	const [offset, setOffset] = useState(0);
 
 	const handleCloseNewPublication = useCallback(() => {
 		setOpenNewPublication(false);
@@ -74,6 +76,10 @@ const AllPublicationsTabs = (props) => {
 			handler={handleCategoriesSelect}
 			formObject={categoriesSelect}
 			setFormObject={setCategoriesSelect}
+			limit={limit}
+			setLimit={setLimit}
+			offset={offset}
+			setOffset={setOffset}
 		/>
 	);
 };
