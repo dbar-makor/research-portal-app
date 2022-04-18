@@ -12,6 +12,8 @@ import useStyles from './PublicationsTab.style';
 const PublicationsTabView = (props) => {
 	const classes = useStyles();
 
+	console.log('props.publication.type', props.publication.type);
+
 	return (
 		<>
 			<Grid item xs={4} className={classes.cardWrapper} key={props.publication.id}>
@@ -86,7 +88,7 @@ const PublicationsTabView = (props) => {
 								{props.publication.description.substring(0, 75)}
 							</Typography>
 						</Grid>
-						{props.publication.categories.length ? (
+						{props.publication.categories?.length ? (
 							<Grid item>
 								<Grid container className={classes.chipContainer}>
 									{props.publication.categories.slice(0, 2).map((el, index) => (

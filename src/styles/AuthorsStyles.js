@@ -65,9 +65,9 @@ export const useStyles = makeStyles((theme) => ({
 			backgroundColor: 'transparent',
 		},
 	},
-	eventContainer: {
-		marginBottom: '15px',
-	},
+	// eventContainer: {
+	// 	marginBottom: '15px',
+	// },
 	datePicker: {
 		marginRight: '15px',
 	},
@@ -525,20 +525,20 @@ export const useStyles = makeStyles((theme) => ({
 		textDecorationLine: 'underline',
 		cursor: 'pointer',
 	},
-	pdfbtn: {
-		'fontSize': '1rem',
-		'fontWeight': '500',
-		'color': '#868DA2',
-		'padding': '5px 5px 4px 5px',
-		'border': '2px solid #A5AFC233',
-		'borderRadius': 8,
-		'width': '100%',
-		'justifyContent': 'flex-start',
-		'textTransform': 'capitalize',
-		'&:hover': {
-			backgroundColor: '#fff',
-		},
-	},
+	// pdfbtn: {
+	// 	'fontSize': '1rem',
+	// 	'fontWeight': '500',
+	// 	'color': '#868DA2',
+	// 	'padding': '5px 5px 4px 5px',
+	// 	'border': '2px solid #A5AFC233',
+	// 	'borderRadius': 8,
+	// 	'width': '100%',
+	// 	'justifyContent': 'flex-start',
+	// 	'textTransform': 'capitalize',
+	// 	'&:hover': {
+	// 		backgroundColor: '#fff',
+	// 	},
+	// },
 	dropZone: {
 		borderRadius: '8px',
 		border: '1px solid #EDEFF3',
@@ -550,9 +550,6 @@ export const useStyles = makeStyles((theme) => ({
 	customError: {
 		color: 'red',
 		marginLeft: 14,
-		//position: 'absolute',
-		//lineHeight: 4
-		//marginBottom: 20,
 	},
 }));
 

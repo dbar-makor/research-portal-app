@@ -12,6 +12,7 @@ export const END_POINT = {
 	SUBSCRIPTION: '/subscription',
 	COMPANY: '/company',
 	CATEGORIES: '/category',
+	ALLCATEGORIES: '/categories',
 	UTILS: '/utils',
 	USER: '/user',
 	UPGRADE: '/upgrade',
