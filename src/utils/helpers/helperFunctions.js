@@ -33,3 +33,35 @@ export const setParams = (offset, limit, search, type, status) => {
 
 	return request;
 };
+
+export const setParamsPublication = (offset, limit, id) => {
+	const params = new URLSearchParams();
+
+	if (
+		offset !== null &&
+		offset !== undefined &&
+		limit !== null &&
+		limit !== undefined &&
+		id !== null &&
+		id !== undefined
+	) {
+		params.append('limit', limit);
+		params.append('offset', offset);
+		params.append('id', id);
+	}
+
+	const request = {
+		params,
+		paramsSerializer: (params) => {
+			let result = '';
+
+			for (const [key, value] of params) {
+				result += `${key}=${encodeURIComponent(value)}&`;
+			}
+
+			return result.substr(0, result.length - 1);
+		},
+	};
+
+	return request;
+};

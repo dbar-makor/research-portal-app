@@ -20,9 +20,16 @@ import DropZone from '../../reusables/DropZone/DropZone';
 import DropZoneMulti from '../../reusables/DropZoneMulti/DropZoneMulti';
 import CategoriesAutoComplete from '../../reusables/CategoriesAutoComplete/CategoriesAutoComplete';
 import TagsAutoComplete from '../../reusables/TagsAutoComplete/TagsAutoComplete';
+import SelectFormControl from '../../reusables/SelectFormControl/SelectFormControl';
 import { ReactComponent as CalendarIcon } from '../../../../assets/icons/iconCalendar.svg';
 import ExitPublicationAlert from '../../reusables/ExitPublicationAlert/ExitPublicationAlert';
 import { validateLivePublication } from '../../../../utils/helpers/validationFunctions';
+
+const regions = [
+	{ name: 'Asia-Pacific', value: 'Asia-Pacific' },
+	{ name: 'Europe', value: 'Europe' },
+	{ name: 'United States', value: 'United-States' },
+];
 
 const AuthorsNewArticleView = (props) => {
 	const classes = useStyles();
@@ -162,7 +169,21 @@ const AuthorsNewArticleView = (props) => {
 													</Typography>
 												)}
 											</Grid>
-											<Grid container className={classes.autoCompletesContainer}>
+											<Grid
+												container
+												direction="column"
+												className={classes.autoCompletesContainer}
+											>
+												<SelectFormControl
+													value={props.localForm.region || ''}
+													placeholder="Relevant Regions"
+													valueField="value"
+													optionsArray={regions}
+													labelField="name"
+													onChange={(e) =>
+														props.handleChange(e.target.value, 'region')
+													}
+												/>
 												<CategoriesAutoComplete
 													formObject={props.localCats}
 													setFormObject={props.setLocalCats}

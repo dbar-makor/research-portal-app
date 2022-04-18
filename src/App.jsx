@@ -9,9 +9,7 @@ import LoginPage from './components/pages/LoginPage/LoginPage';
 import GeneralHome from './components/pages/GeneralHome/GeneralHome';
 import PrivateRoute from './components/layout/PrivateRoute/PrivateRoute';
 import { setAuthToken } from './utils/constants';
-
 import { LOGIN_SUCCESS } from './redux/auth/constants';
-
 import AuthorsNewArticle from './components/ui/author/AuthorsnewArticle/AuthorsNewArticle';
 import AllPublications from './components/ui/author/allPublications/AllPublications/AllPublications';
 import TopBar from './components/layout/TopBar/TopBar';
@@ -29,6 +27,7 @@ import AllContracts from './components/ui/salesman/contractViews/allContracts/Al
 import AllInvoices from './components/ui/salesman/contractViews/allInvoices/AllInvoices/AllInvoices';
 import AllNotifications from './components/ui/members/Notifications/AllNotifications/AllNotifications';
 import AccountSettings from './components/AccountSettings/AccountSettings';
+import * as categoriesAction from './redux/categories/categoriesSlice';
 
 const App = () => {
 	const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
@@ -53,6 +52,10 @@ const App = () => {
 				payload: { token: existingToken, userContent: loggedUser },
 			});
 		}
+	}, []);
+
+	useEffect(() => {
+		dispatch(categoriesAction.getCategoriesAsync());
 	}, []);
 
 	const mainTheme = createTheme({
