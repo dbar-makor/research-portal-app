@@ -10,8 +10,8 @@ const SelectFormControl = (props) => {
 			valueField="value"
 			optionsArray={props.optionsArray}
 			labelField="name"
-			svgRight={props.svgRight}
-			IconComponent={props.iconComponent}
+			//svgRight={props.svgRight}
+			//IconComponent={props.iconComponent}
 			onChange={props.onChange}
 		/>
 	);

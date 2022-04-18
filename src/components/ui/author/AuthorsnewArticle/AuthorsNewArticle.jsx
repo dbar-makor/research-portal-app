@@ -65,7 +65,6 @@ const processContent = (content) => {
 
 const AuthorsNewArticle = () => {
 	const chosenResearch = useSelector(selectChosenResearch);
-
 	// Check if edit mode
 	const [articleId, setArticleId] = useState(getArticleId());
 
@@ -104,6 +103,7 @@ const AuthorsNewArticle = () => {
 		content: '',
 		categories: [],
 		attachments: [],
+		region: '',
 		events: [],
 		tags: [],
 		type: 'live',
@@ -385,7 +385,8 @@ const AuthorsNewArticle = () => {
 		setLocalForm(data);
 		setLocalStorageArticle(data);
 
-		validateLivePublication({ [key]: value }, errors, setErrors, setValidationResult);
+		key !== 'regions' &&
+			validateLivePublication({ [key]: value }, errors, setErrors, setValidationResult);
 	};
 
 	const handleCatsChange = (values) => {

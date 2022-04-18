@@ -30,7 +30,7 @@ const createRootReducer = () =>
 		//charts: chartReducer,
 		tabs: tabsReducer,
 		search: searchReducer,
-		category: categoriesReducer,
+		categories: categoriesReducer,
 	});
 
 export default createRootReducer;
