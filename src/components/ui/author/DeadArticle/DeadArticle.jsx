@@ -14,6 +14,26 @@ import { validateDeadPublication, validateEvent } from '../../../../utils/helper
 
 import DeadArticleView from './DeadArticle.view';
 
+const checkSet = (formObject, type) => {
+	if (type === 'video') {
+		return [
+			['title', formObject?.title],
+			['description', formObject?.description],
+			['categories', formObject?.categories],
+			['title_video', formObject?.title_pdf],
+			['link_video', formObject?.file_pdf],
+		];
+	} else if (type === 'pdf') {
+		return [
+			['title', formObject?.title],
+			['description', formObject?.description],
+			['categories', formObject?.categories],
+			['title_pdf', formObject?.title_pdf],
+			['file_pdf', formObject?.file_pdf],
+		];
+	}
+};
+
 const getDeadArticleId = () => {
 	const id = sessionStorage.getItem('deadArticleId');
 
@@ -100,24 +120,9 @@ const DeadArticle = () => {
 		const deadArticle = JSON.parse(localStorageDeadArticle);
 		//validating fields from localStorage
 
-		const checkSet =
-			selectedValue === 'video'
-				? [
-						['title', deadArticle.title],
-						['description', deadArticle.description],
-						['categories', chosenResearch.categories],
-						['title_video', deadArticle.title_pdf],
-						['link_video', deadArticle.file_pdf],
-				  ]
-				: [
-						['title', deadArticle.title],
-						['description', deadArticle.description],
-						['categories', chosenResearch.categories],
-						['title_pdf', deadArticle.title_pdf],
-						['file_pdf', deadArticle.file_pdf],
-				  ];
+		const fields = checkSet(deadArticle, selectedValue);
 
-		checkSet.forEach(([key, value]) => {
+		fields.forEach(([key, value]) => {
 			validateDeadPublication({ [key]: value }, errors, setErrors, setValidationResult, selectedValue);
 		});
 
@@ -189,7 +194,7 @@ const DeadArticle = () => {
 
 				return errorsCopy;
 			});
-			// Clearing pdf states
+			// Clearing pdf states from localForm and storage
 			setLocalForm((prev) => {
 				const localFormCopy = { ...prev };
 
@@ -198,6 +203,17 @@ const DeadArticle = () => {
 
 				return localFormCopy;
 			});
+
+			if (!deadArticleId) {
+				const localStorageDeadArticle = localStorage.getItem('deadArticle');
+
+				const deadArticle = JSON.parse(localStorageDeadArticle);
+
+				delete deadArticle.title_pdf;
+				delete deadArticle.file_pdf;
+
+				localStorage.setItem('deadArticle', JSON.stringify(deadArticle));
+			}
 		} else if (event.target.value === 'pdf') {
 			// Clearing video validation
 			setValidationResult((prev) => {
@@ -220,7 +236,7 @@ const DeadArticle = () => {
 				return errorsCopy;
 			});
 
-			// Clearing video validation
+			// Clearing video states from local state and storage
 			setLocalForm((prev) => {
 				const localFormCopy = { ...prev };
 
@@ -229,6 +245,17 @@ const DeadArticle = () => {
 
 				return localFormCopy;
 			});
+
+			if (!deadArticleId) {
+				const localStorageDeadArticle = localStorage.getItem('deadArticle');
+
+				const deadArticle = JSON.parse(localStorageDeadArticle);
+
+				delete deadArticle.title_video;
+				delete deadArticle.link_video;
+
+				localStorage.setItem('deadArticle', JSON.stringify(deadArticle));
+			}
 		}
 	};
 
@@ -313,24 +340,9 @@ const DeadArticle = () => {
 			} else if (chosenResearch.status === 'draft') {
 				if (coverImg) setCoverImageOK({ initial: true, final: true });
 
-				const checkSet =
-					selectedValue === 'video'
-						? [
-								['title', chosenResearch.title],
-								['description', chosenResearch.description],
-								['categories', chosenResearch.categories],
-								['title_video', chosenResearch.title_pdf],
-								['link_video', chosenResearch.file_pdf],
-						  ]
-						: [
-								['title', chosenResearch.title],
-								['description', chosenResearch.description],
-								['categories', chosenResearch.categories],
-								['title_pdf', chosenResearch.title_pdf],
-								['file_pdf', chosenResearch.file_pdf],
-						  ];
+				const fields = checkSet(chosenResearch, selectedValue);
 
-				checkSet.forEach(([key, value]) => {
+				fields.forEach(([key, value]) => {
 					validateDeadPublication(
 						{ [key]: value },
 						errors,
@@ -557,7 +569,13 @@ const DeadArticle = () => {
 
 			if (res.status === 200 && res.data.file) {
 				setLocalForm((prev) => ({ ...prev, file_pdf: res.data.file }));
-
+				validateDeadPublication(
+					{ file_pdf: res.data.file },
+					errors,
+					setErrors,
+					setValidationResult,
+					selectedValue,
+				);
 				const localStorageDeadArticle = localStorage.getItem('deadArticle');
 
 				if (localStorageDeadArticle || localStorageDeadArticle !== 'undefined') {
@@ -571,18 +589,34 @@ const DeadArticle = () => {
 
 					localStorage.setItem('deadArticle', JSON.stringify(deadArticle));
 				}
-
-				validateDeadPublication(
-					{ file_pdf: res.data.file },
-					errors,
-					setErrors,
-					setValidationResult,
-					selectedValue,
-				);
 			}
 		} catch (error) {
 			return error;
 		}
+	};
+
+	const deletePDF = () => {
+		setLocalForm((prev) => ({ ...prev, file_pdf: '' }));
+
+		if (!deadArticleId) {
+			const localStorageDeadArticle = localStorage.getItem('deadArticle');
+
+			const deadArticle = JSON.parse(localStorageDeadArticle);
+
+			deadArticle.file_pdf = '';
+
+			localStorage.setItem('deadArticle', JSON.stringify(deadArticle));
+		}
+
+		validateDeadPublication(
+			{
+				file_pdf: '',
+			},
+			errors,
+			setErrors,
+			setValidationResult,
+			selectedValue,
+		);
 	};
 
 	const onDropCover = async (acceptedFiles) => {
@@ -628,15 +662,15 @@ const DeadArticle = () => {
 		const categoriesForServer = localCats.map((cat) => cat.id);
 		const tagsForServer = localTags.map((tag) => (tag.id ? { id: tag.id } : { name: tag.name }));
 
-		// if (!formToSend.title_video) {
-		// 	delete formToSend.title_video;
-		// 	delete formToSend.link_video;
-		// }
+		if (!formToSend.title_video) {
+			delete formToSend.title_video;
+			delete formToSend.link_video;
+		}
 
-		// if (!formToSend.title_pdf) {
-		// 	delete formToSend.title_pdf;
-		// 	delete formToSend.file_pdf;
-		// }
+		if (!formToSend.title_pdf) {
+			delete formToSend.title_pdf;
+			delete formToSend.file_pdf;
+		}
 
 		delete formToSend.author;
 		delete formToSend.comments;
@@ -713,14 +747,6 @@ const DeadArticle = () => {
 		};
 	}, []);
 
-	const shortify = (name = '') => {
-		if (name.length > 20) {
-			return `${name.slice(0, 19)} ...`;
-		} else {
-			return name;
-		}
-	};
-
 	console.log('localForm', localForm);
 	console.log('validationResult', validationResult);
 
@@ -761,7 +787,6 @@ const DeadArticle = () => {
 			setLocalTags={setLocalTags}
 			setValidationResult={setValidationResult}
 			setValidationResultEvent={setValidationResultEvent}
-			shortify={shortify}
 			updatePropertyField={updatePropertyField}
 			validateDeadPublication={validateDeadPublication}
 			validateEvent={validateEvent}
@@ -769,6 +794,7 @@ const DeadArticle = () => {
 			validationResultEvent={validationResultEvent}
 			ref={tableRowsRefs}
 			isPublishable={isPublishable}
+			handleDelete={deletePDF}
 			onPDFUpload={onPDFUpload}
 			onDropCover={onDropCover}
 		/>

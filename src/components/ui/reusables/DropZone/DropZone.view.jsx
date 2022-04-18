@@ -60,30 +60,7 @@ const DropZoneView = (props) => {
 								? `${props.uploadedImage.file_name.slice(0, 20)}...`
 								: props.uploadedImage.file_name}
 						</Typography>
-						<DeleteButton
-							disableRipple
-							onClick={() => {
-								const articleId = sessionStorage.getItem('articleId');
-								const deadArticleId = sessionStorage.getItem('deadArticleId');
-
-								// Storage nteraction should be re-written in a reusable manner (only suitable to new publication)
-
-								// Check if not in edit mode
-								if (!articleId) {
-									// Remove cover image from localStorage
-									localStorage.removeItem('coverImage');
-								}
-
-								// Check if not in dead article edit mode
-								if (!deadArticleId) {
-									// Remove cover image from localStorage
-									localStorage.removeItem('deadArticleCoverImage');
-								}
-
-								props.setUploadedImage(typeof uploadedImage === 'string' ? '' : null);
-								props.setFileOK && props.setFileOK({ initial: false, final: false });
-							}}
-						>
+						<DeleteButton disableRipple onClick={props.deleteFile}>
 							<ClearIcon className={classes.clearIcon} />
 						</DeleteButton>
 					</Grid>

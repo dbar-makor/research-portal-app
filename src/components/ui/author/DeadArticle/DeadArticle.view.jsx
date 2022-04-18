@@ -9,7 +9,6 @@ import clsx from 'clsx';
 import { useSelector } from 'react-redux';
 import SubHeader from '../../reusables/SubHeader/SubHeader';
 import { useStyles, AtricleTitleTextField } from '../../../../styles/AuthorsStyles';
-import { ReactComponent as FileUpload } from '../../../../assets/icons/fileUpload.svg';
 import { ReactComponent as InsertLink } from '../../../../assets/icons/insertLink.svg';
 import {
 	DeleteButton,
@@ -25,6 +24,7 @@ import TagsAutoComplete from '../../reusables/TagsAutoComplete/TagsAutoComplete'
 import { selectChosenResearch } from '../../../../redux/researches/chosenResearchSlice';
 import ExitPublicationAlert from '../../reusables/ExitPublicationAlert/ExitPublicationAlert';
 import { validateDeadPublication } from '../../../../utils/helpers/validationFunctions';
+import UploadFileButtonInput from '../../reusables/UploadFileButtonInput/UploadFileButtonInput';
 //import useStyles from './DeadArticle.style';
 
 const DeadArticleView = forwardRef((props, ref) => {
@@ -67,7 +67,7 @@ const DeadArticleView = forwardRef((props, ref) => {
 							</Grid>
 						</Grid>
 						<Grid container>
-							<Grid item xs={12} style={{ marginBottom: '22px' }}>
+							<Grid item xs={12} style={{ marginBottom: '8px' }}>
 								<AtricleTitleTextField
 									multiline
 									style={{ minHeight: 118 }}
@@ -186,7 +186,7 @@ const DeadArticleView = forwardRef((props, ref) => {
 								<Grid item xs={12}>
 									<Grid
 										container
-										className={classes.eventContainer}
+										//className={classes.eventContainer}
 										alignItems="center"
 										justifyContent="space-between"
 									>
@@ -198,6 +198,7 @@ const DeadArticleView = forwardRef((props, ref) => {
 												variant="outlined"
 												placeholder="Title"
 												className={classes.textField}
+												style={{ minHeight: 70 }}
 												inputProps={{
 													maxLength: 50,
 												}}
@@ -228,6 +229,7 @@ const DeadArticleView = forwardRef((props, ref) => {
 												helperText={props.errorsEvent.date}
 												value={props.currentEvent.date}
 												className={classes.eventDatePicker}
+												style={{ minHeight: 70 }}
 												InputAdornmentProps={{ position: 'end' }}
 												keyboardIcon={
 													<CalendarIcon className={classes.calendarIcon} />
@@ -282,6 +284,7 @@ const DeadArticleView = forwardRef((props, ref) => {
 														variant="outlined"
 														placeholder="Title"
 														className={classes.textField}
+														style={{}}
 														inputProps={{
 															maxLength: 50,
 														}}
@@ -383,7 +386,7 @@ const DeadArticleView = forwardRef((props, ref) => {
 												error={!!props.errors.title_pdf}
 												helperText={props.errors.title_pdf}
 												className={classes.deadArticleUpload}
-												selectedValue={props.selectedValue}
+												//selectedValue={props.selectedValue}
 												inputProps={{
 													style: {
 														fontSize: '16px',
@@ -395,96 +398,17 @@ const DeadArticleView = forwardRef((props, ref) => {
 													props.handleChange(e.target.value, 'title_pdf')
 												}
 											/>
-											<input
-												type="file"
-												accept=".pdf"
-												style={{
-													marginBottom: '48px',
-													display: 'none',
-													minHeight: 70,
-												}}
-												disabled={props.selectedValue === 'video'}
+											<UploadFileButtonInput
+												handleUpload={props.onPDFUpload}
+												handleDelete={props.handleDelete}
+												formObject={props.localForm}
+												propertyName="file_pdf"
+												defaultValue="pdf"
+												nonDefaultValue="video"
+												acceptedFileTypes=".pdf"
 												placeholder="Upload PDF"
-												id="raised-button-file"
-												onChange={(e) => props.onPDFUpload(e)}
+												errors={props.errors}
 											/>
-											<label htmlFor="raised-button-file">
-												<Button
-													variant="outlined"
-													component="span"
-													className={classes.pdfbtn}
-												>
-													{props.localForm.file_pdf ? (
-														<>
-															{props.shortify(props.localForm.file_pdf)}
-															<DeleteButton
-																disableRipple
-																onClick={() => {
-																	props.setLocalForm(() => ({
-																		...props.localForm,
-																		title_pdf: '',
-																		file_pdf: '',
-																	}));
-
-																	if (!props.deadArticleId) {
-																		const localStorageDeadArticle =
-																			localStorage.getItem(
-																				'deadArticle',
-																			);
-
-																		const deadArticle =
-																			JSON.parse(
-																				localStorageDeadArticle,
-																			);
-
-																		// Removing PDF file & PDF title from localStorage
-																		delete deadArticle.file_pdf;
-																		delete deadArticle.title_pdf;
-
-																		localStorage.setItem(
-																			'deadArticle',
-																			JSON.stringify(deadArticle),
-																		);
-																	}
-
-																	props.validateDeadPublication(
-																		{
-																			file_pdf:
-																				props.localForm.title_pdf,
-																		},
-																		props.errors,
-																		props.setErrors,
-																		props.setValidationResult,
-																		props.selectedValue,
-																	);
-																}}
-															>
-																<ClearIcon className={classes.clearIcon} />
-															</DeleteButton>
-														</>
-													) : (
-														<>
-															Upload PDF
-															<FileUpload
-																className={
-																	props.selectedValue === 'pdf'
-																		? classes.arrow2Style
-																		: classes.arrowStyle
-																}
-															/>
-														</>
-													)}
-												</Button>
-												{!!props.errors.file_pdf && (
-													<Typography
-														variant="caption"
-														className={classes.customError}
-														style={{ marginLeft: '14px' }}
-													>
-														{props.errors.file_pdf}
-													</Typography>
-												)}
-											</label>
 										</Grid>
 
 										<Grid

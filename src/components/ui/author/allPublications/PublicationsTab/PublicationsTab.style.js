@@ -1,8 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-
 const useStyles = makeStyles((theme) => ({
-publishStyle: {
+	publishStyle: {
 		'backgroundColor': '#1C67FF',
 		'color': '#FFF',
 		'borderRadius': '21px',
@@ -13,6 +12,7 @@ publishStyle: {
 		'fontSize': '16px',
 		'marginTop': 10,
 		'marginRight': 4,
+		'zIndex': 10,
 		'&:hover': {
 			backgroundColor: '#0044CD',
 			boxShadow: '0px 6px 10px #00185829',
@@ -22,7 +22,8 @@ publishStyle: {
 			backgroundColor: '#ACB1BF',
 			color: '#868DA2',
 		},
-	},	cardWrapper: {
+	},
+	cardWrapper: {
 		minWidth: 250,
 		maxWidth: 350,
 		marginRight: 10,
