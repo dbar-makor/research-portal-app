@@ -7,11 +7,13 @@ const SelectFormControl = (props) => {
 		<SelectFormControlView
 			value={props.value || ''}
 			placeholder={props.placeholder}
+			label={props.placeholder}
 			valueField="value"
 			optionsArray={props.optionsArray}
 			labelField="name"
-			//svgRight={props.svgRight}
-			//IconComponent={props.iconComponent}
+			width={props.width}
+			svgRight={props.svgRight}
+			IconComponent={props.iconComponent}
 			onChange={props.onChange}
 		/>
 	);

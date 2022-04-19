@@ -301,6 +301,8 @@ const AuthorsNewArticle = () => {
 		delete formToSend.author;
 		delete formToSend.comments;
 
+		if (formToSend.region === '') delete formToSend.region;
+
 		if (buttonMarker === 'done') {
 			//allow navigation (remove block from useEffect)
 
@@ -352,6 +354,8 @@ const AuthorsNewArticle = () => {
 
 		try {
 			let res;
+
+			console.log('formToSend', formToSend);
 
 			if (formToSend.id) {
 				res = await axios.put(`${BASE_URL}${END_POINT.PUBLICATION}/${formToSend.id}`, formToSend);

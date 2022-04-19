@@ -21,11 +21,19 @@ import { ReactComponent as CalendarIcon } from '../../../../assets/icons/iconCal
 import DropZone from '../../reusables/DropZone/DropZone';
 import CategoriesAutoComplete from '../../reusables/CategoriesAutoComplete/CategoriesAutoComplete';
 import TagsAutoComplete from '../../reusables/TagsAutoComplete/TagsAutoComplete';
+import SelectFormControl from '../../reusables/SelectFormControl/SelectFormControl';
 import { selectChosenResearch } from '../../../../redux/researches/chosenResearchSlice';
 import ExitPublicationAlert from '../../reusables/ExitPublicationAlert/ExitPublicationAlert';
 import { validateDeadPublication } from '../../../../utils/helpers/validationFunctions';
 import UploadFileButtonInput from '../../reusables/UploadFileButtonInput/UploadFileButtonInput';
 //import useStyles from './DeadArticle.style';
+
+const regions = [
+	{ name: 'None', value: '' },
+	{ name: 'Asia-Pacific', value: 'Asia-Pacific' },
+	{ name: 'Europe', value: 'Europe' },
+	{ name: 'United States', value: 'United-States' },
+];
 
 const DeadArticleView = forwardRef((props, ref) => {
 	const chosenResearch = useSelector(selectChosenResearch);
@@ -66,35 +74,45 @@ const DeadArticleView = forwardRef((props, ref) => {
 								/>
 							</Grid>
 						</Grid>
-						<Grid container>
-							<Grid item xs={12} style={{ marginBottom: '8px' }}>
-								<AtricleTitleTextField
-									multiline
-									style={{ minHeight: 118 }}
-									minRows={3}
-									maxRows={3}
-									className={classes.descriptionStyle}
-									variant="outlined"
-									value={props.localForm.description}
-									placeholder="Description*"
-									error={!!props.errors.description}
-									helperText={props.errors.description}
-									inputProps={{
-										style: {
-											fontSize: '16px',
-											fontWeight: 500,
-											color: '#868DA2',
-											lineHeight: 1.5,
-											overflow: 'auto',
-											cursor: 'text',
-											padding: 0,
-										},
-										maxLength: 500,
-									}}
-									onChange={(e) => props.handleChange(e.target.value, 'description')}
-								/>
-							</Grid>
+						<Grid item xs={12} style={{ marginBottom: '8px' }}>
+							<AtricleTitleTextField
+								multiline
+								style={{ minHeight: 118 }}
+								minRows={3}
+								maxRows={3}
+								className={classes.descriptionStyle}
+								variant="outlined"
+								value={props.localForm.description}
+								placeholder="Description*"
+								error={!!props.errors.description}
+								helperText={props.errors.description}
+								inputProps={{
+									style: {
+										fontSize: '16px',
+										fontWeight: 500,
+										color: '#868DA2',
+										lineHeight: 1.5,
+										overflow: 'auto',
+										cursor: 'text',
+										padding: 0,
+									},
+									maxLength: 500,
+								}}
+								onChange={(e) => props.handleChange(e.target.value, 'description')}
+							/>
 						</Grid>
+						<Grid container item xs={12} style={{ marginBottom: 8 }}>
+							<SelectFormControl
+								value={props.localForm.region || ''}
+								placeholder="Relevant Region"
+								valueField="value"
+								optionsArray={regions}
+								labelField="name"
+								width="100%"
+								onChange={(e) => props.handleChange(e.target.value, 'region')}
+							/>
+						</Grid>
+
 						<Grid container>
 							<Grid item xs={12}>
 								<Grid container className={classes.deadImageHolder}>

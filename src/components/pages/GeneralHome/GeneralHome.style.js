@@ -9,12 +9,22 @@ const useStyles = makeStyles({
 	header: {
 		fontWeight: 700,
 	},
+	headerScrolled: {
+		paddingBottom: 10,
+	},
 	mainWrapper: {
 		display: 'flex',
 		flexDirection: 'column',
 		justifyContent: 'center',
 		alignItems: 'center',
 		backgroundColor: '#FEFEFE',
+	},
+	mostClickedIdeasBox: {
+		borderRadius: '8px',
+		backgroundColor: '#fff',
+		border: '2px solid #EDEEF1',
+		padding: '10px',
+		paddingBottom: 2,
 	},
 	horizontalScrollWrapper: {
 		display: 'flex',
@@ -25,9 +35,11 @@ const useStyles = makeStyles({
 		display: 'flex',
 		justifyContent: 'space-between',
 		padding: '0 10px 0 10px',
-		maxHeight: '6vh',
+		maxHeight: '9vh',
 		minWidth: '25.2vh',
 		margin: '10px',
+		marginTop: 8,
+		//marginBottom: 0,
 		alignItems: 'center',
 		borderRadius: '8px',
 		backgroundColor: '#EDF2FB',
@@ -53,6 +65,7 @@ const useStyles = makeStyles({
 		textAlign: 'center',
 		fontSize: '1.1rem',
 		padding: '0 3% 0 3%',
+		marginTop: 10,
 	},
 	focusIdeas: {
 		padding: '10px',

@@ -26,6 +26,7 @@ import ExitPublicationAlert from '../../reusables/ExitPublicationAlert/ExitPubli
 import { validateLivePublication } from '../../../../utils/helpers/validationFunctions';
 
 const regions = [
+	{ name: 'None', value: '' },
 	{ name: 'Asia-Pacific', value: 'Asia-Pacific' },
 	{ name: 'Europe', value: 'Europe' },
 	{ name: 'United States', value: 'United-States' },
@@ -174,16 +175,18 @@ const AuthorsNewArticleView = (props) => {
 												direction="column"
 												className={classes.autoCompletesContainer}
 											>
-												<SelectFormControl
-													value={props.localForm.region || ''}
-													placeholder="Relevant Regions"
-													valueField="value"
-													optionsArray={regions}
-													labelField="name"
-													onChange={(e) =>
-														props.handleChange(e.target.value, 'region')
-													}
-												/>
+												<Grid item xs={12}>
+													<SelectFormControl
+														value={props.localForm.region || ''}
+														placeholder="Relevant Region"
+														valueField="value"
+														optionsArray={regions}
+														labelField="name"
+														onChange={(e) =>
+															props.handleChange(e.target.value, 'region')
+														}
+													/>
+												</Grid>
 												<CategoriesAutoComplete
 													formObject={props.localCats}
 													setFormObject={props.setLocalCats}
