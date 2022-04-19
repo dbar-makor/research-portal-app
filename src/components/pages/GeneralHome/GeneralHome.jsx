@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
@@ -11,17 +10,21 @@ const GeneralHome = () => {
 	const categories = useSelector((state) => state.categories.categories);
 	const latestNewsId = categories?.find((categoryObj) => categoryObj.name === 'News')?.id;
 	const morningNotesId = categories?.find((categoryObj) => categoryObj.name === 'Morning Notes')?.id;
+	const featuredId = categories?.find((categoryObj) => categoryObj.name === 'Featured')?.id;
 
 	const industryRecoursedId = categories?.find(
 		(categoryObj) => categoryObj.name === 'Industry Recoursed',
 	)?.id;
 
 	const focusIdeasId = categories?.find((categoryObj) => categoryObj.name === 'Focus Ideas')?.id;
+	const ideasId = categories?.find((categoryObj) => categoryObj.name === 'Ideas')?.id;
 	const [lastPublications, setLastPublications] = useState([]);
 	const [latestNews, setLatestNews] = useState([]);
 	const [morningNotes, setMorningNotes] = useState([]);
 	const [industryRecoursed, setIndustryRecoursed] = useState([]);
 	const [focusIdeas, setFocusIdeas] = useState([]);
+	const [featuredPublications, setFeaturedPublications] = useState([]);
+	const [mostClickedIdeas, setMostClickedIdeas] = useState([]);
 	//const [events, setEvents] = useState([]);
 
 	const date = new Date();
@@ -69,12 +72,18 @@ const GeneralHome = () => {
 	// Calls to publications data
 
 	useEffect(() => {
-		latestNewsId && fetchByCategory(5, latestNewsId, setLatestNews);
-		morningNotesId && fetchByCategory(15, morningNotesId, setMorningNotes);
-		industryRecoursedId && fetchByCategory(5, industryRecoursedId, setIndustryRecoursed);
-		focusIdeasId && fetchByCategory(10, focusIdeasId, setFocusIdeas);
-		fetchLastPublications(9);
+		if (categories.length) {
+			latestNewsId && fetchByCategory(5, latestNewsId, setLatestNews);
+			morningNotesId && fetchByCategory(15, morningNotesId, setMorningNotes);
+			industryRecoursedId && fetchByCategory(5, industryRecoursedId, setIndustryRecoursed);
+			focusIdeasId && fetchByCategory(10, focusIdeasId, setFocusIdeas);
+			featuredId && fetchByCategory(3, featuredId, setFeaturedPublications);
+			ideasId && fetchByCategory(5, ideasId, setMostClickedIdeas);
+			fetchLastPublications(9);
+		}
 	}, [categories]);
+
+	console.log('mostClickedIdeas', mostClickedIdeas);
 
 	return (
 		<>
@@ -89,6 +98,8 @@ const GeneralHome = () => {
 					morningNotes={morningNotes}
 					industryRecoursed={industryRecoursed}
 					focusIdeas={focusIdeas}
+					featuredPublications={featuredPublications}
+					mostClickedIdeas={mostClickedIdeas}
 				/>
 			)}
 		</>

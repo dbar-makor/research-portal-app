@@ -12,7 +12,7 @@ const useStyles = makeStyles(() => ({
 		alignItems: 'center',
 		paddingTop: '24px',
 		borderRadius: '8px',
-		boxShadow: '0px 8px 24px #0018581F',
+		boxShadow: '0px 8px 24px #0F0F0F',
 	},
 	modalTitle: {
 		color: '#1C67FF',
@@ -69,8 +69,7 @@ const useStyles = makeStyles(() => ({
 			},
 		},
 	},
-	marginTop14px: {
-	},
+	marginTop14px: {},
 	articleTitle2: {
 		textTransform: 'capitalize',
 	},

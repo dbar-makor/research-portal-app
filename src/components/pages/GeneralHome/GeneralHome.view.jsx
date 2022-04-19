@@ -7,8 +7,24 @@ import { Helmet } from 'react-helmet';
 import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 import Carousel from 'react-material-ui-carousel';
-
+import { format } from 'date-fns';
 import useStyles, { Tab, TabPanel, TabsList } from './GeneralHome.style';
+
+const formatLongString = (str, lgth) => {
+	if (str.length > 35) {
+		return `${str.substring(0, lgth)}...`;
+	} else {
+		return str;
+	}
+};
+
+const getAuthorsInitials = (author) => {
+	const tempArr = author.split(' ');
+
+	tempArr[0] = tempArr[0].substring(0, 1).concat('.');
+
+	return tempArr.join(' ');
+};
 
 const GeneralHomeView = (props) => {
 	const classes = useStyles();
@@ -47,6 +63,175 @@ const GeneralHomeView = (props) => {
 		);
 	};
 
+	const lastPublicationsSection = (pub) => (
+		<section key={pub.id} className={classes.lastPublicationsWrapper}>
+			<div
+				style={{
+					display: 'flex',
+					flexDirection: 'row',
+					justifyContent: 'space-between',
+				}}
+			>
+				<div className={classes.lastPublicationsTitle} style={{ flex: '65%' }}>
+					{formatLongString(pub.title, 32)}
+				</div>
+				<div className={classes.lastPublicationsTitle} style={{ flex: '30%' }}>
+					{format(new Date(pub.updated_at), 'dd/MM/yyyy')}
+				</div>
+			</div>
+			<div>
+				<div className={classes.lastPublicationsContent}>{formatLongString(pub.description, 60)}</div>
+			</div>
+		</section>
+	);
+
+	const latestNewsSection = (pub) => (
+		<section key={pub.id} className={classes.latestNewsWrapper}>
+			<div
+				style={{
+					display: 'flex',
+					flexDirection: 'row',
+					justifyContent: 'space-between',
+				}}
+			>
+				<div className={classes.latestNewsHeader}>{pub.author_name}</div>
+				<div className={classes.latestNewsHeader}>
+					{format(new Date(pub.updated_at), 'dd/MM/yyyy')}
+				</div>
+			</div>
+			<div>
+				<div className={classes.latestNewsContent}>{formatLongString(pub.title, 30)}</div>
+			</div>
+		</section>
+	);
+
+	const morningNotesSection = (pub) => (
+		<section key={pub.id} className={classes.morningNotesWrapper}>
+			<div
+				style={{
+					display: 'flex',
+					flexDirection: 'row',
+					justifyContent: 'space-between',
+					padding: '5px',
+				}}
+			>
+				<div className={classes.morningNotesContent}>{formatLongString(pub.title, 30)}</div>
+				<div className={classes.morningNotesDate}>
+					{format(new Date(pub.updated_at), 'dd/MM/yyyy')}
+				</div>
+			</div>
+		</section>
+	);
+
+	const industryRecoursedSection = (pub) => (
+		<section key={pub.id} className={classes.industryRecoursedWrapper}>
+			<div
+				style={{
+					display: 'flex',
+					flexDirection: 'row',
+					justifyContent: 'space-between',
+				}}
+			>
+				<Stack direction="row" spacing={1}>
+					{pub.tags?.[0] && (
+						<Chip
+							style={{
+								backgroundColor: '#E2EBFC',
+								color: '#1C67FF',
+								fontWeight: '600',
+								fontSize: '.85rem',
+							}}
+							label={pub.tags?.[0].name}
+						/>
+					)}
+					{pub.tags?.[1] && (
+						<Chip
+							style={{
+								backgroundColor: '#E2EBFC',
+								color: '#1C67FF',
+								fontWeight: '600',
+								fontSize: '.85rem',
+							}}
+							label={pub.tags?.[1].name}
+						/>
+					)}
+				</Stack>
+				<div className={classes.industryRecoursedDate}>
+					{format(new Date(pub.updated_at), 'dd/MM/yyyy')}
+				</div>
+			</div>
+			<div>
+				<div className={classes.industryRecoursedContent}>
+					{`${pub.author_name}:`}
+					&nbsp;
+					<span style={{ fontWeight: 'bold' }}>{formatLongString(pub.title, 30)}</span>
+				</div>
+			</div>
+		</section>
+	);
+
+	const focusIdeasSection = (pub) => (
+		<section key={pub.id} className={classes.focusIdeasWrapper}>
+			<div
+				style={{
+					display: 'flex',
+					flexDirection: 'row',
+					justifyContent: 'space-between',
+				}}
+			>
+				<Stack direction="row" spacing={1}>
+					{pub.tags?.[0] && (
+						<Chip
+							style={{
+								backgroundColor: '#B8C3D8',
+								color: '#3E3E3E',
+								fontWeight: '600',
+								fontSize: '.85rem',
+							}}
+							label={pub.tags?.[0].name}
+						/>
+					)}
+					{pub.tags?.[1] && (
+						<Chip
+							style={{
+								backgroundColor: '#B8C3D8',
+								color: '#3E3E3E',
+								fontWeight: '600',
+								fontSize: '.85rem',
+							}}
+							label={pub.tags?.[1].name}
+						/>
+					)}
+				</Stack>
+				<div className={classes.focusIdeasDate}>{format(new Date(pub.updated_at), 'dd/MM/yyyy')}</div>
+			</div>
+			<div>
+				<div className={classes.focusIdeasContent}>
+					{`${pub.author_name} |`}
+					&nbsp;
+					<span style={{ color: '#000' }}>{formatLongString(pub.title, 38)}</span>
+				</div>
+			</div>
+		</section>
+	);
+
+	const mostClickedIdeasSection = (pub) => (
+		<section key={pub.id} className={classes.mostClickedIdeasWrapper}>
+			<div style={{ marginRight: '15px', marginTop: 5, marginBottom: 5 }}>
+				<div className={classes.mostClickedIdeasTitle}>idea</div>
+				<div className={classes.mostClickedIdeasContent}>{formatLongString(pub.title, 40)}</div>
+			</div>
+			<div>
+				<div className={classes.mostClickedIdeasTitle}>
+					{pub.categories?.find((category) => category.name !== 'idea').name}
+				</div>
+				<div className={classes.mostClickedIdeasTitle} style={{ fontSize: '1rem' }}>
+					{getAuthorsInitials(pub.author_name)}
+				</div>
+			</div>
+		</section>
+	);
+
 	return (
 		<main style={{ padding: '1% 15% 1% 15%' }} className={classes.mainWrapper}>
 			<Grid container spacing={2}>
@@ -72,76 +257,23 @@ const GeneralHomeView = (props) => {
 								},
 							}}
 						>
-							<div className={classes.carouselContect}>
-								Churchill Capital: GCP/SGO FP - Discussion with GCP Applied Temporarily
-							</div>
-							<div className={classes.carouselContect}>
-								Lorem Ipsum has been the industry-s standard dummy text ever since the 1500s,
-								w
-							</div>
-							<div className={classes.carouselContect}>
-								Examples might be simplified to improve reading and learning. Tutorials,
-								references, and exampleTutorials, references, and avoid
-							</div>
+							{props.featuredPublications.length
+								? props.featuredPublications.map((publication) => (
+										<div key={publication.id} className={classes.carouselContect}>
+											{publication.title}
+										</div>
+								  ))
+								: null}
 						</Carousel>
 					</section>
 				</Grid>
 				<Grid item xs={7}>
-					<section
-						style={{
-							borderRadius: '8px',
-							backgroundColor: '#fff',
-							border: '2px solid #EDEEF1',
-							padding: '10px',
-						}}
-					>
+					<section className={classes.mostClickedIdeasBox}>
 						<div className={classes.header}>Most Clicked Ideas</div>
 						<div className={classes.horizontalScrollWrapper}>
-							<section className={classes.mostClickedIdeasWrapper}>
-								<div style={{ marginRight: '15px' }}>
-									<div className={classes.mostClickedIdeasTitle}>idea</div>
-									<div className={classes.mostClickedIdeasContent}>SJR/B CN | RCI/B CN</div>
-								</div>
-								<div>
-									<div className={classes.mostClickedIdeasTitle}>Strategy</div>
-									<div
-										className={classes.mostClickedIdeasTitle}
-										style={{ fontSize: '1.2rem' }}
-									>
-										Merger
-									</div>
-								</div>
-							</section>
-							<section className={classes.mostClickedIdeasWrapper}>
-								<div style={{ marginRight: '15px' }}>
-									<div className={classes.mostClickedIdeasTitle}>idea</div>
-									<div className={classes.mostClickedIdeasContent}>SJR/B CN | RCI/B CN</div>
-								</div>
-								<div>
-									<div className={classes.mostClickedIdeasTitle}>Strategy</div>
-									<div
-										className={classes.mostClickedIdeasTitle}
-										style={{ fontSize: '1.2rem' }}
-									>
-										Merger
-									</div>
-								</div>
-							</section>
-							<section className={classes.mostClickedIdeasWrapper}>
-								<div style={{ marginRight: '15px' }}>
-									<div className={classes.mostClickedIdeasTitle}>idea</div>
-									<div className={classes.mostClickedIdeasContent}>SJR/B CN | RCI/B CN</div>
-								</div>
-								<div>
-									<div className={classes.mostClickedIdeasTitle}>Strategy</div>
-									<div
-										className={classes.mostClickedIdeasTitle}
-										style={{ fontSize: '1.2rem' }}
-									>
-										Merger
-									</div>
-								</div>
-							</section>
+							{props.mostClickedIdeas.length
+								? props.mostClickedIdeas.map((pub) => mostClickedIdeasSection(pub))
+								: null}
 						</div>
 					</section>
 				</Grid>
@@ -162,133 +294,34 @@ const GeneralHomeView = (props) => {
 								<Tab>United-States</Tab>
 							</TabsList>
 							<TabPanel value={0}>
-								<section className={classes.lastPublicationsWrapper}>
-									<div
-										style={{
-											display: 'flex',
-											flexDirection: 'row',
-											justifyContent: 'space-between',
-										}}
-									>
-										<div className={classes.lastPublicationsTitle}>Churchill Capital</div>
-										<div className={classes.lastPublicationsTitle}>02/28/2022</div>
-									</div>
-									<div>
-										<div className={classes.lastPublicationsContent}>
-											Asia Weekly Wrap of finance news...
-										</div>
-									</div>
-								</section>
-								<section className={classes.lastPublicationsWrapper}>
-									<div
-										style={{
-											display: 'flex',
-											flexDirection: 'row',
-											justifyContent: 'space-between',
-										}}
-									>
-										<div className={classes.lastPublicationsTitle}>Churchill Capital</div>
-										<div className={classes.lastPublicationsTitle}>02/28/2022</div>
-									</div>
-									<div>
-										<div className={classes.lastPublicationsContent}>
-											Asia Weekly Wrap of finance news...
-										</div>
-									</div>
-								</section>
-								<section className={classes.lastPublicationsWrapper}>
-									<div
-										style={{
-											display: 'flex',
-											flexDirection: 'row',
-											justifyContent: 'space-between',
-										}}
-									>
-										<div className={classes.lastPublicationsTitle}>Churchill Capital</div>
-										<div className={classes.lastPublicationsTitle}>02/28/2022</div>
-									</div>
-									<div>
-										<div className={classes.lastPublicationsContent}>
-											Asia Weekly Wrap of finance news...
-										</div>
-									</div>
-								</section>
+								{props.lastPublications.length
+									? props.lastPublications
+											.filter((pub) => pub.region === 'Asia-Pacific')
+											.map((pub) => lastPublicationsSection(pub))
+									: null}
 							</TabPanel>
-							<TabPanel value={1}>Second content</TabPanel>
-							<TabPanel value={2}>Third content</TabPanel>
+							<TabPanel value={1}>
+								{props.lastPublications.length
+									? props.lastPublications
+											.filter((pub) => pub.region === 'Europe')
+											.map((pub) => lastPublicationsSection(pub))
+									: null}
+							</TabPanel>
+							<TabPanel value={2}>
+								{props.lastPublications.length
+									? props.lastPublications
+											.filter((pub) => pub.region === 'United-States')
+											.map((pub) => lastPublicationsSection(pub))
+									: null}
+							</TabPanel>
 						</TabsUnstyled>
 					</section>
 					<section className={classes.latestNews}>
-						<div className={classes.header}>Latest News</div>
+						<div className={`${classes.header} ${classes.headerScrolled}`}>Latest News</div>
 						<div className={classes.latestNewsScroll}>
-							<section className={classes.latestNewsWrapper}>
-								<div
-									style={{
-										display: 'flex',
-										flexDirection: 'row',
-										justifyContent: 'space-between',
-									}}
-								>
-									<div className={classes.latestNewsHeader}>127 HK</div>
-									<div className={classes.latestNewsHeader}>02/28/2022</div>
-								</div>
-								<div>
-									<div className={classes.latestNewsContent}>
-										Chinese Estates to record losses from the...
-									</div>
-								</div>
-							</section>
-							<section className={classes.latestNewsWrapper}>
-								<div
-									style={{
-										display: 'flex',
-										flexDirection: 'row',
-										justifyContent: 'space-between',
-									}}
-								>
-									<div className={classes.latestNewsHeader}>127 HK</div>
-									<div className={classes.latestNewsHeader}>02/28/2022</div>
-								</div>
-								<div>
-									<div className={classes.latestNewsContent}>
-										Chinese Estates to record losses from the...
-									</div>
-								</div>
-							</section>
-							<section className={classes.latestNewsWrapper}>
-								<div
-									style={{
-										display: 'flex',
-										flexDirection: 'row',
-										justifyContent: 'space-between',
-									}}
-								>
-									<div className={classes.latestNewsHeader}>127 HK</div>
-									<div className={classes.latestNewsHeader}>02/28/2022</div>
-								</div>
-								<div>
-									<div className={classes.latestNewsContent}>
-										Chinese Estates to record losses from the...
-									</div>
-								</div>
-							</section>
-							<section className={classes.latestNewsWrapper}>
-								<div
-									style={{
-										display: 'flex',
-										flexDirection: 'row',
-										justifyContent: 'space-between',
-									}}
-								>
-									<div className={classes.latestNewsHeader}>127 HK</div>
-									<div className={classes.latestNewsHeader}>02/28/2022</div>
-								</div>
-								<div>
-									<div className={classes.latestNewsContent}>
-										Chinese Estates to record losses from the...
-									</div>
-								</div>
-							</section>
+							{props.latestNews.length
+								? props.latestNews.map((pub) => latestNewsSection(pub))
+								: null}
 						</div>
 					</section>
 					<section className={classes.morningNotes}>
@@ -303,720 +336,47 @@ const GeneralHomeView = (props) => {
 							</TabsList>
 							<TabPanel value={0}>
 								<div className={classes.morningNotesScroll}>
-									<section className={classes.morningNotesWrapper}>
-										<div
-											style={{
-												display: 'flex',
-												flexDirection: 'row',
-												justifyContent: 'space-between',
-												padding: '5px',
-											}}
-										>
-											<div className={classes.morningNotesContent}>
-												Morning Note Asia-Pacific
-											</div>
-											<div className={classes.morningNotesDate}>02/28/2022</div>
-										</div>
-									</section>
-									<section className={classes.morningNotesWrapper}>
-										<div
-											style={{
-												display: 'flex',
-												flexDirection: 'row',
-												justifyContent: 'space-between',
-												padding: '5px',
-											}}
-										>
-											<div className={classes.morningNotesContent}>
-												Morning Note Asia-Pacific
-											</div>
-											<div className={classes.morningNotesDate}>02/28/2022</div>
-										</div>
-									</section>
-									<section className={classes.morningNotesWrapper}>
-										<div
-											style={{
-												display: 'flex',
-												flexDirection: 'row',
-												justifyContent: 'space-between',
-												padding: '5px',
-											}}
-										>
-											<div className={classes.morningNotesContent}>
-												Morning Note Asia-Pacific
-											</div>
-											<div className={classes.morningNotesDate}>02/28/2022</div>
-										</div>
-									</section>
-									<section className={classes.morningNotesWrapper}>
-										<div
-											style={{
-												display: 'flex',
-												flexDirection: 'row',
-												justifyContent: 'space-between',
-												padding: '5px',
-											}}
-										>
-											<div className={classes.morningNotesContent}>
-												Morning Note Asia-Pacific
-											</div>
-											<div className={classes.morningNotesDate}>02/28/2022</div>
-										</div>
-									</section>
-									<section className={classes.morningNotesWrapper}>
-										<div
-											style={{
-												display: 'flex',
-												flexDirection: 'row',
-												justifyContent: 'space-between',
-												padding: '5px',
-											}}
-										>
-											<div className={classes.morningNotesContent}>
-												Morning Note Asia-Pacific
-											</div>
-											<div className={classes.morningNotesDate}>02/28/2022</div>
-										</div>
-									</section>
-									<section className={classes.morningNotesWrapper}>
-										<div
-											style={{
-												display: 'flex',
-												flexDirection: 'row',
-												justifyContent: 'space-between',
-												padding: '5px',
-											}}
-										>
-											<div className={classes.morningNotesContent}>
-												Morning Note Asia-Pacific
-											</div>
-											<div className={classes.morningNotesDate}>02/28/2022</div>
-										</div>
-									</section>
-									<section className={classes.morningNotesWrapper}>
-										<div
-											style={{
-												display: 'flex',
-												flexDirection: 'row',
-												justifyContent: 'space-between',
-												padding: '5px',
-											}}
-										>
-											<div className={classes.morningNotesContent}>
-												Morning Note Asia-Pacific
-											</div>
-											<div className={classes.morningNotesDate}>02/28/2022</div>
-										</div>
-									</section>
-									<section className={classes.morningNotesWrapper}>
-										<div
-											style={{
-												display: 'flex',
-												flexDirection: 'row',
-												justifyContent: 'space-between',
-												padding: '5px',
-											}}
-										>
-											<div className={classes.morningNotesContent}>
-												Morning Note Asia-Pacific
-											</div>
-											<div className={classes.morningNotesDate}>02/28/2022</div>
-										</div>
-									</section>
-									<section className={classes.morningNotesWrapper}>
-										<div
-											style={{
-												display: 'flex',
-												flexDirection: 'row',
-												justifyContent: 'space-between',
-												padding: '5px',
-											}}
-										>
-											<div className={classes.morningNotesContent}>
-												Morning Note Asia-Pacific
-											</div>
-											<div className={classes.morningNotesDate}>02/28/2022</div>
-										</div>
-									</section>
+									{props.morningNotes.length
+										? props.morningNotes
+												.filter((pub) => pub.region === 'Asia-Pacific')
+												.map((pub) => morningNotesSection(pub))
+										: null}
 								</div>
 							</TabPanel>
-							<TabPanel value={1}>Second content</TabPanel>
-							<TabPanel value={2}>Third content</TabPanel>
+							<TabPanel value={1}>
+								<div className={classes.morningNotesScroll}>
+									{props.morningNotes.length
+										? props.morningNotes
+												.filter((pub) => pub.region === 'Europe')
+												.map((pub) => morningNotesSection(pub))
+										: null}
+								</div>
+							</TabPanel>
+							<TabPanel value={2}>
+								<div className={classes.morningNotesScroll}>
+									{props.morningNotes.length
+										? props.morningNotes
+												.filter((pub) => pub.region === 'United-States')
+												.map((pub) => morningNotesSection(pub))
+										: null}
+								</div>
+							</TabPanel>
 						</TabsUnstyled>
 					</section>
 				</Grid>
 				<Grid item xs={5}>
 					<section className={classes.industryRecoursed}>
 						<div className={classes.header}>Industry Recoursed</div>
-						<section className={classes.industryRecoursedWrapper}>
-							<div
-								style={{
-									display: 'flex',
-									flexDirection: 'row',
-									justifyContent: 'space-between',
-								}}
-							>
-								<Stack direction="row" spacing={1}>
-									<Chip
-										style={{
-											backgroundColor: '#E2EBFC',
-											color: '#1C67FF',
-											fontWeight: '600',
-											fontSize: '.85rem',
-										}}
-										label="GCP US"
-									/>
-									<Chip
-										style={{
-											backgroundColor: '#E2EBFC',
-											color: '#1C67FF',
-											fontWeight: '600',
-											fontSize: '.85rem',
-										}}
-										label="SGO FP"
-									/>
-								</Stack>
-								<div className={classes.industryRecoursedDate}>02/28/2022</div>
-							</div>
-							<div>
-								<div className={classes.industryRecoursedContent}>
-									Churchill Capital:&nbsp;
-									<span style={{ fontWeight: 'bold' }}>
-										GCP/SGO FP - Discussion with GCP Applied Te...
-									</span>
-								</div>
-							</div>
-						</section>
-						<section className={classes.industryRecoursedWrapper}>
-							<div
-								style={{
-									display: 'flex',
-									flexDirection: 'row',
-									justifyContent: 'space-between',
-								}}
-							>
-								<Stack direction="row" spacing={1}>
-									<Chip
-										style={{
-											backgroundColor: '#E2EBFC',
-											color: '#1C67FF',
-											fontWeight: '600',
-											fontSize: '.85rem',
-										}}
-										label="GCP US"
-									/>
-									<Chip
-										style={{
-											backgroundColor: '#E2EBFC',
-											color: '#1C67FF',
-											fontWeight: '600',
-											fontSize: '.85rem',
-										}}
-										label="SGO FP"
-									/>
-								</Stack>
-								<div className={classes.industryRecoursedDate}>02/28/2022</div>
-							</div>
-							<div>
-								<div className={classes.industryRecoursedContent}>
-									Churchill Capital:&nbsp;
-									<span style={{ fontWeight: 'bold' }}>
-										GCP/SGO FP - Discussion with GCP Applied Te...
-									</span>
-								</div>
-							</div>
-						</section>
-						<section className={classes.industryRecoursedWrapper}>
-							<div
-								style={{
-									display: 'flex',
-									flexDirection: 'row',
-									justifyContent: 'space-between',
-								}}
-							>
-								<Stack direction="row" spacing={1}>
-									<Chip
-										style={{
-											backgroundColor: '#E2EBFC',
-											color: '#1C67FF',
-											fontWeight: '600',
-											fontSize: '.85rem',
-										}}
-										label="GCP US"
-									/>
-									<Chip
-										style={{
-											backgroundColor: '#E2EBFC',
-											color: '#1C67FF',
-											fontWeight: '600',
-											fontSize: '.85rem',
-										}}
-										label="SGO FP"
-									/>
-								</Stack>
-								<div className={classes.industryRecoursedDate}>02/28/2022</div>
-							</div>
-							<div>
-								<div className={classes.industryRecoursedContent}>
-									Churchill Capital:&nbsp;
-									<span style={{ fontWeight: 'bold' }}>
-										GCP/SGO FP - Discussion with GCP Applied Te...
-									</span>
-								</div>
-							</div>
-						</section>
-						<section className={classes.industryRecoursedWrapper}>
-							<div
-								style={{
-									display: 'flex',
-									flexDirection: 'row',
-									justifyContent: 'space-between',
-								}}
-							>
-								<Stack direction="row" spacing={1}>
-									<Chip
-										style={{
-											backgroundColor: '#E2EBFC',
-											color: '#1C67FF',
-											fontWeight: '600',
-											fontSize: '.85rem',
-										}}
-										label="GCP US"
-									/>
-									<Chip
-										style={{
-											backgroundColor: '#E2EBFC',
-											color: '#1C67FF',
-											fontWeight: '600',
-											fontSize: '.85rem',
-										}}
-										label="SGO FP"
-									/>
-								</Stack>
-								<div className={classes.industryRecoursedDate}>02/28/2022</div>
-							</div>
-							<div>
-								<div className={classes.industryRecoursedContent}>
-									Churchill Capital:&nbsp;
-									<span style={{ fontWeight: 'bold' }}>
-										GCP/SGO FP - Discussion with GCP Applied Te...
-									</span>
-								</div>
-							</div>
-						</section>
-						<section className={classes.industryRecoursedWrapper}>
-							<div
-								style={{
-									display: 'flex',
-									flexDirection: 'row',
-									justifyContent: 'space-between',
-								}}
-							>
-								<Stack direction="row" spacing={1}>
-									<Chip
-										style={{
-											backgroundColor: '#E2EBFC',
-											color: '#1C67FF',
-											fontWeight: '600',
-											fontSize: '.85rem',
-										}}
-										label="GCP US"
-									/>
-									<Chip
-										style={{
-											backgroundColor: '#E2EBFC',
-											color: '#1C67FF',
-											fontWeight: '600',
-											fontSize: '.85rem',
-										}}
-										label="SGO FP"
-									/>
-								</Stack>
-								<div className={classes.industryRecoursedDate}>02/28/2022</div>
-							</div>
-							<div>
-								<div className={classes.industryRecoursedContent}>
-									Churchill Capital:&nbsp;
-									<span style={{ fontWeight: 'bold' }}>
-										GCP/SGO FP - Discussion with GCP Applied Te...
-									</span>
-								</div>
-							</div>
-						</section>
+						{props.industryRecoursed.length
+							? props.industryRecoursed.map((pub) => industryRecoursedSection(pub))
+							: null}
 					</section>
 					<section className={classes.focusIdeas}>
-						<div className={classes.header}>Focus Ideas</div>
+						<div className={`${classes.header} ${classes.headerScrolled}`}>Focus Ideas</div>
 						<div className={classes.focusIdeasScroll}>
-							<section className={classes.focusIdeasWrapper}>
-								<div
-									style={{
-										display: 'flex',
-										flexDirection: 'row',
-										justifyContent: 'space-between',
-									}}
-								>
-									<Stack direction="row" spacing={1}>
-										<Chip
-											style={{
-												backgroundColor: '#B8C3D8',
-												color: '#3E3E3E',
-												fontWeight: '600',
-												fontSize: '.85rem',
-											}}
-											label="PVG CN"
-										/>
-										<Chip
-											style={{
-												backgroundColor: '#B8C3D8',
-												color: '#3E3E3E',
-												fontWeight: '600',
-												fontSize: '.85rem',
-											}}
-											label="NCM CN"
-										/>
-									</Stack>
-									<div className={classes.focusIdeasDate}>02/28/2022</div>
-								</div>
-								<div>
-									<div className={classes.focusIdeasContent}>
-										PRETIUM RECOURSES INC |&nbsp;
-										<span style={{ color: '#000' }}>NEWCREST MINING LTD</span>
-									</div>
-								</div>
-							</section>
-							<section className={classes.focusIdeasWrapper}>
-								<div
-									style={{
-										display: 'flex',
-										flexDirection: 'row',
-										justifyContent: 'space-between',
-									}}
-								>
-									<Stack direction="row" spacing={1}>
-										<Chip
-											style={{
-												backgroundColor: '#B8C3D8',
-												color: '#3E3E3E',
-												fontWeight: '600',
-												fontSize: '.85rem',
-											}}
-											label="PVG CN"
-										/>
-										<Chip
-											style={{
-												backgroundColor: '#B8C3D8',
-												color: '#3E3E3E',
-												fontWeight: '600',
-												fontSize: '.85rem',
-											}}
-											label="NCM CN"
-										/>
-									</Stack>
-									<div className={classes.focusIdeasDate}>02/28/2022</div>
-								</div>
-								<div>
-									<div className={classes.focusIdeasContent}>
-										PRETIUM RECOURSES INC |&nbsp;
-										<span style={{ color: '#000' }}>NEWCREST MINING LTD</span>
-									</div>
-								</div>
-							</section>
-							<section className={classes.focusIdeasWrapper}>
-								<div
-									style={{
-										display: 'flex',
-										flexDirection: 'row',
-										justifyContent: 'space-between',
-									}}
-								>
-									<Stack direction="row" spacing={1}>
-										<Chip
-											style={{
-												backgroundColor: '#B8C3D8',
-												color: '#3E3E3E',
-												fontWeight: '600',
-												fontSize: '.85rem',
-											}}
-											label="PVG CN"
-										/>
-										<Chip
-											style={{
-												backgroundColor: '#B8C3D8',
-												color: '#3E3E3E',
-												fontWeight: '600',
-												fontSize: '.85rem',
-											}}
-											label="NCM CN"
-										/>
-									</Stack>
-									<div className={classes.focusIdeasDate}>02/28/2022</div>
-								</div>
-								<div>
-									<div className={classes.focusIdeasContent}>
-										PRETIUM RECOURSES INC |&nbsp;
-										<span style={{ color: '#000' }}>NEWCREST MINING LTD</span>
-									</div>
-								</div>
-							</section>
-							<section className={classes.focusIdeasWrapper}>
-								<div
-									style={{
-										display: 'flex',
-										flexDirection: 'row',
-										justifyContent: 'space-between',
-									}}
-								>
-									<Stack direction="row" spacing={1}>
-										<Chip
-											style={{
-												backgroundColor: '#B8C3D8',
-												color: '#3E3E3E',
-												fontWeight: '600',
-												fontSize: '.85rem',
-											}}
-											label="PVG CN"
-										/>
-										<Chip
-											style={{
-												backgroundColor: '#B8C3D8',
-												color: '#3E3E3E',
-												fontWeight: '600',
-												fontSize: '.85rem',
-											}}
-											label="NCM CN"
-										/>
-									</Stack>
-									<div className={classes.focusIdeasDate}>02/28/2022</div>
-								</div>
-								<div>
-									<div className={classes.focusIdeasContent}>
-										PRETIUM RECOURSES INC |&nbsp;
-										<span style={{ color: '#000' }}>NEWCREST MINING LTD</span>
-									</div>
-								</div>
-							</section>
-							<section className={classes.focusIdeasWrapper}>
-								<div
-									style={{
-										display: 'flex',
-										flexDirection: 'row',
-										justifyContent: 'space-between',
-									}}
-								>
-									<Stack direction="row" spacing={1}>
-										<Chip
-											style={{
-												backgroundColor: '#B8C3D8',
-												color: '#3E3E3E',
-												fontWeight: '600',
-												fontSize: '.85rem',
-											}}
-											label="PVG CN"
-										/>
-										<Chip
-											style={{
-												backgroundColor: '#B8C3D8',
-												color: '#3E3E3E',
-												fontWeight: '600',
-												fontSize: '.85rem',
-											}}
-											label="NCM CN"
-										/>
-									</Stack>
-									<div className={classes.focusIdeasDate}>02/28/2022</div>
-								</div>
-								<div>
-									<div className={classes.focusIdeasContent}>
-										PRETIUM RECOURSES INC |&nbsp;
-										<span style={{ color: '#000' }}>NEWCREST MINING LTD</span>
-									</div>
-								</div>
-							</section>
-							<section className={classes.focusIdeasWrapper}>
-								<div
-									style={{
-										display: 'flex',
-										flexDirection: 'row',
-										justifyContent: 'space-between',
-									}}
-								>
-									<Stack direction="row" spacing={1}>
-										<Chip
-											style={{
-												backgroundColor: '#B8C3D8',
-												color: '#3E3E3E',
-												fontWeight: '600',
-												fontSize: '.85rem',
-											}}
-											label="PVG CN"
-										/>
-										<Chip
-											style={{
-												backgroundColor: '#B8C3D8',
-												color: '#3E3E3E',
-												fontWeight: '600',
-												fontSize: '.85rem',
-											}}
-											label="NCM CN"
-										/>
-									</Stack>
-									<div className={classes.focusIdeasDate}>02/28/2022</div>
-								</div>
-								<div>
-									<div className={classes.focusIdeasContent}>
-										PRETIUM RECOURSES INC |&nbsp;
-										<span style={{ color: '#000' }}>NEWCREST MINING LTD</span>
-									</div>
-								</div>
-							</section>
-							<section className={classes.focusIdeasWrapper}>
-								<div
-									style={{
-										display: 'flex',
-										flexDirection: 'row',
-										justifyContent: 'space-between',
-									}}
-								>
-									<Stack direction="row" spacing={1}>
-										<Chip
-											style={{
-												backgroundColor: '#B8C3D8',
-												color: '#3E3E3E',
-												fontWeight: '600',
-												fontSize: '.85rem',
-											}}
-											label="PVG CN"
-										/>
-										<Chip
-											style={{
-												backgroundColor: '#B8C3D8',
-												color: '#3E3E3E',
-												fontWeight: '600',
-												fontSize: '.85rem',
-											}}
-											label="NCM CN"
-										/>
-									</Stack>
-									<div className={classes.focusIdeasDate}>02/28/2022</div>
-								</div>
-								<div>
-									<div className={classes.focusIdeasContent}>
-										PRETIUM RECOURSES INC |&nbsp;
-										<span style={{ color: '#000' }}>NEWCREST MINING LTD</span>
-									</div>
-								</div>
-							</section>
-							<section className={classes.focusIdeasWrapper}>
-								<div
-									style={{
-										display: 'flex',
-										flexDirection: 'row',
-										justifyContent: 'space-between',
-									}}
-								>
-									<Stack direction="row" spacing={1}>
-										<Chip
-											style={{
-												backgroundColor: '#B8C3D8',
-												color: '#3E3E3E',
-												fontWeight: '600',
-												fontSize: '.85rem',
-											}}
-											label="PVG CN"
-										/>
-										<Chip
-											style={{
-												backgroundColor: '#B8C3D8',
-												color: '#3E3E3E',
-												fontWeight: '600',
-												fontSize: '.85rem',
-											}}
-											label="NCM CN"
-										/>
-									</Stack>
-									<div className={classes.focusIdeasDate}>02/28/2022</div>
-								</div>
-								<div>
-									<div className={classes.focusIdeasContent}>
-										PRETIUM RECOURSES INC |&nbsp;
-										<span style={{ color: '#000' }}>NEWCREST MINING LTD</span>
-									</div>
-								</div>
-							</section>
-							<section className={classes.focusIdeasWrapper}>
-								<div
-									style={{
-										display: 'flex',
-										flexDirection: 'row',
-										justifyContent: 'space-between',
-									}}
-								>
-									<Stack direction="row" spacing={1}>
-										<Chip
-											style={{
-												backgroundColor: '#B8C3D8',
-												color: '#3E3E3E',
-												fontWeight: '600',
-												fontSize: '.85rem',
-											}}
-											label="PVG CN"
-										/>
-										<Chip
-											style={{
-												backgroundColor: '#B8C3D8',
-												color: '#3E3E3E',
-												fontWeight: '600',
-												fontSize: '.85rem',
-											}}
-											label="NCM CN"
-										/>
-									</Stack>
-									<div className={classes.focusIdeasDate}>02/28/2022</div>
-								</div>
-								<div>
-									<div className={classes.focusIdeasContent}>
-										PRETIUM RECOURSES INC |&nbsp;
-										<span style={{ color: '#000' }}>NEWCREST MINING LTD</span>
-									</div>
-								</div>
-							</section>
-							<section className={classes.focusIdeasWrapper}>
-								<div
-									style={{
-										display: 'flex',
-										flexDirection: 'row',
-										justifyContent: 'space-between',
-									}}
-								>
-									<Stack direction="row" spacing={1}>
-										<Chip
-											style={{
-												backgroundColor: '#B8C3D8',
-												color: '#3E3E3E',
-												fontWeight: '600',
-												fontSize: '.85rem',
-											}}
-											label="PVG CN"
-										/>
-										<Chip
-											style={{
-												backgroundColor: '#B8C3D8',
-												color: '#3E3E3E',
-												fontWeight: '600',
-												fontSize: '.85rem',
-											}}
-											label="NCM CN"
-										/>
-									</Stack>
-									<div className={classes.focusIdeasDate}>02/28/2022</div>
-								</div>
-								<div>
-									<div className={classes.focusIdeasContent}>
-										PRETIUM RECOURSES INC |&nbsp;
-										<span style={{ color: '#000' }}>NEWCREST MINING LTD</span>
-									</div>
-								</div>
-							</section>
+							{props.focusIdeas.length
+								? props.focusIdeas.map((pub) => focusIdeasSection(pub))
+								: null}
 						</div>
 					</section>
 				</Grid>

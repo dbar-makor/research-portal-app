@@ -98,6 +98,7 @@ const DeadArticle = () => {
 		description: '',
 		events: [],
 		tags: [],
+		region: '',
 		categories: [],
 		attachments: [],
 		title_pdf: '',
@@ -541,7 +542,8 @@ const DeadArticle = () => {
 		setLocalForm(data);
 		setLocalStorageDeadArticle(data);
 
-		validateDeadPublication({ [key]: value }, errors, setErrors, setValidationResult, selectedValue);
+		key !== 'regions' &&
+			validateDeadPublication({ [key]: value }, errors, setErrors, setValidationResult, selectedValue);
 	};
 
 	const deleteItem = (index, category) => {
@@ -674,6 +676,8 @@ const DeadArticle = () => {
 
 		delete formToSend.author;
 		delete formToSend.comments;
+
+		if (formToSend.region === '') delete formToSend.region;
 
 		if (buttonMarker === 'done') {
 			//allow navigation (remove block from useEffect)

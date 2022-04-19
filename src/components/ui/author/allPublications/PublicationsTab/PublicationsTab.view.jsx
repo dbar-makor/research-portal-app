@@ -12,8 +12,6 @@ import useStyles from './PublicationsTab.style';
 const PublicationsTabView = (props) => {
 	const classes = useStyles();
 
-	console.log('props.publication.type', props.publication.type);
-
 	return (
 		<>
 			<Grid item xs={4} className={classes.cardWrapper} key={props.publication.id}>

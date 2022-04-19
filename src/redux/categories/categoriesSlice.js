@@ -18,7 +18,6 @@ export const { setCategories } = categoriesSlice.actions;
 
 export const getCategoriesAsync = () => async (dispatch) => {
 	try {
-		console.log('herer');
 		const res = await axios.get(`${BASE_URL}${END_POINT.ALLCATEGORIES}`);
 
 		if (res.status === 200) {
