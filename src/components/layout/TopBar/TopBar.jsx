@@ -79,7 +79,7 @@ const TopBar = () => {
 			};
 		}
 
-		return () => webSocket.current.close();
+		return () => webSocket.current?.close();
 	}, []);
 
 	const handleToggle = (type) => {
