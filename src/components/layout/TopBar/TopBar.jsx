@@ -13,8 +13,6 @@ const TopBar = () => {
 	const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 	const userType = useSelector((state) => state.auth.userContent?.type);
 
-	console.log('open', open);
-
 	// eslint-disable-next-line no-unused-vars
 	const [notifications, setNotifications] = useState([]);
 
@@ -85,12 +83,9 @@ const TopBar = () => {
 	}, []);
 
 	const handleToggle = (type) => {
-		console.log('handle toggle called');
-
 		if (type === 'user') {
 			setOpen((prevOpen) => !prevOpen);
 			setOpenUserMgmt(false);
-			console.log('open', open);
 		} else if (type === 'notify') {
 			setOpenNotification(true);
 			setOpen(false);
