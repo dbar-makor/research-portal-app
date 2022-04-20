@@ -1,4 +1,5 @@
 import axios from 'axios';
+//import { useLocation, useHistory } from 'react-router-dom';
 // Actions
 import * as actionSnackBar from '../SnackBar/action';
 // Constants
@@ -24,10 +25,21 @@ export const login = (email, password) => async (dispatch) => {
 		const userContent = { ...res.data.user, ...res.data.payload.user };
 
 		localStorage.setItem('userContent', JSON.stringify(userContent));
+
 		dispatch({
 			type: LOGIN_SUCCESS,
 			payload: { token: res.data.token, userContent: userContent },
 		});
+
+		// const location = useLocation();
+		// const history = useHistory();
+
+		// console.log('location.state.to', location.state.to, 'location.state.id', location.state.id);
+
+		// if (location.state.to) {
+		// 	history.push({ pathname: location.state.to, state: { id: location.state.id } });
+		// }
+
 		dispatch(actionSnackBar.setSnackBar('success', 'Successfully connected', 2000));
 	} catch (error) {
 		/* eslint no-console: "off" */

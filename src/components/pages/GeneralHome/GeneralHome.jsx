@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 import { setParams, setParamsPublication } from '../../../utils/helpers/helperFunctions';
 import { BASE_URL, END_POINT } from '../../../utils/constants';
-
 import GeneralHomeView from './GeneralHome.view';
 
 const GeneralHome = () => {
@@ -11,6 +11,13 @@ const GeneralHome = () => {
 	const latestNewsId = categories?.find((categoryObj) => categoryObj.name === 'News')?.id;
 	const morningNotesId = categories?.find((categoryObj) => categoryObj.name === 'Morning Notes')?.id;
 	const featuredId = categories?.find((categoryObj) => categoryObj.name === 'Featured')?.id;
+	const history = useHistory();
+	const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+	const isAuthor = useSelector((state) => state.auth.userContent?.type === 'author');
+
+	const isMember = useSelector(
+		(state) => state.auth.userContent?.type === 'client' || state.auth.userContent?.type === 'prospect',
+	);
 
 	const industryRecoursedId = categories?.find(
 		(categoryObj) => categoryObj.name === 'Industry Recoursed',
@@ -25,7 +32,8 @@ const GeneralHome = () => {
 	const [focusIdeas, setFocusIdeas] = useState([]);
 	const [featuredPublications, setFeaturedPublications] = useState([]);
 	const [mostClickedIdeas, setMostClickedIdeas] = useState([]);
-	//const [events, setEvents] = useState([]);
+
+	const isAuthorised = true;
 
 	const date = new Date();
 
@@ -39,6 +47,25 @@ const GeneralHome = () => {
 
 	const [selectedDay, setSelectedDay] = useState(calendarDefaultValue);
 	const events = [1, 2, 3, 4, 5, 6, 7, 22];
+
+	const whereToLink = (pubId) => {
+		if (!isAuthenticated) {
+			return '/login';
+		} else if (isAuthorised && isMember) {
+			return `/article/${pubId}`;
+		} else if (!isAuthorised && isMember) {
+			console.log('/not-authorised');
+
+			return '/not-authorised';
+		} else if (isAuthor) {
+			return '/prearticle';
+		}
+	};
+
+	const handleClick = (pubId) => {
+		localStorage.setItem('articleId', JSON.stringify(pubId));
+		history.push({ pathname: whereToLink(pubId), state: { id: pubId, to: whereToLink(pubId) } });
+	};
 
 	const fetchLastPublications = useCallback(async (howMany) => {
 		try {
@@ -83,8 +110,6 @@ const GeneralHome = () => {
 		}
 	}, [categories]);
 
-	console.log('mostClickedIdeas', mostClickedIdeas);
-
 	return (
 		<>
 			{categories?.length && (
@@ -100,6 +125,9 @@ const GeneralHome = () => {
 					focusIdeas={focusIdeas}
 					featuredPublications={featuredPublications}
 					mostClickedIdeas={mostClickedIdeas}
+					isAuthenticated={isAuthenticated}
+					whereToLink={whereToLink}
+					handleClick={handleClick}
 				/>
 			)}
 		</>

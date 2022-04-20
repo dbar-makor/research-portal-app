@@ -8,6 +8,7 @@ import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 import Carousel from 'react-material-ui-carousel';
 import { format } from 'date-fns';
+//import { Link } from 'react-router-dom';
 import useStyles, { Tab, TabPanel, TabsList } from './GeneralHome.style';
 
 const formatLongString = (str, lgth) => {
@@ -64,7 +65,11 @@ const GeneralHomeView = (props) => {
 	};
 
 	const lastPublicationsSection = (pub) => (
-		<section key={pub.id} className={classes.lastPublicationsWrapper}>
+		<section
+			key={pub.id}
+			className={classes.lastPublicationsWrapper}
+			onClick={() => props.handleClick(pub.id)}
+		>
 			<div
 				style={{
 					display: 'flex',
@@ -72,10 +77,11 @@ const GeneralHomeView = (props) => {
 					justifyContent: 'space-between',
 				}}
 			>
-				<div className={classes.lastPublicationsTitle} style={{ flex: '65%' }}>
-					{formatLongString(pub.title, 32)}
+				<div className={classes.lastPublicationsTitle} style={{ flex: '80%' }}>
+					{formatLongString(pub.title, 38)}
+					{/* {pub.title} */}
 				</div>
-				<div className={classes.lastPublicationsTitle} style={{ flex: '30%' }}>
+				<div className={classes.lastPublicationsTitle} style={{ flex: '20%' }}>
 					{format(new Date(pub.updated_at), 'dd/MM/yyyy')}
 				</div>
 			</div>
@@ -86,7 +92,7 @@ const GeneralHomeView = (props) => {
 	);
 
 	const latestNewsSection = (pub) => (
-		<section key={pub.id} className={classes.latestNewsWrapper}>
+		<section key={pub.id} className={classes.latestNewsWrapper} onClick={() => props.handleClick(pub.id)}>
 			<div
 				style={{
 					display: 'flex',
@@ -106,7 +112,12 @@ const GeneralHomeView = (props) => {
 	);
 
 	const morningNotesSection = (pub) => (
-		<section key={pub.id} className={classes.morningNotesWrapper}>
+		//<Link to={props.whereToLink}>
+		<section
+			key={pub.id}
+			className={classes.morningNotesWrapper}
+			onClick={() => props.handleClick(pub.id)}
+		>
 			<div
 				style={{
 					display: 'flex',
@@ -121,41 +132,43 @@ const GeneralHomeView = (props) => {
 				</div>
 			</div>
 		</section>
+		//</Link>
 	);
 
 	const industryRecoursedSection = (pub) => (
-		<section key={pub.id} className={classes.industryRecoursedWrapper}>
-			<div
-				style={{
-					display: 'flex',
-					flexDirection: 'row',
-					justifyContent: 'space-between',
-				}}
-			>
-				<Stack direction="row" spacing={1}>
-					{pub.tags?.[0] && (
-						<Chip
-							style={{
-								backgroundColor: '#E2EBFC',
-								color: '#1C67FF',
-								fontWeight: '600',
-								fontSize: '.85rem',
-							}}
-							label={pub.tags?.[0].name}
-						/>
-					)}
-					{pub.tags?.[1] && (
-						<Chip
-							style={{
-								backgroundColor: '#E2EBFC',
-								color: '#1C67FF',
-								fontWeight: '600',
-								fontSize: '.85rem',
-							}}
-							label={pub.tags?.[1].name}
-						/>
-					)}
-				</Stack>
+		<section
+			key={pub.id}
+			className={classes.industryRecoursedWrapper}
+			onClick={() => props.handleClick(pub.id)}
+		>
+			<div className={classes.industryRecoursedUpperRow}>
+				{pub.tags?.length ? (
+					<Stack className={classes.industryRecoursedStack}>
+						{pub.tags?.[0] && (
+							<Chip
+								style={{
+									backgroundColor: '#E2EBFC',
+									color: '#1C67FF',
+									fontWeight: '600',
+									fontSize: '.85rem',
+									marginRight: 10,
+								}}
+								label={pub.tags?.[0].name}
+							/>
+						)}
+						{pub.tags?.[1] && (
+							<Chip
+								style={{
+									backgroundColor: '#E2EBFC',
+									color: '#1C67FF',
+									fontWeight: '600',
+									fontSize: '.85rem',
+								}}
+								label={pub.tags?.[1].name}
+							/>
+						)}
+					</Stack>
+				) : null}
 				<div className={classes.industryRecoursedDate}>
 					{format(new Date(pub.updated_at), 'dd/MM/yyyy')}
 				</div>
@@ -164,14 +177,15 @@ const GeneralHomeView = (props) => {
 				<div className={classes.industryRecoursedContent}>
 					{`${pub.author_name}:`}
 					&nbsp;
-					<span style={{ fontWeight: 'bold' }}>{formatLongString(pub.title, 30)}</span>
+					<span style={{ fontWeight: 'bold' }}>{pub.title}</span>
+					{/* <span style={{ fontWeight: 'bold' }}>{formatLongString(pub.title, 30)}</span> */}
 				</div>
 			</div>
 		</section>
 	);
 
 	const focusIdeasSection = (pub) => (
-		<section key={pub.id} className={classes.focusIdeasWrapper}>
+		<section key={pub.id} className={classes.focusIdeasWrapper} onClick={() => props.handleClick(pub.id)}>
 			<div
 				style={{
 					display: 'flex',
@@ -216,7 +230,11 @@ const GeneralHomeView = (props) => {
 	);
 
 	const mostClickedIdeasSection = (pub) => (
-		<section key={pub.id} className={classes.mostClickedIdeasWrapper}>
+		<section
+			key={pub.id}
+			className={classes.mostClickedIdeasWrapper}
+			onClick={() => props.handleClick(pub.id)}
+		>
 			<div style={{ marginRight: '15px', marginTop: 5, marginBottom: 5 }}>
 				<div className={classes.mostClickedIdeasTitle}>idea</div>
 				<div className={classes.mostClickedIdeasContent}>{formatLongString(pub.title, 40)}</div>
@@ -233,9 +251,10 @@ const GeneralHomeView = (props) => {
 	);
 
 	return (
-		<main style={{ padding: '1% 15% 1% 15%' }} className={classes.mainWrapper}>
+		<main className={classes.mainWrapper}>
 			<Grid container spacing={2}>
 				<Grid item xs={5}>
+					{/* carousel */}
 					<section className={classes.carousel}>
 						<div className={classes.header}>Featured</div>
 						<Carousel
@@ -258,15 +277,20 @@ const GeneralHomeView = (props) => {
 							}}
 						>
 							{props.featuredPublications.length
-								? props.featuredPublications.map((publication) => (
-										<div key={publication.id} className={classes.carouselContect}>
-											{publication.title}
+								? props.featuredPublications.map((pub) => (
+										<div
+											key={pub.id}
+											className={classes.carouselContect}
+											onClick={() => props.handleClick(pub.id)}
+										>
+											{pub.title}
 										</div>
 								  ))
 								: null}
 						</Carousel>
 					</section>
 				</Grid>
+				{/* most clicked */}
 				<Grid item xs={7}>
 					<section className={classes.mostClickedIdeasBox}>
 						<div className={classes.header}>Most Clicked Ideas</div>
@@ -277,7 +301,8 @@ const GeneralHomeView = (props) => {
 						</div>
 					</section>
 				</Grid>
-				<Grid item xs={3.5}>
+				{/* last pubs, latest news, morning notes */}
+				<Grid xs={4.5} item xl={3.5}>
 					<section className={classes.lastPublications}>
 						<div
 							style={{
@@ -364,7 +389,8 @@ const GeneralHomeView = (props) => {
 						</TabsUnstyled>
 					</section>
 				</Grid>
-				<Grid item xs={5}>
+				{/* indus recoursed, focus ideas */}
+				<Grid item xs={4} xl={5}>
 					<section className={classes.industryRecoursed}>
 						<div className={classes.header}>Industry Recoursed</div>
 						{props.industryRecoursed.length
@@ -380,7 +406,8 @@ const GeneralHomeView = (props) => {
 						</div>
 					</section>
 				</Grid>
-				<Grid item xs={3.5}>
+				{/* events */}
+				<Grid item xs={3.5} xl={3.5}>
 					<section className={classes.events}>
 						<div
 							style={{

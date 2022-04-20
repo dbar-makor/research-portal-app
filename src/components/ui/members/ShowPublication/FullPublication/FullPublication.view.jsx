@@ -1,8 +1,8 @@
 import React from 'react';
-
+// eslint-disable-next-line no-unused-vars
 import { CircularProgress, Grid, IconButton } from '@material-ui/core';
+// eslint-disable-next-line no-unused-vars
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
-//import { FilledButton } from '../../../../../styles/MainStyles';
 
 import AuthorInfo from '../AuthorInfo/AuthorInfo';
 import Title from '../Title/Title';
@@ -87,7 +87,7 @@ const FullPublicationView = (props) => {
 					</Grid>
 				</>
 			)}
-			{!props.loadingPub && (
+			{/* {!props.loadingPub && (
 				<IconButton
 					style={{
 						backgroundColor: '#868DA2',
@@ -101,7 +101,7 @@ const FullPublicationView = (props) => {
 				>
 					<ExpandLessIcon fontSize="large" style={{ color: '#ffffff' }} />
 				</IconButton>
-			)}
+			)} */}
 		</Grid>
 	);
 };

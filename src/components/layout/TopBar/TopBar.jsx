@@ -79,7 +79,7 @@ const TopBar = () => {
 			};
 		}
 
-		return () => webSocket.current.close();
+		return () => webSocket.current?.close();
 	}, []);
 
 	const handleToggle = (type) => {
@@ -115,6 +115,8 @@ const TopBar = () => {
 	return (
 		<TopBarView
 			handleToggle={handleToggle}
+			// handleClosePoppers={handleClosePoppers}
+			// handleOpenPoppers={handleOpenPoppers}
 			openUserMgmt={openUserMgmt}
 			setOpenUserMgmt={setOpenUserMgmt}
 			handleClose={handleClose}

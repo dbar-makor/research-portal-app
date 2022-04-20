@@ -5,7 +5,7 @@ import { styled } from '@mui/material/styles';
 import TabUnstyled, { tabUnstyledClasses } from '@mui/base/TabUnstyled';
 import { buttonUnstyledClasses } from '@mui/base/ButtonUnstyled';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
 	header: {
 		fontWeight: 700,
 	},
@@ -18,6 +18,17 @@ const useStyles = makeStyles({
 		justifyContent: 'center',
 		alignItems: 'center',
 		backgroundColor: '#FEFEFE',
+		padding: '2% 15% 1% 15%',
+		[theme.breakpoints.down('lg')]: {
+			padding: '3% 7% 1% 7%',
+		},
+		[theme.breakpoints.down('md')]: {
+			padding: '3% 6% 1% 6%',
+		},
+	},
+	link: {
+		textDecoration: 'none',
+		color: '#151515',
 	},
 	mostClickedIdeasBox: {
 		borderRadius: '8px',
@@ -32,19 +43,21 @@ const useStyles = makeStyles({
 		overflow: 'hidden',
 	},
 	mostClickedIdeasWrapper: {
-		display: 'flex',
-		justifyContent: 'space-between',
-		padding: '0 10px 0 10px',
-		maxHeight: '9vh',
-		minWidth: '25.2vh',
-		margin: '10px',
-		marginTop: 8,
-		//marginBottom: 0,
-		alignItems: 'center',
-		borderRadius: '8px',
-		backgroundColor: '#EDF2FB',
-		willChange: 'transform',
-		animation: 'mostClickedIdeas 10s -10s linear infinite',
+		'display': 'flex',
+		'justifyContent': 'space-between',
+		'padding': '0 10px 0 10px',
+		'maxHeight': '9vh',
+		'minWidth': '25.2vh',
+		'margin': '10px',
+		'marginTop': 8,
+		'alignItems': 'center',
+		'borderRadius': '8px',
+		'backgroundColor': '#EDF2FB',
+		'willChange': 'transform',
+		'animation': 'mostClickedIdeas 20s linear infinite',
+		'&:hover': {
+			cursor: 'pointer',
+		},
 	},
 	mostClickedIdeasTitle: {
 		color: '#8197ae',
@@ -61,11 +74,14 @@ const useStyles = makeStyles({
 		padding: '8px',
 	},
 	carouselContect: {
-		maxHeight: '6vh',
-		textAlign: 'center',
-		fontSize: '1.1rem',
-		padding: '0 3% 0 3%',
-		marginTop: 10,
+		'maxHeight': '6vh',
+		'textAlign': 'center',
+		'fontSize': '1.1rem',
+		'padding': '0 3% 0 3%',
+		'marginTop': 10,
+		'&:hover': {
+			cursor: 'pointer',
+		},
 	},
 	focusIdeas: {
 		padding: '10px',
@@ -76,14 +92,17 @@ const useStyles = makeStyles({
 		maxHeight: '41vh',
 	},
 	focusIdeasWrapper: {
-		display: 'flex',
-		flexDirection: 'column',
-		padding: '12px',
-		animation: 'latestNews 20s -20s linear infinite',
-		marginTop: '10px',
-		borderRadius: '8px',
-		backgroundColor: '#F3F4F8',
-		marginRight: '8px',
+		'display': 'flex',
+		'flexDirection': 'column',
+		'padding': '12px',
+		'animation': 'latestNews 20s linear infinite',
+		'marginTop': '10px',
+		'borderRadius': '8px',
+		'backgroundColor': '#F3F4F8',
+		'marginRight': '8px',
+		'&:hover': {
+			cursor: 'pointer',
+		},
 	},
 	focusIdeasScroll: {
 		'display': 'flex',
@@ -113,7 +132,7 @@ const useStyles = makeStyles({
 	},
 	focusIdeasContent: {
 		color: '#8197ae',
-		fontSize: '0.9vw',
+		fontSize: 'calc(8px + 0.5vw)',
 		marginTop: '10px',
 	},
 	lastPublications: {
@@ -126,34 +145,59 @@ const useStyles = makeStyles({
 		backgroundColor: '#fff',
 	},
 	lastPublicationsWrapper: {
-		display: 'flex',
-		flexDirection: 'column',
-		backgroundColor: '#EDF2FB',
-		padding: '12px',
-		borderRadius: '8px',
-		marginTop: '10px',
+		'display': 'flex',
+		'flexDirection': 'column',
+		'backgroundColor': '#EDF2FB',
+		'padding': '12px',
+		'borderRadius': '8px',
+		'marginTop': '10px',
+		'&:hover': {
+			cursor: 'pointer',
+		},
 	},
 	lastPublicationsTitle: {
 		color: '#8197ae',
 		fontSize: '.9rem',
+		// overFlow: 'hidden',
+		// whiteSpace: 'nowrap',
+		// textOverflow: 'ellipsis'
 	},
 	lastPublicationsContent: {
 		color: '#151515',
 		fontWeight: 'bold',
-		fontSize: '0.8vw',
+		fontSize: 'calc(8px + 0.4vw)',
 		marginTop: '10px',
 	},
 	industryRecoursed: {
 		marginBottom: '25px',
 	},
 	industryRecoursedWrapper: {
+		'display': 'flex',
+		'flexDirection': 'column',
+		'padding': '12px',
+		'marginTop': '10px',
+		'borderRadius': '8px',
+		'border': '2px solid #EDEEF1',
+		'backgroundColor': '#fff',
+		'&:hover': {
+			cursor: 'pointer',
+		},
+	},
+	industryRecoursedUpperRow: {
 		display: 'flex',
-		flexDirection: 'column',
-		padding: '12px',
-		marginTop: '10px',
-		borderRadius: '8px',
-		border: '2px solid #EDEEF1',
-		backgroundColor: '#fff',
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		[theme.breakpoints.down('md')]: {
+			flexDirection: 'column !important',
+			height: 50,
+		},
+	},
+	industryRecoursedStack: {
+		flexDirection: 'row !important',
+		[theme.breakpoints.down('md')]: {
+			flexDirection: 'column',
+			//height: 50,
+		},
 	},
 	industryRecoursedDate: {
 		fontSize: '.9rem',
@@ -161,7 +205,7 @@ const useStyles = makeStyles({
 	},
 	industryRecoursedContent: {
 		color: '#151515',
-		fontSize: '0.8vw',
+		fontSize: 'calc(10px + 0.3vw)',
 		marginTop: '10px',
 	},
 	latestNews: {
@@ -189,6 +233,9 @@ const useStyles = makeStyles({
 		'&:not(:last-child)': {
 			borderBottom: '1px solid #EDEDF0',
 		},
+		'&:hover': {
+			cursor: 'pointer',
+		},
 	},
 	latestNewsHeader: {
 		fontSize: '.9rem',
@@ -214,6 +261,9 @@ const useStyles = makeStyles({
 		'minWidth': '25.2vh',
 		'animation': 'latestNews 30s -30s linear infinite',
 		'willChange': 'transform',
+		'&:hover': {
+			cursor: 'pointer',
+		},
 		'&:not(:last-child)': {
 			borderBottom: '1px solid #EDEDF0',
 		},
@@ -295,7 +345,7 @@ const useStyles = makeStyles({
 		fontWeight: 'bold',
 		fontSize: '.9rem',
 	},
-});
+}));
 
 export default useStyles;
 

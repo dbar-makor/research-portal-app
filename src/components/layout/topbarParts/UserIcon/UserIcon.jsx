@@ -23,6 +23,8 @@ const UserIcon = forwardRef((props, ref) => {
 	return (
 		<UserIconView
 			handleToggle={handleToggle}
+			// handleClosePoppers={props.handleClosePoppers}
+			// handleOpenPoppers={props.handleOpenPoppers}
 			userType={userType}
 			handleClose={handleClose}
 			setOpen={setOpen}
