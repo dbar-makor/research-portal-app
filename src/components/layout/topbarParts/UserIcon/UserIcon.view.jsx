@@ -26,6 +26,7 @@ const UserIconView = forwardRef((props, ref) => {
 							aria-controls={props.open ? 'composition-menu' : undefined}
 							aria-expanded={props.open ? 'true' : undefined}
 							aria-haspopup="true"
+							//onClick={() => props.handleClosePoppers('user')}
 							onClick={() => props.handleToggle('user')}
 						>
 							<ExpandMoreIcon style={{ color: '#ffff' }} />
@@ -110,7 +111,13 @@ const UserIconView = forwardRef((props, ref) => {
 												</Link>
 											</MenuItem>
 										) : null}
-										<MenuItem style={{ color: '#FF0000' }} onClick={props.handleLogout}>
+										<MenuItem
+											style={{ color: '#FF0000' }}
+											onClick={() => {
+												props.handleLogout();
+												props.setOpen(false);
+											}}
+										>
 											<ExitToAppIcon />
 											Logout
 										</MenuItem>

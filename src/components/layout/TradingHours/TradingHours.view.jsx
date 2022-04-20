@@ -19,7 +19,7 @@ import TradingHourUnit from '../topbarParts/TradingHourUnit/TradingHourUnit';
 // 			backgroundColor: '#1c67ffb3',
 // 		},
 // 	},
-// }))(Button);
+// }))(Button)
 
 const LoginButton = withStyles(() => ({
 	root: {
@@ -59,6 +59,8 @@ const TradingHoursView = forwardRef((props, ref) => {
 						<Grid item xs={1}>
 							<BellNotifications
 								handleToggle={props.handleToggle}
+								// handleClosePoppers={props.handleClosePoppers}
+								// handleOpenPoppers={props.handleOpenPoppers}
 								notifications={props.notifications}
 								openNotification={props.openNotification}
 								setOpenNotification={props.setOpenNotification}
@@ -70,6 +72,8 @@ const TradingHoursView = forwardRef((props, ref) => {
 							<UserIcon
 								ref={ref}
 								handleToggle={props.handleToggle}
+								// handleClosePoppers={props.handleClosePoppers}
+								// handleOpenPoppers={props.handleOpenPoppers}
 								userType={props.userType}
 								handleClose={props.handleClose}
 								setOpen={props.setOpen}

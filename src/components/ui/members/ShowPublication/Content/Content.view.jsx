@@ -8,8 +8,6 @@ import StyledEditor from './Content.style';
 const ContentView = (props) => {
 	const classes = useStyles();
 
-	console.log('props.contentBlocks', props.contentBlocks);
-
 	const hasContent = () => {
 		if (typeof props.contentBlocks === 'string') {
 			if (props.contentBlocks === '{}') return false;

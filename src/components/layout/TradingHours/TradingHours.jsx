@@ -54,6 +54,8 @@ const TradingHours = forwardRef((props, ref) => {
 	return (
 		<TradingHoursView
 			handleToggle={handleToggle}
+			// handleClosePoppers={props.handleClosePoppers}
+			// handleOpenPoppers={props.handleOpenPoppers}
 			notifications={notifications}
 			openNotification={openNotification}
 			setOpenNotification={setOpenNotification}

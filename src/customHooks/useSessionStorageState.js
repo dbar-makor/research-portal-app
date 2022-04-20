@@ -10,7 +10,7 @@ function getSessionStorageOrDefault(key, defaultValue) {
 	return JSON.parse(savedData);
 }
 
-// The function expects the name of the key to be stored in sessionStorage, and a default value for a state variable. It returns a the state variable and its setter.
+// The function expects the name of the key to be stored in sessionStorage, and a default value for a state variable. It returns the state variable and its setter.
 
 const useSessionStorageState = (key, defaultValue) => {
 	const [value, setValue] = useState(getSessionStorageOrDefault(key, defaultValue));

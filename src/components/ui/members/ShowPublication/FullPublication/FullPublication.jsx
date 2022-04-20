@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import { BASE_URL, END_POINT } from '../../../../../utils/constants';
 import * as actionSnackBar from '../../../../../redux/SnackBar/action';
 import FullPublicationView from './FullPublication.view';
@@ -10,35 +10,20 @@ import FullPublicationView from './FullPublication.view';
 const FullPublication = () => {
 	const dispatch = useDispatch();
 	const { pubId } = useParams();
+	const location = useLocation();
 	const [chosenPublication, setChosenPublication] = useState();
 	const [loadingPub, setLoadingPub] = useState(null);
 	const userType = useSelector((state) => state.auth.userContent?.type);
 
-	useEffect(() => {
-		if (userType === 'author') {
-			setChosenPublication(JSON.parse(localStorage.getItem('presentation-article')));
-		}
-	}, []);
-
-	// When component unmouts, localStorage gets cleared
-	useEffect(() => {
-		return () => {
-			localStorage.removeItem('presentation-article');
-		};
-	}, []);
-
-	// When tab is closed, localStorage gets cleared
-	useEffect(() => {
-		window.onbeforeunload = () => {
-			localStorage.removeItem('presentation-article');
-		};
-	}, []);
-
-	//in case user is member- pub is taken from the params
 	const getPublication = async (id) => {
 		setLoadingPub(true);
 
 		if (id !== undefined) {
+			//should stay here?..........................................?
+			const token = localStorage.getItem('token');
+
+			axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+			//----------------------------------------------------------------------------------------
 			const resp = await axios.get(`${BASE_URL}${END_POINT.PUBLICATION}/${id}`);
 
 			try {
@@ -52,6 +37,38 @@ const FullPublication = () => {
 		}
 	};
 
+	useEffect(() => {
+		if (userType === 'author') {
+			console.log('location.state', location.state);
+			setChosenPublication(JSON.parse(localStorage.getItem('presentation-article')));
+
+			// When coming from homepage (not from new article form) - id is sent with history.push;
+			//when refreshing- id comes from localStorage
+
+			if (!chosenPublication) {
+				const id = location.state.id || JSON.parse(localStorage.getItem('articleId'));
+
+				getPublication(id);
+			}
+		}
+	}, []);
+
+	// When component unmouts, localStorage gets cleared
+	useEffect(() => {
+		return () => {
+			localStorage.removeItem('presentation-article');
+			localStorage.removeItem('articleId');
+		};
+	}, []);
+
+	// When tab is closed, localStorage gets cleared
+	useEffect(() => {
+		window.onbeforeunload = () => {
+			localStorage.removeItem('presentation-article');
+			localStorage.removeItem('articleId');
+		};
+	}, []);
+
 	const transformVideoLink = (link) => {
 		if (link !== null) {
 			const embedLink = link.replace('watch?v=', 'embed/');
@@ -64,7 +81,10 @@ const FullPublication = () => {
 
 	useEffect(() => {
 		if (userType === 'client' || userType === 'prospect') {
-			getPublication(pubId);
+			// In case pubId from params is undefined as not coming from a Link component
+			const id = pubId || location.state.id || JSON.parse(localStorage.getItem('articleId'));
+
+			getPublication(id);
 		}
 	}, []);
 

@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, Redirect } from 'react-router-dom';
+import { useLocation, useHistory, Redirect } from 'react-router-dom';
 import * as actionAuth from '../../../redux/auth/action';
 import { validateLogin } from '../../../utils/helpers/validationFunctions';
 import LoginPageView from './LoginPage.view';
@@ -8,6 +8,7 @@ import LoginPageView from './LoginPage.view';
 const LoginPage = () => {
 	const dispatch = useDispatch();
 	const location = useLocation();
+	const history = useHistory();
 	const [form, setForm] = useState({ username: '', password: '' });
 	const [showPassword, setShowPassword] = useState(false);
 	const [errors, setErrors] = useState({});
@@ -51,19 +52,38 @@ const LoginPage = () => {
 		return <Redirect to="verification" />;
 	}
 
-	if (isAuthenticated) {
-		if (location.state !== undefined && location.state !== null) {
-			return <Redirect to={location.state.from.pathname} />;
-		} else {
-			if (isAuthor) {
-				return <Redirect to="/researches" />;
-			} else if (isSales || isAdmin) {
-				return <Redirect to="/companies" />;
-			} else if (isMember) {
-				return <Redirect to="/home" />;
+	useEffect(() => {
+		if (isAuthenticated) {
+			if (location.state !== undefined && location.state !== null) {
+				console.log('why am i here???');
+
+				if (isAuthor) {
+					history.push({
+						pathname: location.state.from?.pathname || '/prearticle',
+						state: { id: location.state.id },
+					});
+					//return <Redirect to={location.state.from?.pathname || '/prearticle'} />;
+				}
+
+				if (isMember) {
+					history.push({
+						pathname: location.state.from?.pathname || `/article/${location.state.id}`,
+						state: { id: location.state.id },
+					});
+
+					//return <Redirect to={location.state.from?.pathname || `/article/${location.state.to}`} />;
+				}
+			} else {
+				if (isAuthor) {
+					return <Redirect to="/researches" />;
+				} else if (isSales || isAdmin) {
+					return <Redirect to="/companies" />;
+				} else if (isMember) {
+					history.push('/home');
+				}
 			}
 		}
-	}
+	}, [isAuthenticated]);
 
 	return (
 		<LoginPageView

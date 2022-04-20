@@ -40,6 +40,8 @@ const TopBarView = forwardRef((props, ref) => {
 			<Grid item xs={12} style={{ backgroundColor: '#000', width: '70vw', margin: '0 auto' }}>
 				<TradingHours
 					handleToggle={props.handleToggle}
+					// handleClosePoppers={props.handleClosePoppers}
+					// handleOpenPoppers={props.handleOpenPoppers}
 					notifications={props.notifications}
 					openNotification={props.openNotification}
 					setOpenNotification={props.setOpenNotification}
