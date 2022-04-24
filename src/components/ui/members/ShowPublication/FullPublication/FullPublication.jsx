@@ -11,9 +11,21 @@ const FullPublication = () => {
 	const dispatch = useDispatch();
 	const { pubId } = useParams();
 	const location = useLocation();
-	const [chosenPublication, setChosenPublication] = useState();
-	const [loadingPub, setLoadingPub] = useState(null);
 	const userType = useSelector((state) => state.auth.userContent?.type);
+
+	const [chosenPublication, setChosenPublication] = useState(() => {
+		if (userType === 'author') {
+			if (localStorage.getItem('presentation-article')) {
+				return JSON.parse(localStorage.getItem('presentation-article'));
+			} else {
+				return null;
+			}
+		} else {
+			return null;
+		}
+	});
+
+	const [loadingPub, setLoadingPub] = useState(null);
 
 	const getPublication = async (id) => {
 		setLoadingPub(true);
@@ -38,8 +50,7 @@ const FullPublication = () => {
 
 	useEffect(() => {
 		if (userType === 'author') {
-			console.log('location.state', location.state);
-			setChosenPublication(JSON.parse(localStorage.getItem('presentation-article')));
+			//setChosenPublication(JSON.parse(localStorage.getItem('presentation-article')));
 
 			// When coming from homepage (not from new article form) - id is sent with history.push;
 			//when refreshing- id comes from localStorage

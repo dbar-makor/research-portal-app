@@ -33,7 +33,7 @@ const CommentsView = (props) => {
 					<Grid container justifyContent="space-between" alignItems="center">
 						<Grid item xs={6}>
 							<Typography className={classes.commentSec}>
-								{`Comments (${props.comments.length})`}
+								{`Comments (${props.comments?.length})`}
 							</Typography>
 						</Grid>
 						{props.userType && props.userType !== 'prospect' && props.openAddCmnt !== true ? (
