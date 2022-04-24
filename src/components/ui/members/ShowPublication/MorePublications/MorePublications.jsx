@@ -6,7 +6,7 @@ import { BASE_URL, END_POINT } from '../../../../../utils/constants';
 import MorePublicationsView from './MorePublications.view';
 
 const MorePublications = (props) => {
-	const localCatNames = props.categories.map((cat) => cat.name);
+	const localCatNames = props.categories?.map((cat) => cat.name);
 	const [morePub, setMorePub] = useState(null);
 
 	const getMorePublicationAsync = async () => {
@@ -16,7 +16,7 @@ const MorePublications = (props) => {
 			if (resp.status === 200) {
 				let filterdPublication = resp.data
 					.filter((pub) => {
-						const categoriesNames = pub.categories.map((category) => category.name);
+						const categoriesNames = pub.categories?.map((category) => category.name);
 
 						return categoriesNames.includes(localCatNames[0]);
 					})

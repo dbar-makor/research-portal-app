@@ -16,7 +16,7 @@ const PhoneInputView = (props) => {
 					id="dialing_code"
 					PopperComponent={PopperMy}
 					options={countries && countries.length ? countries : []}
-					autoComplete="off"
+					autoComplete={false}
 					disableClearable
 					value={props.userInformation?.country}
 					inputValue={props.dialingCodeInputValue}
@@ -35,14 +35,15 @@ const PhoneInputView = (props) => {
 								/>
 								<Typography variant="span" component="span" style={{ marginLeft: '8px' }}>
 									{option.name}
-{' '}
-+
-{option.dialing_code}
+									&nbsp;
+									{option.dialing_code}
 								</Typography>
 							</Box>
 						);
 					}}
 					renderInput={(params) => {
+						console.log('params', params);
+
 						return (
 							<CustomTextField
 								className={classes.dialingCodeField}
