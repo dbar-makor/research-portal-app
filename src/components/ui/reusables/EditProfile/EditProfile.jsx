@@ -33,6 +33,9 @@ const EditProfile = () => {
 
 	const fetchUserInformation = useCallback(async () => {
 		try {
+			const token = localStorage.getItem('token');
+
+			axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 			const res = await axios.get(`${BASE_URL}${END_POINT.USER}/${userContent.id}`);
 
 			if (res.status === 201 || res.status === 200) {

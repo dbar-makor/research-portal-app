@@ -54,9 +54,8 @@ const LoginPage = () => {
 
 	useEffect(() => {
 		if (isAuthenticated) {
+			// In case the user is in Login Page after trying to enter a publication in homepage
 			if (location.state !== undefined && location.state !== null) {
-				console.log('why am i here???');
-
 				if (isAuthor) {
 					history.push({
 						pathname: location.state.from?.pathname || '/prearticle',
@@ -75,9 +74,11 @@ const LoginPage = () => {
 				}
 			} else {
 				if (isAuthor) {
-					return <Redirect to="/researches" />;
+					history.push('/researches');
+					//return <Redirect to="/researches" />;
 				} else if (isSales || isAdmin) {
-					return <Redirect to="/companies" />;
+					history.push('/companies');
+					//return <Redirect to="/companies" />;
 				} else if (isMember) {
 					history.push('/home');
 				}

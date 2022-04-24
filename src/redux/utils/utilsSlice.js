@@ -18,6 +18,9 @@ export const { setUtils } = utilsSlice.actions;
 
 export const getUtilsAsync = () => async (dispatch) => {
 	try {
+		const token = localStorage.getItem('token');
+
+		axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 		const res = await axios.get(`${BASE_URL}${END_POINT.UTILS}`);
 
 		if (res.status === 200) {
