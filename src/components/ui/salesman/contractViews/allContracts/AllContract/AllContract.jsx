@@ -75,7 +75,11 @@ const AllContract = () => {
 
 	const getCompaniesNames = async () => {
 		try {
-			const resp = await axios.get(`${BASE_URL}${END_POINT.COMPANY}`);
+			const token = localStorage.getItem('token');
+
+			const resp = await axios.get(`${BASE_URL}${END_POINT.COMPANY}`, {
+				headers: { Authorization: token },
+			});
 
 			if (resp.status === 200) {
 				const companies = resp.data.company.map((company) => {
@@ -123,8 +127,15 @@ const AllContract = () => {
 					}
 				}
 			});
+			const token = localStorage.getItem('token');
 
-			const resp = await axios.get(`${BASE_URL}${END_POINT.CONTRACT}`, { params });
+			const resp = await axios.get(
+				`${BASE_URL}${END_POINT.CONTRACT}`,
+				{ params },
+				{
+					headers: { Authorization: token },
+				},
+			);
 
 			if (resp.status === 200) {
 				setLoadingContract(false);

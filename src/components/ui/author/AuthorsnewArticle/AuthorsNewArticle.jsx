@@ -354,18 +354,21 @@ const AuthorsNewArticle = () => {
 
 		try {
 			let res;
-
-			console.log('formToSend', formToSend);
+			const token = localStorage.getItem('token');
 
 			if (formToSend.id) {
-				res = await axios.put(`${BASE_URL}${END_POINT.PUBLICATION}/${formToSend.id}`, formToSend);
+				res = await axios.put(`${BASE_URL}${END_POINT.PUBLICATION}/${formToSend.id}`, formToSend, {
+					headers: { Authorization: token },
+				});
 
 				if (res.status === 201) {
 					dispatch(actionSnackBar.setSnackBar('success', 'Successfully updated', 2000));
 					history.push('/researches');
 				}
 			} else {
-				res = await axios.post(`${BASE_URL}${END_POINT.PUBLICATION}`, formToSend);
+				res = await axios.post(`${BASE_URL}${END_POINT.PUBLICATION}`, formToSend, {
+					headers: { Authorization: token },
+				});
 
 				if (res.status === 201) {
 					dispatch(actionSnackBar.setSnackBar('success', 'Successfully published', 2000));
@@ -491,7 +494,11 @@ const AuthorsNewArticle = () => {
 			formData.append('file', file);
 
 			try {
-				const res = await axios.post(`${BASE_URL}${END_POINT.FILE}`, formData);
+				const token = localStorage.getItem('token');
+
+				const res = await axios.post(`${BASE_URL}${END_POINT.FILE}`, formData, {
+					headers: { Authorization: token },
+				});
 
 				if (res.status === 200) {
 					const newAttachment = {
@@ -520,7 +527,11 @@ const AuthorsNewArticle = () => {
 		formData.append('file', coverImage);
 
 		try {
-			const res = await axios.post(`${BASE_URL}${END_POINT.FILE}`, formData);
+			const token = localStorage.getItem('token');
+
+			const res = await axios.post(`${BASE_URL}${END_POINT.FILE}`, formData, {
+				headers: { Authorization: token },
+			});
 
 			if (res.status === 200) {
 				const newCover = {

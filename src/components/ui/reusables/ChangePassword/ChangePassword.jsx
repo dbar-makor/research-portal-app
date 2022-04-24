@@ -95,7 +95,11 @@ const ChangePassword = (props) => {
 
 		if (result) {
 			try {
-				const res = await axios.put(`${BASE_URL}${END_POINT.AUTH}/change-password`, localForm);
+				const token = localStorage.getItem('token');
+
+				const res = await axios.put(`${BASE_URL}${END_POINT.AUTH}/change-password`, localForm, {
+					headers: { Authorization: token },
+				});
 				//history.push('/researches');
 
 				if (res.status === 201) {

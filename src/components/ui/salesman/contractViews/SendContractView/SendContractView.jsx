@@ -35,9 +35,14 @@ const SendContractView = (props) => {
 		delete localCopy.contract_id;
 
 		try {
+			const token = localStorage.getItem('token');
+
 			const res = await axios.put(
 				`${BASE_URL}${END_POINT.CONTRACT}/${props.contractCopy.contract_id}`,
 				localCopy,
+				{
+					headers: { Authorization: token },
+				},
 			);
 
 			if (res.status === 200) {
@@ -65,10 +70,12 @@ const SendContractView = (props) => {
 
 	const presentPDFContract = async () => {
 		try {
+			const token = localStorage.getItem('token');
+
 			const res = await axios.get(
 				`${BASE_URL}${END_POINT.CONTRACT}/pdf/${props.contractCopy.contract_id}`,
 				{
-					headers: { Accept: 'application/pdf' },
+					headers: { Authorization: token, Accept: 'application/pdf' },
 				},
 			);
 

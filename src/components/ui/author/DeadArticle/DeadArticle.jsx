@@ -567,7 +567,11 @@ const DeadArticle = () => {
 		formData.append('file', pdf);
 
 		try {
-			const res = await axios.post(`${BASE_URL}${END_POINT.FILE}`, formData);
+			const token = localStorage.getItem('token');
+
+			const res = await axios.post(`${BASE_URL}${END_POINT.FILE}`, formData, {
+				headers: { Authorization: token },
+			});
 
 			if (res.status === 200 && res.data.file) {
 				setLocalForm((prev) => ({ ...prev, file_pdf: res.data.file }));
@@ -628,7 +632,11 @@ const DeadArticle = () => {
 		formData.append('file', coverImage);
 
 		try {
-			const res = await axios.post(`${BASE_URL}${END_POINT.FILE}`, formData);
+			const token = localStorage.getItem('token');
+
+			const res = await axios.post(`${BASE_URL}${END_POINT.FILE}`, formData, {
+				headers: { Authorization: token },
+			});
 
 			if (res.status === 200) {
 				const newCover = {
@@ -715,9 +723,12 @@ const DeadArticle = () => {
 
 		try {
 			let res;
+			const token = localStorage.getItem('token');
 
 			if (formToSend.id) {
-				res = await axios.put(`${BASE_URL}${END_POINT.PUBLICATION}/${formToSend.id}`, formToSend);
+				res = await axios.put(`${BASE_URL}${END_POINT.PUBLICATION}/${formToSend.id}`, formToSend, {
+					headers: { Authorization: token },
+				});
 				history.push('/researches');
 				dispatch(changeChosenResearch(null));
 
@@ -725,7 +736,9 @@ const DeadArticle = () => {
 					dispatch(actionSnackBar.setSnackBar('success', 'Successfully updated', 2000));
 				}
 			} else {
-				res = await axios.post(`${BASE_URL}${END_POINT.PUBLICATION}`, formToSend);
+				res = await axios.post(`${BASE_URL}${END_POINT.PUBLICATION}`, formToSend, {
+					headers: { Authorization: token },
+				});
 				history.push('/researches');
 
 				if (res.status === 201) {

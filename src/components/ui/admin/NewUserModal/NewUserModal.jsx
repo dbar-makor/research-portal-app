@@ -54,7 +54,11 @@ const NewUserModal = (props) => {
 		const userToSend = { ...newUser, country: newUser.country.code, type: props.userType };
 
 		try {
-			const res = await axios.post(`${BASE_URL}${END_POINT.USER}`, userToSend);
+			const token = localStorage.getItem('token');
+
+			const res = await axios.post(`${BASE_URL}${END_POINT.USER}`, userToSend, {
+				headers: { Authorization: token },
+			});
 
 			if (res.status === 201) {
 				dispatch(actionSnackBar.setSnackBar('success', 'Successfully added', 2000));

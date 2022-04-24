@@ -69,7 +69,11 @@ const GeneralHome = () => {
 
 	const fetchLastPublications = useCallback(async (howMany) => {
 		try {
-			const res = await axios.get(`${BASE_URL}${END_POINT.PUBLICATION}`, setParams(0, howMany));
+			const token = localStorage.getItem('token');
+
+			const res = await axios.get(`${BASE_URL}${END_POINT.PUBLICATION}`, setParams(0, howMany), {
+				headers: { Authorization: token },
+			});
 
 			if (res.status === 200) {
 				setLastPublications(res.data.publications);
@@ -82,10 +86,12 @@ const GeneralHome = () => {
 
 	const fetchByCategory = useCallback(async (howMany, categoryId, categorySetter) => {
 		try {
-			const res = await axios.get(
-				`${BASE_URL}${END_POINT.PUBLICATION}`,
-				setParamsPublication(0, howMany, categoryId),
-			);
+			const token = localStorage.getItem('token');
+
+			const res = await axios.get(`${BASE_URL}${END_POINT.PUBLICATION}`, {
+				...setParamsPublication(0, howMany, categoryId),
+				headers: { Authorization: token },
+			});
 
 			if (res.status === 200) {
 				categorySetter(res.data.publications);
@@ -97,7 +103,6 @@ const GeneralHome = () => {
 	});
 
 	// Calls to publications data
-
 	useEffect(() => {
 		if (categories.length) {
 			latestNewsId && fetchByCategory(5, latestNewsId, setLatestNews);

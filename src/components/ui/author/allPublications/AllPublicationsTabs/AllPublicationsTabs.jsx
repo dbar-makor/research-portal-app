@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { BASE_URL, END_POINT } from '../../../../../utils/constants';
-
+import { setParamsAuthorPublication } from '../../../../../utils/helpers/helperFunctions';
 import AllPublicationsTabsView from './AllPublicationsTabs.view';
 
 const AllPublicationsTabs = (props) => {
 	const [value, setValue] = useState(0);
-	const [publications, setPublications] = useState([]);
+	const [drafts, setDrafts] = useState([]);
+	const [published, setPublished] = useState([]);
 	const [filteredPublications, setFilteredPublications] = useState([]);
 	const [categoriesSelect, setCategoriesSelect] = useState([]);
 	const [openNewPublication, setOpenNewPublication] = useState(false);
@@ -32,11 +33,25 @@ const AllPublicationsTabs = (props) => {
 	});
 
 	const fetchPublications = useCallback(async () => {
-		try {
-			const res = await axios.get(`${BASE_URL}${END_POINT.USER}/publication`);
+		const token = localStorage.getItem('token');
 
-			if (res.status === 200) {
-				setPublications(res.data.publications);
+		try {
+			const resPublished = await axios.get(`${BASE_URL}${END_POINT.USER}/publication`, {
+				...setParamsAuthorPublication(0, 30, 'published'),
+				headers: { Authorization: token },
+			});
+
+			const resDrafts = await axios.get(`${BASE_URL}${END_POINT.USER}/publication`, {
+				...setParamsAuthorPublication(0, 30, 'draft'),
+				headers: { Authorization: token },
+			});
+
+			if (resPublished.status === 200) {
+				setPublished(resPublished.data.publications);
+			}
+
+			if (resDrafts.status === 200) {
+				setDrafts(resDrafts.data.publications);
 			}
 		} catch (error) {
 			/* eslint no-console: 0 */
@@ -51,7 +66,7 @@ const AllPublicationsTabs = (props) => {
 	useEffect(() => {
 		if (categoriesSelect.length) {
 			setFilteredPublications(() =>
-				publications.filter((p) =>
+				published.filter((p) =>
 					p.categories.some((c) => {
 						return c.name === categoriesSelect[0].name;
 					}),
@@ -65,7 +80,8 @@ const AllPublicationsTabs = (props) => {
 
 	return (
 		<AllPublicationsTabsView
-			publications={categoriesSelect.length ? filteredPublications : publications}
+			published={categoriesSelect.length ? filteredPublications : published}
+			drafts={categoriesSelect.length ? filteredPublications : drafts}
 			value={value}
 			handleChange={handleChange}
 			handleOpenNewPublication={handleOpenNewPublication}
@@ -85,6 +101,7 @@ const AllPublicationsTabs = (props) => {
 };
 
 AllPublicationsTabs.displayName = 'AllPublicationsTabs';
+
 AllPublicationsTabs.defaultProps = {};
 
 export default React.memo(AllPublicationsTabs);

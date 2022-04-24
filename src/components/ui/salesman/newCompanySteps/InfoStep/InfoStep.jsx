@@ -20,7 +20,11 @@ const InfoStep = (props) => {
 		formData.append('file', image);
 
 		try {
-			const res = await axios.post(`${BASE_URL}${END_POINT.FILE}`, formData);
+			const token = localStorage.getItem('token');
+
+			const res = await axios.post(`${BASE_URL}${END_POINT.FILE}`, formData, {
+				headers: { Authorization: token },
+			});
 
 			if (res.status === 200) {
 				props.setUploadedImage(res.data.file);

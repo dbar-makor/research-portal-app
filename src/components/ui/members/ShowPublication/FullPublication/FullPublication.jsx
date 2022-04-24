@@ -31,14 +31,13 @@ const FullPublication = () => {
 		setLoadingPub(true);
 
 		if (id !== undefined) {
-			//should stay here?..........................................?
-			const token = localStorage.getItem('token');
-
-			axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-			//----------------------------------------------------------------------------------------
-			const resp = await axios.get(`${BASE_URL}${END_POINT.PUBLICATION}/${id}`);
-
 			try {
+				const token = localStorage.getItem('token');
+
+				const resp = await axios.get(`${BASE_URL}${END_POINT.PUBLICATION}/${id}`, {
+					headers: { Authorization: token },
+				});
+
 				if (resp.status === 200) {
 					setLoadingPub(false);
 					setChosenPublication(resp.data);
@@ -98,13 +97,6 @@ const FullPublication = () => {
 			getPublication(id);
 		}
 	}, []);
-
-	// const backToEditing = () => {
-	// 	history.push({
-	// 		pathname: chosenPublication.type === 'live' ? '/new-article' : '/upload-article',
-	// 		state: { publication: location.state?.publication, from: 'prearticle' },
-	// 	});
-	// };
 
 	return (
 		<FullPublicationView

@@ -15,8 +15,9 @@ const Settings = () => {
 		try {
 			const token = localStorage.getItem('token');
 
-			axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-			const res = await axios.get(`${BASE_URL}${END_POINT.SETTINGS}/notification`);
+			const res = await axios.get(`${BASE_URL}${END_POINT.SETTINGS}/notification`, {
+				headers: { Authorization: token },
+			});
 
 			setLoadingUserSettings(true);
 
@@ -37,7 +38,11 @@ const Settings = () => {
 
 		if (objToSend.settings !== null && objToSend.settings !== undefined) {
 			try {
-				await axios.put(`${BASE_URL}${END_POINT.SETTINGS}/notification`, objToSend);
+				const token = localStorage.getItem('token');
+
+				await axios.put(`${BASE_URL}${END_POINT.SETTINGS}/notification`, objToSend, {
+					headers: { Authorization: token },
+				});
 			} catch (err) {
 				dispatch(actionSnackBar.setSnackBar('error', 'failed update settings', 3000));
 			}

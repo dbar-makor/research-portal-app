@@ -19,7 +19,11 @@ const AllPublications = () => {
 
 	const fetchStatistics = useCallback(async () => {
 		try {
-			const res = await axios.get(`${BASE_URL}${END_POINT.USER}/statistics`);
+			const token = localStorage.getItem('token');
+
+			const res = await axios.get(`${BASE_URL}${END_POINT.USER}/statistics`, {
+				headers: { Authorization: token },
+			});
 
 			if (res.status === 201 || res.status === 200) {
 				setStatistics(res.data);

@@ -105,7 +105,11 @@ const CompanyInfo = () => {
 
 	const deleteCompany = async (id) => {
 		try {
-			const res = await axios.delete(`${BASE_URL}${END_POINT.COMPANY}/${id}`);
+			const token = localStorage.getItem('token');
+
+			const res = await axios.delete(`${BASE_URL}${END_POINT.COMPANY}/${id}`, {
+				headers: { Authorization: token },
+			});
 
 			if (res.status === 200) {
 				handleCloseAlert();
@@ -121,7 +125,11 @@ const CompanyInfo = () => {
 
 	const upgradeToClient = async (id) => {
 		try {
-			const res = await axios.put(`${BASE_URL}${END_POINT.COMPANY}${END_POINT.UPGRADE}/${id}`);
+			const token = localStorage.getItem('token');
+
+			const res = await axios.put(`${BASE_URL}${END_POINT.COMPANY}${END_POINT.UPGRADE}/${id}`, {
+				headers: { Authorization: token },
+			});
 
 			if (res.status === 201) {
 				dispatch(getChosenCompanyAsync(id));
@@ -152,7 +160,11 @@ const CompanyInfo = () => {
 		companyCopy.name = chosenCompany.name ? chosenCompany.name : currentCompany.name;
 
 		try {
-			const res = await axios.put(`${BASE_URL}${END_POINT.COMPANY}/${chosenCompany.id}`, companyCopy);
+			const token = localStorage.getItem('token');
+
+			const res = await axios.put(`${BASE_URL}${END_POINT.COMPANY}/${chosenCompany.id}`, companyCopy, {
+				headers: { Authorization: token },
+			});
 
 			if (res.status === 201) {
 				dispatch(getChosenCompanyAsync(chosenCompany.id));

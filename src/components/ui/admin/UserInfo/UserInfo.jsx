@@ -47,7 +47,11 @@ const UserInfo = () => {
 
 	const deleteUser = async (id) => {
 		try {
-			const res = await axios.delete(`${BASE_URL}${END_POINT.USER}/${id}`);
+			const token = localStorage.getItem('token');
+
+			const res = await axios.delete(`${BASE_URL}${END_POINT.USER}/${id}`, {
+				headers: { Authorization: token },
+			});
 
 			if (res.status === 200) {
 				handleCloseAlert();
@@ -79,7 +83,11 @@ const UserInfo = () => {
 		userCopy.email = chosenUser.email ? chosenUser.email : currentUser.email;
 
 		try {
-			const res = await axios.put(`${BASE_URL}${END_POINT.USER}/${chosenUser.id}`, userCopy);
+			const token = localStorage.getItem('token');
+
+			const res = await axios.put(`${BASE_URL}${END_POINT.USER}/${chosenUser.id}`, userCopy, {
+				headers: { Authorization: token },
+			});
 
 			if (res.status === 200) {
 				dispatch(getUserByIdAsync(chosenUser.id));

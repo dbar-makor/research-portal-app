@@ -8,7 +8,6 @@ import './App.css';
 import LoginPage from './components/pages/LoginPage/LoginPage';
 import GeneralHome from './components/pages/GeneralHome/GeneralHome';
 import PrivateRoute from './components/layout/PrivateRoute/PrivateRoute';
-import { setAuthToken } from './utils/constants';
 import { LOGIN_SUCCESS } from './redux/auth/constants';
 import AuthorsNewArticle from './components/ui/author/AuthorsnewArticle/AuthorsNewArticle';
 import AllPublications from './components/ui/author/allPublications/AllPublications/AllPublications';
@@ -44,7 +43,6 @@ const App = () => {
 		const existingToken = localStorage.getItem('token');
 
 		if (existingToken) {
-			setAuthToken(existingToken);
 			const loggedUser = JSON.parse(localStorage.getItem('userContent'));
 
 			dispatch({
