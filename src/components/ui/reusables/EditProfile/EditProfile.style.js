@@ -17,14 +17,21 @@ const useStyles = makeStyles(() => ({
 		paddingLeft: '30px',
 		height: '100%',
 	},
+	upperSection: {},
 	avatar: {
-		height: '96px',
-		width: '96px',
+		'height': '96px',
+		'width': '96px',
+		'backgroundColor': '#E1EBFC',
+		//fill: '#1C67FF',
+		'& svg': {
+			fill: '#1C67FF',
+		},
 	},
 	avatarWrapper: {
 		marginTop: '10px',
 		position: 'relative',
-		width: 'fit-content',
+		// width: 'fit-content',
+		flexWrap: 'nowrap',
 	},
 	editIconWrapper: {
 		width: '21px',
@@ -35,13 +42,27 @@ const useStyles = makeStyles(() => ({
 		boxShadow: '0px 0px 0px 2px #A5AFC233',
 		position: 'absolute',
 		bottom: '0px',
-		right: '0px',
+		left: '70px',
 		zIndex: 2,
 	},
 	editIcon: {
 		width: '15px',
 		height: '15px',
 		fill: '#1C67FF',
+	},
+	uploadIcon: {
+		transform: 'scale(0.85)',
+	},
+	instructionsBox: {
+		fontSize: 12,
+		marginLeft: 16,
+	},
+	avatarInstructions: {
+		'color': '#868DA2',
+		'& span': {
+			fontSize: 10,
+			verticalAlign: 2,
+		},
 	},
 	fieldsWrapper: {
 		marginTop: '10px',

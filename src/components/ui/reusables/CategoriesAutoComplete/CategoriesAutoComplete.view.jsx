@@ -42,7 +42,7 @@ const CategoriesAutoCompleteView = (props) => {
 								return (
 									<TextField
 										{...params}
-										autoComplete={false}
+										autoComplete="off"
 										variant="outlined"
 										width="100%"
 										placeholder="Categories*"

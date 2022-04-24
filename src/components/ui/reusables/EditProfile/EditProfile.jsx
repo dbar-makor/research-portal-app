@@ -42,7 +42,7 @@ const EditProfile = () => {
 				const userData = res.data;
 
 				userData.phone = JSON.parse(userData.phone);
-				userData.country = { ...userData.country, dialing_code: userData.phone.dialing_code };
+				//userData.country = { ...userData.country, dialing_code: userData.phone.dialing_code };
 				userData.birthday = '01/01/2000';
 				userData.categories = [
 					{
@@ -103,7 +103,6 @@ const EditProfile = () => {
 		//userInformation.categories = tempCategories;
 
 		try {
-			console.log('userInformation', tempUserInformation);
 			const res = await axios.put(
 				`${BASE_URL}${END_POINT.USER}/${userContent.id}`,
 				tempUserInformation,
