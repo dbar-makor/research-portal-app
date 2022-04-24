@@ -22,8 +22,8 @@ function a11yProps(index) {
 
 const AllPublicationsTabsView = (props) => {
 	const classes = useStyles();
-	const publishedResearches = props.publications.filter((research) => research.status === 'published');
-	const draftResearches = props.publications.filter((research) => research.status === 'draft');
+	const publishedResearches = props.published;
+	const draftResearches = props.drafts;
 
 	return (
 		<div className={classes.root}>
@@ -76,7 +76,7 @@ const AllPublicationsTabsView = (props) => {
 							</Grid>
 						</Grid>
 					</Grid>
-					{props.publications.length ? (
+					{props.drafts.length || props.published.length ? (
 						<Grid item container xs={12}>
 							<TabPanel value={props.value} index={0} className={classes.tabPanel}>
 								{publishedResearches.length ? (
@@ -96,7 +96,6 @@ const AllPublicationsTabsView = (props) => {
 									</Typography>
 								)}
 							</TabPanel>
-
 							<TabPanel value={props.value} index={1} className={classes.tabPanel}>
 								{draftResearches.length ? (
 									draftResearches.map((pub, idx) => {

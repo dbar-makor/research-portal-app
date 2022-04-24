@@ -121,7 +121,11 @@ const NewCompanyStepper = (props) => {
 
 		try {
 			if (validationResult1 && validationResult2 && company.members.length >= 1) {
-				const res = await axios.post(`${BASE_URL}${END_POINT.COMPANY}`, updatedCompany);
+				const token = localStorage.getItem('token');
+
+				const res = await axios.post(`${BASE_URL}${END_POINT.COMPANY}`, updatedCompany, {
+					headers: { Authorization: token },
+				});
 
 				if (res.status === 200 || res.status === 201) {
 					setCompany(initState);

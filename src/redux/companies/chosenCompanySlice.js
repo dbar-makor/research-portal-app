@@ -22,7 +22,11 @@ export const { changeChosenCompany } = chosenCompanySlice.actions;
 
 export const getChosenCompanyAsync = (id) => async (dispatch) => {
 	try {
-		const res = await axios.get(`${BASE_URL}${END_POINT.COMPANY}/${id}`);
+		const token = localStorage.getItem('token');
+
+		const res = await axios.get(`${BASE_URL}${END_POINT.COMPANY}/${id}`, {
+			headers: { Authorization: token },
+		});
 
 		if (res.status === 200) {
 			dispatch(changeChosenCompany(res.data));

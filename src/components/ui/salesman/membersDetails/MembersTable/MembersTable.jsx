@@ -52,7 +52,11 @@ const MembersTable = () => {
 		delete memberToAdd.member_name;
 
 		try {
-			const res = await axios.post(`${BASE_URL}${END_POINT.USER}`, memberToAdd);
+			const token = localStorage.getItem('token');
+
+			const res = await axios.post(`${BASE_URL}${END_POINT.USER}`, memberToAdd, {
+				headers: { Authorization: token },
+			});
 
 			if (res.status === 201 && chosenCompany) {
 				dispatch(getChosenCompanyAsync(chosenCompany.id));
@@ -191,7 +195,11 @@ const MembersTable = () => {
 		delete readyMember.isEditMode;
 
 		try {
-			const res = await axios.put(`${BASE_URL}${END_POINT.USER}/${id}`, readyMember);
+			const token = localStorage.getItem('token');
+
+			const res = await axios.put(`${BASE_URL}${END_POINT.USER}/${id}`, readyMember, {
+				headers: { Authorization: token },
+			});
 
 			if (res.status === 200) {
 				handleClose();
@@ -205,7 +213,11 @@ const MembersTable = () => {
 
 	const deleteMember = async (id) => {
 		try {
-			const res = await axios.delete(`${BASE_URL}${END_POINT.USER}/${id}`);
+			const token = localStorage.getItem('token');
+
+			const res = await axios.delete(`${BASE_URL}${END_POINT.USER}/${id}`, {
+				headers: { Authorization: token },
+			});
 
 			if (res.status === 200 && chosenCompany) {
 				dispatch(getChosenCompanyAsync(chosenCompany.id));

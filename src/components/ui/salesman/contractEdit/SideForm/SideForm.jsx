@@ -33,12 +33,16 @@ const SideForm = (props) => {
 
 			try {
 				const contractSignerID = contractSigner.id ? contractSigner.id : contractSigner;
+				const token = localStorage.getItem('token');
 
 				setEmailSent(true);
 				const res = await axios.put(
 					`${BASE_URL}${END_POINT.CONTRACT}/${props.chosenContract.contract_id}`,
 					{
 						signer_user: contractSignerID,
+					},
+					{
+						headers: { Authorization: token },
 					},
 				);
 
@@ -70,10 +74,12 @@ const SideForm = (props) => {
 		setLoadingPDF(true);
 
 		try {
+			const token = localStorage.getItem('token');
+
 			const res = await axios.get(
 				`${BASE_URL}${END_POINT.CONTRACT}/pdf/${props.chosenContract.contract_id}`,
 				{
-					headers: { Accept: 'application/pdf' },
+					headers: { Authorization: token, Accept: 'application/pdf' },
 				},
 			);
 

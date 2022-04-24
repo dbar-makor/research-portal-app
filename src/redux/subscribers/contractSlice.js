@@ -33,7 +33,11 @@ export const getContractDataAsync = () => async (dispatch) => {
 	dispatch(setLoading(true));
 
 	try {
-		const res = await axios.get(BASE_URL + END_POINT.CONTRACT);
+		const token = localStorage.getItem('token');
+
+		const res = await axios.get(BASE_URL + END_POINT.CONTRACT, {
+			headers: { Authorization: token },
+		});
 
 		if (res.status === 200) {
 			dispatch(getContractData(res.data.contract));

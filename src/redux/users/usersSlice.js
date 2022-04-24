@@ -75,10 +75,13 @@ export const getUsersByTypeAsync = (offset, limit, search, type, status) => asyn
 	const state = getState();
 
 	try {
-		const res = await axios.get(
-			`${BASE_URL}${END_POINT.USER}`,
-			setParams(offset, limit, search, type, status),
-		);
+		const token = localStorage.getItem('token');
+
+		const res = await axios.get(`${BASE_URL}${END_POINT.USER}`, {
+			...setParams(offset, limit, search, type, status),
+
+			headers: { Authorization: token },
+		});
 
 		if (res.status === 200) {
 			dispatch(setUserProperty({ key: 'metaData', value: res.data.meta_data }));
@@ -108,7 +111,11 @@ export const getUsersDataAsync = () => async (dispatch) => {
 	dispatch(setLoading(true));
 
 	try {
-		const res = await axios.get(BASE_URL + END_POINT.USER);
+		const token = localStorage.getItem('token');
+
+		const res = await axios.get(`${BASE_URL} + ${END_POINT.USER}`, {
+			headers: { Authorization: token },
+		});
 
 		if (res.status === 200) {
 			dispatch(getUsersData(res.data.user));

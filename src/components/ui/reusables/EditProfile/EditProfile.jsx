@@ -35,8 +35,9 @@ const EditProfile = () => {
 		try {
 			const token = localStorage.getItem('token');
 
-			axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-			const res = await axios.get(`${BASE_URL}${END_POINT.USER}/${userContent.id}`);
+			const res = await axios.get(`${BASE_URL}${END_POINT.USER}/${userContent.id}`, {
+				headers: { Authorization: token },
+			});
 
 			if (res.status === 201 || res.status === 200) {
 				const userData = res.data;
@@ -103,9 +104,14 @@ const EditProfile = () => {
 		//userInformation.categories = tempCategories;
 
 		try {
+			const token = localStorage.getItem('token');
+
 			const res = await axios.put(
 				`${BASE_URL}${END_POINT.USER}/${userContent.id}`,
 				tempUserInformation,
+				{
+					headers: { Authorization: token },
+				},
 			);
 
 			if (res.status === 200) {

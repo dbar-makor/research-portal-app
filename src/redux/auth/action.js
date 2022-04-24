@@ -3,7 +3,7 @@ import axios from 'axios';
 // Actions
 import * as actionSnackBar from '../SnackBar/action';
 // Constants
-import { END_POINT, BASE_URL, setAuthToken } from '../../utils/constants';
+import { END_POINT, BASE_URL } from '../../utils/constants';
 import { changeChosenCompany } from '../companies/chosenCompanySlice';
 import { SET_LOADING_INDICATOR_AUTH, LOGIN_SUCCESS, LOGOUT_SUCCESS } from './constants';
 
@@ -20,27 +20,21 @@ export const login = (email, password) => async (dispatch) => {
 			headers: headers,
 		});
 
-		setAuthToken(res.data.token);
-		localStorage.token = res.data.token;
-		const userContent = { ...res.data.user, ...res.data.payload.user };
+		if (res.status === 200) {
+			localStorage.setItem('token', `Bearer ${res.data.token}`);
 
-		localStorage.setItem('userContent', JSON.stringify(userContent));
+			const userContent = { ...res.data.user, ...res.data.payload.user };
 
-		dispatch({
-			type: LOGIN_SUCCESS,
-			payload: { token: res.data.token, userContent: userContent },
-		});
+			localStorage.setItem('userContent', JSON.stringify(userContent));
+			dispatch({
+				type: LOGIN_SUCCESS,
+				payload: { token: res.data.token, userContent: userContent },
+			});
 
-		// const location = useLocation();
-		// const history = useHistory();
-
-		// console.log('location.state.to', location.state.to, 'location.state.id', location.state.id);
-
-		// if (location.state.to) {
-		// 	history.push({ pathname: location.state.to, state: { id: location.state.id } });
-		// }
-
-		dispatch(actionSnackBar.setSnackBar('success', 'Successfully connected', 2000));
+			dispatch(actionSnackBar.setSnackBar('success', 'Successfully connected', 2000));
+		} else {
+			dispatch(actionSnackBar.setSnackBar('error', 'Login failed', 2000));
+		}
 	} catch (error) {
 		/* eslint no-console: "off" */
 		console.log(error);
@@ -63,8 +57,9 @@ export const logout = () => async (dispatch) => {
 	try {
 		const token = localStorage.getItem('token');
 
-		axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-		const res = await axios.delete(BASE_URL + END_POINT.AUTH);
+		const res = await axios.delete(`${BASE_URL} + ${END_POINT.AUTH}`, {
+			headers: { Authorization: token },
+		});
 
 		if (res.status === 200) {
 			localStorage.clear();

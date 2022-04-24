@@ -119,10 +119,18 @@ const Contract = (props) => {
 
 	const handleSubmit = async () => {
 		try {
-			const res = await axios.post(`${BASE_URL}${END_POINT.CONTRACT}`, {
-				...contract,
-				id: chosenCompany.id,
-			});
+			const token = localStorage.getItem('token');
+
+			const res = await axios.post(
+				`${BASE_URL}${END_POINT.CONTRACT}`,
+				{
+					...contract,
+					id: chosenCompany.id,
+				},
+				{
+					headers: { Authorization: token },
+				},
+			);
 
 			if (res.status === 200 || res.status === 201) {
 				props.setContractCopy({ ...contract, contract_id: res.data.id });
@@ -163,7 +171,11 @@ const Contract = (props) => {
 		contractCopy.sales = sales;
 
 		try {
-			const res = await axios.put(`${BASE_URL}${END_POINT.CONTRACT}/${contract_id}`, contractCopy);
+			const token = localStorage.getItem('token');
+
+			const res = await axios.put(`${BASE_URL}${END_POINT.CONTRACT}/${contract_id}`, contractCopy, {
+				headers: { Authorization: token },
+			});
 
 			if (res.status === 201 || res.status === 200) {
 				// dispatch(actionSnackBar.setSnackBar('success', 'Successfully updated', 2000));
