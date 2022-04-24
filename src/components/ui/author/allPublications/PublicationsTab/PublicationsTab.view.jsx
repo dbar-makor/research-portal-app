@@ -37,7 +37,7 @@ const PublicationsTabView = (props) => {
 							<Grid item xs={4}>
 								<FilledButton
 									className={classes.publishStyle}
-									onClick={() => props.sendPublication('done')}
+									onClick={() => props.publishPublication(props.publication.id)}
 								>
 									Publish
 								</FilledButton>

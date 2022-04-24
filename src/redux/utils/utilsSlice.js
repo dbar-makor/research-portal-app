@@ -18,7 +18,11 @@ export const { setUtils } = utilsSlice.actions;
 
 export const getUtilsAsync = () => async (dispatch) => {
 	try {
-		const res = await axios.get(`${BASE_URL}${END_POINT.UTILS}`);
+		const token = localStorage.getItem('token');
+
+		const res = await axios.get(`${BASE_URL}${END_POINT.UTILS}`, {
+			headers: { Authorization: token },
+		});
 
 		if (res.status === 200) {
 			dispatch(setUtils(res.data));

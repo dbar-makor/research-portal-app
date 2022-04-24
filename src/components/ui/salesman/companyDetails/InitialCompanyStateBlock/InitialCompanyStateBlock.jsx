@@ -89,7 +89,11 @@ const InitialCompanyStateBlock = (props) => {
 		}
 
 		try {
-			const res = await axios.put(`${BASE_URL}${END_POINT.PROSPECT}/${id}`, trialToSend);
+			const token = localStorage.getItem('token');
+
+			const res = await axios.put(`${BASE_URL}${END_POINT.PROSPECT}/${id}`, trialToSend, {
+				headers: { Authorization: token },
+			});
 
 			if (res.status === 201) {
 				dispatch(actionSnackBar.setSnackBar('success', 'Successfully updated', 2000));

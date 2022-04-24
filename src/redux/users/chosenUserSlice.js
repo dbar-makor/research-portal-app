@@ -24,7 +24,11 @@ export const selectChosenUserData = (state) => state.chosenUser.chosenUser;
 
 export const getUserByIdAsync = (id) => async (dispatch) => {
 	try {
-		const res = await axios.get(`${BASE_URL}${END_POINT.USER}/${id}`);
+		const token = localStorage.getItem('token');
+
+		const res = await axios.get(`${BASE_URL}${END_POINT.USER}/${id}`, {
+			headers: { Authorization: token },
+		});
 
 		if (res.status === 200) {
 			dispatch(changeChosenUser(res.data));

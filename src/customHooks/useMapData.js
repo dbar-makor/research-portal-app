@@ -15,8 +15,6 @@ export const useMapData = () => {
 		setMapLoading(true);
 
 		try {
-			delete axios.defaults.headers.common['Authorization'];
-
 			const res = await axios.get(jsonUrl);
 
 			if (res.status === 200) {

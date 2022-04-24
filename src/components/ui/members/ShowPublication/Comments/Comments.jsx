@@ -17,7 +17,11 @@ const Comments = (props) => {
 
 	const addComment = async (content) => {
 		try {
-			let res = await axios.post(`${BASE_URL}${END_POINT.COMMENT}`, content);
+			const token = localStorage.getItem('token');
+
+			let res = await axios.post(`${BASE_URL}${END_POINT.COMMENT}`, content, {
+				headers: { Authorization: token },
+			});
 
 			if (res.status === 201) {
 				dispatch(actionSnackBar.setSnackBar('success', 'comment successfully', 3000));

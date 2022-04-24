@@ -32,9 +32,33 @@ const PublicationsTab = (props) => {
 		}
 	}, [chosenResearch]);
 
+	const publishPublication = async (id) => {
+		try {
+			const token = localStorage.getItem('token');
+
+			const res = await axios.put(`${BASE_URL}${END_POINT.PUBLICATION}${END_POINT.PUBLISH}/${id}`, {
+				headers: { Authorization: token },
+			});
+
+			history.push('/researches');
+
+			if (res.status === 201) {
+				props.fetchPublications();
+				dispatch(actionSnackBar.setSnackBar('success', 'Successfully published', 2000));
+				props.fetchStatistics();
+			}
+		} catch (error) {
+			dispatch(actionSnackBar.setSnackBar('error', 'publish  failed', 2000));
+		}
+	};
+
 	const asyncDelete = async () => {
 		try {
-			const res = await axios.delete(`${BASE_URL}${END_POINT.PUBLICATION}/${deleteID}`);
+			const token = localStorage.getItem('token');
+
+			const res = await axios.delete(`${BASE_URL}${END_POINT.PUBLICATION}/${deleteID}`, {
+				headers: { Authorization: token },
+			});
 
 			if (res.status === 201 || res.status === 200) {
 				props.fetchPublications();
@@ -89,6 +113,7 @@ const PublicationsTab = (props) => {
 			openAlert={openAlert}
 			handleCloseAlert={handleCloseAlert}
 			deletePublication={deletePublication}
+			publishPublication={publishPublication}
 		/>
 	);
 };

@@ -80,10 +80,12 @@ export const getCompaniesDataAsync = (offset, limit, search, type, status) => as
 	const state = getState();
 
 	try {
-		const res = await axios.get(
-			BASE_URL + END_POINT.COMPANY,
-			setParams(offset, limit, search, type, status),
-		);
+		const token = localStorage.getItem('token');
+
+		const res = await axios.get(BASE_URL + END_POINT.COMPANY, {
+			...setParams(offset, limit, search, type, status),
+			headers: { Authorization: token },
+		});
 
 		if (res.status === 200) {
 			dispatch(setProperty({ key: 'metaData', value: res.data.meta_data }));
@@ -113,7 +115,11 @@ export const getCompaniesDataAsync = (offset, limit, search, type, status) => as
 
 export const deleteCompanyAsync = (id) => async (dispatch) => {
 	try {
-		const res = await axios.delete(`${BASE_URL}${END_POINT.COMPANY}/${id}`);
+		const token = localStorage.getItem('token');
+
+		const res = await axios.delete(`${BASE_URL}${END_POINT.COMPANY}/${id}`, {
+			headers: { Authorization: token },
+		});
 
 		if (res.status === 200) {
 			dispatch(getCompaniesDataAsync());

@@ -44,7 +44,11 @@ const ContractAndInvoicesContent = (props) => {
 
 	const getClientContract = async (id) => {
 		try {
-			const res = await axios.get(`${BASE_URL}${END_POINT.COMPANY}${END_POINT.CONTRACT}/${id}`);
+			const token = localStorage.getItem('token');
+
+			const res = await axios.get(`${BASE_URL}${END_POINT.COMPANY}${END_POINT.CONTRACT}/${id}`, {
+				headers: { Authorization: token },
+			});
 
 			if (res.status === 200) {
 				await setContracts(res.data);

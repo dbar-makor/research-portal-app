@@ -23,7 +23,11 @@ const MembersMain = () => {
 
 	const getPublications = async () => {
 		try {
-			const resp = await axios.get(`${BASE_URL}${END_POINT.PUBLICATION}/user`);
+			const token = localStorage.getItem('token');
+
+			const resp = await axios.get(`${BASE_URL}${END_POINT.PUBLICATION}/user`, {
+				headers: { Authorization: token },
+			});
 
 			setPublications(resp.data);
 			setFilterPublications(resp.data);

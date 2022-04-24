@@ -11,7 +11,11 @@ const MorePublications = (props) => {
 
 	const getMorePublicationAsync = async () => {
 		try {
-			const resp = await axios.get(`${BASE_URL}${END_POINT.PUBLICATION}/user`);
+			const token = localStorage.getItem('token');
+
+			const resp = await axios.get(`${BASE_URL}${END_POINT.PUBLICATION}/user`, {
+				headers: { Authorization: token },
+			});
 
 			if (resp.status === 200) {
 				let filterdPublication = resp.data

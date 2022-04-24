@@ -12,8 +12,10 @@ const InvoiceTable = (props) => {
 
 	const showInvoice = async (invoiceId) => {
 		try {
+			const token = localStorage.getItem('token');
+
 			const res = await axios.get(`${BASE_URL}${END_POINT.INVOICE}/pdf/${invoiceId}`, {
-				headers: { Accept: 'application/pdf' },
+				headers: { Authorization: token, Accept: 'application/pdf' },
 			});
 
 			if (res.status === 200) {
