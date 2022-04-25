@@ -43,7 +43,7 @@ const EditProfile = () => {
 				const userData = res.data;
 
 				userData.phone = JSON.parse(userData.phone);
-				userData.country = { ...userData.country, dialing_code: userData.phone.dialing_code };
+				//userData.country = { ...userData.country, dialing_code: userData.phone.dialing_code };
 				userData.birthday = '01/01/2000';
 				userData.categories = [
 					{

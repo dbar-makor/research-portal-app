@@ -28,11 +28,11 @@ const AccountSettings = () => {
 
 	return (
 		<Grid container className={classes.page}>
-			<Grid item container direction="column" xs={3} className={classes.pageTitle}>
+			<Grid item container direction="column" xs={2} className={classes.pageTitle}>
 				<BlueShape />
-				<Typography style={{ fontSize: 24, color: '#868DA2' }}>Account Settings</Typography>
+				<Typography className={classes.sideTitle}>Account Settings</Typography>
 			</Grid>
-			<Grid container item xs={6} direction="row" className={classes.contentBox}>
+			<Grid container item xs={10} lg={8} direction="row" className={classes.contentBox}>
 				<Grid className={classes.sideBarWrapper} item xs={3}>
 					<Grid container justifyContent="space-between" className={classes.sideBar}>
 						<Grid item container xs={12} className={classes.upperSection}>

@@ -1,14 +1,28 @@
 import { makeStyles } from '@material-ui/core';
 
-export const useStyles = makeStyles(() => ({
+export const useStyles = makeStyles((theme) => ({
 	page: {
 		marginTop: 20,
+		marginBottom: '5vh',
+		paddingLeft: '8vw',
+		minHeight: '61vh',
+		[theme.breakpoints.down('md')]: {
+			flexDirection: 'column',
+		},
+	},
+	sideTitle: {
+		fontSize: 24,
+		color: '#868DA2',
+		[theme.breakpoints.down('md')]: {
+			fontSize: 20,
+		},
 	},
 	contentBox: {
 		marginTop: 25,
 		position: 'relative',
-		height: 'calc(100vh - 220px)',
-		minHeight: 560,
+		//height: 'calc(100vh - 220px)',
+		minHeight: 800,
+		maxWidth: 1000,
 		border: '1px solid #A5AFC233',
 		borderRadius: '8px',
 	},
@@ -28,7 +42,9 @@ export const useStyles = makeStyles(() => ({
 	bottomSection: {
 		marginTop: 200,
 	},
-	container: {},
+	container: {
+		//maxWidth: 600,
+	},
 	logout: {
 		textAlign: 'center',
 		display: 'flex',
@@ -47,7 +63,7 @@ export const useStyles = makeStyles(() => ({
 		backgroundColor: '#F6F9FC',
 	},
 	pageTitle: {
-		paddingLeft: '8vw',
+		//paddingLeft: '8vw',
 		flexWrap: 'nowrap',
 	},
 	chosenRoute: {

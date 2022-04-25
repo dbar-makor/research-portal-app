@@ -16,16 +16,21 @@ const PhoneInputView = (props) => {
 					id="dialing_code"
 					PopperComponent={PopperMy}
 					options={countries && countries.length ? countries : []}
-					autoComplete={false}
+					//autoComplete="off"
 					disableClearable
-					value={props.userInformation?.country}
+					value={props.userInformation?.country || { name: '', code: '', dialing_code: '' }}
 					inputValue={props.dialingCodeInputValue}
 					getOptionLabel={(option) => {
 						return option.dialing_code ? option.dialing_code.toString() : '';
 					}}
 					renderOption={(option, props) => {
 						return (
-							<Box component="li" className={classes.flagBox} {...props}>
+							<Box
+								//component="li"
+								className={classes.flagBox}
+								selected={props.selected}
+								value={props.inputValue}
+							>
 								<img
 									className={classes.flagImg}
 									loading="eager"
@@ -33,7 +38,7 @@ const PhoneInputView = (props) => {
 									srcSet={`https://flagcdn.com/w40/${option?.code?.toLowerCase()}.png 2x`}
 									alt=""
 								/>
-								<Typography variant="span" component="span" style={{ marginLeft: '8px' }}>
+								<Typography variant="caption" component="span" style={{ marginLeft: '8px' }}>
 									{option.name}
 									&nbsp;
 									{option.dialing_code}
@@ -42,8 +47,6 @@ const PhoneInputView = (props) => {
 						);
 					}}
 					renderInput={(params) => {
-						console.log('params', params);
-
 						return (
 							<CustomTextField
 								className={classes.dialingCodeField}
@@ -58,7 +61,8 @@ const PhoneInputView = (props) => {
 									autoComplete: 'dialing_code',
 									startAdornment: (
 										<InputAdornment position="start" style={{ position: 'relative' }}>
-											<Box component="span" {...props}>
+											{/* <Box component="span" {...props}> */}
+											<Box component="span">
 												{props.adornment && (
 													<img
 														className={`${classes.flagImg} ${classes.inputFlag}`}
