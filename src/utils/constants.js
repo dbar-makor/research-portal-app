@@ -20,6 +20,7 @@ export const END_POINT = {
 	COMMENT: '/comment',
 	PUBLISH: '/publish',
 	SETTINGS: '/settings',
+	EVENT: '/event',
 };
 
 export const storageKeys = {

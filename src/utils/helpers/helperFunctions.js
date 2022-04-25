@@ -27,14 +27,14 @@ export const setParams = (offset, limit, search, type, status) => {
 				result += `${key}=${encodeURIComponent(value)}&`;
 			}
 
-			return result.substr(0, result.length - 1);
+			return result.substring(0, result.length - 1);
 		},
 	};
 
 	return request;
 };
 
-export const setParamsPublication = (offset, limit, id) => {
+export const setParamsPublication = (offset, limit, id, orderBy) => {
 	const params = new URLSearchParams();
 
 	if (
@@ -50,6 +50,8 @@ export const setParamsPublication = (offset, limit, id) => {
 		params.append('id', id);
 	}
 
+	if (orderBy) params.append('order_by', orderBy);
+
 	const request = {
 		params,
 		paramsSerializer: (params) => {
@@ -59,7 +61,7 @@ export const setParamsPublication = (offset, limit, id) => {
 				result += `${key}=${encodeURIComponent(value)}&`;
 			}
 
-			return result.substr(0, result.length - 1);
+			return result.substring(0, result.length - 1);
 		},
 	};
 
@@ -91,7 +93,31 @@ export const setParamsAuthorPublication = (offset, limit, status) => {
 				result += `${key}=${encodeURIComponent(value)}&`;
 			}
 
-			return result.substr(0, result.length - 1);
+			return result.substring(0, result.length - 1);
+		},
+	};
+
+	return request;
+};
+
+export const setParamsEvent = (month, year) => {
+	const params = new URLSearchParams();
+
+	if (month !== null && year !== undefined) {
+		params.append('month', month);
+		params.append('year', year);
+	}
+
+	const request = {
+		params,
+		paramsSerializer: (params) => {
+			let result = '';
+
+			for (const [key, value] of params) {
+				result += `${key}=${encodeURIComponent(value)}&`;
+			}
+
+			return result.substring(0, result.length - 1);
 		},
 	};
 
