@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { Box, Typography, InputAdornment, Grid } from '@material-ui/core';
 import NumberInputUnit from '../NumberInputUnit/NumberInputUnit';
 import NumberFormatCustom from '../../../layout/NumberFormatCustom/NumberFormatCustom';
-import useStyles, { StyledAutoComplete, CustomTextField, PopperMy } from './PhoneInput.style';
+import useStyles, { StyledAutoComplete, CustomTextField } from './PhoneInput.style';
 
 const PhoneInputView = (props) => {
 	const countries = useSelector((state) => state.utils.utils.country);
@@ -11,21 +11,27 @@ const PhoneInputView = (props) => {
 
 	return (
 		<Grid container>
-			<Grid item xs={5}>
+			<Grid item xs={3} lg={4}>
 				<StyledAutoComplete
 					id="dialing_code"
-					PopperComponent={PopperMy}
+					className={classes.phoneField}
+					// PopperComponent={PopperMy}
 					options={countries && countries.length ? countries : []}
-					autoComplete={false}
+					//autoComplete="off"
 					disableClearable
-					value={props.userInformation?.country}
+					value={props.userInformation?.country || { name: '', code: '', dialing_code: '' }}
 					inputValue={props.dialingCodeInputValue}
 					getOptionLabel={(option) => {
 						return option.dialing_code ? option.dialing_code.toString() : '';
 					}}
 					renderOption={(option, props) => {
 						return (
-							<Box component="li" className={classes.flagBox} {...props}>
+							<Box
+								//component="li"
+								className={classes.flagBox}
+								selected={props.selected}
+								value={props.inputValue}
+							>
 								<img
 									className={classes.flagImg}
 									loading="eager"
@@ -33,7 +39,7 @@ const PhoneInputView = (props) => {
 									srcSet={`https://flagcdn.com/w40/${option?.code?.toLowerCase()}.png 2x`}
 									alt=""
 								/>
-								<Typography variant="span" component="span" style={{ marginLeft: '8px' }}>
+								<Typography variant="caption" component="span" style={{ marginLeft: '8px' }}>
 									{option.name}
 									&nbsp;
 									{option.dialing_code}
@@ -42,8 +48,6 @@ const PhoneInputView = (props) => {
 						);
 					}}
 					renderInput={(params) => {
-						console.log('params', params);
-
 						return (
 							<CustomTextField
 								className={classes.dialingCodeField}
@@ -57,8 +61,9 @@ const PhoneInputView = (props) => {
 									...params.InputProps,
 									autoComplete: 'dialing_code',
 									startAdornment: (
-										<InputAdornment position="start" style={{ position: 'relative' }}>
-											<Box component="span" {...props}>
+										<InputAdornment position="start">
+											{/* <Box component="span" {...props}> */}
+											<Box component="span">
 												{props.adornment && (
 													<img
 														className={`${classes.flagImg} ${classes.inputFlag}`}
@@ -79,7 +84,7 @@ const PhoneInputView = (props) => {
 					onInputChange={(event, value, reason) => props.handleSelectInput(event, value, reason)}
 				/>
 			</Grid>
-			<Grid item xs={7}>
+			<Grid item xs={9} lg={8}>
 				<NumberInputUnit
 					className={classes.phoneInput}
 					variant="outlined"

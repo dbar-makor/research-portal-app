@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
 	saveButton: {
 		position: 'absolute',
 		right: 10,
@@ -14,17 +14,35 @@ const useStyles = makeStyles(() => ({
 	},
 	editWrapper: {
 		paddingTop: '30px',
-		paddingLeft: '30px',
-		height: '100%',
+		paddingLeft: '10px',
+		paddingRight: '10px',
+		//height: '100%',
+		flexWrap: 'nowrap',
+		[theme.breakpoints.down('sm')]: {
+			margin: '0 auto',
+			width: '90%',
+		},
+	},
+	upperSection: {
+		marginLeft: 15,
+	},
+	lowerSection: {
+		minHeight: 70,
 	},
 	avatar: {
-		height: '96px',
-		width: '96px',
+		'height': '96px',
+		'width': '96px',
+		'backgroundColor': '#E1EBFC',
+		//fill: '#1C67FF',
+		'& svg': {
+			fill: '#1C67FF',
+		},
 	},
 	avatarWrapper: {
 		marginTop: '10px',
 		position: 'relative',
-		width: 'fit-content',
+		// width: 'fit-content',
+		flexWrap: 'nowrap',
 	},
 	editIconWrapper: {
 		width: '21px',
@@ -35,7 +53,7 @@ const useStyles = makeStyles(() => ({
 		boxShadow: '0px 0px 0px 2px #A5AFC233',
 		position: 'absolute',
 		bottom: '0px',
-		right: '0px',
+		left: '70px',
 		zIndex: 2,
 	},
 	editIcon: {
@@ -43,14 +61,34 @@ const useStyles = makeStyles(() => ({
 		height: '15px',
 		fill: '#1C67FF',
 	},
+	uploadIcon: {
+		transform: 'scale(0.85)',
+	},
+	instructionsBox: {
+		fontSize: 12,
+		marginLeft: 16,
+	},
+	avatarInstructions: {
+		'color': '#868DA2',
+		'& span': {
+			fontSize: 10,
+			verticalAlign: 2,
+		},
+	},
 	fieldsWrapper: {
 		marginTop: '10px',
-		marginLeft: '-15px',
+		//marginLeft: '-15px',
+		marginLeft: 'auto',
+		marginRight: 'auto',
 		height: '50%',
+		[theme.breakpoints.down('sm')]: {},
+	},
+	fieldWrapper: {
+		marginBottom: 10,
 	},
 	textField: {
-		'width': '11vw',
-		'minWidth': '11vw',
+		// 'width': '11vw',
+		'minWidth': '200px',
 		'& .MuiInputLabel-outlined': {
 			transform: 'translate(14px, -6px) scale(0.75) !important',
 			backgroundColor: '#fff',
@@ -60,6 +98,7 @@ const useStyles = makeStyles(() => ({
 		},
 	},
 	birthdayPicker: {
+		'minWidth': '200px',
 		'& .MuiOutlinedInput-root': {
 			'borderRadius': '8px',
 			'& fieldset': {

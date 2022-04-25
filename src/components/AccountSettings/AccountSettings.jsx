@@ -28,17 +28,24 @@ const AccountSettings = () => {
 
 	return (
 		<Grid container className={classes.page}>
-			<Grid item container direction="column" xs={3} className={classes.pageTitle}>
+			<Grid item container direction="column" xs={2} className={classes.pageTitle}>
 				<BlueShape />
-				<Typography style={{ fontSize: 24, color: '#868DA2' }}>Account Settings</Typography>
+				<Typography className={classes.sideTitle}>Account Settings</Typography>
 			</Grid>
-			<Grid container item xs={6} direction="row" className={classes.contentBox}>
-				<Grid className={classes.sideBarWrapper} item xs={3}>
+			<Grid container item xs={10} lg={8} direction="row" className={classes.contentBox}>
+				<Grid className={classes.sideBarWrapper} item xs={2} sm={3}>
 					<Grid container justifyContent="space-between" className={classes.sideBar}>
 						<Grid item container xs={12} className={classes.upperSection}>
 							<Grid item container xs={12} justifyContent="center" alignItems="center">
 								<Grid item xs={3}>
-									<Avatar className={classes.avatar} src={`${userContent.avatar}`} />
+									<Avatar
+										className={classes.avatar}
+										src={
+											userContent.avatar
+												? userContent.avatar
+												: '../../../../assets/icons/DefaultProfilePic.svg'
+										}
+									/>
 								</Grid>
 								<Grid item xs={8}>
 									<Typography>{userContent.name}</Typography>
@@ -118,7 +125,7 @@ const AccountSettings = () => {
 						</Grid>
 					</Grid>
 				</Grid>
-				<Grid item xs={9} className={classes.container}>
+				<Grid item xs={10} sm={9} className={classes.container}>
 					{settingsTab === 0 && <EditProfile />}
 					{settingsTab === 1 && <Settings />}
 					{settingsTab === 2 && <ContractAndTrails />}
