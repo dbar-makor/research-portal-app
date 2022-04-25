@@ -98,13 +98,10 @@ const AllInvoices = () => {
 			});
 			const token = localStorage.getItem('token');
 
-			const resp = await axios.get(
-				`${BASE_URL}${END_POINT.INVOICE}`,
-				{ params },
-				{
-					headers: { Authorization: token },
-				},
-			);
+			const resp = await axios.get(`${BASE_URL}${END_POINT.INVOICE}`, {
+				...params,
+				headers: { Authorization: token },
+			});
 
 			if (resp.status === 200) {
 				setLoadingInvoices(false);

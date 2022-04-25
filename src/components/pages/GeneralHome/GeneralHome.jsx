@@ -2,9 +2,19 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
-import { setParams, setParamsPublication } from '../../../utils/helpers/helperFunctions';
+import { setParams, setParamsPublication, setParamsEvent } from '../../../utils/helpers/helperFunctions';
 import { BASE_URL, END_POINT } from '../../../utils/constants';
 import GeneralHomeView from './GeneralHome.view';
+
+const date = new Date();
+
+const today = date.getDate();
+
+const calendarDefaultValue = {
+	year: date.getFullYear(),
+	month: date.getMonth(),
+	day: date.getDay(),
+};
 
 const GeneralHome = () => {
 	const categories = useSelector((state) => state.categories.categories);
@@ -32,21 +42,15 @@ const GeneralHome = () => {
 	const [focusIdeas, setFocusIdeas] = useState([]);
 	const [featuredPublications, setFeaturedPublications] = useState([]);
 	const [mostClickedIdeas, setMostClickedIdeas] = useState([]);
+	// const [month, setMonth] = useState(new Date().getMonth() + 1);
+	// const [year, setYear] = useState(new Date().getFullYear());
+	const [date, setDate] = useState(new Date());
+	const [events, setEvents] = useState([]);
+	const [eventsDays, setEventsDays] = useState([]);
 
 	const isAuthorised = true;
 
-	const date = new Date();
-
-	const today = date.getDate();
-
-	const calendarDefaultValue = {
-		year: date.getFullYear(),
-		month: date.getMonth(),
-		day: date.getDay(),
-	};
-
 	const [selectedDay, setSelectedDay] = useState(calendarDefaultValue);
-	const events = [1, 2, 3, 4, 5, 6, 7, 22];
 
 	const whereToLink = (pubId) => {
 		if (!isAuthenticated) {
@@ -69,11 +73,7 @@ const GeneralHome = () => {
 
 	const fetchLastPublications = useCallback(async (howMany) => {
 		try {
-			const token = localStorage.getItem('token');
-
-			const res = await axios.get(`${BASE_URL}${END_POINT.PUBLICATION}`, setParams(0, howMany), {
-				headers: { Authorization: token },
-			});
+			const res = await axios.get(`${BASE_URL}${END_POINT.PUBLICATION}`, setParams(0, howMany));
 
 			if (res.status === 200) {
 				setLastPublications(res.data.publications);
@@ -84,13 +84,32 @@ const GeneralHome = () => {
 		}
 	});
 
-	const fetchByCategory = useCallback(async (howMany, categoryId, categorySetter) => {
+	const fetchEventsByMonth = useCallback(async () => {
 		try {
-			const token = localStorage.getItem('token');
+			const res = await axios.get(
+				`${BASE_URL}${END_POINT.EVENT}`,
+				setParamsEvent(date.getMonth() + 1, date.getFullYear()),
+			);
 
+			if (res.status === 200) {
+				setEvents(res.data.events);
+				const events = res.data;
+
+				const days = events.map((event) => {
+					return new Date(event.date).getDate();
+				});
+
+				setEventsDays(days);
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	});
+
+	const fetchByCategory = useCallback(async (howMany, categoryId, categorySetter, orderBy) => {
+		try {
 			const res = await axios.get(`${BASE_URL}${END_POINT.PUBLICATION}`, {
-				...setParamsPublication(0, howMany, categoryId),
-				headers: { Authorization: token },
+				...setParamsPublication(0, howMany, categoryId, orderBy),
 			});
 
 			if (res.status === 200) {
@@ -110,16 +129,20 @@ const GeneralHome = () => {
 			industryRecoursedId && fetchByCategory(5, industryRecoursedId, setIndustryRecoursed);
 			focusIdeasId && fetchByCategory(10, focusIdeasId, setFocusIdeas);
 			featuredId && fetchByCategory(3, featuredId, setFeaturedPublications);
-			ideasId && fetchByCategory(5, ideasId, setMostClickedIdeas);
+			ideasId && fetchByCategory(5, ideasId, setMostClickedIdeas, 'views');
 			fetchLastPublications(9);
 		}
 	}, [categories]);
+
+	useEffect(() => {
+		fetchEventsByMonth();
+	}, [date]);
 
 	return (
 		<>
 			{categories?.length && (
 				<GeneralHomeView
-					events={events}
+					eventsDays={eventsDays}
 					today={today}
 					selectedDay={selectedDay}
 					setSelectedDay={setSelectedDay}
@@ -132,6 +155,9 @@ const GeneralHome = () => {
 					mostClickedIdeas={mostClickedIdeas}
 					isAuthenticated={isAuthenticated}
 					whereToLink={whereToLink}
+					events={events}
+					date={date}
+					setDate={setDate}
 					handleClick={handleClick}
 				/>
 			)}

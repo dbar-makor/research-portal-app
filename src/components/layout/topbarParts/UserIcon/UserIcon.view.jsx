@@ -33,7 +33,7 @@ const UserIconView = forwardRef((props, ref) => {
 						</IconButton>
 					</Grid>
 					<Grid item>
-						<Avatar src={`${props.user.avatar}`} />
+						<Avatar src={`${props.user?.avatar}`} />
 					</Grid>
 				</Grid>
 				<Popper
@@ -70,7 +70,7 @@ const UserIconView = forwardRef((props, ref) => {
 													fontSize: 14,
 												}}
 											>
-												{`Hey , ${props.user.name}`}
+												{`Hey , ${props.user?.name}`}
 											</Link>
 										</MenuItem>
 										<MenuItem>

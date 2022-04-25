@@ -8,6 +8,7 @@ import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 import Carousel from 'react-material-ui-carousel';
 import { format } from 'date-fns';
+
 //import { Link } from 'react-router-dom';
 import useStyles, { Tab, TabPanel, TabsList } from './GeneralHome.style';
 
@@ -42,7 +43,7 @@ const GeneralHomeView = (props) => {
 			width: 38,
 		};
 
-		const circleStyle = props.events.includes(dates)
+		const circleStyle = props.eventsDays.includes(dates)
 			? { background: '#1c67ff' }
 			: props.today === dates
 			? { background: '#ed5858' }
@@ -483,6 +484,9 @@ const GeneralHomeView = (props) => {
 										renderDay={renderDay}
 										selectedDays={props.selectedDay}
 										onDayClick={props.setSelectedDay}
+										onMonthChange={(month) => {
+											props.setDate(month);
+										}}
 									/>
 								</div>
 								<section className={classes.eventsWrapper}>
