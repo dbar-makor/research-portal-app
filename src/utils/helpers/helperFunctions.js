@@ -68,7 +68,7 @@ export const setParamsPublication = (offset, limit, id, orderBy) => {
 	return request;
 };
 
-export const setParamsAuthorPublication = (offset, limit, status) => {
+export const setParamsAuthorPublication = (offset, limit, status, category) => {
 	const params = new URLSearchParams();
 
 	if (
@@ -82,6 +82,10 @@ export const setParamsAuthorPublication = (offset, limit, status) => {
 		params.append('limit', limit);
 		params.append('offset', offset);
 		params.append('status', status);
+	}
+
+	if (category && category !== '') {
+		params.append('category_id', category);
 	}
 
 	const request = {
