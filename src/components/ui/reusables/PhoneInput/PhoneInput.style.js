@@ -1,21 +1,50 @@
 /* eslint-disable import/exports-last */
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { Autocomplete } from '@material-ui/lab';
-import { TextField, Popper } from '@material-ui/core';
+import { TextField } from '@material-ui/core';
 
 const useStyles = makeStyles(() => ({
-	flagImg: {
+	'& .MuiAutocomplete-paper': {
+		backgroundColor: '#fff',
+	},
+	'phoneField': {
+		'& .MuiAutocomplete-inputRoot': {
+			padding: '0 8px 0 8px !important',
+			margin: 0,
+			height: 41,
+		},
+		'& .MuiInputBase-root': {
+			//borderRadius: '8px !important',
+		},
+		'& .MuiInputAdornment-root': {
+			'& span': {
+				position: 'absolute',
+				top: 11,
+			},
+		},
+		'& input': {
+			height: 19,
+			padding: '11px !important',
+			margin: '0 0 0 20px !important',
+		},
+	},
+	'flagImg': {
 		height: 18,
 		width: 24,
 	},
-	inputFlag: {
-		position: 'absolute',
-		top: '10px',
-	},
-	flagBox: {
+	// inputFlag: {
+	// 	position: 'absolute',
+	// 	top: '10px',
+	// },
+	'flagBox': {
 		width: '200px',
+		position: 'relative',
+		// backgroundColor: '#fff',
+		// padding: 0,
+		// margin: 0,
+		//width: '100%',
 	},
-	phoneInput: {
+	'phoneInput': {
 		'& .MuiOutlinedInput-input': {
 			width: '120px !important',
 		},
@@ -73,10 +102,9 @@ export const StyledAutoComplete = withStyles(() => ({
 	},
 	paper: {
 		'&.MuiAutocomplete-paper': {
-			backgroundColor: '#FFFF',
 			borderBottom: '2px solid #FFFF',
 			margin: 0,
-			// marginTop: 5,
+			marginTop: 5,
 			borderRadius: 0,
 			padding: 0,
 			width: '100%',
@@ -88,20 +116,19 @@ export const StyledAutoComplete = withStyles(() => ({
 	},
 	listbox: {
 		'position': 'absolute',
-		'&.MuiAutocomplete-listbox': {
-			'&::-webkit-scrollbar': {
-				width: '3px',
-				height: '3px',
-			},
-			'&::-webkit-scrollbar-track': {
-				boxShadow: 'inset 0 0 5px grey',
-				borderRadius: '10px',
-				// marginTop: 50
-			},
-			'&::-webkit-scrollbar-thumb': {
-				backgroundColor: '#FFFF',
-				borderRadius: '10px',
-			},
+		'backgroundColor': '#fff',
+		'&::-webkit-scrollbar': {
+			width: '3px',
+			height: '3px',
+		},
+		'&::-webkit-scrollbar-track': {
+			boxShadow: 'inset 0 0 5px grey',
+			borderRadius: '10px',
+			// marginTop: 50
+		},
+		'&::-webkit-scrollbar-thumb': {
+			backgroundColor: '#FFFF',
+			borderRadius: '10px',
 		},
 	},
 	popupIndicator: {
@@ -131,7 +158,7 @@ export const CustomTextField = withStyles(() => ({
 		'& .MuiOutlinedInput-root': {
 			backgroundColor: '#ffff',
 			border: '1px solid #A5AFC233',
-			borderRadius: 5,
+			borderRadius: 8,
 		},
 		'& .MuiOutlinedInput-inputMarginDense': {
 			padding: '13px 8px',
@@ -162,8 +189,16 @@ export const CustomTextField = withStyles(() => ({
 	},
 }))(TextField);
 
-export const PopperMy = (props) => {
-	return <Popper {...props} style={{ width: 'fit-content' }} placement="bottom-start" />;
-};
+// export const PopperMy = (props) => {
+// 	console.log('props', props);
 
-PopperMy.displayName = 'PopperMy';
+// 	return (
+// 		<Popper
+// 			{...props}
+// 			//style={{ width: 'fit-content', backgroundColor: 'red !important' }}
+// 			placement="bottom-start"
+// 		/>
+// 	);
+// };
+
+// PopperMy.displayName = 'PopperMy';

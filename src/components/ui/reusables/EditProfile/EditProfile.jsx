@@ -10,9 +10,8 @@ import EditProfileView from './EditProfile.view';
 const EditProfile = () => {
 	const userContent = useSelector((state) => state.auth.userContent);
 
-	const [avatar, setAvatar] = useState(
-		'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-	);
+	const [avatar, setAvatar] = useState(userContent.avatar);
+	//'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'
 
 	const dispatch = useDispatch();
 	const [userInformation, setUserInformation] = useState({});
@@ -42,6 +41,7 @@ const EditProfile = () => {
 			if (res.status === 201 || res.status === 200) {
 				const userData = res.data;
 
+				console.log('userData', userData);
 				userData.phone = JSON.parse(userData.phone);
 				//userData.country = { ...userData.country, dialing_code: userData.phone.dialing_code };
 				userData.birthday = '01/01/2000';

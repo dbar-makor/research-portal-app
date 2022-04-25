@@ -42,19 +42,28 @@ const EditProfileView = (props) => {
 							<UploadIcon className={classes.uploadIcon} />
 						)}
 					</Grid>
-					<Grid item container direction="column" className={classes.instructionsBox}>
-						<Typography className={classes.avatarInstructions}> Must be below: </Typography>
-						<Typography className={classes.avatarInstructions}>
-							170
-							<span>X</span>
-							170 px
-						</Typography>
-					</Grid>
+					{!props.avatar && (
+						<Grid item container direction="column" className={classes.instructionsBox}>
+							<Typography className={classes.avatarInstructions}> Must be below: </Typography>
+							<Typography className={classes.avatarInstructions}>
+								170
+								<span>X</span>
+								170 px
+							</Typography>
+						</Grid>
+					)}
 				</Grid>
 			</Grid>
 
-			<Grid container item className={classes.fieldsWrapper} spacing={1}>
-				<Grid item xs={12} lg={6} xl={4}>
+			<Grid
+				container
+				item
+				justifyContent="space-between"
+				className={classes.fieldsWrapper}
+				spacing={1}
+				xs={12}
+			>
+				<Grid item xs={9} md={6} xl={4} className={classes.fieldWrapper}>
 					<StyledTextField
 						className={classes.textField}
 						value={props.userInformation.name || ''}
@@ -68,7 +77,7 @@ const EditProfileView = (props) => {
 						}}
 					/>
 				</Grid>
-				<Grid item xs={12} sm={12} md={12} lg={6} xl={4}>
+				<Grid item xs={9} md={6} xl={4} className={classes.fieldWrapper}>
 					<StyledTextField
 						className={classes.textField}
 						value={props.userInformation.email || ''}
@@ -82,7 +91,7 @@ const EditProfileView = (props) => {
 						}}
 					/>
 				</Grid>
-				<Grid item xs={12} sm={12} md={12} lg={6} xl={4}>
+				<Grid item xs={9} md={6} xl={4} className={classes.fieldWrapper}>
 					<PhoneInput
 						errors={props.errors}
 						setErrors={props.setErrors}
@@ -97,7 +106,7 @@ const EditProfileView = (props) => {
 						setAdornment={props.setAdornment}
 					/>
 				</Grid>
-				<Grid item xs={12} sm={12} md={12} lg={6} xl={4}>
+				<Grid item xs={9} md={6} xl={4} className={classes.fieldWrapper}>
 					<StyledTextField
 						className={classes.textField}
 						value={props.userInformation.position || ''}
@@ -111,7 +120,7 @@ const EditProfileView = (props) => {
 						}}
 					/>
 				</Grid>
-				<Grid item xs={12} sm={12} md={12} lg={6} xl={4}>
+				<Grid item xs={9} md={6} xl={4} className={classes.fieldWrapper}>
 					<StyledTextField
 						className={classes.textField}
 						value={props.userInformation.username || ''}
@@ -125,7 +134,7 @@ const EditProfileView = (props) => {
 						}}
 					/>
 				</Grid>
-				<Grid item xs={12} sm={12} md={12} lg={6} xl={4}>
+				<Grid item xs={9} md={6} xl={4} className={classes.fieldWrapper}>
 					<KeyboardDatePicker
 						className={classes.birthdayPicker}
 						autoOk
@@ -146,7 +155,7 @@ const EditProfileView = (props) => {
 						}}
 					/>
 				</Grid>
-				<Grid item xs={7} className={classes.autoComplete}>
+				<Grid item xs={10} xl={8} className={classes.autoComplete}>
 					<CategoriesAutoComplete
 						className={classes.autoCompleteField}
 						formObject={props.localCats}
@@ -163,27 +172,28 @@ const EditProfileView = (props) => {
 				<Grid item xs={12}>
 					<Divider style={{ width: '100%' }} />
 				</Grid>
-				<Grid
-					item
-					className={props.chosenModal ? classes.chosenRoute : classes.notChosen}
-					onClick={() => props.handleOpenModal('modal')}
-				>
-					<Grid container alignItems="center">
-						<Grid item>
-							<Typography className={classes.link}>
-								Change Password
-								<ArrowForwardIosOutlinedIcon className={classes.arrowIcon} />
-							</Typography>
+				<Grid className={classes.lowerSection}>
+					<Grid
+						item
+						className={props.chosenModal ? classes.chosenRoute : classes.notChosen}
+						onClick={() => props.handleOpenModal('modal')}
+					>
+						<Grid container alignItems="center">
+							<Grid item>
+								<Typography className={classes.link}>
+									Change Password
+									<ArrowForwardIosOutlinedIcon className={classes.arrowIcon} />
+								</Typography>
+							</Grid>
 						</Grid>
 					</Grid>
-				</Grid>
-			</Grid>
-
-			<Grid item className={classes.saveButton}>
-				<Grid container justifyContent="flex-end">
-					<FilledButton disabled={!props.validationResult} onClick={props.handleFormSubmit}>
-						Save
-					</FilledButton>
+					<Grid item className={classes.saveButton}>
+						<Grid container justifyContent="flex-end">
+							<FilledButton disabled={!props.validationResult} onClick={props.handleFormSubmit}>
+								Save
+							</FilledButton>
+						</Grid>
+					</Grid>
 				</Grid>
 			</Grid>
 			<ChangePassword chosenModal={props.chosenModal} handleCloseModal={props.handleCloseModal} />
