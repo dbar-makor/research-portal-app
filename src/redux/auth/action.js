@@ -57,9 +57,11 @@ export const logout = () => async (dispatch) => {
 	try {
 		const token = localStorage.getItem('token');
 
-		const res = await axios.delete(`${BASE_URL} + ${END_POINT.AUTH}`, {
+		const res = await axios.delete(`${BASE_URL}${END_POINT.AUTH}`, {
 			headers: { Authorization: token },
 		});
+
+		console.log(res);
 
 		if (res.status === 200) {
 			localStorage.clear();
