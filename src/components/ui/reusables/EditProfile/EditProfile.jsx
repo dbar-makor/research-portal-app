@@ -43,49 +43,20 @@ const EditProfile = () => {
 
 				console.log('userData', userData);
 				userData.phone = JSON.parse(userData.phone);
-				//userData.country = { ...userData.country, dialing_code: userData.phone.dialing_code };
-				userData.birthday = '01/01/2000';
-				userData.categories = [
-					{
-						id: '4c9b048d-4c27-11ec-8f4c-10e7c6179426',
-						name: 'Investment strategy',
-					},
-					{
-						id: '92dc90ce-4dd7-11ec-8f4c-10e7c6179426',
-						name: 'Long/short event driven',
-					},
-					{
-						id: '92dcb04d-4dd7-11ec-8f4c-10e7c6179426',
-						name: 'Midday Geneva',
-					},
-					{
-						id: '92dcbe11-4dd7-11ec-8f4c-10e7c6179426',
-						name: 'Morning news & top trading ideas',
-					},
-					{
-						id: '92dcc5a9-4dd7-11ec-8f4c-10e7c6179426',
-						name: 'Risk arbitrage',
-					},
-					{
-						id: '92dccd03-4dd7-11ec-8f4c-10e7c6179426',
-						name: 'Special situation',
-					},
-					{
-						id: '92dce4b6-4dd7-11ec-8f4c-10e7c6179426',
-						name: 'Technical analysis',
-					},
-					{
-						id: '92dcebad-4dd7-11ec-8f4c-10e7c6179426',
-						name: 'Weekly macroscopy',
-					},
-				];
-				setLocalCats(userData.categories);
+				setLocalCats(userData?.categories);
 				setUserInformation(userData);
 				setDialingCodeInputValue(userData.phone.dialing_code);
 				setAdornment(userData.country.code);
 			}
 		} catch (error) {}
 	});
+
+	useEffect(() => {
+		console.log(localCats);
+		setUserInformation((prev) => {
+			return { ...prev, categories: localCats };
+		});
+	}, [localCats]);
 
 	const handleFormSubmit = async () => {
 		const tempCategories = userInformation.categories.map((c) => c.id);
@@ -101,7 +72,10 @@ const EditProfile = () => {
 		delete tempUserInformation.total_views;
 		delete tempUserInformation.total_published;
 		delete tempUserInformation.id;
-		//userInformation.categories = tempCategories;
+
+		if (tempUserInformation.birthday === null) {
+			delete tempUserInformation.birthday;
+		}
 
 		try {
 			const token = localStorage.getItem('token');
