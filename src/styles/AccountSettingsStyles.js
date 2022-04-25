@@ -4,10 +4,12 @@ export const useStyles = makeStyles((theme) => ({
 	page: {
 		marginTop: 20,
 		marginBottom: '5vh',
+		paddingTop: 20,
 		paddingLeft: '8vw',
 		minHeight: '61vh',
 		[theme.breakpoints.down('md')]: {
 			flexDirection: 'column',
+			paddingRight: '8vw',
 		},
 	},
 	sideTitle: {
@@ -19,12 +21,16 @@ export const useStyles = makeStyles((theme) => ({
 	},
 	contentBox: {
 		marginTop: 25,
+		marginBottom: 25,
 		position: 'relative',
 		//height: 'calc(100vh - 220px)',
 		minHeight: 800,
-		maxWidth: 1000,
+		maxWidth: 1050,
 		border: '1px solid #A5AFC233',
 		borderRadius: '8px',
+		[theme.breakpoints.down('sm')]: {
+			minHeight: 850,
+		},
 	},
 	sideBarWrapper: {},
 	upperSection: {
@@ -43,7 +49,8 @@ export const useStyles = makeStyles((theme) => ({
 		marginTop: 200,
 	},
 	container: {
-		//maxWidth: 600,
+		//maxWidth: 750,
+		width: 'fit-content',
 	},
 	logout: {
 		textAlign: 'center',
@@ -61,6 +68,9 @@ export const useStyles = makeStyles((theme) => ({
 		borderRight: '1px solid #A5AFC233',
 		borderBottom: '2px solid #A5AFC233',
 		backgroundColor: '#F6F9FC',
+		[theme.breakpoints.down('sm')]: {
+			minWidth: '160px',
+		},
 	},
 	pageTitle: {
 		//paddingLeft: '8vw',

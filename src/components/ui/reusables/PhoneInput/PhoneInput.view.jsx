@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { Box, Typography, InputAdornment, Grid } from '@material-ui/core';
 import NumberInputUnit from '../NumberInputUnit/NumberInputUnit';
 import NumberFormatCustom from '../../../layout/NumberFormatCustom/NumberFormatCustom';
-import useStyles, { StyledAutoComplete, CustomTextField, PopperMy } from './PhoneInput.style';
+import useStyles, { StyledAutoComplete, CustomTextField } from './PhoneInput.style';
 
 const PhoneInputView = (props) => {
 	const countries = useSelector((state) => state.utils.utils.country);
@@ -11,10 +11,11 @@ const PhoneInputView = (props) => {
 
 	return (
 		<Grid container>
-			<Grid item xs={5}>
+			<Grid item xs={3} lg={4}>
 				<StyledAutoComplete
 					id="dialing_code"
-					PopperComponent={PopperMy}
+					className={classes.phoneField}
+					// PopperComponent={PopperMy}
 					options={countries && countries.length ? countries : []}
 					//autoComplete="off"
 					disableClearable
@@ -60,7 +61,7 @@ const PhoneInputView = (props) => {
 									...params.InputProps,
 									autoComplete: 'dialing_code',
 									startAdornment: (
-										<InputAdornment position="start" style={{ position: 'relative' }}>
+										<InputAdornment position="start">
 											{/* <Box component="span" {...props}> */}
 											<Box component="span">
 												{props.adornment && (
@@ -83,7 +84,7 @@ const PhoneInputView = (props) => {
 					onInputChange={(event, value, reason) => props.handleSelectInput(event, value, reason)}
 				/>
 			</Grid>
-			<Grid item xs={7}>
+			<Grid item xs={9} lg={8}>
 				<NumberInputUnit
 					className={classes.phoneInput}
 					variant="outlined"
