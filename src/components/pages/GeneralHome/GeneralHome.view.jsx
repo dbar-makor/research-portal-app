@@ -8,9 +8,12 @@ import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 import Carousel from 'react-material-ui-carousel';
 import { format } from 'date-fns';
+import formatDistanceToNowStrict from 'date-fns/formatDistanceToNowStrict';
+import isSameDay from 'date-fns/isSameDay';
+import addDays from 'date-fns/addDays';
 
 //import { Link } from 'react-router-dom';
-import useStyles, { Tab, TabPanel, TabsList } from './GeneralHome.style';
+import useStyles, { Tab, TabPanel, TabsList, dayPickerStyle } from './GeneralHome.style';
 
 const formatLongString = (str, lgth) => {
 	if (str.length > 35) {
@@ -30,40 +33,6 @@ const getAuthorsInitials = (author) => {
 
 const GeneralHomeView = (props) => {
 	const classes = useStyles();
-
-	const renderDay = (day) => {
-		const dates = day.getDate();
-
-		const dateStyle = {
-			color: '#000',
-			fontSize: 20,
-		};
-
-		const dateCellStyle = {
-			width: 38,
-		};
-
-		const circleStyle = props.eventsDays.includes(dates)
-			? { background: '#1c67ff' }
-			: props.today === dates
-			? { background: '#ed5858' }
-			: { background: '#ACB1BF' };
-
-		return (
-			<div style={dateCellStyle}>
-				<div style={dateStyle}>{dates}</div>
-				<div
-					style={{
-						display: 'flex',
-						justifyContent: 'center',
-						marginTop: '4px',
-					}}
-				>
-					<div style={circleStyle} className="circle" />
-				</div>
-			</div>
-		);
-	};
 
 	const lastPublicationsSection = (pub) => (
 		<section
@@ -251,6 +220,86 @@ const GeneralHomeView = (props) => {
 		</section>
 	);
 
+	const renderDay = (day) => {
+		const dates = day.getDate();
+
+		console.log('new Date().getDate()', new Date().getDate());
+		console.log('new Date().getDate() === dates', new Date().getDate() === dates);
+		const dateStyle = {
+			color: '#000',
+			fontSize: 20,
+		};
+
+		const dateCellStyle = {
+			width: 38,
+		};
+
+		const circleStyle = props.eventsDays.includes(dates)
+			? { background: '#1c67ff' }
+			: new Date().getDate() === dates
+			? { background: '#ed5858' }
+			: { background: '#ACB1BF' };
+
+		return (
+			<div style={dateCellStyle}>
+				<div style={dateStyle}>{dates}</div>
+				<div
+					style={{
+						display: 'flex',
+						justifyContent: 'center',
+						marginTop: '4px',
+					}}
+				>
+					<div style={circleStyle} className="circle" />
+				</div>
+			</div>
+		);
+	};
+
+	const compareDates = (date1) => {
+		if (isSameDay(date1, new Date())) return { color: '#ED5858', label: 'Today' };
+
+		if (isSameDay(date1, addDays(new Date(), 1))) return { color: '#FAC100', label: 'Tomorrow' };
+
+		return { color: '#00CA80', label: formatDistanceToNowStrict(date1) };
+	};
+
+	const eventBox = (event) => (
+		<div key={event.id} className={classes.eventsInnerWrapper}>
+			<div
+				style={{ backgroundColor: compareDates(new Date(event.date)).color }}
+				className={classes.eventsLabel}
+			/>
+			<div className={classes.eventsContentWrapper}>
+				<div className={classes.eventsInnerContentWrapper}>
+					<div className={classes.eventsHeader}>{event.title}</div>
+					<div style={{ color: '#868DA2' }}>{format(new Date(event.date), 'dd/MM/yyyy')}</div>
+				</div>
+				<div className={classes.eventsInnerContentWrapper}>
+					<div
+						style={{
+							color: '#0F0F0F',
+							fontSize: '.9rem',
+							fontWeight: '600',
+						}}
+						className={classes.eventsContent}
+					>
+						PFE at JPM presentation
+					</div>
+					<div
+						style={{
+							color: compareDates(new Date(event.date)).color,
+							fontSize: '.9rem',
+							fontWeight: '600',
+						}}
+					>
+						{compareDates(new Date(event.date)).label}
+					</div>
+				</div>
+			</div>
+		</div>
+	);
+
 	return (
 		<main className={classes.mainWrapper}>
 			<Grid container spacing={2}>
@@ -319,6 +368,7 @@ const GeneralHomeView = (props) => {
 								<Tab>Europe</Tab>
 								<Tab>United-States</Tab>
 							</TabsList>
+
 							<TabPanel value={0}>
 								{props.lastPublications.length
 									? props.lastPublications
@@ -419,66 +469,17 @@ const GeneralHomeView = (props) => {
 							Events
 						</div>
 						<TabsUnstyled defaultValue={0}>
-							<TabsList>
-								<Tab>Upcoming</Tab>
-								<Tab>Marked</Tab>
-							</TabsList>
+							{props.isAuthenticated && (
+								<TabsList>
+									<Tab>Upcoming</Tab>
+									<Tab>Marked</Tab>
+								</TabsList>
+							)}
+
 							<TabPanel value={0}>
 								<div>
 									<Helmet>
-										<style>
-											{`
-												.DayPicker {
-													font-family: Inter;
-												}
-												.DayPicker-Caption {
-													color: #1C67FF;
-												}
-												.DayPicker-NavButton--next {
-													background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAPCAYAAAA2yOUNAAAABHNCSVQICAgIfAhkiAAAAJ1JREFUKFNj3HX0lsG/v//i2f+yNzo6Kn5gwAIYdxy+MQEong/EF9j/sDtiU8i4f/99gZ8sPw8AFenjUsgIMp2QQrAiQgrhivApRFGESyGGIpDC7YevOzAyMO4HsRn/MwZiKAKH279/IAUC//8zLvS0U09AUYRNAdg0mO9wKYArwqcArIiQArAiWNzBHIk1gsFRwvozwcNGAxTRWAEA+rt/IR87yyoAAAAASUVORK5CYII=)
-												}
-												.DayPicker-NavButton--prev {
-													background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAPCAYAAAA2yOUNAAAABHNCSVQICAgIfAhkiAAAAKVJREFUKFNjZMABth+6nsDEwPTB3U59AyM2NdsP3VzAyPg/Hij30cNWQwBDEZIChv///yd62mkuQFGETQHIJrgiXArgivApACvacfjGBCCdD+LA3IDuGZCiD0BBfiA+APSJIzbfMoLCg5GRcT5YkpFxgYeNeiKGSSABQgqRfIfbRLRwwq4QS4gjKWRgmAj0TAGOuIMrxB53MJ9tP3zdAcT2tNU8AAAtT14Qfdt8HwAAAABJRU5ErkJggg==)
-												}
-												.DayPicker-Day {
-													padding: 0.2em;
-													height: 2.5vw;
-													width: 3vw;
-													table-layout: fixed;
-												}
-												.DayPicker-Day--today {
-													font-weight: 400;
-												}
-												.DayPicker:not(.DayPicker--interactionDisabled) .DayPicker-Day:not(.DayPicker-Day--disabled):not(.DayPicker-Day--selected):not(.DayPicker-Day--outside):hover {
-													background-color: #fff;
-												}
-												.DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside):hover {
-													background-color: white;
-												}
-												.DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
-													font-weight: bold;
-													background-color: white;
-												}
-												.DayPicker-Month {
-													margin: 0;
-													margin-top: 20px;
-												}
-												.DayPicker-wrapper {
-													padding-bottom: 0;
-												}
-												.DayPicker-Months {
-													display: table;
-													width: 100%;
-													table-layout: fixed;
-												}
-												.DayPicker-NavButton {
-													margin-top: 6px;
-												}
-												.DayPicker-Weekday {
-													font-size: 1em;
-												}
-											`}
-										</style>
+										<style>{dayPickerStyle}</style>
 									</Helmet>
 									<DayPicker
 										renderDay={renderDay}
@@ -490,109 +491,9 @@ const GeneralHomeView = (props) => {
 									/>
 								</div>
 								<section className={classes.eventsWrapper}>
-									<div className={classes.eventsInnerWrapper}>
-										<div
-											style={{
-												backgroundColor: '#ED5858',
-											}}
-											className={classes.eventsLabel}
-										/>
-										<div className={classes.eventsContentWrapper}>
-											<div className={classes.eventsInnerContentWrapper}>
-												<div className={classes.eventsHeader}>ARNA US</div>
-												<div style={{ color: '#868DA2' }}>02/28/2022</div>
-											</div>
-											<div className={classes.eventsInnerContentWrapper}>
-												<div
-													style={{
-														color: '#0F0F0F',
-														fontSize: '.9rem',
-														fontWeight: '600',
-													}}
-													className={classes.eventsContent}
-												>
-													PFE at JPM presentation
-												</div>
-												<div
-													style={{
-														color: '#ED5858',
-														fontSize: '.9rem',
-														fontWeight: '600',
-													}}
-												>
-													Today
-												</div>
-											</div>
-										</div>
-									</div>
-									<div className={classes.eventsInnerWrapper}>
-										<div
-											style={{
-												backgroundColor: '#FAC100',
-											}}
-											className={classes.eventsLabel}
-										/>
-										<div className={classes.eventsContentWrapper}>
-											<div className={classes.eventsInnerContentWrapper}>
-												<div className={classes.eventsHeader}>ARNA US</div>
-												<div style={{ color: '#868DA2' }}>02/28/2022</div>
-											</div>
-											<div className={classes.eventsInnerContentWrapper}>
-												<div
-													style={{
-														color: '#0F0F0F',
-														fontSize: '.9rem',
-														fontWeight: '600',
-													}}
-													className={classes.eventsContent}
-												>
-													PFE at JPM presentation
-												</div>
-												<div
-													style={{
-														color: '#B8C3D8',
-														fontSize: '.9rem',
-														fontWeight: '600',
-													}}
-												>
-													Tomorrow
-												</div>
-											</div>
-										</div>
-									</div>
-									<div className={classes.eventsInnerWrapper}>
-										<div
-											style={{ backgroundColor: '#00CA80' }}
-											className={classes.eventsLabel}
-										/>
-										<div className={classes.eventsContentWrapper}>
-											<div className={classes.eventsInnerContentWrapper}>
-												<div className={classes.eventsHeader}>ARNA US</div>
-												<div style={{ color: '#868DA2' }}>02/28/2022</div>
-											</div>
-											<div className={classes.eventsInnerContentWrapper}>
-												<div
-													style={{
-														color: '#0F0F0F',
-														fontSize: '.9rem',
-														fontWeight: '600',
-													}}
-													className={classes.eventsContent}
-												>
-													PFE at JPM presentation
-												</div>
-												<div
-													style={{
-														color: '#B8C3D8',
-														fontSize: '.9rem',
-														fontWeight: '600',
-													}}
-												>
-													2D
-												</div>
-											</div>
-										</div>
-									</div>
+									{props.events?.length
+										? props.events.map((event) => eventBox(event))
+										: null}
 								</section>
 							</TabPanel>
 							<TabPanel value={1}>Second content</TabPanel>

@@ -8,12 +8,11 @@ import GeneralHomeView from './GeneralHome.view';
 
 const date = new Date();
 
-const today = date.getDate();
-
 const calendarDefaultValue = {
 	year: date.getFullYear(),
 	month: date.getMonth(),
 	day: date.getDay(),
+	today: date.getDate(),
 };
 
 const GeneralHome = () => {
@@ -92,7 +91,7 @@ const GeneralHome = () => {
 			);
 
 			if (res.status === 200) {
-				setEvents(res.data.events);
+				setEvents(res.data);
 				const events = res.data;
 
 				const days = events.map((event) => {
@@ -143,7 +142,7 @@ const GeneralHome = () => {
 			{categories?.length && (
 				<GeneralHomeView
 					eventsDays={eventsDays}
-					today={today}
+					calendarDefaultValue={calendarDefaultValue}
 					selectedDay={selectedDay}
 					setSelectedDay={setSelectedDay}
 					lastPublications={lastPublications}
