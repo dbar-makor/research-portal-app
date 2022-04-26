@@ -61,6 +61,8 @@ export const logout = () => async (dispatch) => {
 			headers: { Authorization: token },
 		});
 
+		console.log(res);
+
 		if (res.status === 200) {
 			localStorage.clear();
 			dispatch({ type: LOGOUT_SUCCESS });

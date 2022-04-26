@@ -8,7 +8,6 @@ const AllPublicationsTabs = (props) => {
 	const [value, setValue] = useState(0);
 	const [drafts, setDrafts] = useState([]);
 	const [published, setPublished] = useState([]);
-	const [filteredPublications, setFilteredPublications] = useState([]);
 	const [categoriesSelect, setCategoriesSelect] = useState([]);
 	const [openNewPublication, setOpenNewPublication] = useState(false);
 	const [limit, setLimit] = useState(30);
@@ -37,12 +36,12 @@ const AllPublicationsTabs = (props) => {
 
 		try {
 			const resPublished = await axios.get(`${BASE_URL}${END_POINT.USER}/publication`, {
-				...setParamsAuthorPublication(0, 30, 'published'),
+				...setParamsAuthorPublication(0, 30, 'published', categoriesSelect[0]?.id),
 				headers: { Authorization: token },
 			});
 
 			const resDrafts = await axios.get(`${BASE_URL}${END_POINT.USER}/publication`, {
-				...setParamsAuthorPublication(0, 30, 'draft'),
+				...setParamsAuthorPublication(0, 30, 'draft', categoriesSelect[0]?.id),
 				headers: { Authorization: token },
 			});
 
@@ -61,27 +60,16 @@ const AllPublicationsTabs = (props) => {
 
 	useEffect(() => {
 		fetchPublications();
-	}, []);
-
-	useEffect(() => {
-		if (categoriesSelect.length) {
-			setFilteredPublications(() =>
-				published.filter((p) =>
-					p.categories.some((c) => {
-						return c.name === categoriesSelect[0].name;
-					}),
-				),
-			);
-		}
 	}, [categoriesSelect]);
+
 	const handleChange = useCallback((event, newValue) => {
 		setValue(newValue);
 	});
 
 	return (
 		<AllPublicationsTabsView
-			published={categoriesSelect.length ? filteredPublications : published}
-			drafts={categoriesSelect.length ? filteredPublications : drafts}
+			published={published}
+			drafts={drafts}
 			value={value}
 			handleChange={handleChange}
 			handleOpenNewPublication={handleOpenNewPublication}
