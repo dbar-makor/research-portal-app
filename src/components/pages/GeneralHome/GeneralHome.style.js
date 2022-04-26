@@ -396,3 +396,54 @@ export const TabsList = styled(TabsListUnstyled)`
 	justify-content: center;
 	align-content: space-between;
 `;
+
+export const dayPickerStyle = `
+.DayPicker {
+	font-family: Inter;
+}
+.DayPicker-Caption {
+	color: #1C67FF;
+}
+.DayPicker-NavButton--next {
+	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAPCAYAAAA2yOUNAAAABHNCSVQICAgIfAhkiAAAAJ1JREFUKFNj3HX0lsG/v//i2f+yNzo6Kn5gwAIYdxy+MQEong/EF9j/sDtiU8i4f/99gZ8sPw8AFenjUsgIMp2QQrAiQgrhivApRFGESyGGIpDC7YevOzAyMO4HsRn/MwZiKAKH279/IAUC//8zLvS0U09AUYRNAdg0mO9wKYArwqcArIiQArAiWNzBHIk1gsFRwvozwcNGAxTRWAEA+rt/IR87yyoAAAAASUVORK5CYII=)
+}
+.DayPicker-NavButton--prev {
+	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAPCAYAAAA2yOUNAAAABHNCSVQICAgIfAhkiAAAAKVJREFUKFNjZMABth+6nsDEwPTB3U59AyM2NdsP3VzAyPg/Hij30cNWQwBDEZIChv///yd62mkuQFGETQHIJrgiXArgivApACvacfjGBCCdD+LA3IDuGZCiD0BBfiA+APSJIzbfMoLCg5GRcT5YkpFxgYeNeiKGSSABQgqRfIfbRLRwwq4QS4gjKWRgmAj0TAGOuIMrxB53MJ9tP3zdAcT2tNU8AAAtT14Qfdt8HwAAAABJRU5ErkJggg==)
+}
+.DayPicker-Day {
+	padding: 0.2em;
+	height: 2.5vw;
+	width: 3vw;
+	table-layout: fixed;
+}
+.DayPicker-Day--today {
+	font-weight: 400;
+}
+.DayPicker:not(.DayPicker--interactionDisabled) .DayPicker-Day:not(.DayPicker-Day--disabled):not(.DayPicker-Day--selected):not(.DayPicker-Day--outside):hover {
+	background-color: #fff;
+}
+.DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside):hover {
+	background-color: white;
+}
+.DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
+	font-weight: bold;
+	background-color: white;
+}
+.DayPicker-Month {
+	margin: 0;
+	margin-top: 20px;
+}
+.DayPicker-wrapper {
+	padding-bottom: 0;
+}
+.DayPicker-Months {
+	display: table;
+	width: 100%;
+	table-layout: fixed;
+}
+.DayPicker-NavButton {
+	margin-top: 6px;
+}
+.DayPicker-Weekday {
+	font-size: 1em;
+}`;
