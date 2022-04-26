@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
 			padding: '3% 7% 1% 7%',
 		},
 		[theme.breakpoints.down('md')]: {
-			padding: '3% 6% 1% 6%',
+			padding: '3% 5% 1% 5%',
 		},
 	},
 	link: {
@@ -71,7 +71,8 @@ const useStyles = makeStyles((theme) => ({
 		borderRadius: '8px',
 		backgroundColor: '#fff',
 		border: '2px solid #EDEEF1',
-		padding: '8px',
+		padding: '10px 10px 2px 10px',
+		minHeight: 111,
 	},
 	carouselContect: {
 		'maxHeight': '6vh',
@@ -83,18 +84,20 @@ const useStyles = makeStyles((theme) => ({
 			cursor: 'pointer',
 		},
 	},
+	column: {
+		height: '100vh',
+		overflow: 'hidden',
+	},
 	focusIdeas: {
 		padding: '10px',
 		borderRadius: '8px',
 		backgroundColor: '#fff',
 		border: '2px solid #EDEEF1',
-		minHeight: '41vh',
-		maxHeight: '41vh',
 	},
 	focusIdeasWrapper: {
 		'display': 'flex',
 		'flexDirection': 'column',
-		'padding': '12px',
+		'padding': '10px',
 		'animation': 'latestNews 20s linear infinite',
 		'marginTop': '10px',
 		'borderRadius': '8px',
@@ -107,8 +110,14 @@ const useStyles = makeStyles((theme) => ({
 	focusIdeasScroll: {
 		'display': 'flex',
 		'flexDirection': 'column',
-		'minHeight': '39vh',
-		'maxHeight': '39vh',
+		// 'minHeight': '35.5vh',
+		'maxHeight': '36.5vh',
+		'@media (max-width: 1530px)': {
+			maxHeight: '26vh',
+		},
+		[theme.breakpoints.down('md')]: {
+			maxHeight: '25vh',
+		},
 		'overflow': 'hidden',
 		'overflowY': 'scroll',
 		'&::-webkit-scrollbar-track': {
@@ -126,6 +135,17 @@ const useStyles = makeStyles((theme) => ({
 			backgroundColor: '#D5DBE7',
 		},
 	},
+	focusIdeasChip: {
+		backgroundColor: '#B8C3D8 !important',
+		color: '#3E3E3E !important',
+		fontWeight: '600',
+		fontSize: '.8rem !important',
+		[theme.breakpoints.down('md')]: {
+			'&:not(:first-of-type)': {
+				display: 'none',
+			},
+		},
+	},
 	focusIdeasDate: {
 		fontSize: '.9rem',
 		color: '#8197ae',
@@ -133,7 +153,13 @@ const useStyles = makeStyles((theme) => ({
 	focusIdeasContent: {
 		color: '#8197ae',
 		fontSize: 'calc(8px + 0.5vw)',
-		marginTop: '10px',
+		marginTop: '8px',
+	},
+	lastPublicationsTabsList: {
+		[theme.breakpoints.down('md')]: {
+			transform: 'scale(1, 0.95)',
+			fontSize: 12,
+		},
 	},
 	lastPublications: {
 		maxHeight: '29,5vh',
@@ -170,19 +196,26 @@ const useStyles = makeStyles((theme) => ({
 	},
 	industryRecoursed: {
 		marginBottom: '25px',
+		//maxHeight: '60%',
 	},
 	industryRecoursedWrapper: {
 		'display': 'flex',
 		'flexDirection': 'column',
-		'padding': '12px',
-		'marginTop': '10px',
+		'padding': '10px',
+		'marginTop': '8px',
 		'borderRadius': '8px',
 		'border': '2px solid #EDEEF1',
 		'backgroundColor': '#fff',
 		'&:hover': {
 			cursor: 'pointer',
 		},
+		[theme.breakpoints.down('md')]: {
+			'&:last-of-type': {
+				display: 'none',
+			},
+		},
 	},
+
 	industryRecoursedUpperRow: {
 		display: 'flex',
 		flexDirection: 'row',
@@ -197,6 +230,18 @@ const useStyles = makeStyles((theme) => ({
 		[theme.breakpoints.down('md')]: {
 			flexDirection: 'column',
 			//height: 50,
+		},
+	},
+	industryRecoursedChip: {
+		backgroundColor: '#E2EBFC !important',
+		color: '#1C67FF !important',
+		fontWeight: '600',
+		fontSize: '.85rem !important',
+		marginRight: 10,
+		[theme.breakpoints.down('md')]: {
+			'&:not(:first-of-type)': {
+				display: 'none',
+			},
 		},
 	},
 	industryRecoursedDate: {
@@ -300,13 +345,38 @@ const useStyles = makeStyles((theme) => ({
 		fontSize: '.9rem',
 		color: '#151515',
 	},
+	tablist: {
+		'backgroundColor': '#e2ebfc',
+		'borderRadius': 30,
+		'display': 'flex',
+		'alignItems': 'center',
+		'justifyContent': 'center',
+		'alignContent': 'space-between',
+		'minHeight': 'fit-content',
+		[theme.breakpoints.down('md')]: {
+			transform: 'scale(1, 0.9)',
+		},
+		'& span': {
+			display: 'none',
+		},
+		'& button': {
+			padding: '6px !important',
+		},
+		'& .Mui-selected': {
+			backgroundColor: '#1D67FF',
+		},
+	},
 	events: {
 		minWidth: '29vh',
-		minHeight: '90vh',
+		minHeight: '92vh',
+		//height: 'inherit',
 		borderRadius: '8px',
 		padding: '10px',
 		border: '2px solid #EDEEF1',
 		backgroundColor: '#fff',
+		[theme.breakpoints.down('lg')]: {
+			minWidth: '25vh',
+		},
 	},
 	eventsWrapper: {
 		display: 'flex',
@@ -318,6 +388,8 @@ const useStyles = makeStyles((theme) => ({
 	eventsInnerWrapper: {
 		'display': 'flex',
 		'justifyContent': 'center',
+		'marginLeft': -22,
+		'height': 45,
 		'&:not(:last-child)': {
 			marginBottom: '15px',
 		},
@@ -325,7 +397,7 @@ const useStyles = makeStyles((theme) => ({
 	eventsLabel: {
 		padding: '5px',
 		marginRight: '10px',
-		borderRadius: '0 6px 6px 0',
+		borderRadius: '0 2px 2px 0',
 	},
 	eventsContentWrapper: {
 		display: 'flex',
@@ -337,7 +409,11 @@ const useStyles = makeStyles((theme) => ({
 		'flexDirection': 'row',
 		'justifyContent': 'space-between',
 		'&:not(:last-child)': {
-			marginBottom: '6px',
+			marginBottom: '4px',
+			marginTop: 3,
+		},
+		'&:last-child': {
+			marginTop: -6,
 		},
 	},
 	eventsHeader: {
@@ -412,27 +488,76 @@ export const dayPickerStyle = `
 }
 .DayPicker-Day {
 	padding: 0.2em;
-	height: 2.5vw;
-	width: 3vw;
+	height: 2.0vw;
+	width: 2.2vw;
 	table-layout: fixed;
 }
+
+@media screen and (max-width: 1400px) {
+	.DayPicker-Day {
+		height: 1.5vw;
+		width: 1.8vw;
+	}
+  }
+
+  @media screen and (max-width: 1150px) {
+	.DayPicker-Day {
+		height: 1.3vw;
+		width: 1.5vw;
+		padding: 0.1em;
+
+	}
+  }
+
+.DayPicker-Day div div {
+	font-size: 14px;
+}
+
+@media screen and (max-width: 1250px) {
+	.DayPicker-Day div div {
+		font-size: 13px;
+
+	}
+  }
+
 .DayPicker-Day--today {
-	font-weight: 400;
+	font-weight: 600;
 }
 .DayPicker:not(.DayPicker--interactionDisabled) .DayPicker-Day:not(.DayPicker-Day--disabled):not(.DayPicker-Day--selected):not(.DayPicker-Day--outside):hover {
 	background-color: #fff;
 }
 .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside):hover {
-	background-color: white;
+	background-color: #fff;
 }
 .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
 	font-weight: bold;
-	background-color: white;
+	background-color: #fff;
 }
 .DayPicker-Month {
-	margin: 0;
-	margin-top: 20px;
+	margin:  auto;
+	width: 100%;
 }
+@media screen and (max-width: 1400px) {
+	.DayPicker-Month {
+		transform: scale(0.85) translate(-1vw,-20px);
+		
+	}
+  }
+
+  @media screen and (max-width: 1330px) {
+	.DayPicker-Month {
+		transform: scale(0.85) translate(-2vw, 0);
+	}
+  }
+
+  @media screen and (max-width: 1100px) {
+	.DayPicker-Month {
+		transform: scale(0.85) translate(-3vw, 0);
+	}
+  }
+
+
+
 .DayPicker-wrapper {
 	padding-bottom: 0;
 }
@@ -440,10 +565,42 @@ export const dayPickerStyle = `
 	display: table;
 	width: 100%;
 	table-layout: fixed;
+	margin: 20px auto 0 auto;
 }
-.DayPicker-NavButton {
-	margin-top: 6px;
+.DayPicker-NavBar {
+	position: absolute;
+	right: -15px;
+	top: -14px
 }
+
+@media screen and (max-width: 1400px) {
+	.DayPicker-NavBar  {
+		transform: scale(0.85);
+		right: 15px;
+	}
+  }
+
+  @media screen and (max-width: 1330px) {
+	.DayPicker-NavBar  {
+		transform: scale(0.85);
+		right: 0;
+		top: 0;
+	}
+  }
+
+  @media screen and (max-width: 1100px) {
+	.DayPicker-NavBar  {
+		right: -20px;
+		top: 0;
+	}
+  }
+
+// .DayPicker-NavButton {
+// 	margin-top: 6px;
+// }
 .DayPicker-Weekday {
 	font-size: 1em;
+}
+.DayPicker-Weekday abbr {
+	font-size: 14px;
 }`;
