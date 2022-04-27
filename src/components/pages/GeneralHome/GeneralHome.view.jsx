@@ -2,6 +2,8 @@ import React from 'react';
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import TabsUnstyled from '@mui/base/TabsUnstyled';
+import { TabContext, TabList } from '@material-ui/lab';
+// import Tabs from '@material-ui/core/Tabs';
 import Grid from '@mui/material/Grid';
 import { Helmet } from 'react-helmet';
 import DayPicker from 'react-day-picker';
@@ -115,27 +117,10 @@ const GeneralHomeView = (props) => {
 				{pub.tags?.length ? (
 					<Stack className={classes.industryRecoursedStack}>
 						{pub.tags?.[0] && (
-							<Chip
-								style={{
-									backgroundColor: '#E2EBFC',
-									color: '#1C67FF',
-									fontWeight: '600',
-									fontSize: '.85rem',
-									marginRight: 10,
-								}}
-								label={pub.tags?.[0].name}
-							/>
+							<Chip className={classes.industryRecoursedChip} label={pub.tags?.[0].name} />
 						)}
 						{pub.tags?.[1] && (
-							<Chip
-								style={{
-									backgroundColor: '#E2EBFC',
-									color: '#1C67FF',
-									fontWeight: '600',
-									fontSize: '.85rem',
-								}}
-								label={pub.tags?.[1].name}
-							/>
+							<Chip className={classes.industryRecoursedChip} label={pub.tags?.[1].name} />
 						)}
 					</Stack>
 				) : null}
@@ -166,23 +151,25 @@ const GeneralHomeView = (props) => {
 				<Stack direction="row" spacing={1}>
 					{pub.tags?.[0] && (
 						<Chip
-							style={{
-								backgroundColor: '#B8C3D8',
-								color: '#3E3E3E',
-								fontWeight: '600',
-								fontSize: '.85rem',
-							}}
+							className={classes.focusIdeasChip}
+							// style={{
+							// 	backgroundColor: '#B8C3D8',
+							// 	color: '#3E3E3E',
+							// 	fontWeight: '600',
+							// 	fontSize: '.85rem',
+							// }}
 							label={pub.tags?.[0].name}
 						/>
 					)}
 					{pub.tags?.[1] && (
 						<Chip
-							style={{
-								backgroundColor: '#B8C3D8',
-								color: '#3E3E3E',
-								fontWeight: '600',
-								fontSize: '.85rem',
-							}}
+							className={classes.focusIdeasChip}
+							// style={{
+							// 	backgroundColor: '#B8C3D8',
+							// 	color: '#3E3E3E',
+							// 	fontWeight: '600',
+							// 	fontSize: '.85rem',
+							// }}
 							label={pub.tags?.[1].name}
 						/>
 					)}
@@ -222,23 +209,33 @@ const GeneralHomeView = (props) => {
 
 	const renderDay = (day) => {
 		const dates = day.getDate();
+		const time = day.getTime();
+		const month = day.getMonth();
+		const year = day.getFullYear();
+		const today = new Date();
 
-		console.log('new Date().getDate()', new Date().getDate());
-		console.log('new Date().getDate() === dates', new Date().getDate() === dates);
-		const dateStyle = {
-			color: '#000',
-			fontSize: 20,
-		};
+		const dateStyle =
+			//(dates < today.getDate()) || (month < today.getMonth())
+			time < today.getTime()
+				? {
+						color: '#E2EBFC',
+				  }
+				: {
+						color: '#000',
+				  };
 
 		const dateCellStyle = {
 			width: 38,
 		};
 
-		const circleStyle = props.eventsDays.includes(dates)
-			? { background: '#1c67ff' }
-			: new Date().getDate() === dates
-			? { background: '#ed5858' }
-			: { background: '#ACB1BF' };
+		const circleStyle =
+			time < today.getTime()
+				? { display: 'none' }
+				: dates === today.getDate() && month === today.getMonth() && year === today.getFullYear()
+				? { background: '#ed5858' }
+				: props.eventsDays.includes(dates)
+				? { background: '#1c67ff' }
+				: { background: '#ACB1BF' };
 
 		return (
 			<div style={dateCellStyle}>
@@ -284,7 +281,7 @@ const GeneralHomeView = (props) => {
 						}}
 						className={classes.eventsContent}
 					>
-						PFE at JPM presentation
+						Location to be published
 					</div>
 					<div
 						style={{
@@ -303,7 +300,7 @@ const GeneralHomeView = (props) => {
 	return (
 		<main className={classes.mainWrapper}>
 			<Grid container spacing={2}>
-				<Grid item xs={5}>
+				<Grid item xs={6} lg={5}>
 					{/* carousel */}
 					<section className={classes.carousel}>
 						<div className={classes.header}>Featured</div>
@@ -341,7 +338,7 @@ const GeneralHomeView = (props) => {
 					</section>
 				</Grid>
 				{/* most clicked */}
-				<Grid item xs={7}>
+				<Grid item xs={6} lg={7}>
 					<section className={classes.mostClickedIdeasBox}>
 						<div className={classes.header}>Most Clicked Ideas</div>
 						<div className={classes.horizontalScrollWrapper}>
@@ -352,7 +349,7 @@ const GeneralHomeView = (props) => {
 					</section>
 				</Grid>
 				{/* last pubs, latest news, morning notes */}
-				<Grid xs={4.5} item xl={3.5}>
+				<Grid item xs={4.2} xl={3.5} className={classes.column}>
 					<section className={classes.lastPublications}>
 						<div
 							style={{
@@ -362,34 +359,39 @@ const GeneralHomeView = (props) => {
 						>
 							Last Publications
 						</div>
-						<TabsUnstyled defaultValue={0}>
-							<TabsList>
-								<Tab>Asia-Pacific</Tab>
-								<Tab>Europe</Tab>
-								<Tab>United-States</Tab>
-							</TabsList>
+						<TabsUnstyled defaultValue="asia-pacific">
+							<TabContext value={props.lastPublicationsTabValue}>
+								<TabList
+									className={`${classes.lastPublicationsTabsList} ${classes.tablist}`}
+									onChange={props.handleLastPublicationTabChange}
+								>
+									<Tab value="asia-pacific">Asia-Pacific</Tab>
+									<Tab value="europe">Europe</Tab>
+									<Tab value="united-states">United-States</Tab>
+								</TabList>
 
-							<TabPanel value={0}>
-								{props.lastPublications.length
-									? props.lastPublications
-											.filter((pub) => pub.region === 'Asia-Pacific')
-											.map((pub) => lastPublicationsSection(pub))
-									: null}
-							</TabPanel>
-							<TabPanel value={1}>
-								{props.lastPublications.length
-									? props.lastPublications
-											.filter((pub) => pub.region === 'Europe')
-											.map((pub) => lastPublicationsSection(pub))
-									: null}
-							</TabPanel>
-							<TabPanel value={2}>
-								{props.lastPublications.length
-									? props.lastPublications
-											.filter((pub) => pub.region === 'United-States')
-											.map((pub) => lastPublicationsSection(pub))
-									: null}
-							</TabPanel>
+								<TabPanel value="asia-pacific">
+									{props.lastPublications.length
+										? props.lastPublications
+												.filter((pub) => pub.region === 'Asia-Pacific')
+												.map((pub) => lastPublicationsSection(pub))
+										: null}
+								</TabPanel>
+								<TabPanel value="europe">
+									{props.lastPublications.length
+										? props.lastPublications
+												.filter((pub) => pub.region === 'Europe')
+												.map((pub) => lastPublicationsSection(pub))
+										: null}
+								</TabPanel>
+								<TabPanel value="united-states">
+									{props.lastPublications.length
+										? props.lastPublications
+												.filter((pub) => pub.region === 'United-States')
+												.map((pub) => lastPublicationsSection(pub))
+										: null}
+								</TabPanel>
+							</TabContext>
 						</TabsUnstyled>
 					</section>
 					<section className={classes.latestNews}>
@@ -441,7 +443,7 @@ const GeneralHomeView = (props) => {
 					</section>
 				</Grid>
 				{/* indus recoursed, focus ideas */}
-				<Grid item xs={4} xl={5}>
+				<Grid item xs={4} xl={5} className={classes.column}>
 					<section className={classes.industryRecoursed}>
 						<div className={classes.header}>Industry Recoursed</div>
 						{props.industryRecoursed.length
@@ -458,7 +460,7 @@ const GeneralHomeView = (props) => {
 					</section>
 				</Grid>
 				{/* events */}
-				<Grid item xs={3.5} xl={3.5}>
+				<Grid item xs={3.8} xl={3.5} className={classes.column}>
 					<section className={classes.events}>
 						<div
 							style={{
@@ -468,35 +470,71 @@ const GeneralHomeView = (props) => {
 						>
 							Events
 						</div>
-						<TabsUnstyled defaultValue={0}>
-							{props.isAuthenticated && (
-								<TabsList>
-									<Tab>Upcoming</Tab>
-									<Tab>Marked</Tab>
-								</TabsList>
-							)}
+						<TabsUnstyled defaultValue="upcoming" className={classes.TabsUnstyled}>
+							<TabContext value={props.eventsTabValue}>
+								{props.isAuthenticated && (
+									<TabList
+										className={classes.tablist}
+										onChange={props.handleEventsTabChange}
+									>
+										<Tab value="upcoming">Upcoming</Tab>
+										<Tab value="marked">Marked</Tab>
+									</TabList>
+								)}
 
-							<TabPanel value={0}>
-								<div>
-									<Helmet>
-										<style>{dayPickerStyle}</style>
-									</Helmet>
-									<DayPicker
-										renderDay={renderDay}
-										selectedDays={props.selectedDay}
-										onDayClick={props.setSelectedDay}
-										onMonthChange={(month) => {
-											props.setDate(month);
-										}}
-									/>
-								</div>
-								<section className={classes.eventsWrapper}>
-									{props.events?.length
-										? props.events.map((event) => eventBox(event))
-										: null}
-								</section>
-							</TabPanel>
-							<TabPanel value={1}>Second content</TabPanel>
+								<TabPanel value="upcoming">
+									<div>
+										<Helmet>
+											<style>{dayPickerStyle}</style>
+										</Helmet>
+										<DayPicker
+											renderDay={renderDay}
+											selectedDays={props.selectedDay}
+											onDayClick={props.setSelectedDay}
+											onMonthChange={(month) => {
+												props.setDate(month);
+											}}
+										/>
+									</div>
+									<section className={classes.eventsWrapper}>
+										{props.events?.length
+											? props.events
+													.filter(
+														(event) =>
+															new Date(event.date).getDate() >=
+															new Date().getDate(),
+													)
+													.map((event) => eventBox(event))
+											: null}
+									</section>
+								</TabPanel>
+								<TabPanel value="marked">
+									<div>
+										<Helmet>
+											<style>{dayPickerStyle}</style>
+										</Helmet>
+										<DayPicker
+											renderDay={renderDay}
+											selectedDays={props.selectedDay}
+											onDayClick={props.setSelectedDay}
+											onMonthChange={(month) => {
+												props.setDate(month);
+											}}
+										/>
+									</div>
+									<section className={classes.eventsWrapper}>
+										{props.events?.length
+											? props.events
+													.filter(
+														(event) =>
+															new Date(event.date).getDate() >=
+															new Date().getDate(),
+													)
+													.map((event) => eventBox(event))
+											: null}
+									</section>
+								</TabPanel>
+							</TabContext>
 						</TabsUnstyled>
 					</section>
 				</Grid>

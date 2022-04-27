@@ -41,11 +41,11 @@ const GeneralHome = () => {
 	const [focusIdeas, setFocusIdeas] = useState([]);
 	const [featuredPublications, setFeaturedPublications] = useState([]);
 	const [mostClickedIdeas, setMostClickedIdeas] = useState([]);
-	// const [month, setMonth] = useState(new Date().getMonth() + 1);
-	// const [year, setYear] = useState(new Date().getFullYear());
 	const [date, setDate] = useState(new Date());
 	const [events, setEvents] = useState([]);
 	const [eventsDays, setEventsDays] = useState([]);
+	const [eventsTabValue, setEventsTabValue] = useState('upcoming');
+	const [lastPublicationsTabValue, setLastPublicationsTabValue] = useState('asia-pacific');
 
 	const isAuthorised = true;
 
@@ -83,7 +83,14 @@ const GeneralHome = () => {
 		}
 	});
 
-	const fetchEventsByMonth = useCallback(async () => {
+	const fetchEventsByMonth = useCallback(async (marker) => {
+		if (marker === 'marked') {
+			//change call here
+			console.log('marked');
+		} else {
+			console.log('upcoming');
+		}
+
 		try {
 			const res = await axios.get(
 				`${BASE_URL}${END_POINT.EVENT}`,
@@ -137,6 +144,30 @@ const GeneralHome = () => {
 		fetchEventsByMonth();
 	}, [date]);
 
+	const handleEventsTabChange = (e, newValue) => {
+		console.log('newValue', newValue);
+		setEventsTabValue(newValue);
+
+		if (newValue === 'marked') {
+			fetchEventsByMonth('marked');
+		} else {
+			fetchEventsByMonth('upcoming');
+		}
+	};
+
+	const handleLastPublicationTabChange = (e, newValue) => {
+		console.log('newValue', newValue);
+		setLastPublicationsTabValue(newValue);
+
+		if (newValue === 'asia-pacific') {
+			console.log('asia-pacific');
+		} else if (newValue === 'europe') {
+			console.log('europe');
+		} else {
+			console.log('united-states');
+		}
+	};
+
 	return (
 		<>
 			{categories?.length && (
@@ -157,7 +188,11 @@ const GeneralHome = () => {
 					events={events}
 					date={date}
 					setDate={setDate}
+					eventsTabValue={eventsTabValue}
+					lastPublicationsTabValue={lastPublicationsTabValue}
 					handleClick={handleClick}
+					handleEventsTabChange={handleEventsTabChange}
+					handleLastPublicationTabChange={handleLastPublicationTabChange}
 				/>
 			)}
 		</>
