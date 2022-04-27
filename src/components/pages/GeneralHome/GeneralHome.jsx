@@ -2,7 +2,11 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
-import { setParams, setParamsPublication, setParamsEvent } from '../../../utils/helpers/helperFunctions';
+import {
+	// setParams,
+	setParamsPublication,
+	setParamsEvent,
+} from '../../../utils/helpers/helperFunctions';
 import { BASE_URL, END_POINT } from '../../../utils/constants';
 import GeneralHomeView from './GeneralHome.view';
 
@@ -44,8 +48,11 @@ const GeneralHome = () => {
 	const [date, setDate] = useState(new Date());
 	const [events, setEvents] = useState([]);
 	const [eventsDays, setEventsDays] = useState([]);
+	const [highlightedDate, setHighlightedDate] = useState(0);
 	const [eventsTabValue, setEventsTabValue] = useState('upcoming');
-	const [lastPublicationsTabValue, setLastPublicationsTabValue] = useState('asia-pacific');
+	const [lastPublicationsTabValue, setLastPublicationsTabValue] = useState('Asia-Pacific');
+	const [morningNotesTabValue, setMorningNotesTabValue] = useState('Asia-Pacific');
+	//const [eventHovered, setEventHovered] = useState(false);
 
 	const isAuthorised = true;
 
@@ -70,9 +77,12 @@ const GeneralHome = () => {
 		history.push({ pathname: whereToLink(pubId), state: { id: pubId, to: whereToLink(pubId) } });
 	};
 
-	const fetchLastPublications = useCallback(async (howMany) => {
+	const fetchLastPublications = useCallback(async (howMany, region) => {
 		try {
-			const res = await axios.get(`${BASE_URL}${END_POINT.PUBLICATION}`, setParams(0, howMany));
+			const res = await axios.get(
+				`${BASE_URL}${END_POINT.PUBLICATION}`,
+				setParamsPublication(0, howMany, null, null, region),
+			);
 
 			if (res.status === 200) {
 				setLastPublications(res.data.publications);
@@ -112,10 +122,10 @@ const GeneralHome = () => {
 		}
 	});
 
-	const fetchByCategory = useCallback(async (howMany, categoryId, categorySetter, orderBy) => {
+	const fetchByCategory = useCallback(async (howMany, categoryId, categorySetter, orderBy, region) => {
 		try {
 			const res = await axios.get(`${BASE_URL}${END_POINT.PUBLICATION}`, {
-				...setParamsPublication(0, howMany, categoryId, orderBy),
+				...setParamsPublication(0, howMany, categoryId, orderBy, region),
 			});
 
 			if (res.status === 200) {
@@ -131,14 +141,22 @@ const GeneralHome = () => {
 	useEffect(() => {
 		if (categories.length) {
 			latestNewsId && fetchByCategory(5, latestNewsId, setLatestNews);
-			morningNotesId && fetchByCategory(15, morningNotesId, setMorningNotes);
 			industryRecoursedId && fetchByCategory(5, industryRecoursedId, setIndustryRecoursed);
 			focusIdeasId && fetchByCategory(10, focusIdeasId, setFocusIdeas);
 			featuredId && fetchByCategory(3, featuredId, setFeaturedPublications);
 			ideasId && fetchByCategory(5, ideasId, setMostClickedIdeas, 'views');
-			fetchLastPublications(9);
 		}
 	}, [categories]);
+
+	useEffect(() => {
+		categories.length &&
+			morningNotesId &&
+			fetchByCategory(5, morningNotesId, setMorningNotes, null, morningNotesTabValue);
+	}, [categories, morningNotesTabValue]);
+
+	useEffect(() => {
+		fetchLastPublications(3, lastPublicationsTabValue);
+	}, [lastPublicationsTabValue]);
 
 	useEffect(() => {
 		fetchEventsByMonth();
@@ -156,8 +174,12 @@ const GeneralHome = () => {
 	};
 
 	const handleLastPublicationTabChange = (e, newValue) => {
-		console.log('newValue', newValue);
 		setLastPublicationsTabValue(newValue);
+	};
+
+	const handleMorningNotsTabChange = (e, newValue) => {
+		console.log('newValue', newValue);
+		setMorningNotesTabValue(newValue);
 
 		if (newValue === 'asia-pacific') {
 			console.log('asia-pacific');
@@ -166,6 +188,16 @@ const GeneralHome = () => {
 		} else {
 			console.log('united-states');
 		}
+	};
+
+	const handleDayMouseEnter = (date) => {
+		const day = date.getDate();
+
+		if (eventsDays.includes(day)) {
+			setHighlightedDate(day);
+		}
+
+		console.log('highlightedDate', highlightedDate);
 	};
 
 	return (
@@ -189,10 +221,16 @@ const GeneralHome = () => {
 					date={date}
 					setDate={setDate}
 					eventsTabValue={eventsTabValue}
+					highlightedDate={highlightedDate}
+					//setEventHovered={setEventHovered}
+					//eventHovered={eventHovered}
 					lastPublicationsTabValue={lastPublicationsTabValue}
+					morningNotesTabValue={morningNotesTabValue}
 					handleClick={handleClick}
 					handleEventsTabChange={handleEventsTabChange}
 					handleLastPublicationTabChange={handleLastPublicationTabChange}
+					handleMorningNotsTabChange={handleMorningNotsTabChange}
+					handleDayMouseEnter={handleDayMouseEnter}
 				/>
 			)}
 		</>
