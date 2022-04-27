@@ -34,23 +34,21 @@ export const setParams = (offset, limit, search, type, status) => {
 	return request;
 };
 
-export const setParamsPublication = (offset, limit, id, orderBy) => {
+export const setParamsPublication = (offset, limit, id, orderBy, region) => {
 	const params = new URLSearchParams();
 
-	if (
-		offset !== null &&
-		offset !== undefined &&
-		limit !== null &&
-		limit !== undefined &&
-		id !== null &&
-		id !== undefined
-	) {
+	if (offset !== null && offset !== undefined && limit !== null && limit !== undefined) {
 		params.append('limit', limit);
 		params.append('offset', offset);
+	}
+
+	if (id !== null && id !== undefined) {
 		params.append('id', id);
 	}
 
 	if (orderBy) params.append('order_by', orderBy);
+
+	if (region) params.append('region', region);
 
 	const request = {
 		params,

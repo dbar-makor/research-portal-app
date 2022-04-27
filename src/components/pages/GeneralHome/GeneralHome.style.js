@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
 		justifyContent: 'center',
 		alignItems: 'center',
 		backgroundColor: '#FEFEFE',
+		marginTop: '16px',
 		padding: '2% 15% 1% 15%',
 		[theme.breakpoints.down('lg')]: {
 			padding: '3% 7% 1% 7%',
@@ -85,8 +86,26 @@ const useStyles = makeStyles((theme) => ({
 		},
 	},
 	column: {
-		height: '100vh',
-		overflow: 'hidden',
+		'height': '100vh',
+		'overflow': 'hidden',
+
+		'display': 'flex',
+		'flexDirection': 'column !important',
+		'justifyContent': 'space-between',
+		'flexWrap': 'nowrap',
+		'&:nth-of-type(2n)': {
+			justifyContent: 'center',
+			marginRight: -16,
+			paddingLeft: 0,
+		},
+		'&:last-of-type': {
+			//height: '99vh',
+			border: '2px solid #EDEEF1',
+			borderRadius: '8px',
+			marginTop: '0',
+			padding: '8px 0 8px 0',
+			marginLeft: '16px',
+		},
 	},
 	focusIdeas: {
 		padding: '10px',
@@ -112,7 +131,7 @@ const useStyles = makeStyles((theme) => ({
 		'flexDirection': 'column',
 		// 'minHeight': '35.5vh',
 		'maxHeight': '36.5vh',
-		'@media (max-width: 1530px)': {
+		'@media (max-width: 1800px)': {
 			maxHeight: '26vh',
 		},
 		[theme.breakpoints.down('md')]: {
@@ -174,7 +193,7 @@ const useStyles = makeStyles((theme) => ({
 		'display': 'flex',
 		'flexDirection': 'column',
 		'backgroundColor': '#EDF2FB',
-		'padding': '12px',
+		'padding': '8px 12px 8px 12px',
 		'borderRadius': '8px',
 		'marginTop': '10px',
 		'&:hover': {
@@ -191,8 +210,8 @@ const useStyles = makeStyles((theme) => ({
 	lastPublicationsContent: {
 		color: '#151515',
 		fontWeight: 'bold',
-		fontSize: 'calc(8px + 0.4vw)',
-		marginTop: '10px',
+		fontSize: 'calc(8px + 0.3vw)',
+		marginTop: '5px',
 	},
 	industryRecoursed: {
 		marginBottom: '25px',
@@ -250,7 +269,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	industryRecoursedContent: {
 		color: '#151515',
-		fontSize: 'calc(10px + 0.3vw)',
+		fontSize: 'calc(8px + 0.3vw)',
 		marginTop: '10px',
 	},
 	latestNews: {
@@ -370,34 +389,90 @@ const useStyles = makeStyles((theme) => ({
 		minWidth: '29vh',
 		minHeight: '92vh',
 		//height: 'inherit',
-		borderRadius: '8px',
 		padding: '10px',
-		border: '2px solid #EDEEF1',
+		// border: '2px solid #EDEEF1',
+		// borderRadius: '8px',
 		backgroundColor: '#fff',
 		[theme.breakpoints.down('lg')]: {
 			minWidth: '25vh',
 		},
 	},
 	eventsWrapper: {
-		display: 'flex',
-		flexDirection: 'column',
-		padding: '12px',
-		marginTop: '10px',
-		borderTop: '2px solid #EDEDF0',
+		'display': 'flex',
+		'flexDirection': 'column',
+		'padding': '12px 12px 12px 0',
+		'marginTop': '20px',
+		'marginLeft': '-10px',
+		'maxHeight': 'calc(540px - 3vw)',
+		'@media (max-width: 1700px)': {
+			maxHeight: 'calc(540px - 2vw)',
+		},
+		'@media (max-width: 1450px)': {
+			maxHeight: 'calc(540px - 1vw)',
+		},
+		'@media (max-width: 1400px)': {
+			maxHeight: 'calc(570px - 1vw)',
+		},
+		'@media (max-width: 1150px)': {
+			maxHeight: 'calc(590px - 1vw)',
+		},
+		'overflowY': 'auto',
+		// scrollbarGutter: 'stable both-edges',
+		'&::-webkit-scrollbar-track': {
+			borderRadius: '10px',
+			backgroundColor: '#F3F4F8',
+		},
+		'&::-webkit-scrollbar': {
+			borderRadius: '10px',
+			maxWidth: '7px',
+			zIndex: 2,
+			backgroundColor: '#F5F5F5',
+		},
+		'&::-webkit-scrollbar-thumb': {
+			borderRadius: '10px',
+			backgroundColor: '#D5DBE7',
+		},
 	},
 	eventsInnerWrapper: {
 		'display': 'flex',
+		'position': 'relative',
 		'justifyContent': 'center',
-		'marginLeft': -22,
+		// 'marginLeft': -22,
 		'height': 45,
 		'&:not(:last-child)': {
 			marginBottom: '15px',
 		},
 	},
 	eventsLabel: {
-		padding: '5px',
-		marginRight: '10px',
-		borderRadius: '0 2px 2px 0',
+		'padding': '5px',
+		'marginRight': '10px',
+		'borderRadius': '0 2px 2px 0',
+		'display': 'flex',
+		'justifyContent': 'center',
+		'alignItems': 'center',
+		'fontSize': 0,
+		'fill': 'transparent',
+		'color': 'transparent',
+		'&:hover': {
+			cursor: 'pointer',
+			width: 200,
+			height: 31,
+			position: 'absolute',
+			top: 0,
+			left: 0,
+			zIndex: 2,
+			fontSize: 18,
+			fill: '#fff',
+			color: '#fff',
+		},
+	},
+
+	addIcon: {
+		marginRight: 10,
+		// fill: '#fff',
+	},
+	addSpan: {
+		// color: '#fff',
 	},
 	eventsContentWrapper: {
 		display: 'flex',
