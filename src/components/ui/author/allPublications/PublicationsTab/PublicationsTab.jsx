@@ -36,9 +36,13 @@ const PublicationsTab = (props) => {
 		try {
 			const token = localStorage.getItem('token');
 
-			const res = await axios.put(`${BASE_URL}${END_POINT.PUBLICATION}${END_POINT.PUBLISH}/${id}`, {
-				headers: { Authorization: token },
-			});
+			const res = await axios.put(
+				`${BASE_URL}${END_POINT.PUBLICATION}${END_POINT.PUBLISH}/${id}`,
+				{},
+				{
+					headers: { Authorization: token },
+				},
+			);
 
 			history.push('/researches');
 

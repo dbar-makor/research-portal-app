@@ -90,6 +90,12 @@ const EditProfile = () => {
 
 			if (res.status === 200) {
 				fetchUserInformation();
+				const userContent = JSON.parse(localStorage.getItem('userContent'));
+
+				const updatedUserContent = { ...userContent, categories: localCats };
+
+				localStorage.setItem('userContent', JSON.stringify(updatedUserContent));
+
 				dispatch(actionSnackBar.setSnackBar('success', 'Successfully updated', 2000));
 			}
 		} catch (error) {

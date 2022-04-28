@@ -6,16 +6,7 @@ import { ReactComponent as Logo } from '../../../../assets/icons/makorLogo.svg';
 
 const MakorLogoView = (props) => {
 	return (
-		<Link
-			to={
-				props.userType === 'author'
-					? '/researches'
-					: props.userType === 'sales'
-					? '/companies'
-					: '/home'
-			}
-			className={props.classes.link}
-		>
+		<Link to={props.userType === 'sales' ? '/companies' : '/home'} className={props.classes.link}>
 			<Logo />
 		</Link>
 	);
