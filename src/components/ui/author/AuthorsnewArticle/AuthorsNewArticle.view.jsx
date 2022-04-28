@@ -39,12 +39,20 @@ const AuthorsNewArticleView = (props) => {
 		<Grid container justifyContent="center" style={{ paddingTop: 20 }}>
 			<Grid item xs={11} lg={10}>
 				<Grid item container className={classes.newArticleContainer}>
-					<SubHeader title="Write New Article" />
-					<Grid item xs={12} md={6}>
-						<Grid container className={classes.newArticleLeftContainer}>
-							<Grid item xs={12}>
+					<Grid item xs={12} lg={1} className={classes.leftColumn}>
+						<SubHeader title="Write New Article" />
+					</Grid>
+					<Grid item xs={12} md={6} className={classes.middleColumn}>
+						<Grid
+							container
+							direction="column"
+							justifyContent="space-between"
+							spacing={1}
+							className={classes.newArticleLeftContainer}
+						>
+							{/* <Grid item xs={12}>
 								<Grid container justifyContent="space-between" alignItems="flex-end" />
-							</Grid>
+							</Grid> */}
 							<Grid item xs={12}>
 								<Grid container justifyContent="space-between" alignItems="flex-end">
 									<Grid item xs={12}>
@@ -53,7 +61,7 @@ const AuthorsNewArticleView = (props) => {
 											className={classes.marginBottom25}
 											justifyContent="space-between"
 										>
-											<Grid item xs={12}>
+											<Grid item xs={12} style={{ minHeight: 91 }}>
 												<AtricleTitleTextField
 													variant="outlined"
 													value={props.localForm.title}
@@ -134,7 +142,7 @@ const AuthorsNewArticleView = (props) => {
 							</Grid>
 						</Grid>
 					</Grid>
-					<Grid item xs={12} md={4}>
+					<Grid item xs={12} md={4} className={classes.rightColumn}>
 						<Grid container className={classes.newArticleRightContainer}>
 							<Grid item xs={12} container className={classes.rightForm}>
 								<Grid item xs={12}>
@@ -214,7 +222,8 @@ const AuthorsNewArticleView = (props) => {
 								<Grid item xs={12}>
 									<Grid
 										container
-										className={`${classes.marginTop15} ${classes.eventsScrolledContainer}`}
+										style={{ margin: '15px 0 15px 0' }}
+										className={classes.eventsScrolledContainer}
 									>
 										<Grid item xs={12} xl={3}>
 											<Typography className={classes.subHeaderRight}>Events</Typography>
@@ -410,7 +419,7 @@ const AuthorsNewArticleView = (props) => {
 									justifyContent="space-between"
 									className={classes.duoButtons}
 								>
-									<Grid item>
+									<Grid item xl={5}>
 										<Link
 											to="/prearticle"
 											target="_blank"
@@ -424,7 +433,7 @@ const AuthorsNewArticleView = (props) => {
 											</OutlinedButton>
 										</Link>
 									</Grid>
-									<Grid item>
+									<Grid item xl={5}>
 										<FilledButton
 											disabled={!props.isPublishable}
 											className={classes.publishBtn}

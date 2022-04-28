@@ -259,7 +259,7 @@ const GeneralHomeView = (props) => {
 				</div>
 				<div className={classes.eventsContentWrapper}>
 					<div className={classes.eventsInnerContentWrapper}>
-						<div className={classes.eventsHeader}>{event.title}</div>
+						<div className={classes.eventsHeader}>{formatLongString(event.title, 30)}</div>
 						<div style={{ color: '#868DA2' }}>{format(new Date(event.date), 'dd/MM/yyyy')}</div>
 					</div>
 					<div className={classes.eventsInnerContentWrapper}>

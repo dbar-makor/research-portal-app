@@ -199,7 +199,8 @@ const DeadArticleView = forwardRef((props, ref) => {
 						<Grid item xs={12}>
 							<Grid
 								container
-								className={`${classes.marginTop15} ${classes.eventsScrolledContainer}`}
+								style={{ margin: '15px 0 15px 0' }}
+								className={classes.eventsScrolledContainer}
 							>
 								<Grid item xs={12}>
 									<Grid

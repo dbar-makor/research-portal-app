@@ -455,7 +455,7 @@ const useStyles = makeStyles((theme) => ({
 		'&:hover': {
 			cursor: props.isAuthenticated ? 'pointer' : 'default',
 			width: props.isAuthenticated ? 200 : 0,
-			height: 31,
+			height: 35,
 			position: props.isAuthenticated ? 'absolute' : 'static',
 			top: 0,
 			left: 0,
