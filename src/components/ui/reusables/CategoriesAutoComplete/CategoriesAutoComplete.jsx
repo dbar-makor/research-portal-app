@@ -80,6 +80,7 @@ const CategoriesAutoComplete = (props) => {
 
 	return (
 		<CategoriesAutoCompleteView
+			mode={props.mode}
 			notMultiple={props.notMultiple}
 			label={label}
 			className={className}

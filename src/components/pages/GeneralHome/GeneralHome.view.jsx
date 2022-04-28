@@ -35,7 +35,7 @@ const getAuthorsInitials = (author) => {
 };
 
 const GeneralHomeView = (props) => {
-	const classes = useStyles();
+	const classes = useStyles(props);
 
 	const lastPublicationsSection = (pub) => (
 		<section
@@ -237,48 +237,56 @@ const GeneralHomeView = (props) => {
 		return { color: '#00CA80', label: formatDistanceToNowStrict(date1) };
 	};
 
-	const eventBox = (event) => (
-		<div key={event.id} className={classes.eventsInnerWrapper}>
+	const eventBox = (event) => {
+		return (
 			<div
-				style={{ backgroundColor: compareDates(new Date(event.date)).color }}
-				className={classes.eventsLabel}
-				onMouseEnter={() => props.setEventHovered(true)}
-				onMouseLeave={() => props.setEventHovered(false)}
+				key={event.id}
+				style={
+					props.highlightedDate === new Date(event.date).getDate()
+						? { backgroundColor: '#EDEEF1' }
+						: {}
+				}
+				className={classes.eventsInnerWrapper}
 			>
-				<>
-					<AddIcon className={classes.addIcon} style={{}} />
-					<span className={classes.addSpan}>Mark Event</span>
-				</>
-			</div>
-			<div className={classes.eventsContentWrapper}>
-				<div className={classes.eventsInnerContentWrapper}>
-					<div className={classes.eventsHeader}>{event.title}</div>
-					<div style={{ color: '#868DA2' }}>{format(new Date(event.date), 'dd/MM/yyyy')}</div>
-				</div>
-				<div className={classes.eventsInnerContentWrapper}>
-					<div
-						style={{
-							color: '#0F0F0F',
-							fontSize: '.9rem',
-							fontWeight: '600',
-						}}
-						className={classes.eventsContent}
-					>
-						Location to be published
-					</div>
-					<div
-						style={{
-							color: compareDates(new Date(event.date)).color,
-							fontSize: '.9rem',
-							fontWeight: '600',
-						}}
-					>
-						{compareDates(new Date(event.date)).label}
+				<div
+					style={{ backgroundColor: compareDates(new Date(event.date)).color }}
+					className={classes.eventsLabel}
+				>
+					<div onClick={() => props.handleMarkEvent(event.id)}>
+						<AddIcon className={classes.addIcon} style={{}} />
+						<span className={classes.addSpan}>Mark Event</span>
 					</div>
 				</div>
+				<div className={classes.eventsContentWrapper}>
+					<div className={classes.eventsInnerContentWrapper}>
+						<div className={classes.eventsHeader}>{event.title}</div>
+						<div style={{ color: '#868DA2' }}>{format(new Date(event.date), 'dd/MM/yyyy')}</div>
+					</div>
+					<div className={classes.eventsInnerContentWrapper}>
+						<div
+							style={{
+								color: '#0F0F0F',
+								fontSize: '.9rem',
+								fontWeight: '600',
+							}}
+							className={classes.eventsContent}
+						>
+							Location to be published
+						</div>
+						<div
+							style={{
+								color: compareDates(new Date(event.date)).color,
+								fontSize: '.9rem',
+								fontWeight: '600',
+							}}
+						>
+							{compareDates(new Date(event.date)).label}
+						</div>
+					</div>
+				</div>
 			</div>
-		</div>
-	);
+		);
+	};
 
 	return (
 		<main className={classes.mainWrapper}>
@@ -466,7 +474,9 @@ const GeneralHomeView = (props) => {
 								{props.isAuthenticated && (
 									<TabsList className={classes.tablist}>
 										<Tab value="upcoming">Upcoming</Tab>
-										<Tab value="marked">Marked</Tab>
+										<Tab value="marked" onClick={props.fetchMarkedEvents}>
+											Marked
+										</Tab>
 									</TabsList>
 								)}
 								{/* style={{display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}} */}
@@ -482,7 +492,8 @@ const GeneralHomeView = (props) => {
 											renderDay={renderDay}
 											selectedDays={props.selectedDay}
 											onDayClick={props.setSelectedDay}
-											onDayMouseEnter={props.handleDayMouseEnter}
+											onDayMouseEnter={(date) => props.handleDayMouse(date, 'enter')}
+											onDayMouseLeave={(date) => props.handleDayMouse(date, 'leave')}
 											onMonthChange={(month) => {
 												props.setDate(month);
 											}}
