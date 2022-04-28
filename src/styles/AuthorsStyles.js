@@ -4,12 +4,26 @@ import { makeStyles, withStyles, TextField } from '@material-ui/core';
 export const useStyles = makeStyles((theme) => ({
 	newArticleContainer: {
 		marginTop: '4.3vh',
-		[theme.breakpoints.up('md')]: {
-			height: 'fit-content',
+		[theme.breakpoints.up('lg')]: {
+			minHeight: '80vh',
 		},
+		// [theme.breakpoints.up('md')]: {
+		// 	height: 'fit-content',
+		// },
 	},
 	newArticleWrapper: {
 		height: 'content-fit',
+	},
+	leftColumn: {
+		[theme.breakpoints.down('lg')]: {
+			marginBottom: 20,
+		},
+	},
+	middleColumn: {
+		minHeight: '75vh',
+	},
+	rightColumn: {
+		minHeight: '75vh',
 	},
 	marginBottom35: {
 		marginBottom: '35px',
@@ -175,7 +189,8 @@ export const useStyles = makeStyles((theme) => ({
 		fontSize: '24px',
 	},
 	newArticleLeftContainer: {
-		height: 'fit-content',
+		height: '100%',
+		flexWrap: 'nowrap',
 	},
 	newArticleRightContainer: {
 		'position': 'relative',
@@ -186,7 +201,7 @@ export const useStyles = makeStyles((theme) => ({
 		[theme.breakpoints.down('sm')]: {
 			marginTop: '20px',
 		},
-		'height': '100%',
+		'height': 'calc(100% - 21px)',
 		'width': 'inherit',
 		'border': '1px solid #EDEFF3',
 		'borderRadius': '8px 8px 8px 8px',
@@ -208,7 +223,7 @@ export const useStyles = makeStyles((theme) => ({
 	},
 	articleTitleLive: {
 		'width': '100%',
-		'minHeight': 83,
+		// 'minHeight': 83,
 		'& input': {
 			fontWeight: 'normal !important',
 			paddingLeft: '15px !important',
@@ -395,12 +410,12 @@ export const useStyles = makeStyles((theme) => ({
 		// },
 	},
 	publishBtn: {
-		width: 135,
+		width: 120,
 	},
 	previewBtn: {
 		background: '#F3F7FF',
 		border: 'none',
-		width: 135,
+		width: 120,
 	},
 	attachmentLine: {
 		marginTop: '15px',
