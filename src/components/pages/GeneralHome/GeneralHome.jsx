@@ -93,14 +93,7 @@ const GeneralHome = () => {
 		}
 	});
 
-	const fetchEventsByMonth = useCallback(async (marker) => {
-		if (marker === 'marked') {
-			//change call here
-			console.log('marked');
-		} else {
-			console.log('upcoming');
-		}
-
+	const fetchEventsByMonth = useCallback(async () => {
 		try {
 			const res = await axios.get(
 				`${BASE_URL}${END_POINT.EVENT}`,
@@ -166,11 +159,7 @@ const GeneralHome = () => {
 		console.log('newValue', newValue);
 		setEventsTabValue(newValue);
 
-		if (newValue === 'marked') {
-			fetchEventsByMonth('marked');
-		} else {
-			fetchEventsByMonth('upcoming');
-		}
+		fetchEventsByMonth();
 	};
 
 	const handleLastPublicationTabChange = (e, newValue) => {
@@ -190,14 +179,53 @@ const GeneralHome = () => {
 		}
 	};
 
-	const handleDayMouseEnter = (date) => {
+	const handleDayMouse = (date, marker) => {
 		const day = date.getDate();
 
-		if (eventsDays.includes(day)) {
+		if (eventsDays.includes(day) && marker === 'enter') {
 			setHighlightedDate(day);
 		}
 
-		console.log('highlightedDate', highlightedDate);
+		if (marker === 'leave') {
+			setHighlightedDate(0);
+		}
+	};
+
+	const handleMarkEvent = async (id) => {
+		try {
+			const token = localStorage.getItem('token');
+
+			const res = await axios.post(
+				`${BASE_URL}${END_POINT.EVENT}/mark`,
+				{ event_id: id },
+				{ headers: { Authorization: token } },
+			);
+
+			if (res.status === 201) {
+				console.log('event is marked');
+			}
+		} catch (error) {
+			/* eslint no-console: 0 */
+			console.log(error, error.message);
+		}
+	};
+
+	const fetchMarkedEvents = async () => {
+		try {
+			const token = localStorage.getItem('token');
+
+			const res = await axios.get(`${BASE_URL}${END_POINT.EVENT}/mark`, {
+				...setParamsEvent(date.getMonth() + 1, date.getFullYear()),
+				headers: { Authorization: token },
+			});
+
+			if (res.status === 200) {
+				console.log('res.data events', res.data);
+			}
+		} catch (error) {
+			/* eslint no-console: 0 */
+			console.log(error, error.message);
+		}
 	};
 
 	return (
@@ -222,15 +250,15 @@ const GeneralHome = () => {
 					setDate={setDate}
 					eventsTabValue={eventsTabValue}
 					highlightedDate={highlightedDate}
-					//setEventHovered={setEventHovered}
-					//eventHovered={eventHovered}
 					lastPublicationsTabValue={lastPublicationsTabValue}
 					morningNotesTabValue={morningNotesTabValue}
+					fetchMarkedEvents={fetchMarkedEvents}
 					handleClick={handleClick}
 					handleEventsTabChange={handleEventsTabChange}
 					handleLastPublicationTabChange={handleLastPublicationTabChange}
 					handleMorningNotsTabChange={handleMorningNotsTabChange}
-					handleDayMouseEnter={handleDayMouseEnter}
+					handleDayMouse={handleDayMouse}
+					handleMarkEvent={handleMarkEvent}
 				/>
 			)}
 		</>

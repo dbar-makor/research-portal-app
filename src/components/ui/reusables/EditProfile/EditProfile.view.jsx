@@ -157,6 +157,7 @@ const EditProfileView = (props) => {
 				</Grid>
 				<Grid item xs={10} xl={8} className={classes.autoComplete}>
 					<CategoriesAutoComplete
+						mode="edit"
 						className={classes.autoCompleteField}
 						formObject={props.localCats}
 						setFormObject={props.setLocalCats}

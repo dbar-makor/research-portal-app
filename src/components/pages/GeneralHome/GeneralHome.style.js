@@ -443,36 +443,44 @@ const useStyles = makeStyles((theme) => ({
 			marginBottom: '15px',
 		},
 	},
-	eventsLabel: {
+	eventsLabel: (props) => ({
 		'padding': '5px',
 		'marginRight': '10px',
 		'borderRadius': '0 2px 2px 0',
 		'display': 'flex',
 		'justifyContent': 'center',
 		'alignItems': 'center',
-		'fontSize': 0,
-		'fill': 'transparent',
-		'color': 'transparent',
+		'width': 0,
+		'transition': 'width 0.5s, display 0.5s',
 		'&:hover': {
-			cursor: 'pointer',
-			width: 200,
+			cursor: props.isAuthenticated ? 'pointer' : 'default',
+			width: props.isAuthenticated ? 200 : 0,
 			height: 31,
-			position: 'absolute',
+			position: props.isAuthenticated ? 'absolute' : 'static',
 			top: 0,
 			left: 0,
-			zIndex: 2,
-			fontSize: 18,
-			fill: '#fff',
-			color: '#fff',
 		},
-	},
+		'&:hover svg': {
+			display: props.isAuthenticated ? 'inline' : 'none',
+		},
+		'&:hover span': {
+			display: props.isAuthenticated ? 'inline' : 'none',
+		},
+		'&:hover + div': {
+			display: props.isAuthenticated ? 'none' : 'flex',
+		},
+	}),
 
 	addIcon: {
 		marginRight: 10,
-		// fill: '#fff',
+		display: 'none',
+		fill: '#fff',
+		fontSize: 16,
 	},
 	addSpan: {
-		// color: '#fff',
+		color: '#fff',
+		fontSize: 16,
+		display: 'none',
 	},
 	eventsContentWrapper: {
 		display: 'flex',
