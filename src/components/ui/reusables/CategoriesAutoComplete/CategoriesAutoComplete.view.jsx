@@ -7,11 +7,15 @@ import useStyles from './CategoriesAutoComplete.style';
 
 const CategoriesAutoCompleteView = (props) => {
 	const classes = useStyles();
+
 	const categoriesArr = useSelector((state) => state.utils.utils.category);
+
+	const categories =
+		props.mode === 'edit' ? JSON.parse(localStorage.getItem('userContent')).categories : categoriesArr;
 
 	return (
 		<>
-			{categoriesArr && (
+			{categories?.length ? (
 				<Grid container className={props.className}>
 					{props.label && (
 						<Grid item xs={12}>
@@ -25,7 +29,7 @@ const CategoriesAutoCompleteView = (props) => {
 							name="categories"
 							multiple={props.notMultiple ? false : true}
 							filterSelectedOptions
-							options={categoriesArr}
+							options={categories}
 							renderTags={() => <></>}
 							fullWidth
 							value={
@@ -71,7 +75,7 @@ const CategoriesAutoCompleteView = (props) => {
 						) : null}
 					</Grid>
 				</Grid>
-			)}
+			) : null}
 		</>
 	);
 };

@@ -2,15 +2,21 @@ import React from 'react';
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import TabsUnstyled from '@mui/base/TabsUnstyled';
+// import { TabContext, TabList } from '@material-ui/lab';
+// import Tabs from '@material-ui/core/Tabs';
 import Grid from '@mui/material/Grid';
+import AddIcon from '@material-ui/icons/Add';
 import { Helmet } from 'react-helmet';
 import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 import Carousel from 'react-material-ui-carousel';
 import { format } from 'date-fns';
+import formatDistanceToNowStrict from 'date-fns/formatDistanceToNowStrict';
+import isSameDay from 'date-fns/isSameDay';
+import addDays from 'date-fns/addDays';
 
 //import { Link } from 'react-router-dom';
-import useStyles, { Tab, TabPanel, TabsList } from './GeneralHome.style';
+import useStyles, { Tab, TabPanel, TabsList, dayPickerStyle } from './GeneralHome.style';
 
 const formatLongString = (str, lgth) => {
 	if (str.length > 35) {
@@ -29,41 +35,7 @@ const getAuthorsInitials = (author) => {
 };
 
 const GeneralHomeView = (props) => {
-	const classes = useStyles();
-
-	const renderDay = (day) => {
-		const dates = day.getDate();
-
-		const dateStyle = {
-			color: '#000',
-			fontSize: 20,
-		};
-
-		const dateCellStyle = {
-			width: 38,
-		};
-
-		const circleStyle = props.eventsDays.includes(dates)
-			? { background: '#1c67ff' }
-			: props.today === dates
-			? { background: '#ed5858' }
-			: { background: '#ACB1BF' };
-
-		return (
-			<div style={dateCellStyle}>
-				<div style={dateStyle}>{dates}</div>
-				<div
-					style={{
-						display: 'flex',
-						justifyContent: 'center',
-						marginTop: '4px',
-					}}
-				>
-					<div style={circleStyle} className="circle" />
-				</div>
-			</div>
-		);
-	};
+	const classes = useStyles(props);
 
 	const lastPublicationsSection = (pub) => (
 		<section
@@ -76,6 +48,7 @@ const GeneralHomeView = (props) => {
 					display: 'flex',
 					flexDirection: 'row',
 					justifyContent: 'space-between',
+					marginBottom: 0,
 				}}
 			>
 				<div className={classes.lastPublicationsTitle} style={{ flex: '80%' }}>
@@ -113,7 +86,6 @@ const GeneralHomeView = (props) => {
 	);
 
 	const morningNotesSection = (pub) => (
-		//<Link to={props.whereToLink}>
 		<section
 			key={pub.id}
 			className={classes.morningNotesWrapper}
@@ -133,7 +105,6 @@ const GeneralHomeView = (props) => {
 				</div>
 			</div>
 		</section>
-		//</Link>
 	);
 
 	const industryRecoursedSection = (pub) => (
@@ -146,27 +117,10 @@ const GeneralHomeView = (props) => {
 				{pub.tags?.length ? (
 					<Stack className={classes.industryRecoursedStack}>
 						{pub.tags?.[0] && (
-							<Chip
-								style={{
-									backgroundColor: '#E2EBFC',
-									color: '#1C67FF',
-									fontWeight: '600',
-									fontSize: '.85rem',
-									marginRight: 10,
-								}}
-								label={pub.tags?.[0].name}
-							/>
+							<Chip className={classes.industryRecoursedChip} label={pub.tags?.[0].name} />
 						)}
 						{pub.tags?.[1] && (
-							<Chip
-								style={{
-									backgroundColor: '#E2EBFC',
-									color: '#1C67FF',
-									fontWeight: '600',
-									fontSize: '.85rem',
-								}}
-								label={pub.tags?.[1].name}
-							/>
+							<Chip className={classes.industryRecoursedChip} label={pub.tags?.[1].name} />
 						)}
 					</Stack>
 				) : null}
@@ -179,7 +133,6 @@ const GeneralHomeView = (props) => {
 					{`${pub.author_name}:`}
 					&nbsp;
 					<span style={{ fontWeight: 'bold' }}>{pub.title}</span>
-					{/* <span style={{ fontWeight: 'bold' }}>{formatLongString(pub.title, 30)}</span> */}
 				</div>
 			</div>
 		</section>
@@ -195,28 +148,8 @@ const GeneralHomeView = (props) => {
 				}}
 			>
 				<Stack direction="row" spacing={1}>
-					{pub.tags?.[0] && (
-						<Chip
-							style={{
-								backgroundColor: '#B8C3D8',
-								color: '#3E3E3E',
-								fontWeight: '600',
-								fontSize: '.85rem',
-							}}
-							label={pub.tags?.[0].name}
-						/>
-					)}
-					{pub.tags?.[1] && (
-						<Chip
-							style={{
-								backgroundColor: '#B8C3D8',
-								color: '#3E3E3E',
-								fontWeight: '600',
-								fontSize: '.85rem',
-							}}
-							label={pub.tags?.[1].name}
-						/>
-					)}
+					{pub.tags?.[0] && <Chip className={classes.focusIdeasChip} label={pub.tags?.[0].name} />}
+					{pub.tags?.[1] && <Chip className={classes.focusIdeasChip} label={pub.tags?.[1].name} />}
 				</Stack>
 				<div className={classes.focusIdeasDate}>{format(new Date(pub.updated_at), 'dd/MM/yyyy')}</div>
 			</div>
@@ -251,353 +184,362 @@ const GeneralHomeView = (props) => {
 		</section>
 	);
 
+	const renderDay = (day) => {
+		const dates = day.getDate();
+		const time = day.getTime();
+		const month = day.getMonth();
+		const year = day.getFullYear();
+		const today = new Date();
+
+		const dateStyle =
+			time < today.getTime()
+				? {
+						color: '#E2EBFC',
+				  }
+				: {
+						color: '#000',
+				  };
+
+		const dateCellStyle = {
+			width: 38,
+		};
+
+		const circleStyle =
+			time < today.getTime()
+				? { display: 'none' }
+				: dates === today.getDate() && month === today.getMonth() && year === today.getFullYear()
+				? { background: '#ed5858' }
+				: props.eventsDays.includes(dates)
+				? { background: '#1c67ff' }
+				: { background: '#ACB1BF' };
+
+		return (
+			<div style={dateCellStyle}>
+				<div style={dateStyle}>{dates}</div>
+				<div
+					style={{
+						display: 'flex',
+						justifyContent: 'center',
+						marginTop: '4px',
+					}}
+				>
+					<div style={circleStyle} className="circle" />
+				</div>
+			</div>
+		);
+	};
+
+	const compareDates = (date1) => {
+		if (isSameDay(date1, new Date())) return { color: '#ED5858', label: 'Today' };
+
+		if (isSameDay(date1, addDays(new Date(), 1))) return { color: '#FAC100', label: 'Tomorrow' };
+
+		return { color: '#00CA80', label: formatDistanceToNowStrict(date1) };
+	};
+
+	const eventBox = (event) => {
+		return (
+			<div
+				key={event.id}
+				style={
+					props.highlightedDate === new Date(event.date).getDate()
+						? { backgroundColor: '#EDEEF1' }
+						: {}
+				}
+				className={classes.eventsInnerWrapper}
+			>
+				<div
+					style={{ backgroundColor: compareDates(new Date(event.date)).color }}
+					className={classes.eventsLabel}
+				>
+					<div onClick={() => props.handleMarkEvent(event.id)}>
+						<AddIcon className={classes.addIcon} style={{}} />
+						<span className={classes.addSpan}>Mark Event</span>
+					</div>
+				</div>
+				<div className={classes.eventsContentWrapper}>
+					<div className={classes.eventsInnerContentWrapper}>
+						<div className={classes.eventsHeader}>{event.title}</div>
+						<div style={{ color: '#868DA2' }}>{format(new Date(event.date), 'dd/MM/yyyy')}</div>
+					</div>
+					<div className={classes.eventsInnerContentWrapper}>
+						<div
+							style={{
+								color: '#0F0F0F',
+								fontSize: '.9rem',
+								fontWeight: '600',
+							}}
+							className={classes.eventsContent}
+						>
+							Location to be published
+						</div>
+						<div
+							style={{
+								color: compareDates(new Date(event.date)).color,
+								fontSize: '.9rem',
+								fontWeight: '600',
+							}}
+						>
+							{compareDates(new Date(event.date)).label}
+						</div>
+					</div>
+				</div>
+			</div>
+		);
+	};
+
 	return (
 		<main className={classes.mainWrapper}>
-			<Grid container spacing={2}>
-				<Grid item xs={5}>
-					{/* carousel */}
-					<section className={classes.carousel}>
-						<div className={classes.header}>Featured</div>
-						<Carousel
-							style={{ display: 'flex' }}
-							navButtonsProps={{
-								style: {
-									backgroundColor: '#B8C3D8',
-									borderRadius: '30px',
-								},
-							}}
-							indicatorIconButtonProps={{
-								style: {
-									color: '#E2EBFC',
-								},
-							}}
-							activeIndicatorIconButtonProps={{
-								style: {
-									color: '#1C67FF',
-								},
-							}}
-						>
-							{props.featuredPublications.length
-								? props.featuredPublications.map((pub) => (
-										<div
-											key={pub.id}
-											className={classes.carouselContect}
-											onClick={() => props.handleClick(pub.id)}
-										>
-											{pub.title}
-										</div>
-								  ))
-								: null}
-						</Carousel>
-					</section>
-				</Grid>
-				{/* most clicked */}
-				<Grid item xs={7}>
-					<section className={classes.mostClickedIdeasBox}>
-						<div className={classes.header}>Most Clicked Ideas</div>
-						<div className={classes.horizontalScrollWrapper}>
-							{props.mostClickedIdeas.length
-								? props.mostClickedIdeas.map((pub) => mostClickedIdeasSection(pub))
-								: null}
-						</div>
-					</section>
+			<Grid container spacing={2} style={{ width: '100%', height: '100%' }}>
+				<Grid container justifyContent="space-between" style={{ marginBottom: '20px' }}>
+					<Grid item xs={5.9} lg={4.9}>
+						{/* carousel */}
+						<section className={classes.carousel}>
+							<div className={classes.header}>Featured</div>
+							<Carousel
+								style={{ display: 'flex' }}
+								navButtonsProps={{
+									style: {
+										backgroundColor: '#B8C3D8',
+										borderRadius: '30px',
+									},
+								}}
+								indicatorIconButtonProps={{
+									style: {
+										color: '#E2EBFC',
+									},
+								}}
+								activeIndicatorIconButtonProps={{
+									style: {
+										color: '#1C67FF',
+									},
+								}}
+							>
+								{props.featuredPublications.length
+									? props.featuredPublications.map((pub) => (
+											<div
+												key={pub.id}
+												className={classes.carouselContect}
+												onClick={() => props.handleClick(pub.id)}
+											>
+												{pub.title}
+											</div>
+									  ))
+									: null}
+							</Carousel>
+						</section>
+					</Grid>
+					{/* most clicked */}
+					<Grid item xs={5.9} lg={6.9}>
+						<section className={classes.mostClickedIdeasBox}>
+							<div className={classes.header}>Most Clicked Ideas</div>
+							<div className={classes.horizontalScrollWrapper}>
+								{props.mostClickedIdeas.length
+									? props.mostClickedIdeas.map((pub) => mostClickedIdeasSection(pub))
+									: null}
+							</div>
+						</section>
+					</Grid>
 				</Grid>
 				{/* last pubs, latest news, morning notes */}
-				<Grid xs={4.5} item xl={3.5}>
-					<section className={classes.lastPublications}>
-						<div
-							style={{
-								fontWeight: 700,
-								marginBottom: '10px',
-							}}
-						>
-							Last Publications
-						</div>
-						<TabsUnstyled defaultValue={0}>
-							<TabsList>
-								<Tab>Asia-Pacific</Tab>
-								<Tab>Europe</Tab>
-								<Tab>United-States</Tab>
-							</TabsList>
-							<TabPanel value={0}>
-								{props.lastPublications.length
-									? props.lastPublications
-											.filter((pub) => pub.region === 'Asia-Pacific')
-											.map((pub) => lastPublicationsSection(pub))
-									: null}
-							</TabPanel>
-							<TabPanel value={1}>
-								{props.lastPublications.length
-									? props.lastPublications
-											.filter((pub) => pub.region === 'Europe')
-											.map((pub) => lastPublicationsSection(pub))
-									: null}
-							</TabPanel>
-							<TabPanel value={2}>
-								{props.lastPublications.length
-									? props.lastPublications
-											.filter((pub) => pub.region === 'United-States')
-											.map((pub) => lastPublicationsSection(pub))
-									: null}
-							</TabPanel>
-						</TabsUnstyled>
-					</section>
-					<section className={classes.latestNews}>
-						<div className={`${classes.header} ${classes.headerScrolled}`}>Latest News</div>
-						<div className={classes.latestNewsScroll}>
-							{props.latestNews.length
-								? props.latestNews.map((pub) => latestNewsSection(pub))
-								: null}
-						</div>
-					</section>
-					<section className={classes.morningNotes}>
-						<div className={classes.header} style={{ marginBottom: '10px' }}>
-							Morning Notes
-						</div>
-						<TabsUnstyled defaultValue={0}>
-							<TabsList>
-								<Tab>Asia-Pacific</Tab>
-								<Tab>Europe</Tab>
-								<Tab>United-States</Tab>
-							</TabsList>
-							<TabPanel value={0}>
-								<div className={classes.morningNotesScroll}>
-									{props.morningNotes.length
-										? props.morningNotes
+				<Grid container justifyContent="space-between" style={{ marginBottom: '16px' }}>
+					<Grid item xs={4.2} xl={3.5} className={classes.column}>
+						<section className={classes.lastPublications}>
+							<div
+								style={{
+									fontWeight: 700,
+									marginBottom: '10px',
+								}}
+							>
+								Last Publications
+							</div>
+							<TabsUnstyled
+								value={props.lastPublicationsTabValue}
+								onChange={props.handleLastPublicationTabChange}
+							>
+								<TabsList className={`${classes.lastPublicationsTabsList}`}>
+									<Tab value="Asia-Pacific">Asia-Pacific</Tab>
+									<Tab value="Europe">Europe</Tab>
+									<Tab value="United-States">United-States</Tab>
+								</TabsList>
+
+								<TabPanel value="Asia-Pacific">
+									{props.lastPublications.length
+										? props.lastPublications
 												.filter((pub) => pub.region === 'Asia-Pacific')
-												.map((pub) => morningNotesSection(pub))
+												.map((pub) => lastPublicationsSection(pub))
 										: null}
-								</div>
-							</TabPanel>
-							<TabPanel value={1}>
-								<div className={classes.morningNotesScroll}>
-									{props.morningNotes.length
-										? props.morningNotes
+								</TabPanel>
+								<TabPanel value="Europe">
+									{props.lastPublications.length
+										? props.lastPublications
 												.filter((pub) => pub.region === 'Europe')
-												.map((pub) => morningNotesSection(pub))
+												.map((pub) => lastPublicationsSection(pub))
 										: null}
-								</div>
-							</TabPanel>
-							<TabPanel value={2}>
-								<div className={classes.morningNotesScroll}>
-									{props.morningNotes.length
-										? props.morningNotes
+								</TabPanel>
+								<TabPanel value="United-States">
+									{props.lastPublications.length
+										? props.lastPublications
 												.filter((pub) => pub.region === 'United-States')
-												.map((pub) => morningNotesSection(pub))
+												.map((pub) => lastPublicationsSection(pub))
 										: null}
-								</div>
-							</TabPanel>
-						</TabsUnstyled>
-					</section>
-				</Grid>
-				{/* indus recoursed, focus ideas */}
-				<Grid item xs={4} xl={5}>
-					<section className={classes.industryRecoursed}>
-						<div className={classes.header}>Industry Recoursed</div>
-						{props.industryRecoursed.length
-							? props.industryRecoursed.map((pub) => industryRecoursedSection(pub))
-							: null}
-					</section>
-					<section className={classes.focusIdeas}>
-						<div className={`${classes.header} ${classes.headerScrolled}`}>Focus Ideas</div>
-						<div className={classes.focusIdeasScroll}>
-							{props.focusIdeas.length
-								? props.focusIdeas.map((pub) => focusIdeasSection(pub))
+								</TabPanel>
+								{/* </TabContext> */}
+							</TabsUnstyled>
+						</section>
+						<section className={classes.latestNews}>
+							<div className={`${classes.header} ${classes.headerScrolled}`}>Latest News</div>
+							<div className={classes.latestNewsScroll}>
+								{props.latestNews.length
+									? props.latestNews.map((pub) => latestNewsSection(pub))
+									: null}
+							</div>
+						</section>
+						<section className={classes.morningNotes}>
+							<div className={classes.header} style={{ marginBottom: '10px' }}>
+								Morning Notes
+							</div>
+							<TabsUnstyled
+								value={props.morningNotesTabValue}
+								onChange={props.handleMorningNotsTabChange}
+							>
+								<TabsList>
+									<Tab value="Asia-Pacific">Asia-Pacific</Tab>
+									<Tab value="Europe">Europe</Tab>
+									<Tab value="United-States">United-States</Tab>
+								</TabsList>
+								<TabPanel value="Asia-Pacific">
+									<div className={classes.morningNotesScroll}>
+										{props.morningNotes.length
+											? props.morningNotes
+													.filter((pub) => pub.region === 'Asia-Pacific')
+													.map((pub) => morningNotesSection(pub))
+											: null}
+									</div>
+								</TabPanel>
+								<TabPanel value="Europe">
+									<div className={classes.morningNotesScroll}>
+										{props.morningNotes.length
+											? props.morningNotes
+													.filter((pub) => pub.region === 'Europe')
+													.map((pub) => morningNotesSection(pub))
+											: null}
+									</div>
+								</TabPanel>
+								<TabPanel value="United-States">
+									<div className={classes.morningNotesScroll}>
+										{props.morningNotes.length
+											? props.morningNotes
+													.filter((pub) => pub.region === 'United-States')
+													.map((pub) => morningNotesSection(pub))
+											: null}
+									</div>
+								</TabPanel>
+							</TabsUnstyled>
+						</section>
+					</Grid>
+					{/* indus recoursed, focus ideas */}
+					<Grid item xs={3.8} xl={4.7} className={classes.column}>
+						<section className={classes.industryRecoursed}>
+							<div className={classes.header}>Industry Recoursed</div>
+							{props.industryRecoursed.length
+								? props.industryRecoursed.map((pub) => industryRecoursedSection(pub))
 								: null}
-						</div>
-					</section>
-				</Grid>
-				{/* events */}
-				<Grid item xs={3.5} xl={3.5}>
-					<section className={classes.events}>
-						<div
-							style={{
-								fontWeight: 700,
-								marginBottom: '10px',
-							}}
-						>
-							Events
-						</div>
-						<TabsUnstyled defaultValue={0}>
-							<TabsList>
-								<Tab>Upcoming</Tab>
-								<Tab>Marked</Tab>
-							</TabsList>
-							<TabPanel value={0}>
-								<div>
-									<Helmet>
-										<style>
-											{`
-												.DayPicker {
-													font-family: Inter;
-												}
-												.DayPicker-Caption {
-													color: #1C67FF;
-												}
-												.DayPicker-NavButton--next {
-													background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAPCAYAAAA2yOUNAAAABHNCSVQICAgIfAhkiAAAAJ1JREFUKFNj3HX0lsG/v//i2f+yNzo6Kn5gwAIYdxy+MQEong/EF9j/sDtiU8i4f/99gZ8sPw8AFenjUsgIMp2QQrAiQgrhivApRFGESyGGIpDC7YevOzAyMO4HsRn/MwZiKAKH279/IAUC//8zLvS0U09AUYRNAdg0mO9wKYArwqcArIiQArAiWNzBHIk1gsFRwvozwcNGAxTRWAEA+rt/IR87yyoAAAAASUVORK5CYII=)
-												}
-												.DayPicker-NavButton--prev {
-													background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAPCAYAAAA2yOUNAAAABHNCSVQICAgIfAhkiAAAAKVJREFUKFNjZMABth+6nsDEwPTB3U59AyM2NdsP3VzAyPg/Hij30cNWQwBDEZIChv///yd62mkuQFGETQHIJrgiXArgivApACvacfjGBCCdD+LA3IDuGZCiD0BBfiA+APSJIzbfMoLCg5GRcT5YkpFxgYeNeiKGSSABQgqRfIfbRLRwwq4QS4gjKWRgmAj0TAGOuIMrxB53MJ9tP3zdAcT2tNU8AAAtT14Qfdt8HwAAAABJRU5ErkJggg==)
-												}
-												.DayPicker-Day {
-													padding: 0.2em;
-													height: 2.5vw;
-													width: 3vw;
-													table-layout: fixed;
-												}
-												.DayPicker-Day--today {
-													font-weight: 400;
-												}
-												.DayPicker:not(.DayPicker--interactionDisabled) .DayPicker-Day:not(.DayPicker-Day--disabled):not(.DayPicker-Day--selected):not(.DayPicker-Day--outside):hover {
-													background-color: #fff;
-												}
-												.DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside):hover {
-													background-color: white;
-												}
-												.DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
-													font-weight: bold;
-													background-color: white;
-												}
-												.DayPicker-Month {
-													margin: 0;
-													margin-top: 20px;
-												}
-												.DayPicker-wrapper {
-													padding-bottom: 0;
-												}
-												.DayPicker-Months {
-													display: table;
-													width: 100%;
-													table-layout: fixed;
-												}
-												.DayPicker-NavButton {
-													margin-top: 6px;
-												}
-												.DayPicker-Weekday {
-													font-size: 1em;
-												}
-											`}
-										</style>
-									</Helmet>
-									<DayPicker
-										renderDay={renderDay}
-										selectedDays={props.selectedDay}
-										onDayClick={props.setSelectedDay}
-										onMonthChange={(month) => {
-											props.setDate(month);
-										}}
-									/>
-								</div>
-								<section className={classes.eventsWrapper}>
-									<div className={classes.eventsInnerWrapper}>
-										<div
-											style={{
-												backgroundColor: '#ED5858',
+						</section>
+						<section className={classes.focusIdeas}>
+							<div className={`${classes.header} ${classes.headerScrolled}`}>Focus Ideas</div>
+							<div className={classes.focusIdeasScroll}>
+								{props.focusIdeas.length
+									? props.focusIdeas.map((pub) => focusIdeasSection(pub))
+									: null}
+							</div>
+						</section>
+					</Grid>
+					{/* events */}
+					<Grid item xs={3.8} xl={3.5} className={classes.column}>
+						<section className={classes.events}>
+							<div
+								style={{
+									fontWeight: 700,
+									marginBottom: '10px',
+								}}
+							>
+								Events
+							</div>
+							<TabsUnstyled
+								value={props.eventsTabValue}
+								className={classes.TabsUnstyled}
+								onChange={props.handleEventsTabChange}
+							>
+								{props.isAuthenticated && (
+									<TabsList className={classes.tablist}>
+										<Tab value="upcoming">Upcoming</Tab>
+										<Tab value="marked" onClick={props.fetchMarkedEvents}>
+											Marked
+										</Tab>
+									</TabsList>
+								)}
+								{/* style={{display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}} */}
+								<TabPanel
+									value="upcoming"
+									style={{ display: 'flex', flexDirection: 'column' }}
+								>
+									<div style={{ borderBottom: '2px solid #EDEDF0', paddingBottom: 16 }}>
+										<Helmet>
+											<style>{dayPickerStyle}</style>
+										</Helmet>
+										<DayPicker
+											renderDay={renderDay}
+											selectedDays={props.selectedDay}
+											onDayClick={props.setSelectedDay}
+											onDayMouseEnter={(date) => props.handleDayMouse(date, 'enter')}
+											onDayMouseLeave={(date) => props.handleDayMouse(date, 'leave')}
+											onMonthChange={(month) => {
+												props.setDate(month);
 											}}
-											className={classes.eventsLabel}
 										/>
-										<div className={classes.eventsContentWrapper}>
-											<div className={classes.eventsInnerContentWrapper}>
-												<div className={classes.eventsHeader}>ARNA US</div>
-												<div style={{ color: '#868DA2' }}>02/28/2022</div>
-											</div>
-											<div className={classes.eventsInnerContentWrapper}>
-												<div
-													style={{
-														color: '#0F0F0F',
-														fontSize: '.9rem',
-														fontWeight: '600',
-													}}
-													className={classes.eventsContent}
-												>
-													PFE at JPM presentation
-												</div>
-												<div
-													style={{
-														color: '#ED5858',
-														fontSize: '.9rem',
-														fontWeight: '600',
-													}}
-												>
-													Today
-												</div>
-											</div>
-										</div>
 									</div>
-									<div className={classes.eventsInnerWrapper}>
-										<div
-											style={{
-												backgroundColor: '#FAC100',
+									<section className={classes.eventsWrapper}>
+										{props.events?.length
+											? props.events
+													.filter(
+														(event) =>
+															new Date(event.date).getDate() >=
+															new Date().getDate(),
+													)
+													.map((event) => eventBox(event))
+											: null}
+									</section>
+								</TabPanel>
+								<TabPanel value="marked">
+									<div>
+										<Helmet>
+											<style>{dayPickerStyle}</style>
+										</Helmet>
+										<DayPicker
+											renderDay={renderDay}
+											selectedDays={props.selectedDay}
+											onDayClick={props.setSelectedDay}
+											onMonthChange={(month) => {
+												props.setDate(month);
 											}}
-											className={classes.eventsLabel}
 										/>
-										<div className={classes.eventsContentWrapper}>
-											<div className={classes.eventsInnerContentWrapper}>
-												<div className={classes.eventsHeader}>ARNA US</div>
-												<div style={{ color: '#868DA2' }}>02/28/2022</div>
-											</div>
-											<div className={classes.eventsInnerContentWrapper}>
-												<div
-													style={{
-														color: '#0F0F0F',
-														fontSize: '.9rem',
-														fontWeight: '600',
-													}}
-													className={classes.eventsContent}
-												>
-													PFE at JPM presentation
-												</div>
-												<div
-													style={{
-														color: '#B8C3D8',
-														fontSize: '.9rem',
-														fontWeight: '600',
-													}}
-												>
-													Tomorrow
-												</div>
-											</div>
-										</div>
 									</div>
-									<div className={classes.eventsInnerWrapper}>
-										<div
-											style={{ backgroundColor: '#00CA80' }}
-											className={classes.eventsLabel}
-										/>
-										<div className={classes.eventsContentWrapper}>
-											<div className={classes.eventsInnerContentWrapper}>
-												<div className={classes.eventsHeader}>ARNA US</div>
-												<div style={{ color: '#868DA2' }}>02/28/2022</div>
-											</div>
-											<div className={classes.eventsInnerContentWrapper}>
-												<div
-													style={{
-														color: '#0F0F0F',
-														fontSize: '.9rem',
-														fontWeight: '600',
-													}}
-													className={classes.eventsContent}
-												>
-													PFE at JPM presentation
-												</div>
-												<div
-													style={{
-														color: '#B8C3D8',
-														fontSize: '.9rem',
-														fontWeight: '600',
-													}}
-												>
-													2D
-												</div>
-											</div>
-										</div>
-									</div>
-								</section>
-							</TabPanel>
-							<TabPanel value={1}>Second content</TabPanel>
-						</TabsUnstyled>
-					</section>
+									<section className={classes.eventsWrapper}>
+										{props.events?.length
+											? props.events
+													.filter(
+														(event) =>
+															new Date(event.date).getDate() >=
+															new Date().getDate(),
+													)
+													.map((event) => eventBox(event))
+											: null}
+									</section>
+								</TabPanel>
+							</TabsUnstyled>
+						</section>
+					</Grid>
 				</Grid>
 			</Grid>
 		</main>

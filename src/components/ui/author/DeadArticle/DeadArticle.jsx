@@ -295,8 +295,6 @@ const DeadArticle = () => {
 
 	//For editing
 	useEffect(() => {
-		console.log('chosenResearch', chosenResearch);
-
 		if (chosenResearch) {
 			//save article's ID in sessionStorage
 			sessionStorage.setItem('deadArticleId', chosenResearch.id);
@@ -763,9 +761,6 @@ const DeadArticle = () => {
 			dispatch(changeChosenResearch(null));
 		};
 	}, []);
-
-	console.log('localForm', localForm);
-	console.log('validationResult', validationResult);
 
 	return (
 		<DeadArticleView
