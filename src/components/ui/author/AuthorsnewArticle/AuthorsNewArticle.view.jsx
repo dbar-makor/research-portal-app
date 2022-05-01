@@ -142,7 +142,7 @@ const AuthorsNewArticleView = (props) => {
 							</Grid>
 						</Grid>
 					</Grid>
-					<Grid item xs={12} md={4} className={classes.rightColumn}>
+					<Grid item xs={12} md={5} className={classes.rightColumn}>
 						<Grid container className={classes.newArticleRightContainer}>
 							<Grid item xs={12} container className={classes.rightForm}>
 								<Grid item xs={12}>

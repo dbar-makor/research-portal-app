@@ -7,9 +7,6 @@ export const useStyles = makeStyles((theme) => ({
 		[theme.breakpoints.up('lg')]: {
 			minHeight: '80vh',
 		},
-		// [theme.breakpoints.up('md')]: {
-		// 	height: 'fit-content',
-		// },
 	},
 	newArticleWrapper: {
 		height: 'content-fit',
