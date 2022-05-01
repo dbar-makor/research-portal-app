@@ -25,7 +25,10 @@ const Comments = (props) => {
 
 			if (res.status === 201) {
 				dispatch(actionSnackBar.setSnackBar('success', 'comment successfully', 3000));
-				res = await axios.get(`${BASE_URL}${END_POINT.COMMENT}`, { params: { id: props.pubId } });
+				res = await axios.get(`${BASE_URL}${END_POINT.COMMENT}`, {
+					params: { id: props.pubId },
+					headers: { Authorization: token },
+				});
 				setLocalComments(res.data);
 			}
 		} catch (err) {

@@ -25,9 +25,9 @@ const CommentView = (props) => {
 						<Grid item>
 							<Typography style={{ fontSize: 14 }}>
 								<b>
-									{`${props.cmtNo}.`}
-									{' '}
-								</b>
+{`${props.cmtNo}.`}
+{' '}
+        </b>
 								{props.comment.content}
 							</Typography>
 						</Grid>
@@ -84,7 +84,7 @@ const CommentView = (props) => {
 									variant="outlined"
 									placeholder="Add a reply..."
 									className={classes.textField}
-									value={props.reply.content}
+									value={props?.reply?.content || ''}
 									onChange={(e) =>
 										props.setReply({ ...props.reply, content: e.target.value })
 									}
@@ -102,7 +102,7 @@ const CommentView = (props) => {
 									</Grid>
 									<Grid item>
 										<StyledButton
-											disabled={props.reply.content !== '' ? false : true}
+											disabled={props?.reply?.content !== '' ? false : true}
 											style={{ width: 70 }}
 											onClick={() => props.replyChangeHandler(props.reply)}
 										>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import {
@@ -8,6 +8,7 @@ import {
 	setParamsEvent,
 } from '../../../utils/helpers/helperFunctions';
 import { BASE_URL, END_POINT } from '../../../utils/constants';
+import * as actionSnackBar from '../../../redux/SnackBar/action';
 import GeneralHomeView from './GeneralHome.view';
 
 const date = new Date();
@@ -20,6 +21,8 @@ const calendarDefaultValue = {
 };
 
 const GeneralHome = () => {
+	const dispatch = useDispatch();
+
 	const categories = useSelector((state) => state.categories.categories);
 	const latestNewsId = categories?.find((categoryObj) => categoryObj.name === 'News')?.id;
 	const morningNotesId = categories?.find((categoryObj) => categoryObj.name === 'Morning Notes')?.id;
@@ -52,6 +55,12 @@ const GeneralHome = () => {
 	const [eventsTabValue, setEventsTabValue] = useState('upcoming');
 	const [lastPublicationsTabValue, setLastPublicationsTabValue] = useState('Asia-Pacific');
 	const [morningNotesTabValue, setMorningNotesTabValue] = useState('Asia-Pacific');
+	const [openAlert, setOpenAlert] = useState(false);
+	const [title, setTitle] = useState('');
+	const [text, setText] = useState('');
+	const [actionName, setActionName] = useState('');
+	const [markedEvents, setMarkedEvents] = useState([]);
+	const [markedEventsDays, setMarkedEventsDays] = useState([]);
 	//const [eventHovered, setEventHovered] = useState(false);
 
 	const isAuthorised = true;
@@ -72,9 +81,68 @@ const GeneralHome = () => {
 		}
 	};
 
-	const handleClick = (pubId) => {
+	const handleAction = () => {
+		if (actionName === 'Edit Settings') {
+			history.push('/settings');
+		} else {
+			history.push('/home');
+		}
+
+		setOpenAlert(false);
+	};
+
+	const handleClick = (pubId, categories) => {
+		if (!categories) {
+			categories = [];
+		}
+
 		localStorage.setItem('articleId', JSON.stringify(pubId));
-		history.push({ pathname: whereToLink(pubId), state: { id: pubId, to: whereToLink(pubId) } });
+		const userContent = JSON.parse(localStorage.getItem('userContent'));
+		const userCategories = userContent.categories.map((item) => item.id);
+
+		if (userContent.type === 'prospect' || userContent.type === 'client') {
+			const isSuscribe = categories.some((c) => userCategories.includes(c.id));
+
+			if (isSuscribe) {
+				history.push({ pathname: whereToLink(pubId), state: { id: pubId, to: whereToLink(pubId) } });
+
+				return;
+			} else {
+				const companyCategories = userContent.company_categories.map((item) => item.id);
+				//is not Suscribe check if permitted
+				const isPermitted = categories.some((c) => companyCategories.includes(c.id));
+
+				if (isPermitted) {
+					setActionName('Edit Settings');
+					setTitle('You are not suscribed');
+					setText('You need to suscribe to this categories in your Profile');
+				} else {
+					setActionName('Back to Home');
+					setTitle('You dont have access');
+					setText(
+						'You dont have access to this article since your company is not registered to this article\'s categories',
+					);
+				}
+			}
+		} else {
+			const isSuscribe = categories.some((c) => userCategories.includes(c.id));
+
+			if (isSuscribe) {
+				history.push({ pathname: whereToLink(pubId), state: { id: pubId, to: whereToLink(pubId) } });
+
+				return;
+			} else {
+				setActionName('Edit Settings');
+				setTitle('You are not suscribed');
+				setText('You need to suscribe to this categories in your Profile');
+			}
+		}
+
+		setOpenAlert(true);
+	};
+
+	const handleClose = () => {
+		setOpenAlert(false);
 	};
 
 	const fetchLastPublications = useCallback(async (howMany, region) => {
@@ -202,11 +270,14 @@ const GeneralHome = () => {
 			);
 
 			if (res.status === 201) {
-				console.log('event is marked');
+				dispatch(actionSnackBar.setSnackBar('success', 'Successfully marked event', 2000));
 			}
 		} catch (error) {
-			/* eslint no-console: 0 */
-			console.log(error, error.message);
+			if (!error.response.data.success) {
+				dispatch(actionSnackBar.setSnackBar('error', error.response.data.message, 2000));
+			} else {
+				dispatch(actionSnackBar.setSnackBar('error', 'somthing went worng', 2000));
+			}
 		}
 	};
 
@@ -221,6 +292,12 @@ const GeneralHome = () => {
 
 			if (res.status === 200) {
 				console.log('res.data events', res.data);
+				setMarkedEvents(res.data);
+				const days = res.data.map((event) => {
+					return new Date(event.date).getDate();
+				});
+
+				setMarkedEventsDays(days);
 			}
 		} catch (error) {
 			/* eslint no-console: 0 */
@@ -233,6 +310,7 @@ const GeneralHome = () => {
 			{categories?.length && (
 				<GeneralHomeView
 					eventsDays={eventsDays}
+					markedEventsDays={markedEventsDays}
 					calendarDefaultValue={calendarDefaultValue}
 					selectedDay={selectedDay}
 					setSelectedDay={setSelectedDay}
@@ -246,6 +324,7 @@ const GeneralHome = () => {
 					isAuthenticated={isAuthenticated}
 					whereToLink={whereToLink}
 					events={events}
+					markedEvents={markedEvents}
 					date={date}
 					setDate={setDate}
 					eventsTabValue={eventsTabValue}
@@ -253,6 +332,12 @@ const GeneralHome = () => {
 					lastPublicationsTabValue={lastPublicationsTabValue}
 					morningNotesTabValue={morningNotesTabValue}
 					fetchMarkedEvents={fetchMarkedEvents}
+					openAlert={openAlert}
+					handleClose={handleClose}
+					title={title}
+					text={text}
+					actionName={actionName}
+					handleAction={handleAction}
 					handleClick={handleClick}
 					handleEventsTabChange={handleEventsTabChange}
 					handleLastPublicationTabChange={handleLastPublicationTabChange}

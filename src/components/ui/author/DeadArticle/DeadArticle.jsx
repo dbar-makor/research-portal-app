@@ -746,7 +746,11 @@ const DeadArticle = () => {
 
 			clearStorage();
 		} catch (error) {
-			dispatch(actionSnackBar.setSnackBar('error', 'Saving failed', 2000));
+			if (!error.response.data.success) {
+				dispatch(actionSnackBar.setSnackBar('error', error.response.data.message, 2000));
+			} else {
+				dispatch(actionSnackBar.setSnackBar('error', 'Saving failed', 2000));
+			}
 		}
 	};
 

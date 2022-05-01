@@ -32,6 +32,9 @@ const Comment = (props) => {
 			comment={props.comment}
 			cmtNo={props.cmtNo}
 			openReply={openReply}
+			reply={reply}
+			setReply={setReply}
+			setOpenReply={setOpenReply}
 			userType={userType}
 			replyChangeHandler={replyChangeHandler}
 		/>
