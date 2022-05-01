@@ -87,6 +87,7 @@ const FullPublicationView = (props) => {
 					</Grid>
 				</>
 			)}
+
 			{/* {!props.loadingPub && (
 				<IconButton
 					style={{

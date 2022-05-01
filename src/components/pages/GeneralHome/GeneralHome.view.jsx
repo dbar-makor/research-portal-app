@@ -14,7 +14,7 @@ import { format } from 'date-fns';
 import formatDistanceToNowStrict from 'date-fns/formatDistanceToNowStrict';
 import isSameDay from 'date-fns/isSameDay';
 import addDays from 'date-fns/addDays';
-
+import MessageAlert from '../../ui/reusables/MessageAlert/MessageAlert';
 //import { Link } from 'react-router-dom';
 import useStyles, { Tab, TabPanel, TabsList, dayPickerStyle } from './GeneralHome.style';
 
@@ -41,7 +41,7 @@ const GeneralHomeView = (props) => {
 		<section
 			key={pub.id}
 			className={classes.lastPublicationsWrapper}
-			onClick={() => props.handleClick(pub.id)}
+			onClick={() => props.handleClick(pub.id, pub.categories)}
 		>
 			<div
 				style={{
@@ -66,7 +66,11 @@ const GeneralHomeView = (props) => {
 	);
 
 	const latestNewsSection = (pub) => (
-		<section key={pub.id} className={classes.latestNewsWrapper} onClick={() => props.handleClick(pub.id)}>
+		<section
+			key={pub.id}
+			className={classes.latestNewsWrapper}
+			onClick={() => props.handleClick(pub.id, pub.categories)}
+		>
 			<div
 				style={{
 					display: 'flex',
@@ -89,7 +93,7 @@ const GeneralHomeView = (props) => {
 		<section
 			key={pub.id}
 			className={classes.morningNotesWrapper}
-			onClick={() => props.handleClick(pub.id)}
+			onClick={() => props.handleClick(pub.id, pub.categories)}
 		>
 			<div
 				style={{
@@ -111,7 +115,7 @@ const GeneralHomeView = (props) => {
 		<section
 			key={pub.id}
 			className={classes.industryRecoursedWrapper}
-			onClick={() => props.handleClick(pub.id)}
+			onClick={() => props.handleClick(pub.id, pub.categories)}
 		>
 			<div className={classes.industryRecoursedUpperRow}>
 				{pub.tags?.length ? (
@@ -167,7 +171,7 @@ const GeneralHomeView = (props) => {
 		<section
 			key={pub.id}
 			className={classes.mostClickedIdeasWrapper}
-			onClick={() => props.handleClick(pub.id)}
+			onClick={() => props.handleClick(pub.id, pub.categories)}
 		>
 			<div style={{ marginRight: '15px', marginTop: 5, marginBottom: 5 }}>
 				<div className={classes.mostClickedIdeasTitle}>idea</div>
@@ -320,7 +324,7 @@ const GeneralHomeView = (props) => {
 											<div
 												key={pub.id}
 												className={classes.carouselContect}
-												onClick={() => props.handleClick(pub.id)}
+												onClick={() => props.handleClick(pub.id, pub.categories)}
 											>
 												{pub.title}
 											</div>
@@ -542,6 +546,14 @@ const GeneralHomeView = (props) => {
 					</Grid>
 				</Grid>
 			</Grid>
+			<MessageAlert
+				open={props.openAlert}
+				handleClose={props.handleClose}
+				title={props.title}
+				text={props.text}
+				actionName={props.actionName}
+				handleAction={props.handleAction}
+			/>
 		</main>
 	);
 };
