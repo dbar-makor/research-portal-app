@@ -36,113 +36,88 @@ const AuthorsNewArticleView = (props) => {
 	const classes = useStyles();
 
 	return (
-		<Grid container justifyContent="center" style={{ paddingTop: 20 }}>
+		<Grid container justifyContent="center" style={{ paddingTop: 20, marginBottom: ' 2vh' }}>
 			<Grid item xs={11} lg={10}>
 				<Grid item container className={classes.newArticleContainer}>
-					<Grid item xs={12} lg={1} className={classes.leftColumn}>
+					<Grid item xs={12} lg={2} className={classes.leftColumn}>
 						<SubHeader title="Write New Article" />
 					</Grid>
-					<Grid item xs={12} md={6} className={classes.middleColumn}>
-						<Grid
-							container
-							direction="column"
-							justifyContent="space-between"
-							spacing={1}
-							className={classes.newArticleLeftContainer}
-						>
-							{/* <Grid item xs={12}>
-								<Grid container justifyContent="space-between" alignItems="flex-end" />
-							</Grid> */}
-							<Grid item xs={12}>
-								<Grid container justifyContent="space-between" alignItems="flex-end">
-									<Grid item xs={12}>
-										<Grid
-											container
-											className={classes.marginBottom25}
-											justifyContent="space-between"
-										>
-											<Grid item xs={12} style={{ minHeight: 91 }}>
-												<AtricleTitleTextField
-													variant="outlined"
-													value={props.localForm.title}
-													className={classes.articleTitleLive}
-													placeholder="Article Title*"
-													error={!!props.errors.title}
-													helperText={props.errors.title}
-													inputProps={{
-														style: { fontSize: '32px', fontWeight: 600 },
-														maxLength: 50,
-													}}
-													onChange={(e) =>
-														props.handleChange(e.target.value, 'title')
-													}
-												/>
-											</Grid>
+					<Grid item xs={12} md={7} lg={6} className={classes.middleColumn}>
+						<Grid item container xs={12} style={{ height: 91 }}>
+							<AtricleTitleTextField
+								variant="outlined"
+								value={props.localForm.title}
+								className={classes.articleTitleLive}
+								placeholder="Article Title*"
+								error={!!props.errors.title}
+								helperText={props.errors.title}
+								inputProps={{
+									style: { fontSize: '32px', fontWeight: 600 },
+									maxLength: 50,
+								}}
+								onChange={(e) => props.handleChange(e.target.value, 'title')}
+							/>
+						</Grid>
+						<Grid item xs={12} style={{ height: 'calc(100% - 91px)' }}>
+							<Grid container style={{ height: '100%' }}>
+								<Grid item xs={12} className={classes.editorContainer}>
+									<MUIRichTextEditor
+										className={
+											props.showEditorError
+												? `${classes.muiEditor} ${classes.editorError}`
+												: `${classes.muiEditor}`
+										}
+										inlineToolbar
+										label="Enter article body...*"
+										onChange={props.handleEditorChange}
+										onFocus={props.handleEditorOnFocus}
+										{...(props.chosenResearch &&
+										Object.values(props.chosenResearch.content).length > 0
+											? {
+													defaultValue:
+														typeof props.chosenResearch.content !== 'string'
+															? JSON.stringify(props.chosenResearch.content)
+															: props.chosenResearch.content,
+											  }
+											: props.storageDefaultContent?.blocks?.some((block) => {
+													return block.text !== '';
+											  }) && {
+													defaultValue:
+														typeof props.storageDefaultContent !== 'string'
+															? JSON.stringify(props.storageDefaultContent)
+															: props.storageDefaultContent,
+											  })}
+										controls={[
+											'bold',
+											'italic',
+											'underline',
+											'strikethrough',
+											'highlight',
+											'link',
+											'numberList',
+											'bulletList',
+											'quote',
+										]}
+										customControls={[
+											{
+												name: 'upload-image',
+												icon: <InsertPhotoIcon />,
+												type: 'callback',
+											},
+										]}
+									/>
+								</Grid>
+								{props.contentNotOK.focus &&
+									props.contentNotOK.everTyped &&
+									!props.contentNotOK.isText && (
+										<Grid item xs={6} className={classes.editorError}>
+											This field is required
 										</Grid>
-									</Grid>
-								</Grid>
-							</Grid>
-							<Grid item xs={12}>
-								<Grid container>
-									<Grid item xs={12}>
-										<MUIRichTextEditor
-											className={
-												props.showEditorError
-													? `${classes.muiEditor} ${classes.editorError}`
-													: `${classes.muiEditor}`
-											}
-											inlineToolbar
-											label="Enter article body...*"
-											onChange={props.handleEditorChange}
-											onFocus={props.handleEditorOnFocus}
-											{...(props.chosenResearch &&
-											Object.values(props.chosenResearch.content).length > 0
-												? {
-														defaultValue:
-															typeof props.chosenResearch.content !== 'string'
-																? JSON.stringify(props.chosenResearch.content)
-																: props.chosenResearch.content,
-												  }
-												: props.storageDefaultContent?.blocks?.some((block) => {
-														return block.text !== '';
-												  }) && {
-														defaultValue:
-															typeof props.storageDefaultContent !== 'string'
-																? JSON.stringify(props.storageDefaultContent)
-																: props.storageDefaultContent,
-												  })}
-											controls={[
-												'bold',
-												'italic',
-												'underline',
-												'strikethrough',
-												'highlight',
-												'link',
-												'numberList',
-												'bulletList',
-												'quote',
-											]}
-											customControls={[
-												{
-													name: 'upload-image',
-													icon: <InsertPhotoIcon />,
-													type: 'callback',
-												},
-											]}
-										/>
-									</Grid>
-									{props.contentNotOK.focus &&
-										props.contentNotOK.everTyped &&
-										!props.contentNotOK.isText && (
-											<Grid item xs={6} style={{ color: 'red', marginLeft: 8 }}>
-												This field is required
-											</Grid>
-										)}
-								</Grid>
+									)}
 							</Grid>
 						</Grid>
 					</Grid>
-					<Grid item xs={12} md={5} className={classes.rightColumn}>
+					<Grid item xs={12} md={5} lg={4} className={classes.rightColumn}>
 						<Grid container className={classes.newArticleRightContainer}>
 							<Grid item xs={12} container className={classes.rightForm}>
 								<Grid item xs={12}>
@@ -398,7 +373,7 @@ const AuthorsNewArticleView = (props) => {
 								alignItems="center"
 								className={classes.buttonsContainer}
 							>
-								<Grid item container md={3} lg={12} xl={3} justifyContent="center">
+								<Grid item container xs={3} justifyContent="flex-start">
 									{((props.chosenResearch && props.chosenResearch.status === 'draft') ||
 										!props.chosenResearch) && (
 										<Typography
@@ -413,13 +388,12 @@ const AuthorsNewArticleView = (props) => {
 								<Grid
 									item
 									container
-									md={7}
-									lg={12}
-									xl={7}
-									justifyContent="space-between"
+									md={9}
+									xs={5}
+									justifyContent="flex-end"
 									className={classes.duoButtons}
 								>
-									<Grid item xl={5}>
+									<Grid item container justifyContent="flex-end" xs={5}>
 										<Link
 											to="/prearticle"
 											target="_blank"
@@ -433,7 +407,7 @@ const AuthorsNewArticleView = (props) => {
 											</OutlinedButton>
 										</Link>
 									</Grid>
-									<Grid item xl={5}>
+									<Grid item container justifyContent="flex-end" xs={5}>
 										<FilledButton
 											disabled={!props.isPublishable}
 											className={classes.publishBtn}
