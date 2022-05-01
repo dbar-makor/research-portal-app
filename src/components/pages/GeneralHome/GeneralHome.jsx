@@ -97,6 +97,13 @@ const GeneralHome = () => {
 		}
 
 		localStorage.setItem('articleId', JSON.stringify(pubId));
+
+		if (!isAuthenticated) {
+			history.push({ pathname: whereToLink(pubId), state: { id: pubId, to: whereToLink(pubId) } });
+
+			return;
+		}
+
 		const userContent = JSON.parse(localStorage.getItem('userContent'));
 		const userCategories = userContent.categories.map((item) => item.id);
 
