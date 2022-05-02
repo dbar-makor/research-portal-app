@@ -239,7 +239,6 @@ const GeneralHome = () => {
 	}, [date]);
 
 	const handleEventsTabChange = (e, newValue) => {
-		console.log('newValue', newValue);
 		setEventsTabValue(newValue);
 
 		fetchEventsByMonth();
@@ -250,16 +249,15 @@ const GeneralHome = () => {
 	};
 
 	const handleMorningNotsTabChange = (e, newValue) => {
-		console.log('newValue', newValue);
 		setMorningNotesTabValue(newValue);
 
-		if (newValue === 'asia-pacific') {
-			console.log('asia-pacific');
-		} else if (newValue === 'europe') {
-			console.log('europe');
-		} else {
-			console.log('united-states');
-		}
+		// if (newValue === 'asia-pacific') {
+		// 	console.log('asia-pacific');
+		// } else if (newValue === 'europe') {
+		// 	console.log('europe');
+		// } else {
+		// 	console.log('united-states');
+		// }
 	};
 
 	const handleDayMouse = (date, marker) => {

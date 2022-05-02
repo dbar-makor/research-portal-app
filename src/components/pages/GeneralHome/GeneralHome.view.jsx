@@ -5,8 +5,9 @@ import TabsUnstyled from '@mui/base/TabsUnstyled';
 // import { TabContext, TabList } from '@material-ui/lab';
 // import Tabs from '@material-ui/core/Tabs';
 import Grid from '@mui/material/Grid';
-import AddIcon from '@material-ui/icons/Add';
-import RemoveIcon from '@material-ui/icons/Remove';
+// import AddIcon from '@material-ui/icons/Add';
+// import RemoveIcon from '@material-ui/icons/Remove';
+import BookmarkIcon from '@material-ui/icons/Bookmark';
 import { Helmet } from 'react-helmet';
 import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
@@ -17,6 +18,7 @@ import isSameDay from 'date-fns/isSameDay';
 import addDays from 'date-fns/addDays';
 import MessageAlert from '../../ui/reusables/MessageAlert/MessageAlert';
 //import { Link } from 'react-router-dom';
+import { ReactComponent as UnmarkIcon } from '../../../assets/icons/unmark.svg';
 import useStyles, { Tab, TabPanel, TabsList, dayPickerStyle } from './GeneralHome.style';
 
 const formatLongString = (str, lgth) => {
@@ -257,24 +259,30 @@ const GeneralHomeView = (props) => {
 					style={{ backgroundColor: compareDates(new Date(event.date)).color }}
 					className={classes.eventsLabel}
 				>
-					<div onClick={() => props.handleMarkEvent(event.id, type)}>
+					<div
+						className={classes.markboxWrapper}
+						onClick={() => props.handleMarkEvent(event.id, type)}
+					>
 						{type === 'upcoming' && (
-							<>
-								<AddIcon className={classes.addIcon} style={{}} />
+							<div className={classes.markBox}>
+								<BookmarkIcon className={classes.bookmarkIcon} />
 								<span className={classes.addSpan}>Mark Event</span>
-							</>
+							</div>
 						)}
 						{type === 'marked' && (
-							<>
-								<RemoveIcon className={classes.addIcon} style={{}} />
+							<div className={classes.markBox}>
+								<UnmarkIcon className={classes.bookmarkIcon} />
 								<span className={classes.addSpan}>Unmark Event</span>
-							</>
+							</div>
 						)}
 					</div>
 				</div>
 				<div className={classes.eventsContentWrapper}>
 					<div className={classes.eventsInnerContentWrapper}>
-						<div className={classes.eventsHeader}>{formatLongString(event.title, 30)}</div>
+						<div className={classes.eventsHeader}>
+							{/* <BookmarkIcon className={classes.miniBookmark} /> */}
+							{formatLongString(event.title, 30)}
+						</div>
 						<div style={{ color: '#868DA2' }}>{format(new Date(event.date), 'dd/MM/yyyy')}</div>
 					</div>
 					<div className={classes.eventsInnerContentWrapper}>
