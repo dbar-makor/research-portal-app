@@ -433,7 +433,7 @@ const useStyles = makeStyles((theme) => ({
 			backgroundColor: '#D5DBE7',
 		},
 	},
-	eventsInnerWrapper: {
+	eventsInnerWrapper: (props) => ({
 		'display': 'flex',
 		'position': 'relative',
 		'justifyContent': 'center',
@@ -442,37 +442,54 @@ const useStyles = makeStyles((theme) => ({
 		'&:not(:last-child)': {
 			marginBottom: '15px',
 		},
-	},
-	eventsLabel: (props) => ({
-		'padding': '5px',
-		'marginRight': '10px',
-		'borderRadius': '0 2px 2px 0',
-		'display': 'flex',
-		'justifyContent': 'center',
-		'alignItems': 'center',
-		'width': 0,
-		'transition': 'width 0.5s, display 0.5s',
 		'&:hover': {
 			cursor: props.isAuthenticated ? 'pointer' : 'default',
-			width: props.isAuthenticated ? 200 : 0,
+		},
+		'&:hover > div:first-of-type': {
+			width: props.isAuthenticated ? '98%' : 0,
 			height: 35,
 			position: props.isAuthenticated ? 'absolute' : 'static',
 			top: 0,
 			left: 0,
 		},
-		'&:hover svg': {
-			display: props.isAuthenticated ? 'inline' : 'none',
-		},
-		'&:hover span': {
-			display: props.isAuthenticated ? 'inline' : 'none',
-		},
-		'&:hover + div': {
+		'&:hover > div:nth-of-type(2)': {
 			display: props.isAuthenticated ? 'none' : 'flex',
+			width: props.isAuthenticated ? 0 : '100%',
+		},
+		'&:hover > div:first-of-type svg': {
+			display: props.isAuthenticated ? 'inline' : 'none',
+		},
+		'&:hover div span': {
+			display: props.isAuthenticated ? 'inline' : 'none',
 		},
 	}),
-
-	addIcon: {
-		marginRight: 10,
+	eventsLabel: {
+		padding: '5px',
+		marginRight: '10px',
+		borderRadius: '0 2px 2px 0',
+		display: 'flex',
+		justifyContent: 'center',
+		alignItems: 'center',
+		width: 0,
+		transition: 'width 0.5s, display 0.5s',
+	},
+	markboxWrapper: {
+		display: 'flex',
+		width: '100%',
+		height: '100%',
+		alignItems: 'center',
+		justifyContent: 'center',
+	},
+	markBox: {
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center',
+		width: '100%',
+		height: '100%',
+	},
+	bookmarkIcon: {
+		marginRight: 5,
+		paddingTop: 3,
 		display: 'none',
 		fill: '#fff',
 		fontSize: 16,
@@ -486,6 +503,7 @@ const useStyles = makeStyles((theme) => ({
 		display: 'flex',
 		flexDirection: 'column',
 		width: '100%',
+		transition: 'width 0.5s',
 	},
 	eventsInnerContentWrapper: {
 		'display': 'flex',
@@ -503,6 +521,14 @@ const useStyles = makeStyles((theme) => ({
 		color: '#0F0F0F',
 		fontWeight: 'bold',
 		fontSize: '.9rem',
+		display: 'flex',
+		alignItems: 'center',
+	},
+	miniBookmark: {
+		fill: '#B8C3D8',
+		fontSize: 15,
+		paddingTop: 4,
+		marginRight: 5,
 	},
 }));
 
@@ -622,24 +648,16 @@ export const dayPickerStyle = `
 }
 @media screen and (max-width: 1400px) {
 	.DayPicker-Month {
-		transform: scale(0.85) translate(-1vw,-20px);
+		transform: scale(0.94) translate(-0.7vw,0);
 		
 	}
   }
 
-  @media screen and (max-width: 1330px) {
+  @media screen and (max-width: 1030px) {
 	.DayPicker-Month {
-		transform: scale(0.85) translate(-2vw, 0);
+		transform: scale(0.85) translate(-2.7vw, 0);
 	}
   }
-
-  @media screen and (max-width: 1100px) {
-	.DayPicker-Month {
-		transform: scale(0.85) translate(-3vw, 0);
-	}
-  }
-
-
 
 .DayPicker-wrapper {
 	padding-bottom: 0;
@@ -658,29 +676,29 @@ export const dayPickerStyle = `
 
 @media screen and (max-width: 1400px) {
 	.DayPicker-NavBar  {
-		transform: scale(0.85);
-		right: 15px;
+		transform: scale(0.94);
+		right: 8px;
+		top: -7px;
 	}
   }
 
-  @media screen and (max-width: 1330px) {
+
+  @media screen and (max-width: 1250px) {
+	.DayPicker-NavBar  {
+		right: -5px;
+		top: -8px;
+	}
+  }
+
+  @media screen and (max-width: 1030px) {
 	.DayPicker-NavBar  {
 		transform: scale(0.85);
-		right: 0;
-		top: 0;
+		right: -5px;
+		top: 2px;
 	}
   }
 
-  @media screen and (max-width: 1100px) {
-	.DayPicker-NavBar  {
-		right: -20px;
-		top: 0;
-	}
-  }
 
-// .DayPicker-NavButton {
-// 	margin-top: 6px;
-// }
 .DayPicker-Weekday {
 	font-size: 1em;
 }
