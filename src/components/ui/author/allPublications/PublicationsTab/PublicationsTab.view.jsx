@@ -34,7 +34,13 @@ const PublicationsTabView = (props) => {
 							</Grid>
 						) : null}
 						{props.publication.status === 'draft' && props.publication.is_publishable ? (
-							<Grid item xs={4}>
+							<Grid
+								item
+								container
+								xs={4}
+								justifyContent="flex-end"
+								className={classes.publishWrapper}
+							>
 								<FilledButton
 									className={classes.publishStyle}
 									onClick={() => props.publishPublication(props.publication.id)}
