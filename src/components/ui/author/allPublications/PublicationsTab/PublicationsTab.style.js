@@ -24,10 +24,26 @@ const useStyles = makeStyles((theme) => ({
 		},
 	},
 	cardWrapper: {
-		minWidth: 250,
-		maxWidth: 350,
-		marginRight: 10,
-		marginBottom: 30,
+		'minWidth': 250,
+		'maxWidth': 350,
+		'marginRight': 10,
+		'marginBottom': 30,
+		'@media (max-width: 1770px)': {
+			maxWidth: 300,
+		},
+		'@media (max-width: 1540px)': {
+			maxWidth: 280,
+		},
+		'@media (max-width: 1440px)': {
+			maxWidth: 350,
+			minWidth: 350,
+		},
+		'@media (max-width: 1200px)': {
+			minWidth: 300,
+		},
+		'@media (max-width: 1080px)': {
+			minWidth: 350,
+		},
 	},
 	card: {
 		// flexDirection: "column",
