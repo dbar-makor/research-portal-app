@@ -28,7 +28,7 @@ const MessageAlertView = (props) => {
 					<Typography className={classes.deleteTitle}>{props.title}</Typography>
 				</Grid>
 				<Grid item xs={12}>
-					<Typography className={classes.deleteText}>{`${props.text} ?`}</Typography>
+					<Typography className={classes.deleteText}>{`${props.text}`}</Typography>
 				</Grid>
 				<Grid item xs={12}>
 					<Grid container justifyContent="center">
