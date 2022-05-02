@@ -20,7 +20,7 @@ const FullPublicationView = (props) => {
 			container
 			direction="row"
 			justifyContent="center"
-			style={{ paddingTop: 30, position: 'relative' }}
+			style={{ paddingTop: 30, position: 'relative', minHeight: '70vh' }}
 		>
 			{props.loadingPub && (
 				<Grid item xs={12} align="center" style={{ height: 'calc(100vh - 539px)' }}>
