@@ -66,7 +66,7 @@ const FullPublication = () => {
 				const article = JSON.parse(localStorage.getItem('presentation-article'));
 
 				setId(article.id);
-				chosenPublication(article);
+				setChosenPublication(article);
 
 				return;
 			} else {
