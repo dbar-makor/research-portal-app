@@ -1,6 +1,12 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
+	publishWrapper: {
+		'marginRight': 10,
+		'@media (min-width: 971px) and (max-width: 1216px)': {
+			marginRight: 20,
+		},
+	},
 	publishStyle: {
 		'backgroundColor': '#1C67FF',
 		'color': '#FFF',
@@ -24,10 +30,26 @@ const useStyles = makeStyles((theme) => ({
 		},
 	},
 	cardWrapper: {
-		minWidth: 250,
-		maxWidth: 350,
-		marginRight: 10,
-		marginBottom: 30,
+		'minWidth': 250,
+		'maxWidth': 350,
+		'marginRight': 10,
+		'marginBottom': 30,
+		'@media (max-width: 1775px)': {
+			maxWidth: 300,
+		},
+		'@media (max-width: 1540px)': {
+			maxWidth: 280,
+		},
+		'@media (max-width: 1440px)': {
+			maxWidth: 350,
+			minWidth: 350,
+		},
+		'@media (max-width: 1216px)': {
+			minWidth: 250,
+		},
+		'@media (max-width: 970px)': {
+			minWidth: 350,
+		},
 	},
 	card: {
 		// flexDirection: "column",

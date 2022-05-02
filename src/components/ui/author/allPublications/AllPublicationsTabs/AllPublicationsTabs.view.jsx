@@ -36,7 +36,7 @@ const AllPublicationsTabsView = (props) => {
 						justifyContent="space-between"
 						className={classes.barWrapper}
 					>
-						<Grid item xs={12} lg={4}>
+						<Grid item xs={12} md={4}>
 							<Tabs
 								value={props.value}
 								className={classes.tabs}
@@ -51,11 +51,11 @@ const AllPublicationsTabsView = (props) => {
 							container
 							item
 							xs={12}
-							lg={4}
-							justifyContent="space-between"
+							md={7}
+							justifyContent="flex-end"
 							className={classes.rightBarWrapper}
 						>
-							<Grid item xs={5} lg={7} className={classes.categoriesWrapper}>
+							<Grid item xs={5} md={6} lg={7} className={classes.categoriesWrapper}>
 								<CategoriesAutoComplete
 									notMultiple
 									handler={props.handler}
@@ -65,7 +65,7 @@ const AllPublicationsTabsView = (props) => {
 									search
 								/>
 							</Grid>
-							<Grid container item xs={4} justifyContent="flex-end">
+							<Grid container item xs={3} md={4} lg={3} justifyContent="flex-end">
 								<AddButton
 									className={classes.newBtn}
 									onClick={() => props.handleOpenNewPublication()}
