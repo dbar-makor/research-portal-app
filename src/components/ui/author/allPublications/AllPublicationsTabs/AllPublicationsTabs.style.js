@@ -2,14 +2,19 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
 	barWrapper: {
-		padding: '10px',
-		[theme.breakpoints.down('lg')]: {
+		'padding': '10px',
+		'@media (max-width: 1055px)': {
 			minHeight: 140,
 			alignContent: 'space-between',
 		},
 	},
 	rightBarWrapper: {
-		[theme.breakpoints.down('md')]: {
+		'@media (max-width: 1055px)': {
+			flexBasis: '100%',
+			maxWidth: '100%',
+			justifyContent: 'flex-start',
+		},
+		[theme.breakpoints.down('sm')]: {
 			justifyContent: 'flex-start',
 		},
 	},
