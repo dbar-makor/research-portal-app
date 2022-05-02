@@ -59,8 +59,6 @@ const GeneralHome = () => {
 	const [title, setTitle] = useState('');
 	const [text, setText] = useState('');
 	const [actionName, setActionName] = useState('');
-	const [markedEvents, setMarkedEvents] = useState([]);
-	const [markedEventsDays, setMarkedEventsDays] = useState([]);
 	//const [eventHovered, setEventHovered] = useState(false);
 
 	const isAuthorised = true;
@@ -168,12 +166,22 @@ const GeneralHome = () => {
 		}
 	});
 
-	const fetchEventsByMonth = useCallback(async () => {
+	const fetchEventsByMonth = useCallback(async (marked) => {
 		try {
-			const res = await axios.get(
-				`${BASE_URL}${END_POINT.EVENT}`,
-				setParamsEvent(date.getMonth() + 1, date.getFullYear()),
-			);
+			let res;
+			const token = localStorage.getItem('token');
+
+			if (!marked) {
+				res = await axios.get(
+					`${BASE_URL}${END_POINT.EVENT}`,
+					setParamsEvent(date.getMonth() + 1, date.getFullYear()),
+				);
+			} else {
+				res = await axios.get(`${BASE_URL}${END_POINT.EVENT}/mark`, {
+					...setParamsEvent(date.getMonth() + 1, date.getFullYear()),
+					headers: { Authorization: token },
+				});
+			}
 
 			if (res.status === 200) {
 				setEvents(res.data);
@@ -266,18 +274,33 @@ const GeneralHome = () => {
 		}
 	};
 
-	const handleMarkEvent = async (id) => {
+	const handleMarkEvent = async (id, type) => {
 		try {
+			let res;
 			const token = localStorage.getItem('token');
 
-			const res = await axios.post(
-				`${BASE_URL}${END_POINT.EVENT}/mark`,
-				{ event_id: id },
-				{ headers: { Authorization: token } },
-			);
+			if (type === 'upcoming') {
+				res = await axios.post(
+					`${BASE_URL}${END_POINT.EVENT}/mark`,
+					{ event_id: id },
+					{ headers: { Authorization: token } },
+				);
 
-			if (res.status === 201) {
-				dispatch(actionSnackBar.setSnackBar('success', 'Successfully marked event', 2000));
+				if (res.status === 201) {
+					dispatch(actionSnackBar.setSnackBar('success', 'Successfully marked event', 2000));
+				}
+			}
+
+			if (type === 'marked') {
+				res = await axios.delete(`${BASE_URL}${END_POINT.EVENT}/unmark`, {
+					params: { event_id: id },
+					headers: { Authorization: token },
+				});
+
+				if (res.status === 201) {
+					dispatch(actionSnackBar.setSnackBar('success', 'Successfully unmarked event', 2000));
+					fetchEventsByMonth(true);
+				}
 			}
 		} catch (error) {
 			if (!error.response.data.success) {
@@ -288,36 +311,11 @@ const GeneralHome = () => {
 		}
 	};
 
-	const fetchMarkedEvents = async () => {
-		try {
-			const token = localStorage.getItem('token');
-
-			const res = await axios.get(`${BASE_URL}${END_POINT.EVENT}/mark`, {
-				...setParamsEvent(date.getMonth() + 1, date.getFullYear()),
-				headers: { Authorization: token },
-			});
-
-			if (res.status === 200) {
-				console.log('res.data events', res.data);
-				setMarkedEvents(res.data);
-				const days = res.data.map((event) => {
-					return new Date(event.date).getDate();
-				});
-
-				setMarkedEventsDays(days);
-			}
-		} catch (error) {
-			/* eslint no-console: 0 */
-			console.log(error, error.message);
-		}
-	};
-
 	return (
 		<>
 			{categories?.length && (
 				<GeneralHomeView
 					eventsDays={eventsDays}
-					markedEventsDays={markedEventsDays}
 					calendarDefaultValue={calendarDefaultValue}
 					selectedDay={selectedDay}
 					setSelectedDay={setSelectedDay}
@@ -331,19 +329,18 @@ const GeneralHome = () => {
 					isAuthenticated={isAuthenticated}
 					whereToLink={whereToLink}
 					events={events}
-					markedEvents={markedEvents}
 					date={date}
 					setDate={setDate}
 					eventsTabValue={eventsTabValue}
 					highlightedDate={highlightedDate}
 					lastPublicationsTabValue={lastPublicationsTabValue}
 					morningNotesTabValue={morningNotesTabValue}
-					fetchMarkedEvents={fetchMarkedEvents}
 					openAlert={openAlert}
 					handleClose={handleClose}
 					title={title}
 					text={text}
 					actionName={actionName}
+					fetchEventsByMonth={fetchEventsByMonth}
 					handleAction={handleAction}
 					handleClick={handleClick}
 					handleEventsTabChange={handleEventsTabChange}

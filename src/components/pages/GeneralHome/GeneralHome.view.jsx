@@ -6,6 +6,7 @@ import TabsUnstyled from '@mui/base/TabsUnstyled';
 // import Tabs from '@material-ui/core/Tabs';
 import Grid from '@mui/material/Grid';
 import AddIcon from '@material-ui/icons/Add';
+import RemoveIcon from '@material-ui/icons/Remove';
 import { Helmet } from 'react-helmet';
 import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
@@ -241,7 +242,7 @@ const GeneralHomeView = (props) => {
 		return { color: '#00CA80', label: formatDistanceToNowStrict(date1) };
 	};
 
-	const eventBox = (event) => {
+	const eventBox = (event, type) => {
 		return (
 			<div
 				key={event.id}
@@ -256,9 +257,19 @@ const GeneralHomeView = (props) => {
 					style={{ backgroundColor: compareDates(new Date(event.date)).color }}
 					className={classes.eventsLabel}
 				>
-					<div onClick={() => props.handleMarkEvent(event.id)}>
-						<AddIcon className={classes.addIcon} style={{}} />
-						<span className={classes.addSpan}>Mark Event</span>
+					<div onClick={() => props.handleMarkEvent(event.id, type)}>
+						{type === 'upcoming' && (
+							<>
+								<AddIcon className={classes.addIcon} style={{}} />
+								<span className={classes.addSpan}>Mark Event</span>
+							</>
+						)}
+						{type === 'marked' && (
+							<>
+								<RemoveIcon className={classes.addIcon} style={{}} />
+								<span className={classes.addSpan}>Unmark Event</span>
+							</>
+						)}
 					</div>
 				</div>
 				<div className={classes.eventsContentWrapper}>
@@ -478,7 +489,12 @@ const GeneralHomeView = (props) => {
 								{props.isAuthenticated && (
 									<TabsList className={classes.tablist}>
 										<Tab value="upcoming">Upcoming</Tab>
-										<Tab value="marked" onClick={props.fetchMarkedEvents}>
+										<Tab
+											value="marked"
+											onClick={() => {
+												props.fetchEventsByMonth(true);
+											}}
+										>
 											Marked
 										</Tab>
 									</TabsList>
@@ -511,7 +527,7 @@ const GeneralHomeView = (props) => {
 															new Date(event.date).getDate() >=
 															new Date().getDate(),
 													)
-													.map((event) => eventBox(event))
+													.map((event) => eventBox(event, 'upcoming'))
 											: null}
 									</section>
 								</TabPanel>
@@ -537,7 +553,7 @@ const GeneralHomeView = (props) => {
 															new Date(event.date).getDate() >=
 															new Date().getDate(),
 													)
-													.map((event) => eventBox(event))
+													.map((event) => eventBox(event, 'marked'))
 											: null}
 									</section>
 								</TabPanel>
