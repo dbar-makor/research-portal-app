@@ -33,7 +33,6 @@ export const useStyles = makeStyles((theme) => ({
 	},
 	rightColumn: {
 		height: '100%',
-		border: '1px solid red',
 	},
 	marginBottom35: {
 		marginBottom: '35px',

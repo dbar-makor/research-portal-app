@@ -57,7 +57,7 @@ const TopBarView = forwardRef((props, ref) => {
 			<Grid container item justifyContent="center" alignItems="center" className={classes.barWrapper}>
 				<Grid item xs={9}>
 					<AppBar position="sticky" className={classes.header}>
-						<Toolbar style={{ minHeight: '8vh', height: '8vh', width: '100%' }}>
+						<Toolbar style={{ height: '7vh', width: '100%' }}>
 							<Grid item xs={3} style={{ marginLeft: '27px' }}>
 								<MakorLogo classes={classes} userType={props.userType} />
 							</Grid>

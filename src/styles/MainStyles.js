@@ -118,7 +118,9 @@ export const useStyles = makeStyles((theme) => ({
 		paddingRight: 8,
 	},
 	memberFooter: {
-		position: 'relative',
+		// position: 'absolute',
+		// bottom: 0,
+		width: '100%',
 		[theme.breakpoints.only('xs')]: {
 			height: '550px',
 		},
