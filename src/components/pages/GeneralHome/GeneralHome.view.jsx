@@ -15,6 +15,7 @@ import Carousel from 'react-material-ui-carousel';
 import { format } from 'date-fns';
 import formatDistanceToNowStrict from 'date-fns/formatDistanceToNowStrict';
 import isSameDay from 'date-fns/isSameDay';
+import isBefore from 'date-fns/isBefore';
 import addDays from 'date-fns/addDays';
 import MessageAlert from '../../ui/reusables/MessageAlert/MessageAlert';
 //import { Link } from 'react-router-dom';
@@ -29,12 +30,11 @@ const formatLongString = (str, lgth) => {
 	}
 };
 
-const getAuthorsInitials = (author) => {
+const getAuthorsLastName = (author) => {
 	const tempArr = author.split(' ');
+	const lastName = tempArr[tempArr.length - 1];
 
-	tempArr[0] = tempArr[0].substring(0, 1).concat('.');
-
-	return tempArr.join(' ');
+	return lastName;
 };
 
 const GeneralHomeView = (props) => {
@@ -46,14 +46,7 @@ const GeneralHomeView = (props) => {
 			className={classes.lastPublicationsWrapper}
 			onClick={() => props.handleClick(pub.id, pub.categories)}
 		>
-			<div
-				style={{
-					display: 'flex',
-					flexDirection: 'row',
-					justifyContent: 'space-between',
-					marginBottom: 0,
-				}}
-			>
+			<div className={classes.lastPublicationsTopRow}>
 				<div className={classes.lastPublicationsTitle} style={{ flex: '80%' }}>
 					{formatLongString(pub.title, 38)}
 					{/* {pub.title} */}
@@ -123,12 +116,16 @@ const GeneralHomeView = (props) => {
 			<div className={classes.industryRecoursedUpperRow}>
 				{pub.tags?.length ? (
 					<Stack className={classes.industryRecoursedStack}>
-						{pub.tags?.[0] && (
-							<Chip className={classes.industryRecoursedChip} label={pub.tags?.[0].name} />
-						)}
-						{pub.tags?.[1] && (
-							<Chip className={classes.industryRecoursedChip} label={pub.tags?.[1].name} />
-						)}
+						<Chip
+							className={classes.industryRecoursedChip}
+							label={pub.tags?.[0] ? pub.tags?.[0].name : ''}
+							style={pub.tags?.[0] ? {} : { visibility: 'hidden' }}
+						/>
+						<Chip
+							className={classes.industryRecoursedChip}
+							label={pub.tags?.[1] ? pub.tags?.[1].name : ''}
+							style={pub.tags?.[1] ? {} : { visibility: 'hidden' }}
+						/>
 					</Stack>
 				) : null}
 				<div className={classes.industryRecoursedDate}>
@@ -155,8 +152,16 @@ const GeneralHomeView = (props) => {
 				}}
 			>
 				<Stack direction="row" spacing={1}>
-					{pub.tags?.[0] && <Chip className={classes.focusIdeasChip} label={pub.tags?.[0].name} />}
-					{pub.tags?.[1] && <Chip className={classes.focusIdeasChip} label={pub.tags?.[1].name} />}
+					<Chip
+						className={classes.focusIdeasChip}
+						label={pub.tags?.[0] ? pub.tags?.[0].name : ''}
+						style={pub.tags?.[0] ? {} : { visibility: 'hidden' }}
+					/>
+					<Chip
+						className={classes.focusIdeasChip}
+						label={pub.tags?.[1] ? pub.tags?.[1].name : ''}
+						style={pub.tags?.[1] ? {} : { visibility: 'hidden' }}
+					/>
 				</Stack>
 				<div className={classes.focusIdeasDate}>{format(new Date(pub.updated_at), 'dd/MM/yyyy')}</div>
 			</div>
@@ -178,50 +183,71 @@ const GeneralHomeView = (props) => {
 		>
 			<div style={{ marginRight: '15px', marginTop: 5, marginBottom: 5 }}>
 				<div className={classes.mostClickedIdeasTitle}>idea</div>
-				<div className={classes.mostClickedIdeasContent}>{formatLongString(pub.title, 40)}</div>
+				<div className={classes.mostClickedIdeasContent}>{formatLongString(pub.title, 28)}</div>
 			</div>
-			<div>
-				<div className={classes.mostClickedIdeasTitle}>
-					{pub.categories?.find((category) => category.name !== 'idea').name}
+			<div
+				style={{
+					display: 'flex',
+					flexDirection: 'column',
+					justifyContent: 'space-between',
+					marginTop: 5,
+					marginBottom: 5,
+					height: '100% - 10px',
+				}}
+			>
+				<div className={classes.mostClickedIdeasTitle} style={{ lineHeight: 0.9, marginBottom: 10 }}>
+					{
+						pub.categories?.find(
+							(category) => category.name !== 'idea' && category.name !== 'Ideas',
+						).name
+					}
 				</div>
-				<div className={classes.mostClickedIdeasTitle} style={{ fontSize: '1rem' }}>
-					{getAuthorsInitials(pub.author_name)}
+				<div
+					className={classes.mostClickedIdeasTitle}
+					style={{ fontSize: '1rem', fontStyle: 'italic' }}
+				>
+					{getAuthorsLastName(pub.author_name)}
 				</div>
 			</div>
 		</section>
 	);
 
+	const getStyleAndClass = (day, today) => {
+		if (isSameDay(day, today)) return [{ background: '#ed5858' }, 'today'];
+
+		if (isSameDay(day, addDays(today, 1)) && props.eventsDays.includes(addDays(today, 1).getDate()))
+			return [{ background: '#FAC100' }, 'tomorrow'];
+
+		if (isBefore(day, today)) return [{ display: 'none' }, null];
+
+		if (props.eventsDays.includes(day.getDate())) return [{ background: '#00CA80' }, 'hasEvent'];
+
+		return [{ visibility: 'hidden' }, null];
+	};
+
 	const renderDay = (day) => {
 		const dates = day.getDate();
 		const time = day.getTime();
-		const month = day.getMonth();
-		const year = day.getFullYear();
 		const today = new Date();
 
 		const dateStyle =
-			time < today.getTime()
+			isSameDay(day, today) || today.getTime() < time
 				? {
-						color: '#E2EBFC',
+						color: '#000',
 				  }
 				: {
-						color: '#000',
+						color: '#E2EBFC',
 				  };
 
 		const dateCellStyle = {
 			width: 38,
+			padding: '4px 0',
 		};
 
-		const circleStyle =
-			time < today.getTime()
-				? { display: 'none' }
-				: dates === today.getDate() && month === today.getMonth() && year === today.getFullYear()
-				? { background: '#ed5858' }
-				: props.eventsDays.includes(dates)
-				? { background: '#1c67ff' }
-				: { background: '#ACB1BF' };
+		const circleStyle = getStyleAndClass(day, today)[0];
 
 		return (
-			<div style={dateCellStyle}>
+			<div style={dateCellStyle} className={getStyleAndClass(day, today)[1]}>
 				<div style={dateStyle}>{dates}</div>
 				<div
 					style={{
@@ -281,7 +307,7 @@ const GeneralHomeView = (props) => {
 					<div className={classes.eventsInnerContentWrapper}>
 						<div className={classes.eventsHeader}>
 							{/* <BookmarkIcon className={classes.miniBookmark} /> */}
-							{formatLongString(event.title, 30)}
+							{formatLongString(event.title, 22)}
 						</div>
 						<div style={{ color: '#868DA2' }}>{format(new Date(event.date), 'dd/MM/yyyy')}</div>
 					</div>
@@ -329,6 +355,7 @@ const GeneralHomeView = (props) => {
 								}}
 								indicatorIconButtonProps={{
 									style: {
+										marginTop: 26,
 										color: '#E2EBFC',
 									},
 								}}

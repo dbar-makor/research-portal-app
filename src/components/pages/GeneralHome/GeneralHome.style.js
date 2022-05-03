@@ -48,6 +48,8 @@ const useStyles = makeStyles((theme) => ({
 		'justifyContent': 'space-between',
 		'padding': '0 10px 0 10px',
 		'maxHeight': '9vh',
+		'minHeight': 72,
+		'overflowY': 'hidden',
 		'minWidth': '25.2vh',
 		'margin': '10px',
 		'marginTop': 8,
@@ -76,11 +78,12 @@ const useStyles = makeStyles((theme) => ({
 		minHeight: 111,
 	},
 	carouselContect: {
-		'maxHeight': '6vh',
+		'maxHeight': '4vh',
 		'textAlign': 'center',
 		'fontSize': '1.1rem',
 		'padding': '0 3% 0 3%',
 		'marginTop': 10,
+		'marginBottom': 10,
 		'&:hover': {
 			cursor: 'pointer',
 		},
@@ -88,18 +91,15 @@ const useStyles = makeStyles((theme) => ({
 	column: {
 		'height': '100vh',
 		'overflow': 'hidden',
-
 		'display': 'flex',
 		'flexDirection': 'column !important',
 		'justifyContent': 'space-between',
 		'flexWrap': 'nowrap',
 		'&:nth-of-type(2n)': {
-			justifyContent: 'center',
 			marginRight: -16,
 			paddingLeft: 0,
 		},
 		'&:last-of-type': {
-			//height: '99vh',
 			border: '2px solid #EDEEF1',
 			borderRadius: '8px',
 			marginTop: '0',
@@ -129,10 +129,15 @@ const useStyles = makeStyles((theme) => ({
 	focusIdeasScroll: {
 		'display': 'flex',
 		'flexDirection': 'column',
-		// 'minHeight': '35.5vh',
 		'maxHeight': '36.5vh',
-		'@media (max-width: 1800px)': {
-			maxHeight: '26vh',
+		'@media (max-width: 1530px)': {
+			maxHeight: '40vh',
+		},
+		'@media (max-height: 880px) and (min-height: 815px)': {
+			maxHeight: '50vh',
+		},
+		'@media (max-height: 814px) and (min-height: 750px)': {
+			maxHeight: '45vh',
 		},
 		[theme.breakpoints.down('md')]: {
 			maxHeight: '25vh',
@@ -171,7 +176,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	focusIdeasContent: {
 		color: '#8197ae',
-		fontSize: 'calc(8px + 0.5vw)',
+		fontSize: 'clamp(12px, 6px + 0.5vw, 16px)',
 		marginTop: '8px',
 	},
 	lastPublicationsTabsList: {
@@ -181,13 +186,16 @@ const useStyles = makeStyles((theme) => ({
 		},
 	},
 	lastPublications: {
-		maxHeight: '29,5vh',
+		// maxHeight: '29.5vh',
 		minHeight: '29.5vh',
 		padding: '10px',
 		marginBottom: '25px',
 		borderRadius: '8px',
 		border: '2px solid #EDEEF1',
 		backgroundColor: '#fff',
+		display: 'flex',
+		flexDirection: 'column',
+		justifyContent: 'space-evenly',
 	},
 	lastPublicationsWrapper: {
 		'display': 'flex',
@@ -196,31 +204,43 @@ const useStyles = makeStyles((theme) => ({
 		'padding': '8px 12px 8px 12px',
 		'borderRadius': '8px',
 		'marginTop': '10px',
+		'maxHeight': 58,
+		'overflowY': 'hidden',
 		'&:hover': {
 			cursor: 'pointer',
+		},
+	},
+	lastPublicationsTopRow: {
+		'display': 'flex',
+		'flexDirection': 'row',
+		'justifyContent': 'space-between',
+		'marginBottom': 0,
+		'@media (min-width: 1500px)': {
+			marginBottom: 5,
 		},
 	},
 	lastPublicationsTitle: {
 		color: '#8197ae',
 		fontSize: '.9rem',
-		// overFlow: 'hidden',
-		// whiteSpace: 'nowrap',
-		// textOverflow: 'ellipsis'
+		lineHeight: 1.1,
 	},
 	lastPublicationsContent: {
-		color: '#151515',
-		fontWeight: 'bold',
-		fontSize: 'calc(8px + 0.3vw)',
-		marginTop: '5px',
+		'color': '#151515',
+		'fontWeight': 'bold',
+		'fontSize': 'calc(8px + 0.3vw)',
+		'marginTop': '5px',
+		'lineHeight': 1.1,
+		'@media (max-height: 900px)': {
+			display: 'none',
+		},
 	},
 	industryRecoursed: {
 		marginBottom: '25px',
-		//maxHeight: '60%',
 	},
 	industryRecoursedWrapper: {
 		'display': 'flex',
 		'flexDirection': 'column',
-		'padding': '10px',
+		'padding': '7px 10px',
 		'marginTop': '8px',
 		'borderRadius': '8px',
 		'border': '2px solid #EDEEF1',
@@ -228,8 +248,13 @@ const useStyles = makeStyles((theme) => ({
 		'&:hover': {
 			cursor: 'pointer',
 		},
-		[theme.breakpoints.down('md')]: {
+		'@media (max-width: 1530px)': {
 			'&:last-of-type': {
+				display: 'none',
+			},
+		},
+		'@media (max-height: 880px)': {
+			'&:nth-of-type(n + 5)': {
 				display: 'none',
 			},
 		},
@@ -248,14 +273,13 @@ const useStyles = makeStyles((theme) => ({
 		flexDirection: 'row !important',
 		[theme.breakpoints.down('md')]: {
 			flexDirection: 'column',
-			//height: 50,
 		},
 	},
 	industryRecoursedChip: {
 		backgroundColor: '#E2EBFC !important',
 		color: '#1C67FF !important',
 		fontWeight: '600',
-		fontSize: '.85rem !important',
+		fontSize: '.75rem !important',
 		marginRight: 10,
 		[theme.breakpoints.down('md')]: {
 			'&:not(:first-of-type)': {
@@ -388,10 +412,7 @@ const useStyles = makeStyles((theme) => ({
 	events: {
 		minWidth: '29vh',
 		minHeight: '92vh',
-		//height: 'inherit',
 		padding: '10px',
-		// border: '2px solid #EDEEF1',
-		// borderRadius: '8px',
 		backgroundColor: '#fff',
 		[theme.breakpoints.down('lg')]: {
 			minWidth: '25vh',
@@ -417,7 +438,6 @@ const useStyles = makeStyles((theme) => ({
 			maxHeight: 'calc(590px - 1vw)',
 		},
 		'overflowY': 'auto',
-		// scrollbarGutter: 'stable both-edges',
 		'&::-webkit-scrollbar-track': {
 			borderRadius: '10px',
 			backgroundColor: '#F3F4F8',
@@ -437,7 +457,6 @@ const useStyles = makeStyles((theme) => ({
 		'display': 'flex',
 		'position': 'relative',
 		'justifyContent': 'center',
-		// 'marginLeft': -22,
 		'height': 45,
 		'&:not(:last-child)': {
 			marginBottom: '15px',
@@ -453,8 +472,11 @@ const useStyles = makeStyles((theme) => ({
 			left: 0,
 		},
 		'&:hover > div:nth-of-type(2)': {
-			display: props.isAuthenticated ? 'none' : 'flex',
-			width: props.isAuthenticated ? 0 : '100%',
+			'display': props.isAuthenticated ? 'none' : 'flex',
+			'width': props.isAuthenticated ? 0 : '100%',
+			'& div': {
+				display: props.isAuthenticated ? 'none' : 'flex',
+			},
 		},
 		'&:hover > div:first-of-type svg': {
 			display: props.isAuthenticated ? 'inline' : 'none',
@@ -504,6 +526,9 @@ const useStyles = makeStyles((theme) => ({
 		flexDirection: 'column',
 		width: '100%',
 		transition: 'width 0.5s',
+		maxHeight: 50,
+		overflowY: 'hidden',
+		overflowX: 'hidden',
 	},
 	eventsInnerContentWrapper: {
 		'display': 'flex',
@@ -632,6 +657,22 @@ export const dayPickerStyle = `
 .DayPicker-Day--today {
 	font-weight: 600;
 }
+
+.DayPicker-Day:hover .hasEvent {
+	background-color:rgba(0, 202, 128, 0.4);
+	border-radius: 50%;
+}
+
+.DayPicker-Day--today:hover > .today {
+	background-color:rgba(255, 99, 71, 0.4);
+	border-radius: 50%;
+}
+.DayPicker-Day:hover > .tomorrow {
+	background-color:rgba(250, 193, 0, 0.4);
+	border-radius: 50%;
+	padding: 4px 0;
+}
+
 .DayPicker:not(.DayPicker--interactionDisabled) .DayPicker-Day:not(.DayPicker-Day--disabled):not(.DayPicker-Day--selected):not(.DayPicker-Day--outside):hover {
 	background-color: #fff;
 }
