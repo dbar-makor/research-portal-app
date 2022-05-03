@@ -575,6 +575,8 @@ const GeneralHomeView = (props) => {
 											renderDay={renderDay}
 											selectedDays={props.selectedDay}
 											onDayClick={props.setSelectedDay}
+											onDayMouseEnter={(date) => props.handleDayMouse(date, 'enter')}
+											onDayMouseLeave={(date) => props.handleDayMouse(date, 'leave')}
 											onMonthChange={(month) => {
 												props.setDate(month);
 											}}

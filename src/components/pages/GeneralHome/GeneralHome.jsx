@@ -59,7 +59,6 @@ const GeneralHome = () => {
 	const [title, setTitle] = useState('');
 	const [text, setText] = useState('');
 	const [actionName, setActionName] = useState('');
-	//const [eventHovered, setEventHovered] = useState(false);
 
 	const isAuthorised = true;
 

@@ -659,16 +659,16 @@ export const dayPickerStyle = `
 }
 
 .DayPicker-Day:hover .hasEvent {
-	background-color:rgba(0, 202, 128, 0.4);
+	background-color:rgba(0, 202, 128, 0.15);
 	border-radius: 50%;
 }
 
 .DayPicker-Day--today:hover > .today {
-	background-color:rgba(255, 99, 71, 0.4);
+	background-color:rgba(255, 99, 71, 0.15);
 	border-radius: 50%;
 }
 .DayPicker-Day:hover > .tomorrow {
-	background-color:rgba(250, 193, 0, 0.4);
+	background-color:rgba(250, 193, 0, 0.15);
 	border-radius: 50%;
 	padding: 4px 0;
 }

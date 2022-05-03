@@ -77,7 +77,6 @@ const LoginPage = () => {
 					history.push('/researches');
 					//return <Redirect to="/researches" />;
 				} else if (isSales || isAdmin) {
-					console.log('hererer');
 					history.push('/companies');
 					//return <Redirect to="/companies" />;
 				} else if (isMember) {
