@@ -1,10 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
-import * as webSocketService from '../../../services/websocket';
+import * as wsSocketService from '../../../services/websocket';
 import TopBarView from './TopBar.view';
 
 const TopBar = () => {
-	const token = useSelector((state) => state.auth.token);
+	let token = useSelector((state) => state.auth.token);
+
+	token = token.substring(7);
 	const searchTerm = useSelector((state) => state.search.searchTerm);
 	const anchorRef = useRef(null);
 	const [open, setOpen] = useState(false);
@@ -14,7 +16,6 @@ const TopBar = () => {
 	const userType = useSelector((state) => state.auth.userContent?.type);
 
 	// eslint-disable-next-line no-unused-vars
-	const [notifications, setNotifications] = useState([]);
 
 	// eslint-disable-next-line no-unused-vars
 	const options = [
@@ -23,8 +24,6 @@ const TopBar = () => {
 		{ value: 'europe', name: 'Europe' },
 		{ value: 'unitedStates', name: 'United States' },
 	];
-
-	const webSocket = useRef(null);
 
 	function handleListKeyDown(event, type) {
 		if (event.key === 'Tab') {
@@ -45,42 +44,18 @@ const TopBar = () => {
 
 	useEffect(() => {
 		if (token) {
-			webSocket.current = webSocketService.connectWS(token);
-			webSocket.current.onopen = () => {
-				let message = {
-					type: 'get-notifications',
-				};
-
-				message = JSON.stringify(message);
-				webSocket.current.send(message);
+			const message = {
+				type: 'get-notifications',
 			};
-			webSocket.current.onmessage = (message) => {
-				message = JSON.parse(message.data);
-				let send = {};
 
-				switch (message.type) {
-					case 'alert':
-						setNotifications([...message.notifications]);
-
-						break;
-					case 'succeed':
-						break;
-					default:
-						send = {
-							type: 'get-notifications',
-							is_new: true,
-							id: message.id,
-						};
-						send = JSON.stringify(send);
-						webSocket.current.send(send);
-
-						break;
-				}
-			};
+			if (wsSocketService.ws !== null) {
+				wsSocketService.sendEvent(message, token);
+			} else {
+				wsSocketService.connectWS(token);
+				wsSocketService.sendEvent(message, token);
+			}
 		}
-
-		return () => webSocket.current?.close();
-	}, []);
+	}, [token]);
 
 	const handleToggle = (type) => {
 		if (type === 'user') {
@@ -120,7 +95,6 @@ const TopBar = () => {
 			openUserMgmt={openUserMgmt}
 			setOpenUserMgmt={setOpenUserMgmt}
 			handleClose={handleClose}
-			notifications={notifications}
 			openNotification={openNotification}
 			setOpenNotification={setOpenNotification}
 			handleListKeyDown={handleListKeyDown}

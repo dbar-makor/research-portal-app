@@ -28,30 +28,27 @@ const AllNotificationsView = (props) => {
 						<ControlBar setSearchTerm={props.setSearchTerm} makeAllRead={props.makeAllRead} />
 					</Grid>
 
-					<Grid style={{ border: '3px solid blue' }} item xs={12}>
-						<Grid
-							style={{ border: '3px solid red' }}
-							container
-							className={classes.notListContainer}
-						>
+					<Grid item xs={12}>
+						<Grid container className={classes.notListContainer}>
 							<InfiniteScroll
 								dataLength={props.notifications.length}
 								// next={props.getNotifications}
 								hasMore
 								loader={<h4>Loading...</h4>}
 							>
-								{props.filteredNotifications.length &&
-									props.filteredNotifications.map((item) => {
-										const content = JSON.parse(item.content);
+								{props.filteredNotifications.length
+									? props.filteredNotifications.map((item) => {
+											const content = JSON.parse(item.content);
 
-										return (
-											<NotificationBox
-												key={item.id}
-												content={content}
-												isRead={item.is_read}
-											/>
-										);
-									})}
+											return (
+												<NotificationBox
+													key={item.id}
+													content={content}
+													isRead={item.is_read}
+												/>
+											);
+									  })
+									: null}
 							</InfiniteScroll>
 						</Grid>
 					</Grid>

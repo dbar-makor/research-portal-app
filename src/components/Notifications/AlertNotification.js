@@ -5,7 +5,9 @@ import { parseISO, formatDistanceToNow } from 'date-fns';
 import * as webSocketService from '../../services/websocket';
 
 const AlertNotification = (props) => {
-	const token = useSelector((state) => state.auth.token);
+	let token = useSelector((state) => state.auth.token);
+
+	token = token.substring(7);
 	let content = props.notifi.content;
 
 	if (typeof props.notifi.content === 'string') {
@@ -46,7 +48,6 @@ const AlertNotification = (props) => {
 
 	const setAsRead = (e) => {
 		setIsRead(props.notifi.id);
-		props.notifi.is_read = true;
 		props.handleClose(e, 'notify');
 	};
 
@@ -66,7 +67,10 @@ const AlertNotification = (props) => {
 					pathname: `/article/${content.publication_id}`,
 				}}
 				style={{ textDecoration: 'none' }}
-				onClick={(e) => setAsRead(e)}
+				onClick={(e) => {
+					localStorage.setItem('articleId', JSON.stringify(content.publication_id));
+					setAsRead(e);
+				}}
 			>
 				<Grid container>
 					<Grid item xs={12}>

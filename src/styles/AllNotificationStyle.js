@@ -1,7 +1,9 @@
 import { makeStyles } from '@material-ui/core';
 
 export const useStyles = makeStyles({
-	page: {},
+	page: {
+		minHeight: '90vh',
+	},
 	sideColumn: {
 		marginTop: 20,
 		marginLeft: '5vw',
