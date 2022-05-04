@@ -13,7 +13,7 @@ const PaginationView = (props) => {
 			<Grid item>
 				<IconButton
 					aria-label="ArrowBack"
-					className={`${classes.btn} ${classes.arrows}`}
+					className={`${classes.doubleBtnPrev} ${classes.arrows}`}
 					disabled={props.currentPage === 1}
 					onClick={props.goToFirstPage}
 				>
@@ -22,7 +22,12 @@ const PaginationView = (props) => {
 				</IconButton>
 			</Grid>
 			<Grid item>
-				<IconButton aria-label="ArrowBack" className={classes.btn} onClick={props.handlePrev}>
+				<IconButton
+					aria-label="ArrowBack"
+					className={classes.btn}
+					disabled={props.currentPage === 1}
+					onClick={props.handlePrev}
+				>
 					<ArrowBackIosIcon className={classes.arrow} />
 				</IconButton>
 			</Grid>
@@ -35,12 +40,22 @@ const PaginationView = (props) => {
 				</Typography>
 			</Grid>
 			<Grid item>
-				<IconButton aria-label="ArrowForward" className={classes.btn} onClick={props.handleNext}>
+				<IconButton
+					aria-label="ArrowForward"
+					className={classes.btn}
+					disabled={props.currentPage === props.allPages}
+					onClick={props.handleNext}
+				>
 					<ArrowForwardIosIcon className={classes.arrow} />
 				</IconButton>
 			</Grid>
 			<Grid item>
-				<IconButton aria-label="ArrowForward" className={classes.btn} onClick={props.goToLastPage}>
+				<IconButton
+					aria-label="ArrowForward"
+					className={classes.doubleBtnNext}
+					disabled={props.currentPage === props.allPages}
+					onClick={props.goToLastPage}
+				>
 					<ArrowForwardIosIcon className={`${classes.arrow} ${classes.secondArrowForward}`} />
 					<ArrowForwardIosIcon className={classes.arrow} />
 				</IconButton>
