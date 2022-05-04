@@ -15,6 +15,7 @@ import { Link } from 'react-router-dom';
 import { ReactComponent as BlueBorder } from '../../../assets/icons/blueBorder.svg';
 import TextInputUnit from '../../ui/reusables/TextInputUnit/TextInputUnit';
 import { FilledButton } from '../../../styles/MainStyles';
+import { ReactComponent as Logo } from '../../../assets/icons/makorLogo.svg';
 import useStyles from './LoginPage.style';
 
 const LoginPageView = (props) => {
@@ -57,6 +58,9 @@ const LoginPageView = (props) => {
 					>
 						<Grid item xs={12}>
 							<BlueBorder />
+						</Grid>
+						<Grid item xs={12}>
+							<Logo style={{ marginTop: 24 }} />
 						</Grid>
 						<Grid item xs={12}>
 							<Typography variant="h6" className={classes.portalTitle}>
