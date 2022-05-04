@@ -12,19 +12,9 @@ const FullPublication = () => {
 	const { pubId } = useParams();
 	const location = useLocation();
 	const userType = useSelector((state) => state.auth.userContent?.type);
-
-	const [chosenPublication, setChosenPublication] = useState(() => {
-		if (userType === 'author') {
-			if (localStorage.getItem('presentation-article')) {
-				return JSON.parse(localStorage.getItem('presentation-article'));
-			} else {
-				return null;
-			}
-		} else {
-			return null;
-		}
-	});
-
+	// Local state for article id- the source for it varies
+	const [id, setId] = useState(localStorage.getItem('articleId') || '');
+	const [chosenPublication, setChosenPublication] = useState(null);
 	const [loadingPub, setLoadingPub] = useState(null);
 
 	const getPublication = async (id) => {
@@ -48,36 +38,75 @@ const FullPublication = () => {
 		}
 	};
 
-	useEffect(() => {
-		if (userType === 'author') {
-			//setChosenPublication(JSON.parse(localStorage.getItem('presentation-article')));
+	const updateView = async (id) => {
+		try {
+			const token = localStorage.getItem('token');
 
-			// When coming from homepage (not from new article form) - id is sent with history.push;
-			//when refreshing- id comes from localStorage
+			const res = await axios.put(
+				`${BASE_URL}${END_POINT.PUBLICATION}/view/${id}`,
+				{},
+				{
+					headers: { Authorization: token },
+				},
+			);
 
-			if (!chosenPublication) {
-				const id = location.state.id || JSON.parse(localStorage.getItem('articleId'));
-
-				getPublication(id);
+			if (res.status === 201) {
+				// eslint-disable-next-line no-console
+				console.log('res', res);
 			}
+		} catch (err) {
+			// eslint-disable-next-line no-console
+			console.log('err', err);
+		}
+	};
+
+	useEffect(() => {
+		let tempId = id || '';
+
+		if (userType === 'author') {
+			if (localStorage.getItem('presentation-article')) {
+				const article = JSON.parse(localStorage.getItem('presentation-article'));
+
+				setId(article.id);
+				setChosenPublication(article);
+
+				return;
+			} else {
+				// When coming from homepage (not from new article form) - id is sent with history.push;
+				//when refreshing- id comes from localStorage
+				tempId = location.state.id || JSON.parse(localStorage.getItem('articleId'));
+			}
+		} else if (userType === 'client' || userType === 'prospect') {
+			// In case pubId from params is undefined as not coming from a Link component
+
+			tempId = pubId || location.state.id || JSON.parse(localStorage.getItem('articleId'));
+		}
+
+		if (tempId) {
+			localStorage.setItem('articleId', JSON.stringify(tempId));
+			setId(tempId);
+			getPublication(tempId);
+			updateView(tempId);
 		}
 	}, []);
 
 	// When component unmouts, localStorage gets cleared
-	useEffect(() => {
-		return () => {
-			localStorage.removeItem('presentation-article');
-			localStorage.removeItem('articleId');
-		};
-	}, []);
+	// useEffect(() => {
+	// 	return () => {
+	// 	if(location.pathname !== `/article/${id}`){
+	// 		console.log('location.pathname', location.pathname)
+	// 		localStorage.removeItem('presentation-article');
+	// 		localStorage.removeItem('articleId');}
+	// 	};
+	// }, []);
 
-	// When tab is closed, localStorage gets cleared
-	useEffect(() => {
-		window.onbeforeunload = () => {
-			localStorage.removeItem('presentation-article');
-			localStorage.removeItem('articleId');
-		};
-	}, []);
+	//When tab is closed, localStorage gets cleared
+	// useEffect(() => {
+	// 	window.onbeforeunload = () => {
+	// 		localStorage.removeItem('presentation-article');
+	// 		localStorage.removeItem('articleId');
+	// 	};
+	// }, []);
 
 	const transformVideoLink = (link) => {
 		if (link !== null) {
@@ -89,14 +118,14 @@ const FullPublication = () => {
 		}
 	};
 
-	useEffect(() => {
-		if (userType === 'client' || userType === 'prospect') {
-			// In case pubId from params is undefined as not coming from a Link component
-			const id = pubId || location.state.id || JSON.parse(localStorage.getItem('articleId'));
+	// useEffect(() => {
+	// 	if (userType === 'client' || userType === 'prospect') {
+	// 		// In case pubId from params is undefined as not coming from a Link component
+	// 		const id = pubId || location.state.id || JSON.parse(localStorage.getItem('articleId'));
 
-			getPublication(id);
-		}
-	}, []);
+	// 		getPublication(id);
+	// 	}
+	// }, []);
 
 	return (
 		<FullPublicationView

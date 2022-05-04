@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import {
@@ -8,6 +8,7 @@ import {
 	setParamsEvent,
 } from '../../../utils/helpers/helperFunctions';
 import { BASE_URL, END_POINT } from '../../../utils/constants';
+import * as actionSnackBar from '../../../redux/SnackBar/action';
 import GeneralHomeView from './GeneralHome.view';
 
 const date = new Date();
@@ -20,6 +21,8 @@ const calendarDefaultValue = {
 };
 
 const GeneralHome = () => {
+	const dispatch = useDispatch();
+
 	const categories = useSelector((state) => state.categories.categories);
 	const latestNewsId = categories?.find((categoryObj) => categoryObj.name === 'News')?.id;
 	const morningNotesId = categories?.find((categoryObj) => categoryObj.name === 'Morning Notes')?.id;
@@ -52,7 +55,10 @@ const GeneralHome = () => {
 	const [eventsTabValue, setEventsTabValue] = useState('upcoming');
 	const [lastPublicationsTabValue, setLastPublicationsTabValue] = useState('Asia-Pacific');
 	const [morningNotesTabValue, setMorningNotesTabValue] = useState('Asia-Pacific');
-	//const [eventHovered, setEventHovered] = useState(false);
+	const [openAlert, setOpenAlert] = useState(false);
+	const [title, setTitle] = useState('');
+	const [text, setText] = useState('');
+	const [actionName, setActionName] = useState('');
 
 	const isAuthorised = true;
 
@@ -72,9 +78,75 @@ const GeneralHome = () => {
 		}
 	};
 
-	const handleClick = (pubId) => {
+	const handleAction = () => {
+		if (actionName === 'Edit Settings') {
+			history.push('/settings');
+		} else {
+			history.push('/home');
+		}
+
+		setOpenAlert(false);
+	};
+
+	const handleClick = (pubId, categories) => {
+		if (!categories) {
+			categories = [];
+		}
+
 		localStorage.setItem('articleId', JSON.stringify(pubId));
-		history.push({ pathname: whereToLink(pubId), state: { id: pubId, to: whereToLink(pubId) } });
+
+		if (!isAuthenticated) {
+			history.push({ pathname: whereToLink(pubId), state: { id: pubId, to: whereToLink(pubId) } });
+
+			return;
+		}
+
+		const userContent = JSON.parse(localStorage.getItem('userContent'));
+		const userCategories = userContent.categories.map((item) => item.id);
+
+		if (userContent.type === 'prospect' || userContent.type === 'client') {
+			const isSuscribe = categories.some((c) => userCategories.includes(c.id));
+
+			if (isSuscribe) {
+				history.push({ pathname: whereToLink(pubId), state: { id: pubId, to: whereToLink(pubId) } });
+
+				return;
+			} else {
+				const companyCategories = userContent.company_categories.map((item) => item.id);
+				//is not Suscribe check if permitted
+				const isPermitted = categories.some((c) => companyCategories.includes(c.id));
+
+				if (isPermitted) {
+					setActionName('Edit Settings');
+					setTitle('You are not suscribed');
+					setText('You need to suscribe to this categories in your Profile');
+				} else {
+					setActionName('Back to Home');
+					setTitle('You dont have access');
+					setText(
+						'You dont have access to this article since your company is not registered to this article\'s categories',
+					);
+				}
+			}
+		} else {
+			const isSuscribe = categories.some((c) => userCategories.includes(c.id));
+
+			if (isSuscribe) {
+				history.push({ pathname: whereToLink(pubId), state: { id: pubId, to: whereToLink(pubId) } });
+
+				return;
+			} else {
+				setActionName('Edit Settings');
+				setTitle('You are not suscribed');
+				setText('You need to suscribe to this categories in your Profile');
+			}
+		}
+
+		setOpenAlert(true);
+	};
+
+	const handleClose = () => {
+		setOpenAlert(false);
 	};
 
 	const fetchLastPublications = useCallback(async (howMany, region) => {
@@ -93,12 +165,22 @@ const GeneralHome = () => {
 		}
 	});
 
-	const fetchEventsByMonth = useCallback(async () => {
+	const fetchEventsByMonth = useCallback(async (marked) => {
 		try {
-			const res = await axios.get(
-				`${BASE_URL}${END_POINT.EVENT}`,
-				setParamsEvent(date.getMonth() + 1, date.getFullYear()),
-			);
+			let res;
+			const token = localStorage.getItem('token');
+
+			if (!marked) {
+				res = await axios.get(
+					`${BASE_URL}${END_POINT.EVENT}`,
+					setParamsEvent(date.getMonth() + 1, date.getFullYear()),
+				);
+			} else {
+				res = await axios.get(`${BASE_URL}${END_POINT.EVENT}/mark`, {
+					...setParamsEvent(date.getMonth() + 1, date.getFullYear()),
+					headers: { Authorization: token },
+				});
+			}
 
 			if (res.status === 200) {
 				setEvents(res.data);
@@ -134,7 +216,7 @@ const GeneralHome = () => {
 	useEffect(() => {
 		if (categories.length) {
 			latestNewsId && fetchByCategory(5, latestNewsId, setLatestNews);
-			industryRecoursedId && fetchByCategory(5, industryRecoursedId, setIndustryRecoursed);
+			industryRecoursedId && fetchByCategory(6, industryRecoursedId, setIndustryRecoursed);
 			focusIdeasId && fetchByCategory(10, focusIdeasId, setFocusIdeas);
 			featuredId && fetchByCategory(3, featuredId, setFeaturedPublications);
 			ideasId && fetchByCategory(5, ideasId, setMostClickedIdeas, 'views');
@@ -156,7 +238,6 @@ const GeneralHome = () => {
 	}, [date]);
 
 	const handleEventsTabChange = (e, newValue) => {
-		console.log('newValue', newValue);
 		setEventsTabValue(newValue);
 
 		fetchEventsByMonth();
@@ -167,16 +248,15 @@ const GeneralHome = () => {
 	};
 
 	const handleMorningNotsTabChange = (e, newValue) => {
-		console.log('newValue', newValue);
 		setMorningNotesTabValue(newValue);
 
-		if (newValue === 'asia-pacific') {
-			console.log('asia-pacific');
-		} else if (newValue === 'europe') {
-			console.log('europe');
-		} else {
-			console.log('united-states');
-		}
+		// if (newValue === 'asia-pacific') {
+		// 	console.log('asia-pacific');
+		// } else if (newValue === 'europe') {
+		// 	console.log('europe');
+		// } else {
+		// 	console.log('united-states');
+		// }
 	};
 
 	const handleDayMouse = (date, marker) => {
@@ -191,40 +271,40 @@ const GeneralHome = () => {
 		}
 	};
 
-	const handleMarkEvent = async (id) => {
+	const handleMarkEvent = async (id, type) => {
 		try {
+			let res;
 			const token = localStorage.getItem('token');
 
-			const res = await axios.post(
-				`${BASE_URL}${END_POINT.EVENT}/mark`,
-				{ event_id: id },
-				{ headers: { Authorization: token } },
-			);
+			if (type === 'upcoming') {
+				res = await axios.post(
+					`${BASE_URL}${END_POINT.EVENT}/mark`,
+					{ event_id: id },
+					{ headers: { Authorization: token } },
+				);
 
-			if (res.status === 201) {
-				console.log('event is marked');
+				if (res.status === 201) {
+					dispatch(actionSnackBar.setSnackBar('success', 'Successfully marked event', 2000));
+				}
+			}
+
+			if (type === 'marked') {
+				res = await axios.delete(`${BASE_URL}${END_POINT.EVENT}/unmark`, {
+					params: { event_id: id },
+					headers: { Authorization: token },
+				});
+
+				if (res.status === 201) {
+					dispatch(actionSnackBar.setSnackBar('success', 'Successfully unmarked event', 2000));
+					fetchEventsByMonth(true);
+				}
 			}
 		} catch (error) {
-			/* eslint no-console: 0 */
-			console.log(error, error.message);
-		}
-	};
-
-	const fetchMarkedEvents = async () => {
-		try {
-			const token = localStorage.getItem('token');
-
-			const res = await axios.get(`${BASE_URL}${END_POINT.EVENT}/mark`, {
-				...setParamsEvent(date.getMonth() + 1, date.getFullYear()),
-				headers: { Authorization: token },
-			});
-
-			if (res.status === 200) {
-				console.log('res.data events', res.data);
+			if (!error.response.data.success) {
+				dispatch(actionSnackBar.setSnackBar('error', error.response.data.message, 2000));
+			} else {
+				dispatch(actionSnackBar.setSnackBar('error', 'somthing went worng', 2000));
 			}
-		} catch (error) {
-			/* eslint no-console: 0 */
-			console.log(error, error.message);
 		}
 	};
 
@@ -252,7 +332,13 @@ const GeneralHome = () => {
 					highlightedDate={highlightedDate}
 					lastPublicationsTabValue={lastPublicationsTabValue}
 					morningNotesTabValue={morningNotesTabValue}
-					fetchMarkedEvents={fetchMarkedEvents}
+					openAlert={openAlert}
+					handleClose={handleClose}
+					title={title}
+					text={text}
+					actionName={actionName}
+					fetchEventsByMonth={fetchEventsByMonth}
+					handleAction={handleAction}
 					handleClick={handleClick}
 					handleEventsTabChange={handleEventsTabChange}
 					handleLastPublicationTabChange={handleLastPublicationTabChange}

@@ -1,6 +1,7 @@
 import React, { forwardRef } from 'react';
 import { Link } from 'react-router-dom';
-import { Grid, Typography, Button, Divider } from '@material-ui/core';
+import { Grid, Typography, Divider } from '@material-ui/core';
+//import { Grid, Typography, Button, Divider } from '@material-ui/core';
 import ClearIcon from '@material-ui/icons/Clear';
 import Radio from '@material-ui/core/Radio';
 import AddIcon from '@material-ui/icons/Add';
@@ -43,7 +44,7 @@ const DeadArticleView = forwardRef((props, ref) => {
 	return (
 		<Grid container justifyContent="center" className={classes.deadArticlePage}>
 			<Grid item xs={11} lg={10}>
-				<Grid item xs={12} container className={classes.newArticleContainer}>
+				<Grid item xs={12} container className={classes.deadArticleContainer}>
 					<Grid item xs={12} lg={2} className={classes.subheaderContainer}>
 						<SubHeader title="Upload Research" type="dead" />
 					</Grid>
@@ -199,7 +200,8 @@ const DeadArticleView = forwardRef((props, ref) => {
 						<Grid item xs={12}>
 							<Grid
 								container
-								className={`${classes.marginTop15} ${classes.eventsScrolledContainer}`}
+								style={{ margin: '15px 0 15px 0' }}
+								className={classes.eventsScrolledContainer}
 							>
 								<Grid item xs={12}>
 									<Grid
@@ -270,7 +272,7 @@ const DeadArticleView = forwardRef((props, ref) => {
 											/>
 										</Grid>
 
-										<Grid item xs={1} style={{ textAlignLast: 'right' }}>
+										<Grid item xs={1} style={{ textAlignLast: 'right', marginTop: -30 }}>
 											<AddButton
 												disableRipple
 												disabled={!props.ifCurrentEventFilled}
@@ -510,58 +512,49 @@ const DeadArticleView = forwardRef((props, ref) => {
 								</Grid>
 							</Grid>
 						</Grid>
-						<Grid container>
-							<Grid item xs={12}>
-								<Grid container>
-									<Grid item xs={3}>
-										<Button className={classes.cancelStyle} onClick={props.handleCancle}>
-											cancel
-										</Button>
-									</Grid>
-									<Grid item xs={3}>
-										{((chosenResearch && chosenResearch.status === 'draft') ||
-											!chosenResearch) && (
-											<OutlinedButton
-												className={classes.saveDraft}
-												onClick={() => props.sendPublication('save-draft')}
-											>
-												Save Draft
-											</OutlinedButton>
-										)}
-									</Grid>
-									<Grid item xs={3}>
-										<Link
-											to="/prearticle"
-											target="_blank"
-											className={classes.previewLink}
+						<Grid item container xs={12} justifyContent="space-between">
+							<Grid item xs={4}>
+								{((chosenResearch && chosenResearch.status === 'draft') ||
+									!chosenResearch) && (
+									<Typography
+										variant="caption"
+										className={classes.draftLink}
+										onClick={() => props.sendPublication('save-draft')}
+									>
+										Save Draft
+									</Typography>
+								)}
+							</Grid>
+							<Grid item container xs={8} justifyContent="flex-end">
+								<Grid item container xs={6} md={4} justifyContent="flex-end">
+									<Link to="/prearticle" target="_blank" className={classes.previewLink}>
+										<OutlinedButton
+											className={` ${classes.previewBtn}`}
+											onClick={() => props.sendPublication('preview')}
 										>
-											<OutlinedButton
-												className={` ${classes.previewBtn}`}
-												onClick={() => props.sendPublication('preview')}
-											>
-												Preview
-											</OutlinedButton>
-										</Link>
-									</Grid>
-									<Grid item xs={3}>
-										<FilledButton
-											disabled={!props.isPublishable}
-											className={`${classes.publishStyle} ${classes.publishBtn}`}
-											onClick={() => props.sendPublication('done')}
-										>
-											Publish
-										</FilledButton>
-									</Grid>
-									<ExitPublicationAlert
-										open={props.openAlert}
-										setNavigationAllowed={props.setNavigationAllowed}
-										handleClose={props.handleCloseAlert}
-										alertDeleteHandler={props.alertDeleteHandler}
-										sendPublication={props.sendPublication}
-										requestedLocation={props.requestedLocation}
-									/>
+											Preview
+										</OutlinedButton>
+									</Link>
+								</Grid>
+								<Grid item container xs={6} md={4} justifyContent="flex-end">
+									<FilledButton
+										disabled={!props.isPublishable}
+										className={`${classes.publishStyle} ${classes.publishBtn}`}
+										onClick={() => props.sendPublication('done')}
+									>
+										Publish
+									</FilledButton>
 								</Grid>
 							</Grid>
+
+							<ExitPublicationAlert
+								open={props.openAlert}
+								setNavigationAllowed={props.setNavigationAllowed}
+								handleClose={props.handleCloseAlert}
+								alertDeleteHandler={props.alertDeleteHandler}
+								sendPublication={props.sendPublication}
+								requestedLocation={props.requestedLocation}
+							/>
 						</Grid>
 					</Grid>
 				</Grid>

@@ -5,7 +5,9 @@ import TabsUnstyled from '@mui/base/TabsUnstyled';
 // import { TabContext, TabList } from '@material-ui/lab';
 // import Tabs from '@material-ui/core/Tabs';
 import Grid from '@mui/material/Grid';
-import AddIcon from '@material-ui/icons/Add';
+// import AddIcon from '@material-ui/icons/Add';
+// import RemoveIcon from '@material-ui/icons/Remove';
+import BookmarkIcon from '@material-ui/icons/Bookmark';
 import { Helmet } from 'react-helmet';
 import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
@@ -13,9 +15,11 @@ import Carousel from 'react-material-ui-carousel';
 import { format } from 'date-fns';
 import formatDistanceToNowStrict from 'date-fns/formatDistanceToNowStrict';
 import isSameDay from 'date-fns/isSameDay';
+import isBefore from 'date-fns/isBefore';
 import addDays from 'date-fns/addDays';
-
+import MessageAlert from '../../ui/reusables/MessageAlert/MessageAlert';
 //import { Link } from 'react-router-dom';
+import { ReactComponent as UnmarkIcon } from '../../../assets/icons/unmark.svg';
 import useStyles, { Tab, TabPanel, TabsList, dayPickerStyle } from './GeneralHome.style';
 
 const formatLongString = (str, lgth) => {
@@ -26,12 +30,11 @@ const formatLongString = (str, lgth) => {
 	}
 };
 
-const getAuthorsInitials = (author) => {
+const getAuthorsLastName = (author) => {
 	const tempArr = author.split(' ');
+	const lastName = tempArr[tempArr.length - 1];
 
-	tempArr[0] = tempArr[0].substring(0, 1).concat('.');
-
-	return tempArr.join(' ');
+	return lastName;
 };
 
 const GeneralHomeView = (props) => {
@@ -41,16 +44,9 @@ const GeneralHomeView = (props) => {
 		<section
 			key={pub.id}
 			className={classes.lastPublicationsWrapper}
-			onClick={() => props.handleClick(pub.id)}
+			onClick={() => props.handleClick(pub.id, pub.categories)}
 		>
-			<div
-				style={{
-					display: 'flex',
-					flexDirection: 'row',
-					justifyContent: 'space-between',
-					marginBottom: 0,
-				}}
-			>
+			<div className={classes.lastPublicationsTopRow}>
 				<div className={classes.lastPublicationsTitle} style={{ flex: '80%' }}>
 					{formatLongString(pub.title, 38)}
 					{/* {pub.title} */}
@@ -66,7 +62,11 @@ const GeneralHomeView = (props) => {
 	);
 
 	const latestNewsSection = (pub) => (
-		<section key={pub.id} className={classes.latestNewsWrapper} onClick={() => props.handleClick(pub.id)}>
+		<section
+			key={pub.id}
+			className={classes.latestNewsWrapper}
+			onClick={() => props.handleClick(pub.id, pub.categories)}
+		>
 			<div
 				style={{
 					display: 'flex',
@@ -89,7 +89,7 @@ const GeneralHomeView = (props) => {
 		<section
 			key={pub.id}
 			className={classes.morningNotesWrapper}
-			onClick={() => props.handleClick(pub.id)}
+			onClick={() => props.handleClick(pub.id, pub.categories)}
 		>
 			<div
 				style={{
@@ -111,17 +111,21 @@ const GeneralHomeView = (props) => {
 		<section
 			key={pub.id}
 			className={classes.industryRecoursedWrapper}
-			onClick={() => props.handleClick(pub.id)}
+			onClick={() => props.handleClick(pub.id, pub.categories)}
 		>
 			<div className={classes.industryRecoursedUpperRow}>
 				{pub.tags?.length ? (
 					<Stack className={classes.industryRecoursedStack}>
-						{pub.tags?.[0] && (
-							<Chip className={classes.industryRecoursedChip} label={pub.tags?.[0].name} />
-						)}
-						{pub.tags?.[1] && (
-							<Chip className={classes.industryRecoursedChip} label={pub.tags?.[1].name} />
-						)}
+						<Chip
+							className={classes.industryRecoursedChip}
+							label={pub.tags?.[0] ? pub.tags?.[0].name : ''}
+							style={pub.tags?.[0] ? {} : { visibility: 'hidden' }}
+						/>
+						<Chip
+							className={classes.industryRecoursedChip}
+							label={pub.tags?.[1] ? pub.tags?.[1].name : ''}
+							style={pub.tags?.[1] ? {} : { visibility: 'hidden' }}
+						/>
 					</Stack>
 				) : null}
 				<div className={classes.industryRecoursedDate}>
@@ -148,8 +152,16 @@ const GeneralHomeView = (props) => {
 				}}
 			>
 				<Stack direction="row" spacing={1}>
-					{pub.tags?.[0] && <Chip className={classes.focusIdeasChip} label={pub.tags?.[0].name} />}
-					{pub.tags?.[1] && <Chip className={classes.focusIdeasChip} label={pub.tags?.[1].name} />}
+					<Chip
+						className={classes.focusIdeasChip}
+						label={pub.tags?.[0] ? pub.tags?.[0].name : ''}
+						style={pub.tags?.[0] ? {} : { visibility: 'hidden' }}
+					/>
+					<Chip
+						className={classes.focusIdeasChip}
+						label={pub.tags?.[1] ? pub.tags?.[1].name : ''}
+						style={pub.tags?.[1] ? {} : { visibility: 'hidden' }}
+					/>
 				</Stack>
 				<div className={classes.focusIdeasDate}>{format(new Date(pub.updated_at), 'dd/MM/yyyy')}</div>
 			</div>
@@ -167,54 +179,75 @@ const GeneralHomeView = (props) => {
 		<section
 			key={pub.id}
 			className={classes.mostClickedIdeasWrapper}
-			onClick={() => props.handleClick(pub.id)}
+			onClick={() => props.handleClick(pub.id, pub.categories)}
 		>
 			<div style={{ marginRight: '15px', marginTop: 5, marginBottom: 5 }}>
 				<div className={classes.mostClickedIdeasTitle}>idea</div>
-				<div className={classes.mostClickedIdeasContent}>{formatLongString(pub.title, 40)}</div>
+				<div className={classes.mostClickedIdeasContent}>{formatLongString(pub.title, 28)}</div>
 			</div>
-			<div>
-				<div className={classes.mostClickedIdeasTitle}>
-					{pub.categories?.find((category) => category.name !== 'idea').name}
+			<div
+				style={{
+					display: 'flex',
+					flexDirection: 'column',
+					justifyContent: 'space-between',
+					marginTop: 5,
+					marginBottom: 5,
+					height: '100% - 10px',
+				}}
+			>
+				<div className={classes.mostClickedIdeasTitle} style={{ lineHeight: 0.9, marginBottom: 10 }}>
+					{
+						pub.categories?.find(
+							(category) => category.name !== 'idea' && category.name !== 'Ideas',
+						).name
+					}
 				</div>
-				<div className={classes.mostClickedIdeasTitle} style={{ fontSize: '1rem' }}>
-					{getAuthorsInitials(pub.author_name)}
+				<div
+					className={classes.mostClickedIdeasTitle}
+					style={{ fontSize: '1rem', fontStyle: 'italic' }}
+				>
+					{getAuthorsLastName(pub.author_name)}
 				</div>
 			</div>
 		</section>
 	);
 
+	const getStyleAndClass = (day, today) => {
+		if (isSameDay(day, today)) return [{ background: '#ed5858' }, 'today'];
+
+		if (isSameDay(day, addDays(today, 1)) && props.eventsDays.includes(addDays(today, 1).getDate()))
+			return [{ background: '#FAC100' }, 'tomorrow'];
+
+		if (isBefore(day, today)) return [{ display: 'none' }, null];
+
+		if (props.eventsDays.includes(day.getDate())) return [{ background: '#00CA80' }, 'hasEvent'];
+
+		return [{ visibility: 'hidden' }, null];
+	};
+
 	const renderDay = (day) => {
 		const dates = day.getDate();
 		const time = day.getTime();
-		const month = day.getMonth();
-		const year = day.getFullYear();
 		const today = new Date();
 
 		const dateStyle =
-			time < today.getTime()
+			isSameDay(day, today) || today.getTime() < time
 				? {
-						color: '#E2EBFC',
+						color: '#000',
 				  }
 				: {
-						color: '#000',
+						color: '#E2EBFC',
 				  };
 
 		const dateCellStyle = {
 			width: 38,
+			padding: '4px 0',
 		};
 
-		const circleStyle =
-			time < today.getTime()
-				? { display: 'none' }
-				: dates === today.getDate() && month === today.getMonth() && year === today.getFullYear()
-				? { background: '#ed5858' }
-				: props.eventsDays.includes(dates)
-				? { background: '#1c67ff' }
-				: { background: '#ACB1BF' };
+		const circleStyle = getStyleAndClass(day, today)[0];
 
 		return (
-			<div style={dateCellStyle}>
+			<div style={dateCellStyle} className={getStyleAndClass(day, today)[1]}>
 				<div style={dateStyle}>{dates}</div>
 				<div
 					style={{
@@ -237,7 +270,7 @@ const GeneralHomeView = (props) => {
 		return { color: '#00CA80', label: formatDistanceToNowStrict(date1) };
 	};
 
-	const eventBox = (event) => {
+	const eventBox = (event, type) => {
 		return (
 			<div
 				key={event.id}
@@ -252,14 +285,30 @@ const GeneralHomeView = (props) => {
 					style={{ backgroundColor: compareDates(new Date(event.date)).color }}
 					className={classes.eventsLabel}
 				>
-					<div onClick={() => props.handleMarkEvent(event.id)}>
-						<AddIcon className={classes.addIcon} style={{}} />
-						<span className={classes.addSpan}>Mark Event</span>
+					<div
+						className={classes.markboxWrapper}
+						onClick={() => props.handleMarkEvent(event.id, type)}
+					>
+						{type === 'upcoming' && (
+							<div className={classes.markBox}>
+								<BookmarkIcon className={classes.bookmarkIcon} />
+								<span className={classes.addSpan}>Mark Event</span>
+							</div>
+						)}
+						{type === 'marked' && (
+							<div className={classes.markBox}>
+								<UnmarkIcon className={classes.bookmarkIcon} />
+								<span className={classes.addSpan}>Unmark Event</span>
+							</div>
+						)}
 					</div>
 				</div>
 				<div className={classes.eventsContentWrapper}>
 					<div className={classes.eventsInnerContentWrapper}>
-						<div className={classes.eventsHeader}>{event.title}</div>
+						<div className={classes.eventsHeader}>
+							{/* <BookmarkIcon className={classes.miniBookmark} /> */}
+							{formatLongString(event.title, 22)}
+						</div>
 						<div style={{ color: '#868DA2' }}>{format(new Date(event.date), 'dd/MM/yyyy')}</div>
 					</div>
 					<div className={classes.eventsInnerContentWrapper}>
@@ -306,6 +355,7 @@ const GeneralHomeView = (props) => {
 								}}
 								indicatorIconButtonProps={{
 									style: {
+										marginTop: 26,
 										color: '#E2EBFC',
 									},
 								}}
@@ -320,7 +370,7 @@ const GeneralHomeView = (props) => {
 											<div
 												key={pub.id}
 												className={classes.carouselContect}
-												onClick={() => props.handleClick(pub.id)}
+												onClick={() => props.handleClick(pub.id, pub.categories)}
 											>
 												{pub.title}
 											</div>
@@ -474,7 +524,12 @@ const GeneralHomeView = (props) => {
 								{props.isAuthenticated && (
 									<TabsList className={classes.tablist}>
 										<Tab value="upcoming">Upcoming</Tab>
-										<Tab value="marked" onClick={props.fetchMarkedEvents}>
+										<Tab
+											value="marked"
+											onClick={() => {
+												props.fetchEventsByMonth(true);
+											}}
+										>
 											Marked
 										</Tab>
 									</TabsList>
@@ -507,7 +562,7 @@ const GeneralHomeView = (props) => {
 															new Date(event.date).getDate() >=
 															new Date().getDate(),
 													)
-													.map((event) => eventBox(event))
+													.map((event) => eventBox(event, 'upcoming'))
 											: null}
 									</section>
 								</TabPanel>
@@ -520,6 +575,8 @@ const GeneralHomeView = (props) => {
 											renderDay={renderDay}
 											selectedDays={props.selectedDay}
 											onDayClick={props.setSelectedDay}
+											onDayMouseEnter={(date) => props.handleDayMouse(date, 'enter')}
+											onDayMouseLeave={(date) => props.handleDayMouse(date, 'leave')}
 											onMonthChange={(month) => {
 												props.setDate(month);
 											}}
@@ -533,7 +590,7 @@ const GeneralHomeView = (props) => {
 															new Date(event.date).getDate() >=
 															new Date().getDate(),
 													)
-													.map((event) => eventBox(event))
+													.map((event) => eventBox(event, 'marked'))
 											: null}
 									</section>
 								</TabPanel>
@@ -542,6 +599,14 @@ const GeneralHomeView = (props) => {
 					</Grid>
 				</Grid>
 			</Grid>
+			<MessageAlert
+				open={props.openAlert}
+				handleClose={props.handleClose}
+				title={props.title}
+				text={props.text}
+				actionName={props.actionName}
+				handleAction={props.handleAction}
+			/>
 		</main>
 	);
 };

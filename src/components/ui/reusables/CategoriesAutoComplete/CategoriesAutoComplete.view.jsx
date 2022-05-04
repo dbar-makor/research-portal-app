@@ -9,9 +9,12 @@ const CategoriesAutoCompleteView = (props) => {
 	const classes = useStyles();
 
 	const categoriesArr = useSelector((state) => state.utils.utils.category);
+	const userContent = JSON.parse(localStorage.getItem('userContent'));
 
 	const categories =
-		props.mode === 'edit' ? JSON.parse(localStorage.getItem('userContent')).categories : categoriesArr;
+		props.mode === 'edit' && (userContent.type === 'client' || userContent.type === 'prospect')
+			? userContent.company_categories
+			: categoriesArr;
 
 	return (
 		<>

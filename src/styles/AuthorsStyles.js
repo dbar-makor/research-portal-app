@@ -4,12 +4,35 @@ import { makeStyles, withStyles, TextField } from '@material-ui/core';
 export const useStyles = makeStyles((theme) => ({
 	newArticleContainer: {
 		marginTop: '4.3vh',
-		[theme.breakpoints.up('md')]: {
+		height: '90%',
+		minHeight: 730,
+		[theme.breakpoints.down('xl')]: {
+			height: '93%',
+		},
+		[theme.breakpoints.only('md')]: {
+			height: '85%',
+		},
+		[theme.breakpoints.down('sm')]: {
+			//minHeight: 710,
 			height: 'fit-content',
 		},
+		// '@media (min-height: 900px)':{
+		// 	//minHeight: '80vh',
+		// },
 	},
 	newArticleWrapper: {
 		height: 'content-fit',
+	},
+	leftColumn: {
+		[theme.breakpoints.down('lg')]: {
+			marginBottom: 20,
+		},
+	},
+	middleColumn: {
+		height: '100%',
+	},
+	rightColumn: {
+		height: '100%',
 	},
 	marginBottom35: {
 		marginBottom: '35px',
@@ -174,9 +197,10 @@ export const useStyles = makeStyles((theme) => ({
 		color: '#868DA2',
 		fontSize: '24px',
 	},
-	newArticleLeftContainer: {
-		height: 'fit-content',
-	},
+	// newArticleLeftContainer: {
+	// 	height: '100%',
+	// 	flexWrap: 'nowrap',
+	// },
 	newArticleRightContainer: {
 		'position': 'relative',
 		'alignContent': 'space-between',
@@ -186,11 +210,11 @@ export const useStyles = makeStyles((theme) => ({
 		[theme.breakpoints.down('sm')]: {
 			marginTop: '20px',
 		},
-		'height': '100%',
+		'height': 'calc(100%)',
 		'width': 'inherit',
 		'border': '1px solid #EDEFF3',
 		'borderRadius': '8px 8px 8px 8px',
-		'padding': '24px 24px 0px 24px ',
+		'padding': '24px',
 		'minHeight': '700px',
 		//'overflow': 'auto',
 		'&::-webkit-scrollbar': {
@@ -208,7 +232,7 @@ export const useStyles = makeStyles((theme) => ({
 	},
 	articleTitleLive: {
 		'width': '100%',
-		'minHeight': 83,
+		// 'minHeight': 83,
 		'& input': {
 			fontWeight: 'normal !important',
 			paddingLeft: '15px !important',
@@ -217,8 +241,10 @@ export const useStyles = makeStyles((theme) => ({
 		},
 	},
 	deadArticlePage: {
-		paddingTop: 20,
+		marginTop: '4vh',
+		marginBottom: '4vh',
 	},
+	deadArticleContainer: {},
 	subheaderContainer: {
 		marginBottom: 16,
 	},
@@ -226,15 +252,18 @@ export const useStyles = makeStyles((theme) => ({
 		height: 'contentFit',
 	},
 	deadFormHolder: {
-		borderRadius: '8px',
-		border: '1px solid #EDEFF3',
-		flexWrap: 'nowrap',
-		padding: '40px',
-		maxWidth: 850,
-		marginLeft: '10%',
-		[theme.breakpoints.down('md')]: {
+		'borderRadius': '8px',
+		'border': '1px solid #EDEFF3',
+		'flexWrap': 'nowrap',
+		'padding': '40px',
+		'maxWidth': 850,
+		'marginLeft': '10%',
+		'@media (max-width: 1400px)': {
 			margin: 0,
 		},
+		// [theme.breakpoints.down('md')]: {
+		// 	margin: 0,
+		// },
 	},
 	deadImageHolder: {
 		[theme.breakpoints.down('lg')]: {
@@ -247,6 +276,7 @@ export const useStyles = makeStyles((theme) => ({
 		padding: '10px',
 		minHeight: '122px',
 		marginBottom: '8px',
+		//transform: 'scale(1, 0.9)'
 	},
 	subHeaderRight: {
 		color: '#868DA2',
@@ -308,49 +338,66 @@ export const useStyles = makeStyles((theme) => ({
 		width: '17px',
 		height: '17px',
 	},
-	muiEditor: {
-		MUIRichTextEditor: {
-			root: {
-				'width': '100%',
-				//minHeight: '70vh',
-				'&.MuiIconButton-root': {
-					color: 'red',
+	editorContainer: {
+		'height': 'calc(100% - 25px)',
+		'& #mui-rte-root': {
+			'height': '100%',
+			'& #mui-rte-container': {
+				'height': '100%',
+				'& #mui-rte-editor': {
+					height: 'calc(100% - 50px)',
+					maxHeight: 'none',
+					minHeight: 544,
+					paddingBottom: 0,
 				},
-			},
-			toolbar: {
-				display: 'flex',
-				justifyContent: 'space-between',
-			},
-
-			editor: {
-				'border': '2px solid #A5AFC233',
-				'borderRadius': '8px',
-				'padding': '10px',
-				'height': '630px',
-				'lineHeight': 1.5,
-				'maxHeight': '630px',
-				'overflow': 'auto',
-				'&::-webkit-scrollbar': {
-					width: '3px',
-					height: '3px',
-				},
-				'&::-webkit-scrollbar-track': {
-					boxShadow: 'inset 0 0 5px #FFFFFF',
-					borderRadius: '10px',
-				},
-				'&::-webkit-scrollbar-thumb': {
-					backgroundColor: 'grey',
-					borderRadius: '10px',
-				},
-			},
-			placeHolder: {
-				padding: 10,
 			},
 		},
 	},
+	MUIRichTextEditor: {
+		root: {
+			'width': '100%',
+			'&.MuiIconButton-root': {
+				color: 'red',
+			},
+		},
+		toolbar: {
+			display: 'flex',
+			justifyContent: 'space-between',
+		},
+		editor: {
+			//'border': '2px solid #A5AFC233',
+			'border': '2px solid red',
+			'borderRadius': '8px',
+			'padding': '10px',
+			'height': 'calc(100% - 48px)',
+			'lineHeight': 1.5,
+			//'maxHeight': '630px',
+			'overflow': 'auto',
+			'&::-webkit-scrollbar': {
+				width: '3px',
+				height: '3px',
+			},
+			'&::-webkit-scrollbar-track': {
+				boxShadow: 'inset 0 0 5px #FFFFFF',
+				borderRadius: '10px',
+			},
+			'&::-webkit-scrollbar-thumb': {
+				backgroundColor: 'grey',
+				borderRadius: '10px',
+			},
+		},
+		placeHolder: {
+			padding: 10,
+		},
+	},
+	editorError: {
+		color: 'red',
+		marginLeft: 8,
+		[theme.breakpoints.up('md')]: {},
+	},
 	buttonsContainer: {
-		marginLeft: '16px',
-		padding: '17px',
+		// marginLeft: '16px',
+		padding: '12px 0 12px 0',
 		minHeight: '75px',
 		maxHeight: '120px',
 		borderTop: 'none',
@@ -358,9 +405,9 @@ export const useStyles = makeStyles((theme) => ({
 	},
 	duoButtons: {
 		alignContent: 'space-between',
-		[theme.breakpoints.down('lg')]: {
-			height: 100,
-		},
+		// [theme.breakpoints.down('md')]: {
+		// 	height: 100,
+		// },
 	},
 	draftLink: {
 		//'fontFamily': 'Roboto',
@@ -371,17 +418,17 @@ export const useStyles = makeStyles((theme) => ({
 		'&:hover': {
 			cursor: 'pointer',
 		},
-		[theme.breakpoints.down('lg')]: {
-			marginBottom: 16,
-		},
+		// [theme.breakpoints.down('md')]: {
+		// 	marginBottom: 16,
+		// },
 	},
 	imgWrapper: {
 		marginBottom: 5,
-		minHeight: 230,
+		//minHeight: 230,
 	},
 	imageSpace: {
 		width: '100%',
-		height: 130,
+		height: 100,
 		cursor: 'pointer',
 	},
 	coverImg: {
@@ -395,12 +442,13 @@ export const useStyles = makeStyles((theme) => ({
 		// },
 	},
 	publishBtn: {
-		width: 135,
+		width: 120,
 	},
 	previewBtn: {
 		background: '#F3F7FF',
 		border: 'none',
-		width: 135,
+		width: 120,
+		marginRight: 10,
 	},
 	attachmentLine: {
 		marginTop: '15px',

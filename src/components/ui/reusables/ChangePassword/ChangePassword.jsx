@@ -100,14 +100,13 @@ const ChangePassword = (props) => {
 				const res = await axios.put(`${BASE_URL}${END_POINT.AUTH}/change-password`, localForm, {
 					headers: { Authorization: token },
 				});
-				//history.push('/researches');
 
-				if (res.status === 201) {
+				if (res.status === 200) {
 					dispatch(actionSnackBar.setSnackBar('success', 'Password changed successfully', 2000));
 					handleReset();
 				}
 			} catch (error) {
-				dispatch(actionSnackBar.setSnackBar('error', 'Publish failed', 2000));
+				dispatch(actionSnackBar.setSnackBar('error', 'Password change failed', 2000));
 			}
 		}
 	};

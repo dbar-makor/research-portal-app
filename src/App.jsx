@@ -181,7 +181,7 @@ const App = () => {
 	return (
 		<ThemeProvider theme={mainTheme}>
 			<MuiPickersUtilsProvider utils={DateFnsUtils}>
-				<div>
+				<div style={{ position: 'relative', minHeight: '100vh' }}>
 					<TopBar />
 					<Snackbar />
 					<Switch>
@@ -193,10 +193,9 @@ const App = () => {
 						{isMember && <Route component={MembersView} />}
 						<PrivateRoute path="/*" component={LoginPage} />
 					</Switch>
+					{isAuthenticated && <FooterMember />}
 				</div>
 			</MuiPickersUtilsProvider>
-			{isAuthenticated &&
-				(isMember ? <FooterMember style={{ position: 'absolute', bottom: 0 }} /> : <></>)}
 		</ThemeProvider>
 	);
 };
