@@ -49,7 +49,7 @@ const AdminTopbarView = (props) => {
 					</Grid>
 					<Popper
 						open={props.openUserMgmt}
-						anchorEl={props.userMgmtRef.current}
+						anchorEl={props.userMgmtRef?.current}
 						role={undefined}
 						placement="bottom"
 						transition
