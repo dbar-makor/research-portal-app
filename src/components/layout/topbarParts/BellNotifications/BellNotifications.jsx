@@ -6,7 +6,7 @@ import BellNotificationsView from './BellNotifications.view';
 const BellNotifications = (props) => {
 	const notifyRef = useRef(null);
 	// eslint-disable-next-line no-unused-vars
-	const [newNotification, setNewNotification] = useState(false);
+	const newNotification = useSelector((state) => state.notifications.newNotification);
 
 	const alertNotifications = useSelector((state) => state.notifications.alertNotifications);
 	const id = props.openNotification ? 'simple-popper' : undefined;
