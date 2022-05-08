@@ -272,7 +272,7 @@ const DeadArticleView = forwardRef((props, ref) => {
 											/>
 										</Grid>
 
-										<Grid item xs={1} style={{ textAlignLast: 'right' }}>
+										<Grid item xs={1} style={{ textAlignLast: 'right', marginTop: -30 }}>
 											<AddButton
 												disableRipple
 												disabled={!props.ifCurrentEventFilled}

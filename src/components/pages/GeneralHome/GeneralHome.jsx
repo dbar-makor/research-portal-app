@@ -59,7 +59,6 @@ const GeneralHome = () => {
 	const [title, setTitle] = useState('');
 	const [text, setText] = useState('');
 	const [actionName, setActionName] = useState('');
-	//const [eventHovered, setEventHovered] = useState(false);
 
 	const isAuthorised = true;
 
@@ -217,7 +216,7 @@ const GeneralHome = () => {
 	useEffect(() => {
 		if (categories.length) {
 			latestNewsId && fetchByCategory(5, latestNewsId, setLatestNews);
-			industryRecoursedId && fetchByCategory(5, industryRecoursedId, setIndustryRecoursed);
+			industryRecoursedId && fetchByCategory(6, industryRecoursedId, setIndustryRecoursed);
 			focusIdeasId && fetchByCategory(10, focusIdeasId, setFocusIdeas);
 			featuredId && fetchByCategory(3, featuredId, setFeaturedPublications);
 			ideasId && fetchByCategory(5, ideasId, setMostClickedIdeas, 'views');
