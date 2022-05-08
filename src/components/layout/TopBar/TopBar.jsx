@@ -1,5 +1,4 @@
-
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as wsSocketService from '../../../services/websocket';
 import * as notificationsAction from '../../../redux/notifications/notificationsSlice';
@@ -56,7 +55,6 @@ const TopBar = () => {
 			}
 		}
 	}
-
 
 	useEffect(() => {
 		if (token) {
