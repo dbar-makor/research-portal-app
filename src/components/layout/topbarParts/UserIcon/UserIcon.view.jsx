@@ -26,7 +26,6 @@ const UserIconView = forwardRef((props, ref) => {
 							aria-controls={props.open ? 'composition-menu' : undefined}
 							aria-expanded={props.open ? 'true' : undefined}
 							aria-haspopup="true"
-							//onClick={() => props.handleClosePoppers('user')}
 							onClick={() => props.handleToggle('user')}
 						>
 							<ExpandMoreIcon style={{ color: '#ffff' }} />
@@ -73,42 +72,13 @@ const UserIconView = forwardRef((props, ref) => {
 												{`Hey , ${props.user?.name}`}
 											</Link>
 										</MenuItem>
-										<MenuItem>
-											<Link
-												to="/settings"
-												style={{ textDecoration: 'none', color: '#000' }}
-												onClick={() => {
-													props.handleChange(0);
-													props.setOpen(false);
-												}}
-											>
-												Edit Profile
-											</Link>
+										<MenuItem onClick={() => props.goToSettings(0)}>
+											Edit Profile
 										</MenuItem>
-										<MenuItem>
-											<Link
-												to="/settings"
-												style={{ textDecoration: 'none', color: '#000' }}
-												onClick={() => {
-													props.handleChange(1);
-													props.setOpen(false);
-												}}
-											>
-												Settings
-											</Link>
-										</MenuItem>
+										<MenuItem onClick={() => props.goToSettings(1)}>Settings</MenuItem>
 										{props.userType === 'client' || props.userType === 'prospect' ? (
-											<MenuItem>
-												<Link
-													to="/settings"
-													style={{ textDecoration: 'none', color: '#000' }}
-													onClick={() => {
-														props.handleChange(2);
-														props.setOpen(false);
-													}}
-												>
-													Contracts & Trails
-												</Link>
+											<MenuItem onClick={() => props.goToSettings(2)}>
+												Contracts & Trails
 											</MenuItem>
 										) : null}
 										<MenuItem

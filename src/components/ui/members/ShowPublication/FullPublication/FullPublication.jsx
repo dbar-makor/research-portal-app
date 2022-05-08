@@ -78,6 +78,12 @@ const FullPublication = () => {
 			}
 		} else if (userType === 'client' || userType === 'prospect') {
 			// In case pubId from params is undefined as not coming from a Link component
+			// eslint-disable-next-line no-console
+			console.log('pubId', pubId);
+			// eslint-disable-next-line no-console
+			console.log('location.state.id', location.state.id);
+			// eslint-disable-next-line no-console
+			console.log('JSON.parse(localStorage.getItem', JSON.parse(localStorage.getItem('articleId')));
 
 			// eslint-disable-next-line no-console
 			console.log('pubId', pubId);

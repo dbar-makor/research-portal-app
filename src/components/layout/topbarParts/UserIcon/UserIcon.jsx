@@ -20,18 +20,22 @@ const UserIcon = forwardRef((props, ref) => {
 		dispatch(changeSettingsTab(tab));
 	};
 
+	const goToSettings = (tab) => {
+		handleChange(tab);
+		setOpen(false);
+		history.push('/settings');
+	};
+
 	return (
 		<UserIconView
 			handleToggle={handleToggle}
-			// handleClosePoppers={props.handleClosePoppers}
-			// handleOpenPoppers={props.handleOpenPoppers}
 			userType={userType}
 			handleClose={handleClose}
 			setOpen={setOpen}
 			open={open}
 			user={user}
 			handleLogout={handleLogout}
-			handleChange={handleChange}
+			goToSettings={goToSettings}
 			ref={ref}
 		/>
 	);

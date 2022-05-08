@@ -1,3 +1,4 @@
+
 import React, { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as wsSocketService from '../../../services/websocket';
@@ -55,6 +56,22 @@ const TopBar = () => {
 			}
 		}
 	}
+
+
+	useEffect(() => {
+		if (token) {
+			const message = {
+				type: 'get-notifications',
+			};
+
+			if (wsSocketService.ws !== null) {
+				wsSocketService.sendEvent(message, token);
+			} else {
+				wsSocketService.connectWS(token);
+				wsSocketService.sendEvent(message, token);
+			}
+		}
+	}, [token]);
 
 	const handleToggle = (type) => {
 		if (type === 'user') {

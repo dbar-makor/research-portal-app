@@ -11,7 +11,7 @@ import BookmarkIcon from '@material-ui/icons/Bookmark';
 import { Helmet } from 'react-helmet';
 import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
-import Carousel from 'react-material-ui-carousel';
+// import Carousel from 'react-material-ui-carousel';
 import { format } from 'date-fns';
 import formatDistanceToNowStrict from 'date-fns/formatDistanceToNowStrict';
 import isSameDay from 'date-fns/isSameDay';
@@ -21,6 +21,8 @@ import MessageAlert from '../../ui/reusables/MessageAlert/MessageAlert';
 //import { Link } from 'react-router-dom';
 import { ReactComponent as UnmarkIcon } from '../../../assets/icons/unmark.svg';
 import useStyles, { Tab, TabPanel, TabsList, dayPickerStyle } from './GeneralHome.style';
+import CarouselSection from './GeneralHomeComponents/CarouselSection/CarouselSection';
+import MostClickedIdeasSection from './GeneralHomeComponents/MostClickedIdeasSection/MostClickedIdeasSection';
 
 const formatLongString = (str, lgth) => {
 	if (str.length > 35) {
@@ -30,12 +32,12 @@ const formatLongString = (str, lgth) => {
 	}
 };
 
-const getAuthorsLastName = (author) => {
-	const tempArr = author.split(' ');
-	const lastName = tempArr[tempArr.length - 1];
+// const getAuthorsLastName = (author) => {
+// 	const tempArr = author.split(' ');
+// 	const lastName = tempArr[tempArr.length - 1];
 
-	return lastName;
-};
+// 	return lastName;
+// };
 
 const GeneralHomeView = (props) => {
 	const classes = useStyles(props);
@@ -175,42 +177,42 @@ const GeneralHomeView = (props) => {
 		</section>
 	);
 
-	const mostClickedIdeasSection = (pub) => (
-		<section
-			key={pub.id}
-			className={classes.mostClickedIdeasWrapper}
-			onClick={() => props.handleClick(pub.id, pub.categories)}
-		>
-			<div style={{ marginRight: '15px', marginTop: 5, marginBottom: 5 }}>
-				<div className={classes.mostClickedIdeasTitle}>idea</div>
-				<div className={classes.mostClickedIdeasContent}>{formatLongString(pub.title, 28)}</div>
-			</div>
-			<div
-				style={{
-					display: 'flex',
-					flexDirection: 'column',
-					justifyContent: 'space-between',
-					marginTop: 5,
-					marginBottom: 5,
-					height: '100% - 10px',
-				}}
-			>
-				<div className={classes.mostClickedIdeasTitle} style={{ lineHeight: 0.9, marginBottom: 10 }}>
-					{
-						pub.categories?.find(
-							(category) => category.name !== 'idea' && category.name !== 'Ideas',
-						).name
-					}
-				</div>
-				<div
-					className={classes.mostClickedIdeasTitle}
-					style={{ fontSize: '1rem', fontStyle: 'italic' }}
-				>
-					{getAuthorsLastName(pub.author_name)}
-				</div>
-			</div>
-		</section>
-	);
+	// const mostClickedIdeasSection = (pub) => (
+	// 	<section
+	// 		key={pub.id}
+	// 		className={classes.mostClickedIdeasWrapper}
+	// 		onClick={() => props.handleClick(pub.id, pub.categories)}
+	// 	>
+	// 		<div style={{ marginRight: '15px', marginTop: 5, marginBottom: 5 }}>
+	// 			<div className={classes.mostClickedIdeasTitle}>idea</div>
+	// 			<div className={classes.mostClickedIdeasContent}>{formatLongString(pub.title, 28)}</div>
+	// 		</div>
+	// 		<div
+	// 			style={{
+	// 				display: 'flex',
+	// 				flexDirection: 'column',
+	// 				justifyContent: 'space-between',
+	// 				marginTop: 5,
+	// 				marginBottom: 5,
+	// 				height: '100% - 10px',
+	// 			}}
+	// 		>
+	// 			<div className={classes.mostClickedIdeasTitle} style={{ lineHeight: 0.9, marginBottom: 10 }}>
+	// 				{
+	// 					pub.categories?.find(
+	// 						(category) => category.name !== 'idea' && category.name !== 'Ideas',
+	// 					).name
+	// 				}
+	// 			</div>
+	// 			<div
+	// 				className={classes.mostClickedIdeasTitle}
+	// 				style={{ fontSize: '1rem', fontStyle: 'italic' }}
+	// 			>
+	// 				{getAuthorsLastName(pub.author_name)}
+	// 			</div>
+	// 		</div>
+	// 	</section>
+	// );
 
 	const getStyleAndClass = (day, today) => {
 		if (isSameDay(day, today)) return [{ background: '#ed5858' }, 'today'];
@@ -342,41 +344,13 @@ const GeneralHomeView = (props) => {
 			<Grid container spacing={2} style={{ width: '100%', height: '100%' }}>
 				<Grid container justifyContent="space-between" style={{ marginBottom: '20px' }}>
 					<Grid item xs={5.9} lg={4.9}>
-						{/* carousel */}
 						<section className={classes.carousel}>
 							<div className={classes.header}>Featured</div>
-							<Carousel
-								style={{ display: 'flex' }}
-								navButtonsProps={{
-									style: {
-										backgroundColor: '#B8C3D8',
-										borderRadius: '30px',
-									},
-								}}
-								indicatorIconButtonProps={{
-									style: {
-										marginTop: 26,
-										color: '#E2EBFC',
-									},
-								}}
-								activeIndicatorIconButtonProps={{
-									style: {
-										color: '#1C67FF',
-									},
-								}}
-							>
-								{props.featuredPublications.length
-									? props.featuredPublications.map((pub) => (
-											<div
-												key={pub.id}
-												className={classes.carouselContect}
-												onClick={() => props.handleClick(pub.id, pub.categories)}
-											>
-												{pub.title}
-											</div>
-									  ))
-									: null}
-							</Carousel>
+							<CarouselSection
+								categories={props.categories}
+								handleClick={props.handleClick}
+								fetchByCategory={props.fetchByCategory}
+							/>
 						</section>
 					</Grid>
 					{/* most clicked */}
@@ -384,9 +358,15 @@ const GeneralHomeView = (props) => {
 						<section className={classes.mostClickedIdeasBox}>
 							<div className={classes.header}>Most Clicked Ideas</div>
 							<div className={classes.horizontalScrollWrapper}>
-								{props.mostClickedIdeas.length
+								<MostClickedIdeasSection
+									categories={props.categories}
+									handleClick={props.handleClick}
+									fetchByCategory={props.fetchByCategory}
+									formatLongString={formatLongString}
+								/>
+								{/* {props.mostClickedIdeas.length
 									? props.mostClickedIdeas.map((pub) => mostClickedIdeasSection(pub))
-									: null}
+									: null} */}
 							</div>
 						</section>
 					</Grid>

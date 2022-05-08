@@ -53,7 +53,7 @@ const MainSalesScreen = () => {
 		[loading, hasMore],
 	);
 
-	//Calling get companies whenever a call parameter changes offset changes by scrolling)
+	//Calling get companies whenever a call parameter changes; offset changes by scrolling)
 	useEffect(() => {
 		dispatch(getCompaniesDataAsync(offset, limit, search, type, status));
 	}, [offset, limit, search, type, status]);

@@ -12,7 +12,7 @@ const CategoriesAutoCompleteView = (props) => {
 	const userContent = JSON.parse(localStorage.getItem('userContent'));
 
 	const categories =
-		props.mode === 'edit' && (userContent.type === 'client' || userContent.type === 'prospect')
+		props.mode === 'edit' && (userContent?.type === 'client' || userContent?.type === 'prospect')
 			? userContent.company_categories
 			: categoriesArr;
 
