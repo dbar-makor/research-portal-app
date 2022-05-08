@@ -26,7 +26,7 @@ const GeneralHome = () => {
 	const categories = useSelector((state) => state.categories.categories);
 	const latestNewsId = categories?.find((categoryObj) => categoryObj.name === 'News')?.id;
 	const morningNotesId = categories?.find((categoryObj) => categoryObj.name === 'Morning Notes')?.id;
-	const featuredId = categories?.find((categoryObj) => categoryObj.name === 'Featured')?.id;
+	// const featuredId = categories?.find((categoryObj) => categoryObj.name === 'Featured')?.id;
 	const history = useHistory();
 	const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 	const isAuthor = useSelector((state) => state.auth.userContent?.type === 'author');
@@ -40,14 +40,14 @@ const GeneralHome = () => {
 	)?.id;
 
 	const focusIdeasId = categories?.find((categoryObj) => categoryObj.name === 'Focus Ideas')?.id;
-	const ideasId = categories?.find((categoryObj) => categoryObj.name === 'Ideas')?.id;
+	// const ideasId = categories?.find((categoryObj) => categoryObj.name === 'Ideas')?.id;
 	const [lastPublications, setLastPublications] = useState([]);
 	const [latestNews, setLatestNews] = useState([]);
 	const [morningNotes, setMorningNotes] = useState([]);
 	const [industryRecoursed, setIndustryRecoursed] = useState([]);
 	const [focusIdeas, setFocusIdeas] = useState([]);
-	const [featuredPublications, setFeaturedPublications] = useState([]);
-	const [mostClickedIdeas, setMostClickedIdeas] = useState([]);
+	// const [featuredPublications, setFeaturedPublications] = useState([]);
+	// const [mostClickedIdeas, setMostClickedIdeas] = useState([]);
 	const [date, setDate] = useState(new Date());
 	const [events, setEvents] = useState([]);
 	const [eventsDays, setEventsDays] = useState([]);
@@ -105,9 +105,9 @@ const GeneralHome = () => {
 		const userCategories = userContent.categories.map((item) => item.id);
 
 		if (userContent.type === 'prospect' || userContent.type === 'client') {
-			const isSuscribe = categories.some((c) => userCategories.includes(c.id));
+			const isSuscribed = categories.some((c) => userCategories.includes(c.id));
 
-			if (isSuscribe) {
+			if (isSuscribed) {
 				history.push({ pathname: whereToLink(pubId), state: { id: pubId, to: whereToLink(pubId) } });
 
 				return;
@@ -124,7 +124,8 @@ const GeneralHome = () => {
 					setActionName('Back to Home');
 					setTitle('You dont have access');
 					setText(
-						'You dont have access to this article since your company is not registered to this article\'s categories',
+						// eslint-disable-next-line quotes
+						"You dont have access to this article since your company is not registered to this article's categories",
 					);
 				}
 			}
@@ -218,8 +219,8 @@ const GeneralHome = () => {
 			latestNewsId && fetchByCategory(5, latestNewsId, setLatestNews);
 			industryRecoursedId && fetchByCategory(6, industryRecoursedId, setIndustryRecoursed);
 			focusIdeasId && fetchByCategory(10, focusIdeasId, setFocusIdeas);
-			featuredId && fetchByCategory(3, featuredId, setFeaturedPublications);
-			ideasId && fetchByCategory(5, ideasId, setMostClickedIdeas, 'views');
+			// featuredId && fetchByCategory(3, featuredId, setFeaturedPublications);
+			// ideasId && fetchByCategory(5, ideasId, setMostClickedIdeas, 'views');
 		}
 	}, [categories]);
 
@@ -249,14 +250,6 @@ const GeneralHome = () => {
 
 	const handleMorningNotsTabChange = (e, newValue) => {
 		setMorningNotesTabValue(newValue);
-
-		// if (newValue === 'asia-pacific') {
-		// 	console.log('asia-pacific');
-		// } else if (newValue === 'europe') {
-		// 	console.log('europe');
-		// } else {
-		// 	console.log('united-states');
-		// }
 	};
 
 	const handleDayMouse = (date, marker) => {
@@ -312,6 +305,7 @@ const GeneralHome = () => {
 		<>
 			{categories?.length && (
 				<GeneralHomeView
+					categories={categories}
 					eventsDays={eventsDays}
 					calendarDefaultValue={calendarDefaultValue}
 					selectedDay={selectedDay}
@@ -321,10 +315,11 @@ const GeneralHome = () => {
 					morningNotes={morningNotes}
 					industryRecoursed={industryRecoursed}
 					focusIdeas={focusIdeas}
-					featuredPublications={featuredPublications}
-					mostClickedIdeas={mostClickedIdeas}
+					// featuredPublications={featuredPublications}
+					// mostClickedIdeas={mostClickedIdeas}
 					isAuthenticated={isAuthenticated}
-					whereToLink={whereToLink}
+					// whereToLink={whereToLink}
+					fetchByCategory={fetchByCategory}
 					events={events}
 					date={date}
 					setDate={setDate}
