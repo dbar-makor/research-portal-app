@@ -5,33 +5,25 @@ import * as webSocketService from '../../../../../services/websocket';
 import AllNotificationsView from './AllNotifications.view';
 
 const AllNotifications = () => {
-	const token = useSelector((state) => state.auth.token);
-	const [notifications, setNotifications] = useState([]);
+	let token = useSelector((state) => state.auth.token);
+
+	token = token.substring(7);
+	const notifications = useSelector((state) => state.notifications.notifications);
 	const [filteredNotifications, setFilteredNotifications] = useState([]);
 	const [searchTerm, setSearchTerm] = useState('');
 	const [markAsRead, setMarkAsRead] = useState(0);
 
 	useEffect(() => {
 		const message = {
-			type: 'get-all-notiofications',
+			type: 'get-all-notifications',
 		};
 
-		const ws = webSocketService.sendEvent(message, token);
-
-		ws.onmessage = (event) => {
-			const data = JSON.parse(event.data);
-			let allNotifications;
-
-			switch (data.type) {
-				case 'notifcations':
-					allNotifications = data.notifications;
-					setNotifications([...allNotifications]);
-
-					break;
-				default:
-					break;
-			}
-		};
+		if (webSocketService.ws !== null) {
+			webSocketService.sendEvent(message, token);
+		} else {
+			webSocketService.connectWS(token);
+			webSocketService.sendEvent(message, token);
+		}
 	}, [markAsRead]);
 
 	useEffect(() => {

@@ -5,6 +5,7 @@ import * as actionSnackBar from '../SnackBar/action';
 // Constants
 import { END_POINT, BASE_URL } from '../../utils/constants';
 import { changeChosenCompany } from '../companies/chosenCompanySlice';
+import * as webSocketService from '../../services/websocket';
 import { SET_LOADING_INDICATOR_AUTH, LOGIN_SUCCESS, LOGOUT_SUCCESS } from './constants';
 
 export const login = (email, password) => async (dispatch) => {
@@ -22,7 +23,8 @@ export const login = (email, password) => async (dispatch) => {
 
 		if (res.status === 200) {
 			localStorage.setItem('token', `Bearer ${res.data.token}`);
-
+			//initial web socket to user
+			webSocketService.connectWS(res.data.token);
 			const userContent = { ...res.data.user, ...res.data.payload.user };
 
 			localStorage.setItem('userContent', JSON.stringify(userContent));
@@ -60,8 +62,6 @@ export const logout = () => async (dispatch) => {
 		const res = await axios.delete(`${BASE_URL}${END_POINT.AUTH}`, {
 			headers: { Authorization: token },
 		});
-
-		console.log(res);
 
 		if (res.status === 200) {
 			localStorage.clear();

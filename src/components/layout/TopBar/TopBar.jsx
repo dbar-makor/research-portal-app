@@ -1,10 +1,13 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
-import * as webSocketService from '../../../services/websocket';
+import React, { useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import * as wsSocketService from '../../../services/websocket';
+import * as notificationsAction from '../../../redux/notifications/notificationsSlice';
 import TopBarView from './TopBar.view';
 
 const TopBar = () => {
-	const token = useSelector((state) => state.auth.token);
+	let token = useSelector((state) => state.auth.token);
+
+	token = token.substring(7);
 	const searchTerm = useSelector((state) => state.search.searchTerm);
 	const anchorRef = useRef(null);
 	const [open, setOpen] = useState(false);
@@ -12,9 +15,8 @@ const TopBar = () => {
 	const [openUserMgmt, setOpenUserMgmt] = useState(false);
 	const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 	const userType = useSelector((state) => state.auth.userContent?.type);
-
+	const dispatch = useDispatch();
 	// eslint-disable-next-line no-unused-vars
-	const [notifications, setNotifications] = useState([]);
 
 	// eslint-disable-next-line no-unused-vars
 	const options = [
@@ -24,14 +26,25 @@ const TopBar = () => {
 		{ value: 'unitedStates', name: 'United States' },
 	];
 
-	const webSocket = useRef(null);
-
 	function handleListKeyDown(event, type) {
 		if (event.key === 'Tab') {
 			event.preventDefault();
 			setOpen(false);
 
 			if (type === 'notify') {
+				if (token) {
+					const message = {
+						type: 'get-notifications',
+					};
+
+					if (wsSocketService.ws !== null) {
+						wsSocketService.sendEvent(message, token);
+					} else {
+						wsSocketService.connectWS(token);
+						wsSocketService.sendEvent(message, token);
+					}
+				}
+
 				setOpenNotification(false);
 			}
 		} else if (event.key === 'Escape') {
@@ -43,51 +56,13 @@ const TopBar = () => {
 		}
 	}
 
-	useEffect(() => {
-		if (token) {
-			webSocket.current = webSocketService.connectWS(token);
-			webSocket.current.onopen = () => {
-				let message = {
-					type: 'get-notifications',
-				};
-
-				message = JSON.stringify(message);
-				webSocket.current.send(message);
-			};
-			webSocket.current.onmessage = (message) => {
-				message = JSON.parse(message.data);
-				let send = {};
-
-				switch (message.type) {
-					case 'alert':
-						setNotifications([...message.notifications]);
-
-						break;
-					case 'succeed':
-						break;
-					default:
-						send = {
-							type: 'get-notifications',
-							is_new: true,
-							id: message.id,
-						};
-						send = JSON.stringify(send);
-						webSocket.current.send(send);
-
-						break;
-				}
-			};
-		}
-
-		return () => webSocket.current?.close();
-	}, []);
-
 	const handleToggle = (type) => {
 		if (type === 'user') {
 			setOpen((prevOpen) => !prevOpen);
 			setOpenUserMgmt(false);
 		} else if (type === 'notify') {
 			setOpenNotification(true);
+			dispatch(notificationsAction.setNewNotification(false));
 			setOpen(false);
 			setOpenUserMgmt(false);
 		} else if (type === 'user_mgmt') {
@@ -120,7 +95,6 @@ const TopBar = () => {
 			openUserMgmt={openUserMgmt}
 			setOpenUserMgmt={setOpenUserMgmt}
 			handleClose={handleClose}
-			notifications={notifications}
 			openNotification={openNotification}
 			setOpenNotification={setOpenNotification}
 			handleListKeyDown={handleListKeyDown}

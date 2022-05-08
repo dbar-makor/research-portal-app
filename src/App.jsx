@@ -27,6 +27,7 @@ import AllInvoices from './components/ui/salesman/contractViews/allInvoices/AllI
 import AllNotifications from './components/ui/members/Notifications/AllNotifications/AllNotifications';
 import AccountSettings from './components/AccountSettings/AccountSettings';
 import * as categoriesAction from './redux/categories/categoriesSlice';
+import * as notificationsAction from './redux/notifications/notificationsSlice';
 
 const App = () => {
 	const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
@@ -39,6 +40,42 @@ const App = () => {
 		(state) => state.auth.userContent?.type === 'client' || state.auth.userContent?.type === 'prospect',
 	);
 
+	useEffect(() => {
+		const getNotifications = (message) => {
+			let notifications = [];
+			let notification = {};
+
+			switch (message.data.type) {
+				case 'notifcations':
+					notifications = message.data.notifications;
+					dispatch(notificationsAction.setNotifications(notifications));
+
+					break;
+
+				case 'alert':
+					notifications = message.data.notification;
+					dispatch(notificationsAction.setAlertNotifications(notifications));
+
+					break;
+
+				case 'new-notification':
+					notification = message.data.notification;
+					dispatch(notificationsAction.addNotification(notification));
+					dispatch(notificationsAction.addAlertNotification(notification));
+					dispatch(notificationsAction.setNewNotification(true));
+
+					break;
+				default:
+					break;
+			}
+		};
+
+		window.addEventListener('message', getNotifications);
+
+		return () => {
+			window.removeEventListener('message', getNotifications);
+		};
+	}, []);
 	useEffect(() => {
 		const existingToken = localStorage.getItem('token');
 

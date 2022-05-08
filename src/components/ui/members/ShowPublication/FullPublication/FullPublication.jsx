@@ -79,7 +79,15 @@ const FullPublication = () => {
 		} else if (userType === 'client' || userType === 'prospect') {
 			// In case pubId from params is undefined as not coming from a Link component
 
-			tempId = pubId || location.state.id || JSON.parse(localStorage.getItem('articleId'));
+			// eslint-disable-next-line no-console
+			console.log('pubId', pubId);
+			// eslint-disable-next-line no-console
+			console.log('location.state.id', location?.state?.id);
+			// eslint-disable-next-line no-console
+			console.log('JSON.parse(localStorage.getItem', JSON.parse(localStorage.getItem('articleId')));
+
+			tempId = pubId || location?.state?.id || JSON.parse(localStorage.getItem('articleId'));
+
 		}
 
 		if (tempId) {
@@ -88,6 +96,26 @@ const FullPublication = () => {
 			getPublication(tempId);
 			updateView(tempId);
 		}
+	}, [id]);
+	const checkArticleId = () => {
+		const articleId = JSON.parse(localStorage.getItem('articleId'));
+
+		console.log(articleId);
+
+		if (articleId) {
+			alert(articleId);
+			setId(articleId);
+		}
+	};
+
+	useEffect(() => {
+		window.addEventListener('storage', () => {
+			alert('localstorage changed!', JSON.parse(localStorage.getItem('articleId')));
+		});
+
+		return () => {
+			window.removeEventListener('storage', checkArticleId);
+		};
 	}, []);
 
 	// When component unmouts, localStorage gets cleared

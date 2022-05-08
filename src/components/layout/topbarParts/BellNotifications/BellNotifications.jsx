@@ -1,12 +1,14 @@
 import React, { useState, useRef } from 'react';
 import { useHistory } from 'react-router';
+import { useSelector } from 'react-redux';
 import BellNotificationsView from './BellNotifications.view';
 
 const BellNotifications = (props) => {
 	const notifyRef = useRef(null);
 	// eslint-disable-next-line no-unused-vars
-	const [newNotification, setNewNotification] = useState(false);
+	const newNotification = useSelector((state) => state.notifications.newNotification);
 
+	const alertNotifications = useSelector((state) => state.notifications.alertNotifications);
 	const id = props.openNotification ? 'simple-popper' : undefined;
 	const [countAlerts, setCountAlerts] = useState(0);
 	const history = useHistory();
@@ -27,7 +29,7 @@ const BellNotifications = (props) => {
 			id={id}
 			countAlerts={countAlerts}
 			handleToggle={props.handleToggle}
-			notifications={props.notifications}
+			notifications={alertNotifications}
 			handleListKeyDown={props.handleListKeyDown}
 			handleClose={props.handleClose}
 			openNotification={props.openNotification}

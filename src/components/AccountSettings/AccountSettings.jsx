@@ -86,25 +86,31 @@ const AccountSettings = () => {
 										</Grid>
 									</Grid>
 								</Grid>
-								<Grid
-									item
-									xs={12}
-									className={settingsTab === 2 ? classes.chosenRoute : classes.notChosen}
-									onClick={() => handleChange(2)}
-								>
-									<Grid container alignItems="center">
-										<Grid item>
-											<InsertDriveFileIcon
-												className={settingsTab === 2 ? classes.iconOn : classes.icon}
-											/>
-										</Grid>
-										<Grid item>
-											<Typography style={{ fontSize: 14 }}>
-												Contracts & Trials
-											</Typography>
+								{userContent.type === 'client' || userContent.type === 'prospect' ? (
+									<Grid
+										item
+										xs={12}
+										className={
+											settingsTab === 2 ? classes.chosenRoute : classes.notChosen
+										}
+										onClick={() => handleChange(2)}
+									>
+										<Grid container alignItems="center">
+											<Grid item>
+												<InsertDriveFileIcon
+													className={
+														settingsTab === 2 ? classes.iconOn : classes.icon
+													}
+												/>
+											</Grid>
+											<Grid item>
+												<Typography style={{ fontSize: 14 }}>
+													Contracts & Trials
+												</Typography>
+											</Grid>
 										</Grid>
 									</Grid>
-								</Grid>
+								) : null}
 							</Grid>
 						</Grid>
 						<Grid

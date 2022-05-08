@@ -1,21 +1,18 @@
-/* eslint-disable import/no-mutable-exports */
-// eslint-disable-next-line import/exports-last
+// eslint-disable-next-line
 export let ws = null;
 
 let messages = [];
 
 export const connectWS = (token) => {
 	if ((ws === null || ws.readyState === 3) && token) {
-		// eslint-disable-next-line no-undef
-		ws = new WebSocket(`ws://10.0.0.24:3040/?token=${token}`);
+		ws = new WebSocket(`${process.env.REACT_APP_WS_URL}?token=${token}`);
+		messages = [];
 	}
-
-	messages = [];
-
-	return ws;
 };
 
 export const sendEvent = (data, token) => {
+	messages.push(data);
+
 	if (ws !== null) {
 		if (ws.readyState !== 1) {
 			messages.push(data);
@@ -29,16 +26,32 @@ export const sendEvent = (data, token) => {
 			});
 		};
 
-		ws.onclose = () => {};
-		ws.onerror = () => {
-			if (ws.code !== 4000) {
-				setTimeout(() => {
-					connectWS();
-				}, 2000);
+		ws.onmessage = (event) => {
+			if (event.data.size !== 0) {
+				const response = JSON.parse(event.data);
+
+				postMessage(response);
 			}
 		};
 
-		return ws;
+		ws.onclose = (event) => {
+			if (!event.wasClean) {
+				// e.g. server process killed or network down
+				// event.code is usually 1006 in this case
+				ws = null;
+
+				setTimeout(function () {
+					connectWS(token);
+				}, 1000);
+			}
+		};
+		ws.onerror = () => {
+			if (ws.code !== 4000) {
+				setTimeout(function () {
+					connectWS(token);
+				}, 2000);
+			}
+		};
 	} else {
 		connectWS(token);
 	}
