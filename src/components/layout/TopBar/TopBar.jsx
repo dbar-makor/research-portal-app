@@ -32,19 +32,6 @@ const TopBar = () => {
 			setOpen(false);
 
 			if (type === 'notify') {
-				if (token) {
-					const message = {
-						type: 'get-notifications',
-					};
-
-					if (wsSocketService.ws !== null) {
-						wsSocketService.sendEvent(message, token);
-					} else {
-						wsSocketService.connectWS(token);
-						wsSocketService.sendEvent(message, token);
-					}
-				}
-
 				setOpenNotification(false);
 			}
 		} else if (event.key === 'Escape') {
@@ -56,18 +43,22 @@ const TopBar = () => {
 		}
 	}
 
+	const getNotifications = (token) => {
+		const message = {
+			type: 'get-notifications',
+		};
+
+		if (wsSocketService.ws !== null) {
+			wsSocketService.sendEvent(message, token);
+		} else {
+			wsSocketService.connectWS(token);
+			wsSocketService.sendEvent(message, token);
+		}
+	};
+
 	useEffect(() => {
 		if (token) {
-			const message = {
-				type: 'get-notifications',
-			};
-
-			if (wsSocketService.ws !== null) {
-				wsSocketService.sendEvent(message, token);
-			} else {
-				wsSocketService.connectWS(token);
-				wsSocketService.sendEvent(message, token);
-			}
+			getNotifications(token);
 		}
 	}, [token]);
 
@@ -77,6 +68,7 @@ const TopBar = () => {
 			setOpenUserMgmt(false);
 		} else if (type === 'notify') {
 			setOpenNotification(true);
+			getNotifications(token);
 			dispatch(notificationsAction.setNewNotification(false));
 			setOpen(false);
 			setOpenUserMgmt(false);
