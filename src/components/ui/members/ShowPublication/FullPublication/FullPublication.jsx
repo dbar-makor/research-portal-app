@@ -85,7 +85,15 @@ const FullPublication = () => {
 			// eslint-disable-next-line no-console
 			console.log('JSON.parse(localStorage.getItem', JSON.parse(localStorage.getItem('articleId')));
 
-			tempId = pubId || location.state.id || JSON.parse(localStorage.getItem('articleId'));
+			// eslint-disable-next-line no-console
+			console.log('pubId', pubId);
+			// eslint-disable-next-line no-console
+			console.log('location.state.id', location?.state?.id);
+			// eslint-disable-next-line no-console
+			console.log('JSON.parse(localStorage.getItem', JSON.parse(localStorage.getItem('articleId')));
+
+			tempId = pubId || location?.state?.id || JSON.parse(localStorage.getItem('articleId'));
+
 		}
 
 		if (tempId) {

@@ -1,6 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
+
+import React, { useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import * as wsSocketService from '../../../services/websocket';
+import * as notificationsAction from '../../../redux/notifications/notificationsSlice';
 import TopBarView from './TopBar.view';
 
 const TopBar = () => {
@@ -14,7 +16,7 @@ const TopBar = () => {
 	const [openUserMgmt, setOpenUserMgmt] = useState(false);
 	const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 	const userType = useSelector((state) => state.auth.userContent?.type);
-
+	const dispatch = useDispatch();
 	// eslint-disable-next-line no-unused-vars
 
 	// eslint-disable-next-line no-unused-vars
@@ -31,6 +33,19 @@ const TopBar = () => {
 			setOpen(false);
 
 			if (type === 'notify') {
+				if (token) {
+					const message = {
+						type: 'get-notifications',
+					};
+
+					if (wsSocketService.ws !== null) {
+						wsSocketService.sendEvent(message, token);
+					} else {
+						wsSocketService.connectWS(token);
+						wsSocketService.sendEvent(message, token);
+					}
+				}
+
 				setOpenNotification(false);
 			}
 		} else if (event.key === 'Escape') {
@@ -41,6 +56,7 @@ const TopBar = () => {
 			}
 		}
 	}
+
 
 	useEffect(() => {
 		if (token) {
@@ -63,6 +79,7 @@ const TopBar = () => {
 			setOpenUserMgmt(false);
 		} else if (type === 'notify') {
 			setOpenNotification(true);
+			dispatch(notificationsAction.setNewNotification(false));
 			setOpen(false);
 			setOpenUserMgmt(false);
 		} else if (type === 'user_mgmt') {

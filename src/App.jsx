@@ -43,6 +43,8 @@ const App = () => {
 	useEffect(() => {
 		const getNotifications = (message) => {
 			let notifications = [];
+			let notification = {};
+
 
 			switch (message.data.type) {
 				case 'notifcations':
@@ -52,11 +54,19 @@ const App = () => {
 					break;
 
 				case 'alert':
+
 					notifications = message.data.notifications;
 					dispatch(notificationsAction.setAlertNotifications(notifications));
 
 					break;
 
+
+				case 'new-notification':
+					notification = message.data.notification;
+					dispatch(notificationsAction.addNotification(notification));
+					dispatch(notificationsAction.addAlertNotification(notification));
+					dispatch(notificationsAction.setNewNotification(true));
+					break;
 				default:
 					break;
 			}

@@ -38,12 +38,14 @@ const TimeAgo = (timestamp) => {
 const NotificationBoxView = (props) => {
 	const classes = useStyles();
 
+	console.log(props);
+
 	return (
 		<Grid
 			item
 			xs={12}
 			className={classes.singleNotItem}
-			style={{ backgroundColor: props.isRead ? '#fff' : '#F3F7FF' }}
+			style={{ backgroundColor: props.isRead ? '#fff' : '#f3f7ff' }}
 			onClick={props.handleClick}
 		>
 			<Grid container className={classes.singleNotContainer}>

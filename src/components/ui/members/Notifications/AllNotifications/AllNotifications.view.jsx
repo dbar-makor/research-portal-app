@@ -38,7 +38,7 @@ const AllNotificationsView = (props) => {
 							>
 								{props.filteredNotifications.length
 									? props.filteredNotifications.map((item) => {
-											const content = JSON.parse(item.content);
+											const content = JSON.parse(item?.content);
 
 											return (
 												<NotificationBox
