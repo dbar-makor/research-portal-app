@@ -43,33 +43,6 @@ const useStyles = makeStyles((theme) => ({
 		minHeight: '7.9vh',
 		overflow: 'hidden',
 	},
-	// mostClickedIdeasWrapper: {
-	// 	'display': 'flex',
-	// 	'justifyContent': 'space-between',
-	// 	'padding': '0 10px 0 10px',
-	// 	'maxHeight': '9vh',
-	// 	'minHeight': 72,
-	// 	'overflowY': 'hidden',
-	// 	'minWidth': '25.2vh',
-	// 	'margin': '10px',
-	// 	'marginTop': 8,
-	// 	'alignItems': 'center',
-	// 	'borderRadius': '8px',
-	// 	'backgroundColor': '#EDF2FB',
-	// 	'willChange': 'transform',
-	// 	'animation': 'mostClickedIdeas 20s linear infinite',
-	// 	'&:hover': {
-	// 		cursor: 'pointer',
-	// 	},
-	// },
-	// mostClickedIdeasTitle: {
-	// 	color: '#8197ae',
-	// 	fontSize: '.9rem',
-	// },
-	// mostClickedIdeasContent: {
-	// 	color: '#151515',
-	// 	fontSize: '1rem',
-	// },
 	carousel: {
 		borderRadius: '8px',
 		backgroundColor: '#fff',
@@ -159,21 +132,6 @@ const useStyles = makeStyles((theme) => ({
 			},
 		},
 	},
-	focusIdeasDate: {
-		fontSize: '.9rem',
-		color: '#8197ae',
-	},
-	focusIdeasContent: {
-		color: '#8197ae',
-		fontSize: 'clamp(12px, 6px + 0.5vw, 16px)',
-		marginTop: '8px',
-	},
-	lastPublicationsTabsList: {
-		[theme.breakpoints.down('md')]: {
-			transform: 'scale(1, 0.95)',
-			fontSize: 12,
-		},
-	},
 	lastPublications: {
 		// maxHeight: '29.5vh',
 		minHeight: '29.5vh',
@@ -186,104 +144,8 @@ const useStyles = makeStyles((theme) => ({
 		flexDirection: 'column',
 		justifyContent: 'space-evenly',
 	},
-	lastPublicationsWrapper: {
-		'display': 'flex',
-		'flexDirection': 'column',
-		'backgroundColor': '#EDF2FB',
-		'padding': '8px 12px 8px 12px',
-		'borderRadius': '8px',
-		'marginTop': '10px',
-		'maxHeight': 58,
-		'overflowY': 'hidden',
-		'&:hover': {
-			cursor: 'pointer',
-		},
-	},
-	lastPublicationsTopRow: {
-		'display': 'flex',
-		'flexDirection': 'row',
-		'justifyContent': 'space-between',
-		'marginBottom': 0,
-		'@media (min-width: 1500px)': {
-			marginBottom: 5,
-		},
-	},
-	lastPublicationsTitle: {
-		color: '#8197ae',
-		fontSize: '.9rem',
-		lineHeight: 1.1,
-	},
-	lastPublicationsContent: {
-		'color': '#151515',
-		'fontWeight': 'bold',
-		'fontSize': 'calc(8px + 0.3vw)',
-		'marginTop': '5px',
-		'lineHeight': 1.1,
-		'@media (max-height: 900px)': {
-			display: 'none',
-		},
-	},
 	industryRecoursed: {
 		marginBottom: '25px',
-	},
-	industryRecoursedWrapper: {
-		'display': 'flex',
-		'flexDirection': 'column',
-		'padding': '7px 10px',
-		'marginTop': '8px',
-		'borderRadius': '8px',
-		'border': '2px solid #EDEEF1',
-		'backgroundColor': '#fff',
-		'&:hover': {
-			cursor: 'pointer',
-		},
-		'@media (max-width: 1530px)': {
-			'&:last-of-type': {
-				display: 'none',
-			},
-		},
-		'@media (max-height: 880px)': {
-			'&:nth-of-type(n + 5)': {
-				display: 'none',
-			},
-		},
-	},
-
-	industryRecoursedUpperRow: {
-		display: 'flex',
-		flexDirection: 'row',
-		justifyContent: 'space-between',
-		[theme.breakpoints.down('md')]: {
-			flexDirection: 'column !important',
-			height: 50,
-		},
-	},
-	industryRecoursedStack: {
-		flexDirection: 'row !important',
-		[theme.breakpoints.down('md')]: {
-			flexDirection: 'column',
-		},
-	},
-	industryRecoursedChip: {
-		backgroundColor: '#E2EBFC !important',
-		color: '#1C67FF !important',
-		fontWeight: '600',
-		fontSize: '.75rem !important',
-		marginRight: 10,
-		[theme.breakpoints.down('md')]: {
-			'&:not(:first-of-type)': {
-				display: 'none',
-			},
-		},
-	},
-	industryRecoursedDate: {
-		fontSize: '.9rem',
-		color: '#8197ae',
-	},
-	industryRecoursedContent: {
-		color: '#151515',
-		fontSize: 'calc(8px + 0.3vw)',
-		marginTop: '10px',
 	},
 	latestNews: {
 		padding: '10px',
@@ -299,83 +161,12 @@ const useStyles = makeStyles((theme) => ({
 		maxHeight: '20.1vh',
 		overflow: 'hidden',
 	},
-	latestNewsWrapper: {
-		'display': 'flex',
-		'flexDirection': 'column',
-		'paddingBottom': '4px',
-		'margin': '5px',
-		'minWidth': '25.2vh',
-		'animation': 'latestNews 25s -25s linear infinite',
-		'willChange': 'transform',
-		'&:not(:last-child)': {
-			borderBottom: '1px solid #EDEDF0',
-		},
-		'&:hover': {
-			cursor: 'pointer',
-		},
-	},
-	latestNewsHeader: {
-		fontSize: '.9rem',
-		color: '#8197ae',
-	},
-	latestNewsContent: {
-		color: '#151515',
-		fontSize: '1.04rem',
-		marginTop: '10px',
-	},
 	morningNotes: {
 		borderRadius: '8px',
 		backgroundColor: '#fff',
 		border: '2px solid #EDEEF1',
 		padding: '10px',
 		minHeight: '29vh',
-	},
-	morningNotesWrapper: {
-		'display': 'flex',
-		'flexDirection': 'column',
-		'paddingBottom': '4px',
-		'margin': '5px',
-		'minWidth': '25.2vh',
-		'animation': 'latestNews 30s -30s linear infinite',
-		'willChange': 'transform',
-		'&:hover': {
-			cursor: 'pointer',
-		},
-		'&:not(:last-child)': {
-			borderBottom: '1px solid #EDEDF0',
-		},
-	},
-	morningNotesScroll: {
-		'display': 'flex',
-		'flexDirection': 'column',
-		'minHeight': '21vh',
-		'maxHeight': '21vh',
-		'marginTop': '2px',
-		'overflow': 'hidden',
-		'overflowY': 'scroll',
-		'&::-webkit-scrollbar-track': {
-			borderRadius: '10px',
-			backgroundColor: '#F3F4F8',
-		},
-		'&::-webkit-scrollbar': {
-			borderRadius: '10px',
-			maxWidth: '7px',
-			zIndex: 2,
-			backgroundColor: '#F5F5F5',
-		},
-		'&::-webkit-scrollbar-thumb': {
-			marginLeft: '30px',
-			borderRadius: '10px',
-			backgroundColor: '#D5DBE7',
-		},
-	},
-	morningNotesDate: {
-		fontSize: '.9rem',
-		color: '#8197ae',
-	},
-	morningNotesContent: {
-		fontSize: '.9rem',
-		color: '#151515',
 	},
 	tablist: {
 		'backgroundColor': '#e2ebfc',
@@ -406,143 +197,6 @@ const useStyles = makeStyles((theme) => ({
 		[theme.breakpoints.down('lg')]: {
 			minWidth: '25vh',
 		},
-	},
-	eventsWrapper: {
-		'display': 'flex',
-		'flexDirection': 'column',
-		'padding': '12px 12px 12px 0',
-		'marginTop': '20px',
-		'marginLeft': '-10px',
-		'maxHeight': 'calc(540px - 3vw)',
-		'@media (max-width: 1700px)': {
-			maxHeight: 'calc(540px - 2vw)',
-		},
-		'@media (max-width: 1450px)': {
-			maxHeight: 'calc(540px - 1vw)',
-		},
-		'@media (max-width: 1400px)': {
-			maxHeight: 'calc(570px - 1vw)',
-		},
-		'@media (max-width: 1150px)': {
-			maxHeight: 'calc(590px - 1vw)',
-		},
-		'overflowY': 'auto',
-		'&::-webkit-scrollbar-track': {
-			borderRadius: '10px',
-			backgroundColor: '#F3F4F8',
-		},
-		'&::-webkit-scrollbar': {
-			borderRadius: '10px',
-			maxWidth: '7px',
-			zIndex: 2,
-			backgroundColor: '#F5F5F5',
-		},
-		'&::-webkit-scrollbar-thumb': {
-			borderRadius: '10px',
-			backgroundColor: '#D5DBE7',
-		},
-	},
-	eventsInnerWrapper: (props) => ({
-		'display': 'flex',
-		'position': 'relative',
-		'justifyContent': 'center',
-		'height': 45,
-		'&:not(:last-child)': {
-			marginBottom: '15px',
-		},
-		'&:hover': {
-			cursor: props.isAuthenticated ? 'pointer' : 'default',
-		},
-		'&:hover > div:first-of-type': {
-			width: props.isAuthenticated ? '98%' : 0,
-			height: 35,
-			position: props.isAuthenticated ? 'absolute' : 'static',
-			top: 0,
-			left: 0,
-		},
-		'&:hover > div:nth-of-type(2)': {
-			'display': props.isAuthenticated ? 'none' : 'flex',
-			'width': props.isAuthenticated ? 0 : '100%',
-			'& div': {
-				display: props.isAuthenticated ? 'none' : 'flex',
-			},
-		},
-		'&:hover > div:first-of-type svg': {
-			display: props.isAuthenticated ? 'inline' : 'none',
-		},
-		'&:hover div span': {
-			display: props.isAuthenticated ? 'inline' : 'none',
-		},
-	}),
-	eventsLabel: {
-		padding: '5px',
-		marginRight: '10px',
-		borderRadius: '0 2px 2px 0',
-		display: 'flex',
-		justifyContent: 'center',
-		alignItems: 'center',
-		width: 0,
-		transition: 'width 0.5s, display 0.5s',
-	},
-	markboxWrapper: {
-		display: 'flex',
-		width: '100%',
-		height: '100%',
-		alignItems: 'center',
-		justifyContent: 'center',
-	},
-	markBox: {
-		display: 'flex',
-		alignItems: 'center',
-		justifyContent: 'center',
-		width: '100%',
-		height: '100%',
-	},
-	bookmarkIcon: {
-		marginRight: 5,
-		paddingTop: 3,
-		display: 'none',
-		fill: '#fff',
-		fontSize: 16,
-	},
-	addSpan: {
-		color: '#fff',
-		fontSize: 16,
-		display: 'none',
-	},
-	eventsContentWrapper: {
-		display: 'flex',
-		flexDirection: 'column',
-		width: '100%',
-		transition: 'width 0.5s',
-		maxHeight: 50,
-		overflowY: 'hidden',
-		overflowX: 'hidden',
-	},
-	eventsInnerContentWrapper: {
-		'display': 'flex',
-		'flexDirection': 'row',
-		'justifyContent': 'space-between',
-		'&:not(:last-child)': {
-			marginBottom: '4px',
-			marginTop: 3,
-		},
-		'&:last-child': {
-			marginTop: -6,
-		},
-	},
-	eventsHeader: {
-		color: '#0F0F0F',
-		fontWeight: 'bold',
-		fontSize: '.9rem',
-		display: 'flex',
-		alignItems: 'center',
-	},
-	miniBookmark: {
-		fill: '#B8C3D8',
-		fontSize: 15,
-		paddingTop: 4,
-		marginRight: 5,
 	},
 }));
 
