@@ -12,10 +12,6 @@ import IndustryRecoursedSection from './GeneralHomeComponents/IndustryRecoursedS
 import FocusIdeasSection from './GeneralHomeComponents/FocusIdeasSection/FocusIdeasSection';
 import EventsSection from './GeneralHomeComponents/EventsSection/EventsSection';
 
-const x = 1;
-
-console.log(x);
-
 const formatLongString = (str, lgth) => {
 	if (str.length > 35) {
 		return `${str.substring(0, lgth)}...`;
