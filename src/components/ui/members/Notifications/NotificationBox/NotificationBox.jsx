@@ -13,7 +13,7 @@ const NotificationBox = (props) => {
 	const history = useHistory();
 
 	const handleClick = () => {
-		const articleId = props.content.publication_id;
+		const articleId = props?.content?.publication_id;
 
 		localStorage.setItem('articleId', JSON.stringify(articleId));
 		const message = {

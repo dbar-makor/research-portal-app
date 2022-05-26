@@ -52,7 +52,6 @@ const FullPublication = () => {
 
 			if (res.status === 201) {
 				// eslint-disable-next-line no-console
-				console.log('res', res);
 			}
 		} catch (err) {
 			// eslint-disable-next-line no-console
@@ -77,13 +76,6 @@ const FullPublication = () => {
 				tempId = location.state.id || JSON.parse(localStorage.getItem('articleId'));
 			}
 		} else if (userType === 'client' || userType === 'prospect') {
-			// eslint-disable-next-line no-console
-			console.log('pubId', pubId);
-			// eslint-disable-next-line no-console
-			console.log('location.state.id', location?.state?.id);
-			// eslint-disable-next-line no-console
-			console.log('JSON.parse(localStorage.getItem', JSON.parse(localStorage.getItem('articleId')));
-
 			tempId = pubId || location?.state?.id || JSON.parse(localStorage.getItem('articleId'));
 		}
 
@@ -94,26 +86,6 @@ const FullPublication = () => {
 			updateView(tempId);
 		}
 	}, [id]);
-	const checkArticleId = () => {
-		const articleId = JSON.parse(localStorage.getItem('articleId'));
-
-		console.log(articleId);
-
-		if (articleId) {
-			alert(articleId);
-			setId(articleId);
-		}
-	};
-
-	useEffect(() => {
-		window.addEventListener('storage', () => {
-			alert('localstorage changed!', JSON.parse(localStorage.getItem('articleId')));
-		});
-
-		return () => {
-			window.removeEventListener('storage', checkArticleId);
-		};
-	}, []);
 
 	// When component unmouts, localStorage gets cleared
 	// useEffect(() => {

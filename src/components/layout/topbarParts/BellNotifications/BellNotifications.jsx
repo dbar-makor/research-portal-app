@@ -1,9 +1,14 @@
 import React, { useState, useRef } from 'react';
 import { useHistory } from 'react-router';
 import { useSelector } from 'react-redux';
+import * as webSocketService from '../../../../services/websocket';
+
 import BellNotificationsView from './BellNotifications.view';
 
 const BellNotifications = (props) => {
+	let token = useSelector((state) => state.auth.token);
+
+	token = token.substring(7);
 	const notifyRef = useRef(null);
 	// eslint-disable-next-line no-unused-vars
 	const newNotification = useSelector((state) => state.notifications.newNotification);
@@ -14,8 +19,21 @@ const BellNotifications = (props) => {
 	const history = useHistory();
 
 	const redirect = (type) => {
+		let message;
+
 		switch (type) {
 			case 'all-notfications':
+				message = {
+					type: 'get-all-notifications',
+				};
+
+				if (webSocketService.ws !== null) {
+					webSocketService.sendEvent(message, token);
+				} else {
+					webSocketService.connectWS(token);
+					webSocketService.sendEvent(message, token);
+				}
+
 				history.push('/all-notfications');
 				props.setOpenNotification(false);
 		}

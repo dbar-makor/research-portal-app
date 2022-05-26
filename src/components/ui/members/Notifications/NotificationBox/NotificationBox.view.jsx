@@ -38,8 +38,6 @@ const TimeAgo = (timestamp) => {
 const NotificationBoxView = (props) => {
 	const classes = useStyles();
 
-	console.log(props);
-
 	return (
 		<Grid
 			item
